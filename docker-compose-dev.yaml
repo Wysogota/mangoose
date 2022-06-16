@@ -1,0 +1,67 @@
+version: '3'
+services:
+
+  front-dev:
+    build:
+      context: ./client
+      dockerfile: Dockerfile-dev
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - server-dev
+    volumes:
+      - ./client:/client
+      - /client/node_modules
+    networks:
+      - frontend
+    ports:
+      - "5000:3000"
+
+  server-dev:
+    build:
+      context: ./server
+      dockerfile: Dockerfile-dev
+    environment:
+      NODE_ENV: development
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db-dev
+      - mongo-dev
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - ./var/www/html/images:/var/www/html/images
+      - ./server:/server
+      - /server/node_modules
+
+
+  mongo-dev:
+    image: mongo:latest
+    networks:
+      - backend
+    ports:
+      - "27017:27017"
+
+
+
+  db-dev:
+    image: postgres:14.3-alpine
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=website-dev
+    networks:
+      - backend
+    ports:
+      - "5432:5432"
+
+volumes:
+  server-dev:
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge

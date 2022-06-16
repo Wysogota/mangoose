@@ -1,0 +1,19 @@
+FROM node:16.15.1-alpine3.15
+
+ARG NODE_ENV="development"
+
+RUN mkdir -p ./client
+
+WORKDIR /client
+
+COPY package*.json ./
+
+COPY . .
+
+EXPOSE 5000
+
+RUN npm install
+
+RUN mkdir -p node_modules/.cache && chmod -R 777 node_modules/.cache
+
+CMD npm start
