@@ -1,0 +1,8 @@
+@import './colors';
+
+$theme-colors: (
+    "dark-theme": $dark_main_color,
+    "light-theme": $light_main_color
+);
+
+@import "~bootstrap/scss/bootstrap";
