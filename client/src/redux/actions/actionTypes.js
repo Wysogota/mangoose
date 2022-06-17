@@ -1,0 +1,7 @@
+const ACTION_TYPES = {
+  CLEAR_ERROR:"CLEAR_ERROR",
+
+  TOGGLE_THEME:"TOGGLE_THEME",
+};
+
+export default ACTION_TYPES;
