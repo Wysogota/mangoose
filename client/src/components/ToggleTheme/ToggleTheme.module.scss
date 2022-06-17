@@ -1,0 +1,24 @@
+@import '../../common/styles/colors';
+
+.toggle_button {
+  align-self: center;
+  border: none;
+  padding: none;
+  background-color: transparent;
+  >* {
+    font-size: 25px;
+    text-align: center;
+  }
+}
+
+.dark_theme {
+  >* {
+    color: $light_main_color;
+  }
+}
+
+.light_theme {
+  >* {
+    color: $dark_main_color;
+  }
+}

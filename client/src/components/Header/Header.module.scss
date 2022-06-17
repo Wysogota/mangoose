@@ -1,0 +1,22 @@
+@import '../../common/styles/colors';
+
+.header{
+  width: 100vw;
+  height: 60px;
+
+  display: flex;
+  justify-content: space-around;
+
+  position: fixed;
+  z-index: 999;
+}
+
+.dark_theme{
+  background-color: $dark_main_color;
+  color: $light_main_color;
+}
+
+.light_theme{
+  background-color: $light_main_color;
+  color: $dark_main_color;
+}
