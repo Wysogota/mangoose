@@ -1,0 +1,26 @@
+@import './colors';
+
+.dark {
+  color: $light_main_color;
+}
+
+.dark_bg {
+  background-color: $dark_main_color;
+}
+
+.dark_accent_bg {
+  background-color: $dark_accent_color;
+}
+
+
+.light {
+  color: $dark_main_color;
+}
+
+.light_bg {
+  background-color: $light_main_color;
+}
+
+.light_accent_bg {
+  background-color: $light_accent_color;
+}

@@ -4,15 +4,14 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
-
-import styles from './App.module.scss';
+import themes from './common/styles/theme.module.scss';
 
 const App = () => {
 
   const { isDarkTheme } = useSelector(({ themes }) => themes);
 
   useEffect(() => {
-    document.body.className = isDarkTheme ? styles.dark_theme : styles.light_theme;
+    document.body.className = isDarkTheme ? themes.dark_accent_bg : themes.light_accent_bg;
   }, [isDarkTheme]);
 
   return (

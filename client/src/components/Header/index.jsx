@@ -10,13 +10,14 @@ import {
 import Logo from '../Logo';
 import ToggleTheme from '../ToggleTheme';
 import styles from './Header.module.scss';
+import themes from '../../common/styles/theme.module.scss';
 
 const Header = () => {
   const { isDarkTheme } = useSelector(({ themes }) => themes);
 
   const headerClasses = cx(
     styles.header,
-    isDarkTheme ? styles.dark_theme : styles.light_theme
+    isDarkTheme ? (themes.dark, themes.dark_bg) : (themes.light, themes.light_bg)
   );
 
   const [theme, setTheme] = useState("dark");
@@ -48,7 +49,7 @@ const Header = () => {
             <Button as={Link} to="/signin" variant={"outline-" + theme}>Sign In</Button>
             <Button as={Link} to="/signup" variant={theme}>Sign Up</Button>
           </ButtonGroup>
-          <ToggleTheme className={styles.padding_left} />
+          <ToggleTheme className="ps-3" />
         </Col>
       </Row>
     </Container>
