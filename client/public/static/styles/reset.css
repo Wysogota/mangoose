@@ -369,6 +369,9 @@ a{
     color:inherit;
     text-decoration: none;
 }
+a:focus {
+    outline: none;
+}
 
 *{
     box-sizing: border-box;

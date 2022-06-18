@@ -1,22 +1,38 @@
 @import '../../common/styles/colors';
+@import '../../common/styles/customBootstrap.scss';
 
-.header{
-  width: 100vw;
-  height: 60px;
-
-  display: flex;
-  justify-content: space-around;
-
+.header {
+  text-align: center;
   position: fixed;
   z-index: 999;
+
+  >*>* {
+    align-self: center;
+  }
 }
 
-.dark_theme{
+.navbar {
+  justify-content: center !important;
+
+  >div+div {
+    padding-left: 10px;
+  }
+
+  *>svg {
+    margin-right: 6px;
+  }
+}
+
+.dark_theme {
   background-color: $dark_main_color;
   color: $light_main_color;
 }
 
-.light_theme{
+.light_theme {
   background-color: $light_main_color;
   color: $dark_main_color;
+}
+
+.padding_left {
+  padding-left: 25px;
 }

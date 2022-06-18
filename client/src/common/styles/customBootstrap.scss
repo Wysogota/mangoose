@@ -1,8 +1,26 @@
 @import './colors';
 
 $theme-colors: (
-    "dark-theme": $dark_main_color,
-    "light-theme": $light_main_color
+    "dark": $dark_main_color,
+    "light": $light_main_color
 );
+
+$navbar-dark-color: $dark_main_color;
+$navbar-dark-hover-color: $dark-active-color;
+$navbar-dark-active-color: $dark-active-color;
+
+$navbar-light-color: $light_main_color;
+$navbar-light-hover-color: $light-active-color;
+$navbar-light-active-color: $light-active-color;
+
+$dropdown-dark-color: $dark_main_color;
+$dropdown-dark-bg: $light_main_color;
+$dropdown-dark-link-hover-color: $light_main_color;
+$dropdown-dark-link-hover-bg: $dark_main_color;
+
+$dropdown-link-color: $light_main_color;
+$dropdown-bg: $dark_main_color;
+$dropdown-link-hover-color: $dark_main_color;
+$dropdown-link-hover-bg: $light_main_color;
 
 @import "~bootstrap/scss/bootstrap";
