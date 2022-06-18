@@ -1,0 +1,9 @@
+@import '../../common/styles/colors';
+
+.error {
+  color: $error_color;
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+}
