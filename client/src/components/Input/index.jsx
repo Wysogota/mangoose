@@ -4,13 +4,13 @@ import { Form } from 'react-bootstrap';
 import styles from './Input.module.scss';
 
 const Input = (props) => {
-  const { label, type, placeholder } = props;
+  const { label, name, ...other } = props;
   return (
-    <Form.Group >
-      <Form.Label>{label}</Form.Label>
+    <Form.Group className='pb-2 position-relative'>
+      <Form.Label className='mb-1'>{label}</Form.Label>
       <div className='position-relative'>
-        <Form.Control as={Field} name={type} type={type} placeholder={placeholder} />
-        <ErrorMessage className={styles.error} name={type} component='span' />
+        <Form.Control as={Field} name={name} {...other} />
+        <ErrorMessage className={styles.error} name={name} component='span' />
       </div>
     </Form.Group>
   );
