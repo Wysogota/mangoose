@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
@@ -13,15 +13,12 @@ import styles from './Header.module.scss';
 import themes from '../../common/styles/theme.module.scss';
 
 const Header = () => {
-  const { isDarkTheme } = useSelector(({ themes }) => themes);
+  const { isDarkTheme, theme } = useSelector(({ themes }) => themes);
 
   const headerClasses = cx(
     styles.header,
     isDarkTheme ? (themes.dark, themes.dark_bg) : (themes.light, themes.light_bg)
   );
-
-  const [theme, setTheme] = useState("dark");
-  useEffect(() => setTheme(isDarkTheme ? "light" : "dark"), [isDarkTheme]);
 
   return (
     <Container fluid className={headerClasses} >
