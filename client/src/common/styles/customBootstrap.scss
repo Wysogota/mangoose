@@ -6,12 +6,12 @@ $theme-colors: (
 );
 
 $navbar-dark-color: $dark_main_color;
-$navbar-dark-hover-color: $dark-active-color;
-$navbar-dark-active-color: $dark-active-color;
+$navbar-dark-hover-color: $dark_active_color;
+$navbar-dark_active_color: $dark_active_color;
 
 $navbar-light-color: $light_main_color;
-$navbar-light-hover-color: $light-active-color;
-$navbar-light-active-color: $light-active-color;
+$navbar-light-hover-color: $light_active_color;
+$navbar-light_active_color: $light_active_color;
 
 $dropdown-dark-color: $dark_main_color;
 $dropdown-dark-bg: $light_main_color;
