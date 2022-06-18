@@ -20,9 +20,7 @@ const Header = () => {
   );
 
   const [theme, setTheme] = useState("dark");
-  useEffect(() => {
-    setTheme(isDarkTheme ? "light" : "dark");
-  }, [isDarkTheme]);
+  useEffect(() => setTheme(isDarkTheme ? "light" : "dark"), [isDarkTheme]);
 
   return (
     <Container fluid className={headerClasses} >
@@ -32,15 +30,15 @@ const Header = () => {
         </Col>
         <Col>
           <Navbar variant={theme} className={styles.navbar}>
-            <Nav><Nav.Link href="#"><CatalogIcon />Catalog</Nav.Link></Nav>
-            <Nav><Nav.Link href="#"><SearchIcon />Search</Nav.Link></Nav>
-            <Nav><Nav.Link href="#"><FAQIcon />FAQ</Nav.Link></Nav>
+            <Nav><Nav.Link href="#"><CatalogIcon /><span>Catalog</span></Nav.Link></Nav>
+            <Nav><Nav.Link href="#"><SearchIcon /><span>Search</span></Nav.Link></Nav>
+            <Nav><Nav.Link href="#"><FAQIcon /><span>FAQ</span></Nav.Link></Nav>
             <Nav>
               <NavDropdown menuVariant={theme}>
-                <NavDropdown.Item href="#"><NewsIcon />News</NavDropdown.Item>
-                <NavDropdown.Item href="#"><ContactsIcon />Contacts</NavDropdown.Item>
+                <NavDropdown.Item href="#"><NewsIcon /><span>News</span></NavDropdown.Item>
+                <NavDropdown.Item href="#"><ContactsIcon /><span>Contacts</span></NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#"><RandomIcon />Random</NavDropdown.Item>
+                <NavDropdown.Item href="#"><RandomIcon /><span>Random</span></NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar>

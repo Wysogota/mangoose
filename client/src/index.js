@@ -7,6 +7,7 @@ import { store, persistor } from './redux/store';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './common/styles/customBootstrap.scss'
+import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

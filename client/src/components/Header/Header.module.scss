@@ -1,10 +1,17 @@
+@import '../../common/styles/variables';
 @import '../../common/styles/colors';
 @import '../../common/styles/customBootstrap.scss';
 
 .header {
+  height: $header-height;
   text-align: center;
+  font-weight: 600;
   position: fixed;
   z-index: 999;
+
+  >div {
+    height: inherit;
+  }
 
   >*>* {
     align-self: center;
@@ -16,6 +23,11 @@
 
   >div+div {
     padding-left: 10px;
+  }
+
+  *>a>* {
+    height: 100%;
+    vertical-align: middle;
   }
 
   *>svg {
