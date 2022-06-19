@@ -4,4 +4,9 @@ export default {
   LIGHT_LOGO_NAME:"logo.png",
   LIGHT_COLOR: 'light',
   DARK_COLOR: 'dark',
+  breakpoints:{
+    sm: 576,
+    md: 768,
+    c_lg: 915,
+  }
 };

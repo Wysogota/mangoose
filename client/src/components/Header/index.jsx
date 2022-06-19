@@ -1,52 +1,52 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
-import { Button, ButtonGroup, Col, Container, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
-import {
-  BsGridFill as CatalogIcon, BsSearch as SearchIcon, BsFillQuestionCircleFill as FAQIcon,
-  BsNewspaper as NewsIcon, BsFillEnvelopeFill as ContactsIcon, BsShuffle as RandomIcon
-} from 'react-icons/bs';
+import { Button, ButtonGroup, Col, Container, Row } from 'react-bootstrap';
+import HeaderNavbar from './HeaderNavbar';
+import HeaderSidebar from './HeaderSidebar';
 import Logo from '../Logo';
 import ToggleTheme from '../ToggleTheme';
 import styles from './Header.module.scss';
 import themes from '../../common/styles/theme.module.scss';
+import CONSTANTS from '../../constants';
+const { breakpoints } = CONSTANTS;
 
 const Header = () => {
-  const { isDarkTheme, theme } = useSelector(({ themes }) => themes);
+  const { theme: { mainColor, bgColor, invertedColor, outlineColor } } = useSelector(({ themes }) => themes);
+
+  const [scrolled, setScrolled] = useState(window.scrollY !== 0);
+  const [showLogo, setShowLogo] = useState(window.innerWidth >= breakpoints.sm);
+  const [showNavbar, setShowNavbar] = useState(window.innerWidth >= breakpoints.md);
+  const [showToggleTheme, setToggleTheme] = useState(window.innerWidth >= breakpoints.c_lg);
+
+  useEffect(() => {
+    window.onscroll = () => setScrolled(window.scrollY !== 0);
+    window.onresize = () => {
+      setShowLogo(window.innerWidth >= breakpoints.sm);
+      setShowNavbar(window.innerWidth >= breakpoints.md);
+      setToggleTheme(window.innerWidth >= breakpoints.c_lg);
+    };
+  }, []);
 
   const headerClasses = cx(
     styles.header,
-    isDarkTheme ? (themes.dark, themes.dark_bg) : (themes.light, themes.light_bg)
+    themes[mainColor], themes[bgColor],
+    scrolled && styles.scrolled
   );
 
   return (
-    <Container fluid className={headerClasses} >
-      <Row>
-        <Col>
-          <Logo />
-        </Col>
-        <Col>
-          <Navbar variant={theme} className={styles.navbar}>
-            <Nav><Nav.Link href="#"><CatalogIcon /><span>Catalog</span></Nav.Link></Nav>
-            <Nav><Nav.Link href="#"><SearchIcon /><span>Search</span></Nav.Link></Nav>
-            <Nav><Nav.Link href="#"><FAQIcon /><span>FAQ</span></Nav.Link></Nav>
-            <Nav>
-              <NavDropdown menuVariant={theme}>
-                <NavDropdown.Item href="#"><NewsIcon /><span>News</span></NavDropdown.Item>
-                <NavDropdown.Item href="#"><ContactsIcon /><span>Contacts</span></NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#"><RandomIcon /><span>Random</span></NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar>
-        </Col>
-        <Col>
-          <ButtonGroup>
-            <Button as={Link} to="/signin" variant={"outline-" + theme}>Sign In</Button>
-            <Button as={Link} to="/signup" variant={theme}>Sign Up</Button>
+    <Container fluid className={headerClasses}>
+      <Row className='justify-content-center'>
+        {!showNavbar && <Col xs='2' sm='1'> <HeaderSidebar /> </Col>}
+        {showLogo && <Col sm='4' md='3' lg='4' className='text-md-center'> <Logo /> </Col>}
+        {showNavbar && <Col md='6' lg='4'><HeaderNavbar showToggleTheme={showToggleTheme} /></Col>}
+        <Col xs='10' sm='6' md='3' lg='4' className='text-end text-md-center'>
+          <ButtonGroup className='pt-2 pb-2'>
+            <Button as={Link} to='/signin' variant={outlineColor}>Sign In</Button>
+            <Button as={Link} to='/signup' variant={invertedColor}>Sign Up</Button>
           </ButtonGroup>
-          <ToggleTheme className="ps-3" />
+          {showToggleTheme && <ToggleTheme Component='button' btnClasses='ps-3' imageClasses='fs-3' />}
         </Col>
       </Row>
     </Container>

@@ -3,11 +3,7 @@
 @import '../../common/styles/customBootstrap.scss';
 
 .header {
-  height: $header-height;
-  text-align: center;
   font-weight: 600;
-  position: fixed;
-  z-index: 999;
 
   >div {
     height: inherit;
@@ -19,10 +15,10 @@
 }
 
 .navbar {
-  justify-content: center !important;
-
-  >div+div {
-    padding-left: 10px;
+  @media screen and (min-width: 769px) {
+    >div+div {
+      padding-left: 0.5rem;
+    }
   }
 
   *>a>* {
@@ -33,4 +29,10 @@
   *>svg {
     margin-right: 6px;
   }
+}
+
+.scrolled {
+  position: fixed;
+  top: 0;
+  z-index: 999;
 }

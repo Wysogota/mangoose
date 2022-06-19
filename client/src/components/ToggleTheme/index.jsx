@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
 import cx from 'classnames';
 import { BsFillMoonFill as DarkTheme, BsMoon as LightTheme } from "react-icons/bs";
-import styles from './ToggleTheme.module.scss';
+import elements from '../../common/styles/elements.module.scss';
 import themes from '../../common/styles/theme.module.scss';
 import CONSTANTS from '../../constants';
 
@@ -15,7 +15,7 @@ const ToggleTheme = (props) => {
   const { toggleTheme } = bindActionCreators(actionCreators, useDispatch());
 
   const btnClass = cx(
-    styles.toggle_button,
+    elements.icon_button,
     btnClasses
   );
   const imageClass = cx(
