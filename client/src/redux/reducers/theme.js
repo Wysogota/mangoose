@@ -1,15 +1,28 @@
 import produce from 'immer';
 import ACTION_TYPES from '../actions/actionTypes';
+import CONSTANTS from '../../constants';
+
+const createTheme = (main, inverted) => ({
+  mainColor: main,
+  bgColor: main + '_bg',
+  bgAccentColor: main + '_accent_bg',
+  invertedColor: inverted,
+  outlineColor: 'outline-' + inverted,
+});
+
+const themes = [
+  createTheme(CONSTANTS.LIGHT_COLOR, CONSTANTS.DARK_COLOR),
+  createTheme(CONSTANTS.DARK_COLOR, CONSTANTS.LIGHT_COLOR),
+];
 
 const initialState = {
-  isDarkTheme: false,
-  theme: "light"
+  theme: themes[0],
 };
 
 const handlers = {
   [ACTION_TYPES.TOGGLE_THEME]: produce((draftState, action) => {
-    draftState.isDarkTheme = !draftState.isDarkTheme;
-    draftState.theme = draftState.isDarkTheme ? "light" : "dark";
+    let index = themes.findIndex(theme => theme.mainColor === draftState.theme.mainColor);
+    draftState.theme = themes[++index % 2];
   }),
 };
 

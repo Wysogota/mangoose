@@ -8,11 +8,11 @@ import themes from './common/styles/theme.module.scss';
 
 const App = () => {
 
-  const { isDarkTheme } = useSelector(({ themes }) => themes);
+  const { theme: { bgAccentColor } } = useSelector(({ themes }) => themes);
 
   useEffect(() => {
-    document.body.className = isDarkTheme ? themes.dark_accent_bg : themes.light_accent_bg;
-  }, [isDarkTheme]);
+    document.body.className = themes[bgAccentColor];
+  }, [bgAccentColor]);
 
   return (
     <>

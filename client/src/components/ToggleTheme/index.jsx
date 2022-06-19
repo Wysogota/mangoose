@@ -6,9 +6,10 @@ import cx from 'classnames';
 import { BsFillMoonFill as DarkTheme, BsMoon as LightTheme } from "react-icons/bs";
 import styles from './ToggleTheme.module.scss';
 import themes from '../../common/styles/theme.module.scss';
+import CONSTANTS from '../../constants';
 
 const ToggleTheme = ({ className }) => {
-  const { isDarkTheme } = useSelector(({ themes }) => themes);
+  const { theme: { mainColor } } = useSelector(({ themes }) => themes);
   const { toggleTheme } = bindActionCreators(actionCreators, useDispatch());
 
   const classes = cx(
@@ -18,7 +19,9 @@ const ToggleTheme = ({ className }) => {
 
   return (
     <button onClick={toggleTheme} className={classes} >
-      {isDarkTheme ? <DarkTheme className={themes.dark}/> : <LightTheme className={themes.light}/>}
+      {mainColor === CONSTANTS.DARK_COLOR ?
+        <DarkTheme className={themes[mainColor]} /> :
+        <LightTheme className={themes[mainColor]} />}
     </button>
   );
 };
