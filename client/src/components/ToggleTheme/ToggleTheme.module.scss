@@ -3,10 +3,10 @@
 .toggle_button {
   align-self: center;
   border: none;
-  padding: none;
+  padding: 0;
   background-color: transparent;
+
   >* {
-    font-size: 1.7rem;
     text-align: center;
   }
 }

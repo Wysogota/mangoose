@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
@@ -8,21 +8,34 @@ import styles from './ToggleTheme.module.scss';
 import themes from '../../common/styles/theme.module.scss';
 import CONSTANTS from '../../constants';
 
-const ToggleTheme = ({ className }) => {
-  const { theme: { mainColor } } = useSelector(({ themes }) => themes);
+const ToggleTheme = (props) => {
+  const { Component, btnClasses, imageClasses, shouldInverted, children } = props;
+  const [hovered, setHovered] = useState(false);
+  const { theme: { mainColor, invertedColor } } = useSelector(({ themes }) => themes);
   const { toggleTheme } = bindActionCreators(actionCreators, useDispatch());
 
-  const classes = cx(
+  const btnClass = cx(
     styles.toggle_button,
-    className
+    btnClasses
+  );
+  const imageClass = cx(
+    themes[shouldInverted && hovered ? invertedColor : mainColor],
+    imageClasses
   );
 
   return (
-    <button onClick={toggleTheme} className={classes} >
-      {mainColor === CONSTANTS.DARK_COLOR ?
-        <DarkTheme className={themes[mainColor]} /> :
-        <LightTheme className={themes[mainColor]} />}
-    </button>
+    React.createElement(Component,
+      {
+        onClick: toggleTheme,
+        className: btnClass,
+        onMouseEnter: () => setHovered(true),
+        onMouseLeave: () => setHovered(false)
+      },
+      mainColor === CONSTANTS.DARK_COLOR ?
+        (hovered ? <LightTheme className={imageClass} /> : <DarkTheme className={imageClass} />) :
+        (hovered ? <DarkTheme className={imageClass} /> : <LightTheme className={imageClass} />),
+      children
+    )
   );
 };
 
