@@ -11,3 +11,11 @@ export const showSignIn = () => ({
 export const hideSignIn = () => ({
   type: ACTION_TYPES.HIDE_SIGN_IN,
 });
+
+export const showSidebar = () => ({
+  type: ACTION_TYPES.SHOW_SIDEBAR,
+});
+
+export const hideSidebar = () => ({
+  type: ACTION_TYPES.HIDE_SIDEBAR,
+});

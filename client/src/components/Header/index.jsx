@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import cx from 'classnames';
 import { Button, ButtonGroup, Col, Container, Row } from 'react-bootstrap';
 import HeaderNavbar from './HeaderNavbar';
-import HeaderSidebar from './HeaderSidebar';
+import HeaderSidebar from './BurgerButton';
 import Logo from '../Logo';
 import ToggleTheme from '../ToggleTheme';
 import styles from './Header.module.scss';
@@ -16,20 +16,20 @@ const { breakpoints } = CONSTANTS;
 
 const Header = () => {
   const { theme: { mainColor, bgColor, invertedColor, outlineColor } } = useSelector(({ themes }) => themes);
-  const { showSignIn } = bindActionCreators(actionCreators, useDispatch());
-  
+  const { showSignIn, hideSidebar } = bindActionCreators(actionCreators, useDispatch());
+
   const [scrolled, setScrolled] = useState(window.scrollY !== 0);
   const [showLogo, setShowLogo] = useState(window.innerWidth >= breakpoints.sm);
   const [showNavbar, setShowNavbar] = useState(window.innerWidth >= breakpoints.md);
   const [showToggleTheme, setToggleTheme] = useState(window.innerWidth >= breakpoints.c_lg);
 
   useEffect(() => {
-    window.onscroll = () => setScrolled(window.scrollY !== 0);
-    window.onresize = () => {
+    window.addEventListener('scroll', () => setScrolled(window.scrollY !== 0));
+    window.addEventListener('resize', () => {
       setShowLogo(window.innerWidth >= breakpoints.sm);
       setShowNavbar(window.innerWidth >= breakpoints.md);
       setToggleTheme(window.innerWidth >= breakpoints.c_lg);
-    };
+    });
   }, []);
 
 

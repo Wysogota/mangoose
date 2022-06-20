@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import SignUp from './pages/SignUp';
 import SignIn from './components/SignIn';
 import themes from './common/styles/theme.module.scss';
+import Sidebar from './components/Sidebar';
 
 const App = () => {
   const { theme: { bgAccentColor } } = useSelector(({ themes }) => themes);
@@ -21,6 +22,7 @@ const App = () => {
       </Routes>
 
       <SignIn />
+      <Sidebar />
     </>
   );
 };
