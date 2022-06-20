@@ -2,6 +2,11 @@
 
 .dark {
   color: $light_main_color  !important;
+
+  a:hover,
+  a:active {
+    color: $light_active_color  !important;
+  }
 }
 
 .dark_bg {
@@ -15,6 +20,11 @@
 
 .light {
   color: $dark_main_color  !important;
+
+  a:hover,
+  a:active {
+    color: $dark_active_color  !important;
+  }
 }
 
 .light_bg {
