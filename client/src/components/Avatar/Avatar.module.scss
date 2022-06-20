@@ -1,0 +1,16 @@
+@import '../../common/styles/colors';
+
+.avatar {
+  width: 38px;
+  border: 2px solid;
+}
+
+.dark {
+  background-color: $light_active_color;
+  border-color: $light_accent_color;
+}
+
+.light {
+  background-color: $dark_active_color;
+  border-color: $dark_accent_color;
+}

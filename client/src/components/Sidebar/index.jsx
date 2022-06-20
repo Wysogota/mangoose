@@ -5,6 +5,7 @@ import * as actionCreators from '../../redux/actions/actionCreators';
 import cx from 'classnames';
 import { Modal, Nav, Navbar } from 'react-bootstrap';
 import NavItems from '../NavItems';
+import Avatar from '../Avatar';
 import CloseButton from '../CloseButton';
 import themes from '../../common/styles/theme.module.scss';
 import styles from './Sidebar.module.scss';
@@ -14,7 +15,7 @@ const { breakpoints } = CONSTANTS;
 const Sidebar = () => {
   const { theme: { mainColor, bgColor, invertedColor } } = useSelector(({ themes }) => themes);
   const { isSidebarOpen } = useSelector(({ sidebar }) => sidebar);
-  const { hideSidebar } = bindActionCreators(actionCreators, useDispatch());
+  const { hideSidebar, showSignIn } = bindActionCreators(actionCreators, useDispatch());
 
   const contentClasses = cx(
     themes[mainColor],
@@ -38,7 +39,12 @@ const Sidebar = () => {
   return (
     <Modal show={isSidebarOpen} onHide={hideSidebar} dialogClassName={styles.sidebar} contentClassName={contentClasses}>
       <Modal.Header>
-        <Modal.Title >Menu</Modal.Title>
+        <Navbar variant={invertedColor} onClick={hideSidebar}>
+          <Nav>
+            <Avatar />
+            <Nav.Link href="#" onClick={showSignIn}>Sign in</Nav.Link>
+          </Nav>
+        </Navbar>
         <CloseButton onClick={hideSidebar} />
       </Modal.Header>
       <Modal.Body >
