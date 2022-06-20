@@ -8,6 +8,7 @@ import rootSaga from '../sagas';
 const persistConfig = {
   key: 'store',
   storage,
+  whitelist: 'themes',
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
