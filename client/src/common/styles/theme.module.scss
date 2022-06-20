@@ -1,26 +1,26 @@
 @import './colors';
 
 .dark {
-  color: $light_main_color;
+  color: $light_main_color  !important;
 }
 
 .dark_bg {
-  background-color: $dark_main_color;
+  background-color: $dark_main_color  !important;
 }
 
 .dark_accent_bg {
-  background-color: $dark_accent_color;
+  background-color: $dark_accent_color  !important;
 }
 
 
 .light {
-  color: $dark_main_color;
+  color: $dark_main_color  !important;
 }
 
 .light_bg {
-  background-color: $light_main_color;
+  background-color: $light_main_color  !important;
 }
 
 .light_accent_bg {
-  background-color: $light_accent_color;
+  background-color: $light_accent_color  !important;
 }

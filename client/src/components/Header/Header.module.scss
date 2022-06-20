@@ -15,19 +15,13 @@
 }
 
 .navbar {
-  @media screen and (min-width: 769px) {
     >div+div {
       padding-left: 0.5rem;
     }
-  }
 
   *>a>* {
     height: 100%;
     vertical-align: middle;
-  }
-
-  *>svg {
-    margin-right: 6px;
   }
 }
 

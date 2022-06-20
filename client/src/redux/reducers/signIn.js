@@ -14,7 +14,7 @@ const handlers = {
   }),
 };
 
-export default function taskReducer(state = initialState, action) {
+export default function signInReducer(state = initialState, action) {
   const { type } = action;
   const handler = handlers[type];
   if (handler) {

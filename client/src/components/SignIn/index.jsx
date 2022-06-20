@@ -20,21 +20,7 @@ const SignIn = () => {
   const { isSignInShown } = useSelector(({ signIn }) => signIn);
   const { hideSignIn } = bindActionCreators(actionCreators, useDispatch());
 
-  const theme = [themes[mainColor], themes[bgColor]];
-  const headerClasses = cx(
-    ...theme,
-    'text-uppercase'
-  );
-
-  const bodyClasses = cx(
-    ...theme,
-    'p-4'
-  );
-
-  const footerClasses = cx(
-    ...theme,
-    'justify-content-center'
-  );
+  const contentClasses = cx(themes[mainColor], themes[bgColor]);
 
   const onSubmit = (values, formikBag) => {
     hideSignIn();
@@ -42,8 +28,8 @@ const SignIn = () => {
   };
 
   return (
-    <Modal show={isSignInShown} onHide={hideSignIn}>
-      <Modal.Header className={headerClasses}>
+    <Modal show={isSignInShown} onHide={hideSignIn} backdrop='static' contentClassName={contentClasses}>
+      <Modal.Header className='text-uppercase'>
         <Modal.Title >sign in</Modal.Title>
         <CloseButton onClick={hideSignIn} />
       </Modal.Header>
@@ -53,17 +39,16 @@ const SignIn = () => {
         validationSchema={SIGN_IN_SCHEMA}
       >
         <Form>
-          <Modal.Body className={bodyClasses}>
-            <Input name='email' label='Email address' placeholder='Enter email' type='email' />
+          <Modal.Body className='p-4'>
+            <Input autoFocus name='email' label='Email address' placeholder='Enter email' type='email' />
             <Input name='password' label='Password' placeholder='Enter password' type='password' />
           </Modal.Body>
-          <Modal.Footer className={footerClasses}>
+          <Modal.Footer className='justify-content-center'>
             <Button className='text-capitalize' variant={invertedColor} type='submit'>sign in</Button>
           </Modal.Footer>
         </Form>
       </Formik>
     </Modal>
-
   );
 };
 
