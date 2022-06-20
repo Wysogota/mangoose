@@ -9,7 +9,7 @@ const Logo = () => {
   return (
     <Link to="/">
       <img
-        src={CONSTANTS.STATIC_IMAGE_PATH + CONSTANTS[invertedColor.toUpperCase() + '_LOGO_NAME']}
+        src={CONSTANTS.STATIC_IMAGE_PATH + CONSTANTS['LOGO_' + invertedColor.toUpperCase()]}
         className={styles.logo}
       />
     </Link>

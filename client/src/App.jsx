@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
+import cx from 'classnames';
+import Sidebar from './components/Sidebar';
 import Home from './pages/Home';
 import SignUp from './pages/SignUp';
 import SignIn from './components/SignIn';
+import Profile from './pages/Profile';
 import themes from './common/styles/theme.module.scss';
-import Sidebar from './components/Sidebar';
 
 const App = () => {
-  const { theme: { bgAccentColor } } = useSelector(({ themes }) => themes);
+  const { theme: { bgAccentColor, mainColor } } = useSelector(({ themes }) => themes);
 
   useEffect(() => {
-    document.body.className = themes[bgAccentColor];
+    document.body.className = cx(themes[bgAccentColor], themes[mainColor]);
   }, [bgAccentColor]);
 
   return (
@@ -19,6 +21,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/signup' element={<SignUp />} />
+        <Route path='/profile' element={<Profile />} />
       </Routes>
 
       <SignIn />

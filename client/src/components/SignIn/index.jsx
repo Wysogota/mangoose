@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
 import cx from 'classnames';
+import { Link } from 'react-router-dom';
 import { Button, Modal } from 'react-bootstrap';
 import { Formik, Form } from 'formik';
 import Input from '../../components/Input';
@@ -40,11 +41,15 @@ const SignIn = () => {
       >
         <Form>
           <Modal.Body className='p-4'>
-            <Input autoFocus name='email' label='Email address' placeholder='Enter email' type='email' />
+            <Input name='email' label='Email address' placeholder='Enter email' type='email' />
             <Input name='password' label='Password' placeholder='Enter password' type='password' />
           </Modal.Body>
-          <Modal.Footer className='justify-content-center'>
+          <Modal.Footer className='justify-content-center flex-column'>
             <Button className='text-capitalize' variant={invertedColor} type='submit'>sign in</Button>
+            <div>
+              <span>Dont have account? </span>
+              <Link to='/signup' onClick={hideSignIn} className={themes.mainColor}>Sign Up</Link>
+            </div>
           </Modal.Footer>
         </Form>
       </Formik>
