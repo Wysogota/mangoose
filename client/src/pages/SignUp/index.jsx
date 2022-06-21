@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import cx from 'classnames';
 import { Col, Container, Row, Button } from 'react-bootstrap';
 import { Formik, Form } from 'formik';
-import Header from '../../components/Header';
 import Input from '../../components/Input';
 import { SIGN_UP_SCHEMA } from '../../utils/validationSchemas';
 
@@ -28,9 +27,8 @@ const SignUp = () => {
 
   return (
     <>
-      <Header />
       <Container className={mainTheme}>
-        <Row className=' mt-5 justify-content-center'>
+        <Row className='mt-5 mb-5 justify-content-center'>
           <Col md='8' lg='6' xl='5' className={blockClasses}>
             <h2 className='text-center text-uppercase pb-4'>sign up</h2>
             <Formik
