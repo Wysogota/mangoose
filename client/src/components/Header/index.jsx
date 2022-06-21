@@ -10,25 +10,15 @@ import HeaderSidebar from './BurgerButton';
 import Logo from '../Logo';
 import ToggleTheme from '../ToggleTheme';
 import styles from './Header.module.scss';
-import CONSTANTS from '../../constants';
-const { breakpoints } = CONSTANTS;
 
 const Header = () => {
   const { theme: { mainTheme, bgTheme, invertedColor, outlineColor } } = useSelector(({ themes }) => themes);
-  const { showSignIn, hideSidebar } = bindActionCreators(actionCreators, useDispatch());
+  const { showSignIn } = bindActionCreators(actionCreators, useDispatch());
 
   const [scrolled, setScrolled] = useState(window.scrollY !== 0);
-  const [showLogo, setShowLogo] = useState(window.innerWidth >= breakpoints.sm);
-  const [showNavbar, setShowNavbar] = useState(window.innerWidth >= breakpoints.md);
-  const [showToggleTheme, setToggleTheme] = useState(window.innerWidth >= breakpoints.c_lg);
 
   useEffect(() => {
     window.addEventListener('scroll', () => setScrolled(window.scrollY !== 0));
-    window.addEventListener('resize', () => {
-      setShowLogo(window.innerWidth >= breakpoints.sm);
-      setShowNavbar(window.innerWidth >= breakpoints.md);
-      setToggleTheme(window.innerWidth >= breakpoints.c_lg);
-    });
   }, []);
 
 
@@ -42,15 +32,15 @@ const Header = () => {
   return (
     <Container fluid className={headerClasses}>
       <Row className='justify-content-center'>
-        {!showNavbar && <Col xs='2' sm='1'> <HeaderSidebar /> </Col>}
-        {showLogo && <Col sm='4' md='3' lg='4' className='text-md-center'> <Logo /> </Col>}
-        {showNavbar && <Col md='6' lg='4'><HeaderNavbar showToggleTheme={showToggleTheme} /></Col>}
+        <Col xs='2' sm='1' className='d-md-none'> <HeaderSidebar /> </Col>
+        <Col sm='4' md='3' lg='4' className='d-none d-sm-block text-md-center'> <Logo /> </Col>
+        <Col md='6' lg='4' className='d-none d-md-block'><HeaderNavbar /></Col>
         <Col xs='10' sm='6' md='3' lg='4' className='text-end text-md-center'>
           <ButtonGroup className='pt-2 pb-2'>
             <Button onClick={showSignIn} variant={outlineColor}>Sign In</Button>
             <Button as={Link} to='/signup' variant={invertedColor}>Sign Up</Button>
           </ButtonGroup>
-          {showToggleTheme && <ToggleTheme Component='button' btnClasses='ps-3' imageClasses='fs-3' />}
+          <ToggleTheme Component='button' btnClasses='ps-3 d-none d-lg-inline-block' imageClasses='fs-3' />
         </Col>
       </Row>
     </Container>

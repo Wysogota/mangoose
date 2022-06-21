@@ -1,4 +1,5 @@
 export default {
+  WEBSITE_NAME:'Mangoose',
   STATIC_IMAGE_PATH: '/static/images/',
   LOGO_DARK:"logo-dark.png",
   LOGO_LIGHT:"logo.png",
@@ -7,9 +8,4 @@ export default {
   NOT_REGISTERED_AVATAR_DARK:"not-registered-avatar-dark.png",
   LIGHT_COLOR: 'light',
   DARK_COLOR: 'dark',
-  breakpoints:{
-    sm: 576,
-    md: 768,
-    c_lg: 915,
-  }
 };
