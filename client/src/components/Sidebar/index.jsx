@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
 import cx from 'classnames';
 import { Modal, Nav, Navbar } from 'react-bootstrap';
+import Logo from '../Logo';
 import NavItems from '../NavItems';
 import Avatar from '../Avatar';
 import CloseButton from '../CloseButton';
@@ -13,7 +14,7 @@ import CONSTANTS from '../../constants';
 const { breakpoints } = CONSTANTS;
 
 const Sidebar = () => {
-  const { theme: { mainColor, bgColor, invertedColor } } = useSelector(({ themes }) => themes);
+  const { theme: { mainColor, bgColor, invertedColor, hovered, invertedHovered } } = useSelector(({ themes }) => themes);
   const { isSidebarOpen } = useSelector(({ sidebar }) => sidebar);
   const { hideSidebar, showSignIn } = bindActionCreators(actionCreators, useDispatch());
 
@@ -25,7 +26,14 @@ const Sidebar = () => {
 
   const itemClasses = cx(
     themes[bgColor],
+    themes[invertedHovered],
     styles.item,
+    'flex-grow-1 rounded'
+  );
+
+  const signInClasses = cx(
+    styles.signIn,
+    themes[hovered],
     'flex-grow-1'
   );
 
@@ -39,13 +47,7 @@ const Sidebar = () => {
   return (
     <Modal show={isSidebarOpen} onHide={hideSidebar} dialogClassName={styles.sidebar} contentClassName={contentClasses}>
       <Modal.Header>
-        <Navbar variant={invertedColor} onClick={hideSidebar}>
-          <Nav>
-            <Avatar />
-            <Nav.Link href="#" onClick={showSignIn}>Sign in</Nav.Link>
-          </Nav>
-        </Navbar>
-        <CloseButton onClick={hideSidebar} />
+        <Logo onClick={hideSidebar} className='flex-grow-1'/>
       </Modal.Header>
       <Modal.Body >
         <Navbar variant={invertedColor} className='h-100 flex-column align-items-stretch'>
@@ -56,8 +58,13 @@ const Sidebar = () => {
           )}
         </Navbar>
       </Modal.Body>
-      <Modal.Footer>
-
+      <Modal.Footer className='justify-content-start'>
+        <Navbar variant={invertedColor} onClick={hideSidebar} className='flex-grow-1'>
+          <Nav className='flex-grow-1'>
+            <Avatar />
+            <Nav.Item onClick={showSignIn} className={signInClasses}>Sign in</Nav.Item>
+          </Nav>
+        </Navbar>
       </Modal.Footer>
     </Modal>
 

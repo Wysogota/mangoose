@@ -14,7 +14,6 @@ const createComponent = (Component, to, Icon, title) =>
     <Icon /><span className={styles.ml}>{title}</span>
   </Component>;
 
-const Home = (Component) => createComponent(Component, '/', HomeIcon, 'Home');
 const Catalog = (Component) => createComponent(Component, '#', CatalogIcon, 'Catalog');
 const Search = (Component) => createComponent(Component, '#', SearchIcon, 'Search');
 const FAQ = (Component) => createComponent(Component, '#', FAQIcon, 'FAQ');
@@ -22,9 +21,12 @@ const News = (Component) => createComponent(Component, '#', NewsIcon, 'News');
 const Contacts = (Component) => createComponent(Component, '#', ContactsIcon, 'Contacts');
 const Random = (Component) => createComponent(Component, '#', RandomIcon, 'Random');
 
-const Theme = (Component, shouldInverted = false) =>
-  <ToggleTheme Component={Component} shouldInverted={shouldInverted} btnClasses='h-100 w-100 d-flex align-items-center'>
+const Theme = (Component, shouldInverted = true) =>
+  <ToggleTheme
+    Component={Component} shouldInverted={shouldInverted}
+    btnClasses='h-100 w-100 d-flex align-items-center'
+  >
     <span className={styles.ml}>Toggle theme</span>
   </ToggleTheme>;
 
-export default { Home, Catalog, Search, FAQ, News, Contacts, Random, Theme };
+export default { Catalog, Search, FAQ, News, Contacts, Random, Theme };

@@ -7,7 +7,7 @@ import styles from './Header.module.scss';
 const { Catalog, Search, FAQ, News, Contacts, Random, Theme } = NavItems;
 
 const HeaderNavbar = ({ showToggleTheme }) => {
-  const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
+  const { theme: { invertedColor, hovered } } = useSelector(({ themes }) => themes);
 
   const navbarClasses = cx(
     styles.navbar,
@@ -24,7 +24,7 @@ const HeaderNavbar = ({ showToggleTheme }) => {
         {Contacts(NavDropdown.Item)}
         <NavDropdown.Divider />
         {Random(NavDropdown.Item)}
-        {!showToggleTheme && Theme(NavDropdown.Item, true)}
+        {!showToggleTheme && Theme(NavDropdown.Item)}
       </NavDropdown></Nav>
     </Navbar>
   );

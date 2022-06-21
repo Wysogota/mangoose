@@ -1,10 +1,12 @@
+@import '../../common/styles/colors';
+
 .sidebar {
   margin: 0 !important;
   position: fixed !important;
   top: 0;
   bottom: 0;
   left: 0;
-  right: 25%;
+  right: 35%;
 }
 
 .content {
@@ -13,9 +15,9 @@
   border-bottom-left-radius: 0 !important;
 }
 
-.item:hover {
-  filter: brightness(98%);
-  -webkit-box-shadow: 0px 0px 20px 15px rgba(0, 0, 0, 0.02);
-  box-shadow: 0px 0px 20px 15px rgba(0, 0, 0, 0.02);
-  border-radius: 15px;
+.signIn {
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
