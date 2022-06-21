@@ -8,7 +8,6 @@ import { Button, Modal } from 'react-bootstrap';
 import { Formik, Form } from 'formik';
 import Input from '../../components/Input';
 import CloseButton from '../CloseButton';
-import themes from '../../common/styles/theme.module.scss';
 import { SIGN_IN_SCHEMA } from '../../utils/validationSchemas';
 
 const initialValues = {
@@ -17,11 +16,11 @@ const initialValues = {
 };
 
 const SignIn = () => {
-  const { theme: { mainColor, bgColor, invertedColor } } = useSelector(({ themes }) => themes);
+  const { theme: { mainTheme, bgTheme, invertedColor } } = useSelector(({ themes }) => themes);
   const { isSignInShown } = useSelector(({ signIn }) => signIn);
   const { hideSignIn } = bindActionCreators(actionCreators, useDispatch());
 
-  const contentClasses = cx(themes[mainColor], themes[bgColor]);
+  const contentClasses = cx(mainTheme, bgTheme);
 
   const onSubmit = (values, formikBag) => {
     hideSignIn();
@@ -48,7 +47,7 @@ const SignIn = () => {
             <Button className='text-capitalize' variant={invertedColor} type='submit'>sign in</Button>
             <div>
               <span>Dont have account? </span>
-              <Link to='/signup' onClick={hideSignIn} className={themes.mainColor}>Sign Up</Link>
+              <Link to='/signup' onClick={hideSignIn} className={mainTheme}>Sign Up</Link>
             </div>
           </Modal.Footer>
         </Form>

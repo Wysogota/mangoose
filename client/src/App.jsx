@@ -7,14 +7,13 @@ import Home from './pages/Home';
 import SignUp from './pages/SignUp';
 import SignIn from './components/SignIn';
 import Profile from './pages/Profile';
-import themes from './common/styles/theme.module.scss';
 
 const App = () => {
-  const { theme: { bgAccentColor, mainColor } } = useSelector(({ themes }) => themes);
+  const { theme: { bgAccentTheme, mainTheme } } = useSelector(({ themes }) => themes);
 
   useEffect(() => {
-    document.body.className = cx(themes[bgAccentColor], themes[mainColor]);
-  }, [bgAccentColor]);
+    document.body.className = cx(bgAccentTheme, mainTheme);
+  }, [mainTheme]);
 
   return (
     <>

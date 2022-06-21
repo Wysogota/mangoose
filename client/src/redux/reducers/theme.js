@@ -1,15 +1,18 @@
 import produce from 'immer';
 import ACTION_TYPES from '../actions/actionTypes';
+import themeStyles from '../../common/styles/theme.module.scss';
 import CONSTANTS from '../../constants';
 
 const createTheme = (main, inverted) => ({
   mainColor: main,
-  bgColor: main + '_bg',
-  bgAccentColor: main + '_accent_bg',
   invertedColor: inverted,
   outlineColor: 'outline-' + inverted,
-  hovered: main + '_hovered',
-  invertedHovered: main + '_inverted_hovered',
+  mainTheme: themeStyles[main],
+  bgTheme: themeStyles[main + '_bg'],
+  bgAccentTheme: themeStyles[main + '_accent_bg'],
+  invertedTheme: themeStyles[inverted],
+  hoveredTheme: themeStyles[main + '_hovered'],
+  invertedHoveredTheme: themeStyles[main + '_inverted_hovered'],
 });
 
 const themes = [

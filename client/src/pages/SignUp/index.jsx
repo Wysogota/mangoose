@@ -5,7 +5,6 @@ import { Col, Container, Row, Button } from 'react-bootstrap';
 import { Formik, Form } from 'formik';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
-import themes from '../../common/styles/theme.module.scss';
 import { SIGN_UP_SCHEMA } from '../../utils/validationSchemas';
 
 const initialValues = {
@@ -16,21 +15,21 @@ const initialValues = {
 };
 
 const SignUp = () => {
-  const { theme: { mainColor, bgColor, invertedColor } } = useSelector(({ themes }) => themes);
+  const { theme: { mainTheme, bgTheme, invertedColor } } = useSelector(({ themes }) => themes);
 
   const onSubmit = (values, formikBag) => {
     formikBag.resetForm();
   };
 
   const blockClasses = cx(
-    themes[bgColor],
+    bgTheme,
     'p-5 rounded'
   );
 
   return (
     <>
       <Header />
-      <Container className={themes[mainColor]}>
+      <Container className={mainTheme}>
         <Row className=' mt-5 justify-content-center'>
           <Col md='8' lg='6' xl='5' className={blockClasses}>
             <h2 className='text-center text-uppercase pb-4'>sign up</h2>

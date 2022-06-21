@@ -10,12 +10,11 @@ import HeaderSidebar from './BurgerButton';
 import Logo from '../Logo';
 import ToggleTheme from '../ToggleTheme';
 import styles from './Header.module.scss';
-import themes from '../../common/styles/theme.module.scss';
 import CONSTANTS from '../../constants';
 const { breakpoints } = CONSTANTS;
 
 const Header = () => {
-  const { theme: { mainColor, bgColor, invertedColor, outlineColor } } = useSelector(({ themes }) => themes);
+  const { theme: { mainTheme, bgTheme, invertedColor, outlineColor } } = useSelector(({ themes }) => themes);
   const { showSignIn, hideSidebar } = bindActionCreators(actionCreators, useDispatch());
 
   const [scrolled, setScrolled] = useState(window.scrollY !== 0);
@@ -35,7 +34,8 @@ const Header = () => {
 
   const headerClasses = cx(
     styles.header,
-    themes[mainColor], themes[bgColor],
+    mainTheme,
+    bgTheme,
     scrolled && styles.scrolled
   );
 

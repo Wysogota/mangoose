@@ -9,18 +9,18 @@ import styles from './Avatar.module.scss';
 import CONSTANTS from '../../constants';
 
 const Avatar = ({ avatar = CONSTANTS.DEFAULT_AVATAR }) => {
-  const { theme: { mainColor } } = useSelector(({ themes }) => themes);
+  const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
   const { isAuthorized } = useSelector(({ auth }) => auth);
   const { showSignIn } = bindActionCreators(actionCreators, useDispatch());
   const classes = cx(
     styles.avatar,
-    styles[mainColor]
+    styles[invertedColor],
   );
 
   return (
     <Link to={isAuthorized ? '/profile' : '#'} onClick={!isAuthorized && showSignIn}>
       <Image
-        src={CONSTANTS.STATIC_IMAGE_PATH + (isAuthorized ? avatar : CONSTANTS['NOT_REGISTERED_AVATAR_' + mainColor.toUpperCase()])}
+        src={CONSTANTS.STATIC_IMAGE_PATH + (isAuthorized ? avatar : CONSTANTS['NOT_REGISTERED_AVATAR_' + invertedColor.toUpperCase()])}
         className={classes} fluid rounded
       />
     </Link>

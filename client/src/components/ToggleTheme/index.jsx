@@ -5,13 +5,12 @@ import * as actionCreators from '../../redux/actions/actionCreators';
 import cx from 'classnames';
 import { BsFillMoonFill as DarkTheme, BsMoon as LightTheme } from "react-icons/bs";
 import elements from '../../common/styles/elements.module.scss';
-import themes from '../../common/styles/theme.module.scss';
 import CONSTANTS from '../../constants';
 
 const ToggleTheme = (props) => {
   const { Component, btnClasses, imageClasses, shouldInverted, children } = props;
   const [hovered, setHovered] = useState(false);
-  const { theme: { mainColor, invertedColor } } = useSelector(({ themes }) => themes);
+  const { theme: { mainTheme, invertedTheme, mainColor } } = useSelector(({ themes }) => themes);
   const { toggleTheme } = bindActionCreators(actionCreators, useDispatch());
 
   const btnClass = cx(
@@ -19,7 +18,7 @@ const ToggleTheme = (props) => {
     btnClasses
   );
   const imageClass = cx(
-    themes[shouldInverted && hovered ? invertedColor : mainColor],
+    shouldInverted && hovered ? invertedTheme : mainTheme,
     imageClasses
   );
 

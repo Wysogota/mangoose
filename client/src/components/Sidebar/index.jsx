@@ -7,33 +7,31 @@ import { Modal, Nav, Navbar } from 'react-bootstrap';
 import Logo from '../Logo';
 import NavItems from '../NavItems';
 import Avatar from '../Avatar';
-import CloseButton from '../CloseButton';
-import themes from '../../common/styles/theme.module.scss';
 import styles from './Sidebar.module.scss';
 import CONSTANTS from '../../constants';
 const { breakpoints } = CONSTANTS;
 
 const Sidebar = () => {
-  const { theme: { mainColor, bgColor, invertedColor, hovered, invertedHovered } } = useSelector(({ themes }) => themes);
+  const { theme: { mainTheme, bgTheme, hoveredTheme, invertedHoveredTheme, invertedColor } } = useSelector(({ themes }) => themes);
   const { isSidebarOpen } = useSelector(({ sidebar }) => sidebar);
   const { hideSidebar, showSignIn } = bindActionCreators(actionCreators, useDispatch());
 
   const contentClasses = cx(
-    themes[mainColor],
-    themes[bgColor],
+    mainTheme,
+    bgTheme,
     styles.content,
   );
 
   const itemClasses = cx(
-    themes[bgColor],
-    themes[invertedHovered],
+    bgTheme,
+    invertedHoveredTheme,
     styles.item,
     'flex-grow-1 rounded'
   );
 
   const signInClasses = cx(
     styles.signIn,
-    themes[hovered],
+    hoveredTheme,
     'flex-grow-1'
   );
 
