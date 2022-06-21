@@ -18,15 +18,19 @@ $dropdown-dark-bg: $light_main_color;
 $dropdown-dark-link-hover-color: $light_main_color;
 $dropdown-dark-link-hover-bg: $dark_active_color;
 $dropdown-dark-link-active-bg: $dark_active_color;
+$dropdown-dark-color: $dark_main_color;
+$dropdown-dark-link-active-color: $light_main_color;
 
+$dropdown-color: $light_main_color;
 $dropdown-link-color: $light_main_color;
-$dropdown-bg: $dark_main_color;
 $dropdown-link-hover-color: $dark_main_color;
+$dropdown-bg: $dark_main_color;
 $dropdown-link-hover-bg: $light_active_color;
 $dropdown-link-active-bg: $light_active_color;
+$dropdown-link-active-color: $dark_main_color;
 
 $modal-content-border-color: rgba(0, 0, 0, 0.1);
-$modal-header-border-color:  rgba(0, 0, 0, 0.1);
-$modal-footer-border-color:  rgba(0, 0, 0, 0.1);
+$modal-header-border-color: rgba(0, 0, 0, 0.1);
+$modal-footer-border-color: rgba(0, 0, 0, 0.1);
 
 @import "~bootstrap/scss/bootstrap";

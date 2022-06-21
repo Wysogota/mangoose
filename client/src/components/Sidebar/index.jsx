@@ -49,13 +49,15 @@ const Sidebar = () => {
   return (
     <Modal show={isSidebarOpen} onHide={hideSidebar} dialogClassName={styles.sidebar} contentClassName={contentClasses}>
       <Modal.Header>
-        <Logo onClick={hideSidebar} className='flex-grow-1'/>
+        <Logo onClick={hideSidebar} className='flex-grow-1' />
       </Modal.Header>
       <Modal.Body >
         <Navbar variant={invertedColor} className='h-100 flex-column align-items-stretch'>
           {Object.values(NavItems).filter(({ name }) => filterList.indexOf(name) < 0).map((Component) =>
             <Nav key={Component.name} onClick={hideSidebar} className={itemClasses}>{
-              Component(Nav.Link)
+              Component.name === 'Theme'
+                ? Component(Nav.Link, { shouldInverted: true })
+                : Component(Nav.Link)
             }</Nav>
           )}
         </Navbar>

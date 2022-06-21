@@ -10,7 +10,7 @@ import CONSTANTS from '../../constants';
 const { FAQ, News, Contacts, Github } = NavItems;
 
 const Footer = () => {
-  const { theme: { mainTheme, bgTheme, hoveredTheme, mainColor } } = useSelector(({ themes }) => themes);
+  const { theme: { mainTheme, bgTheme, hoveredTheme, mainColor, invertedColor } } = useSelector(({ themes }) => themes);
   const [year, setYear] = useState(new Date().getFullYear());
   useEffect(() => {
     const currentYear = new Date().getFullYear();
@@ -40,7 +40,7 @@ const Footer = () => {
           <Logo className='d-flex align-items-center justify-content-md-center h-100' />
         </Col>
         <Col md='6' lg='4' className='d-none d-md-flex justify-content-center'>
-          <Navbar className={infoPagesClasses}>
+          <Navbar className={infoPagesClasses} variant={invertedColor}>
             <Nav>{FAQ(Nav.Link)}</Nav>
             <Nav>{News(Nav.Link)}</Nav>
             <Nav>{Contacts(Nav.Link)}</Nav>

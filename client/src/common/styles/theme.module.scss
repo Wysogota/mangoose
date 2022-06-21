@@ -26,18 +26,18 @@
 
 .light_hovered:hover,
 .light_hovered:active {
-  color: $dark_active_color;
+  color: $dark_active_color  !important;
 }
 
 .dark_hovered:hover,
 .dark_hovered:active {
-  color: $light_active_color;
+  color: $light_active_color  !important;
 }
 
 .light_inverted_hovered:hover,
 .light_inverted_hovered:active {
   background-color: $dark_active_color  !important;
-  color: $light_main_color;
+  color: $light_main_color !important;
 
   &>a:hover,
   &>a:active {
@@ -48,7 +48,7 @@
 .dark_inverted_hovered:hover,
 .dark_inverted_hovered:active {
   background-color: $light_active_color  !important;
-  color: $dark_main_color;
+  color: $dark_main_color !important;
 
   &>a:hover,
   &>a:active {
