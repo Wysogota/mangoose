@@ -11,6 +11,10 @@ import styles from './Sidebar.module.scss';
 import CONSTANTS from '../../constants';
 const { breakpoints } = CONSTANTS;
 
+const filterList = [
+  'Github',
+];
+
 const Sidebar = () => {
   const { theme: { mainTheme, bgTheme, hoveredTheme, invertedHoveredTheme, invertedColor } } = useSelector(({ themes }) => themes);
   const { isSidebarOpen } = useSelector(({ sidebar }) => sidebar);
@@ -49,7 +53,7 @@ const Sidebar = () => {
       </Modal.Header>
       <Modal.Body >
         <Navbar variant={invertedColor} className='h-100 flex-column align-items-stretch'>
-          {Object.values(NavItems).map((Component) =>
+          {Object.values(NavItems).filter(({ name }) => filterList.indexOf(name) < 0).map((Component) =>
             <Nav key={Component.name} onClick={hideSidebar} className={itemClasses}>{
               Component(Nav.Link)
             }</Nav>
