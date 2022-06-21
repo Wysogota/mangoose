@@ -2,11 +2,6 @@
 
 .dark {
   color: $light_main_color  !important;
-
-  a:hover,
-  a:active {
-    color: $light_active_color  !important;
-  }
 }
 
 .dark_bg {
@@ -17,14 +12,8 @@
   background-color: $dark_accent_color  !important;
 }
 
-
 .light {
   color: $dark_main_color  !important;
-
-  a:hover,
-  a:active {
-    color: $dark_active_color  !important;
-  }
 }
 
 .light_bg {
@@ -33,4 +22,36 @@
 
 .light_accent_bg {
   background-color: $light_accent_color  !important;
+}
+
+.light_hovered:hover,
+.light_hovered:active {
+  color: $dark_active_color;
+}
+
+.dark_hovered:hover,
+.dark_hovered:active {
+  color: $light_active_color;
+}
+
+.light_inverted_hovered:hover,
+.light_inverted_hovered:active {
+  background-color: $dark_active_color  !important;
+  color: $light_main_color;
+
+  &>a:hover,
+  &>a:active {
+    color: $light_main_color  !important;
+  }
+}
+
+.dark_inverted_hovered:hover,
+.dark_inverted_hovered:active {
+  background-color: $light_active_color  !important;
+  color: $dark_main_color;
+
+  &>a:hover,
+  &>a:active {
+    color: $dark_main_color  !important;
+  }
 }

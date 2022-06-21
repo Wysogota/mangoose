@@ -16,13 +16,13 @@ $navbar-light-active-color: $light_active_color;
 $dropdown-dark-color: $dark_main_color;
 $dropdown-dark-bg: $light_main_color;
 $dropdown-dark-link-hover-color: $light_main_color;
-$dropdown-dark-link-hover-bg: $dark_main_color;
+$dropdown-dark-link-hover-bg: $dark_active_color;
 $dropdown-dark-link-active-bg: $dark_active_color;
 
 $dropdown-link-color: $light_main_color;
 $dropdown-bg: $dark_main_color;
 $dropdown-link-hover-color: $dark_main_color;
-$dropdown-link-hover-bg: $light_main_color;
+$dropdown-link-hover-bg: $light_active_color;
 $dropdown-link-active-bg: $light_active_color;
 
 $modal-content-border-color: rgba(0, 0, 0, 0.1);

@@ -8,6 +8,8 @@ const createTheme = (main, inverted) => ({
   bgAccentColor: main + '_accent_bg',
   invertedColor: inverted,
   outlineColor: 'outline-' + inverted,
+  hovered: main + '_hovered',
+  invertedHovered: main + '_inverted_hovered',
 });
 
 const themes = [
