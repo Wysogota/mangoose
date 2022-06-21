@@ -1,0 +1,32 @@
+@import '../../common/styles/colors';
+
+.footer{
+  position: absolute;
+  bottom: 0;
+}
+
+.info_pages {
+  >div+div {
+    padding-left: 0.5rem;
+  }
+}
+
+.year {
+  padding-right: 5px;
+}
+
+.dark_year {
+  color: $light_active_color;
+}
+
+.light_year {
+  color: $dark_active_color;
+}
+
+.dark_down_footer {
+  background-color: $darker_main_color;
+}
+
+.light_down_footer {
+  background-color: $lighter_main_color;
+}
