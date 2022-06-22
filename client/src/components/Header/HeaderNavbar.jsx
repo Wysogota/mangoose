@@ -18,13 +18,13 @@ const HeaderNavbar = () => {
     <Navbar className={navbarClasses} variant={invertedColor} >
       <Nav>{Catalog(Nav.Link)}</Nav>
       <Nav>{Search(Nav.Link)}</Nav>
-      <Nav>{FAQ(Nav.Link)}</Nav>
+      <Nav>{News(Nav.Link)}</Nav>
       <Nav><NavDropdown menuVariant={invertedColor}>
-        {News(NavDropdown.Item, {inverted: true})}
-        {Contacts(NavDropdown.Item, {inverted: true})}
+        {FAQ(NavDropdown.Item, { inverted: true })}
+        {Contacts(NavDropdown.Item, { inverted: true })}
         <NavDropdown.Divider />
-        {Random(NavDropdown.Item, {inverted: true})}
-        {Theme(NavDropdown.Item, { className: 'd-lg-none', shouldInverted:true})}
+        {Random(NavDropdown.Item, { inverted: true })}
+        {Theme(NavDropdown.Item, { className: 'd-lg-none', shouldInverted: true })}
       </NavDropdown></Nav>
     </Navbar>
   );
