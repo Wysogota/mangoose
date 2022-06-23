@@ -7,10 +7,11 @@ import './minimize.css';
 
 const MinimizeButton = (props) => {
   const { isOpen, toggleCarousel, carouselRef } = props;
-  const { theme: { hoveredTheme } } = useSelector(({ themes }) => themes);
+  const { theme: { mainTheme, hoveredTheme } } = useSelector(({ themes }) => themes);
 
   const classes = cx(
     elements.icon_button,
+    mainTheme,
     hoveredTheme,
     'fs-4',
     !isOpen && 'hide',

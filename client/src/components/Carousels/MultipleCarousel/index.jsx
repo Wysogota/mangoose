@@ -75,6 +75,7 @@ const MultipleCarousel = (props) => {
     styles.container,
     'carousel-' + invertedColor
   );
+  const carouselContainerClasses = cx(!isOpen && 'hide');
 
   const leftChevron = <span className={cx('carousel-control-prev-icon', styles.chevron)}></span>;
   const rightChevron = <span className={cx('carousel-control-next-icon', styles.chevron)}></span>;
@@ -84,7 +85,7 @@ const MultipleCarousel = (props) => {
       <HeaderLink to={to} title={title} >
         <MinimizeButton isOpen={isOpen} toggleCarousel={toggleCarousel} carouselRef={carouselRef} />
       </HeaderLink>
-      <div data-carousel={`carousel-${stateName}`} ref={carouselRef}>
+      <div data-carousel={`carousel-${stateName}`} ref={carouselRef} className={carouselContainerClasses}>
         <ItemsCarousel
           requestToChangeActive={setActiveItemIndex}
           activeItemIndex={activeItemIndex}
