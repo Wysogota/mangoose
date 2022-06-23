@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Carousel as bsCarousel, Col } from 'react-bootstrap';
+import React, { useEffect, useRef, useState } from 'react';
+import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
+import * as actionCreators from '../../../redux/actions/actionCreators';
+import { Carousel as bsCarousel } from 'react-bootstrap';
 import ItemsCarousel from 'react-items-carousel';
-import { Link } from 'react-router-dom';
 import cx from 'classnames';
+import HeaderLink from '../../HeaderLink';
+import MinimizeButton from '../MinimizeButton';
+import ColBlock from '../../Blocks/ColBlock';
 import CarouselHeader from '../CarouselHeader';
-import { BsChevronDoubleRight as TransitionIcon } from 'react-icons/bs';
 import styles from './MultipleCarousel.module.scss';
-import CONSTANTS from '../../constants';
+import CONSTANTS from '../../../constants';
 const { breakpoints } = CONSTANTS;
 
 const items = [
@@ -44,10 +47,15 @@ const items = [
 ];
 
 const MultipleCarousel = (props) => {
-  const { title, to } = props;
-  const { theme: { invertedColor, bgTheme, hoveredTheme } } = useSelector(({ themes }) => themes);
+  const { stateName, title, to } = props;
+  const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
+
+  const isOpen = useSelector(({ carousels }) => carousels)[`isOpen${stateName}Carousel`];
+  const toggleCarousel = bindActionCreators(actionCreators, useDispatch())[`toggle${stateName}Carousel`];
+
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const [displayCount, setDisplayCount] = useState();
+  const carouselRef = useRef(null);
 
   useEffect(() => {
     const getDisplayCount = () => {
@@ -63,11 +71,6 @@ const MultipleCarousel = (props) => {
     return () => window.removeEventListener('resize', getDisplayCount);
   }, []);
 
-  const colClasses = cx(
-    bgTheme,
-    'p-3 mb-4 rounded'
-  );
-
   const containerClasses = cx(
     styles.container,
     'carousel-' + invertedColor
@@ -77,27 +80,32 @@ const MultipleCarousel = (props) => {
   const rightChevron = <span className={cx('carousel-control-next-icon', styles.chevron)}></span>;
 
   return (
-    <Col className={colClasses}>
-      <Link to={to}><h3 className={hoveredTheme + ' pb-3'}>{title}<TransitionIcon /></h3></Link>
-      <ItemsCarousel
-        requestToChangeActive={setActiveItemIndex}
-        activeItemIndex={activeItemIndex}
-        numberOfCards={displayCount}
-        gutter={10}
-        leftChevron={leftChevron}
-        rightChevron={rightChevron}
-        infiniteLoop={true}
-      >
-        {items.map(({ src, alt, to, title }) =>
-          <div key={title} className={containerClasses}>
-            <img className={styles.image} src={src} alt={alt} />
-            <bsCarousel.Caption>
-              <CarouselHeader to={to} className={styles.header}>{title}</CarouselHeader>
-            </bsCarousel.Caption>
-          </div>
-        )}
-      </ItemsCarousel>
-    </Col>
+    <ColBlock>
+      <HeaderLink to={to} title={title} >
+        <MinimizeButton isOpen={isOpen} toggleCarousel={toggleCarousel} carouselRef={carouselRef} />
+      </HeaderLink>
+      <div data-carousel={`carousel-${stateName}`} ref={carouselRef}>
+        <ItemsCarousel
+          requestToChangeActive={setActiveItemIndex}
+          activeItemIndex={activeItemIndex}
+          numberOfCards={displayCount}
+          gutter={10}
+          leftChevron={leftChevron}
+          rightChevron={rightChevron}
+          infiniteLoop={true}
+        >
+          {items.map(({ src, alt, to, title }) =>
+            <div key={title} className={containerClasses}>
+              <img className={styles.image} src={src} alt={alt} />
+              <bsCarousel.Caption>
+                <CarouselHeader to={to} className={styles.header}>{title}</CarouselHeader>
+              </bsCarousel.Caption>
+            </div>
+          )}
+        </ItemsCarousel>
+      </div>
+
+    </ColBlock>
   );
 };
 

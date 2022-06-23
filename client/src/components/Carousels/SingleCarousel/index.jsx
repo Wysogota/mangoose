@@ -1,18 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Carousel, Col } from 'react-bootstrap';
-import cx from 'classnames';
-import CONSTANTS from '../../constants';
+import { Carousel } from 'react-bootstrap';
+import ColBlock from '../../Blocks/ColBlock';
 import CarouselHeader from '../CarouselHeader';
+import CONSTANTS from '../../../constants';
 
 const SingleCarousel = () => {
-  const { theme: { bgTheme, mainColor } } = useSelector(({ themes }) => themes);
-  const colClasses=cx(
-    bgTheme,
-    'p-3 mb-4 rounded'
-  )
+  const { theme: { mainColor } } = useSelector(({ themes }) => themes);
+
   return (
-    <Col className={colClasses}>
+    <ColBlock>
       <h3 className='pb-3'>Manga of the day</h3>
       <Carousel interval='50000' variant={mainColor} >
         <Carousel.Item>
@@ -36,7 +33,7 @@ const SingleCarousel = () => {
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
-    </Col>
+    </ColBlock>
   );
 };
 
