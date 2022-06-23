@@ -73,4 +73,14 @@ $carousel-dark-indicator-active-bg: $dark_main_color;
     width: 2rem !important;
 }
 
+.list-group-item-dark {
+    color: $light_main_color  !important;
+    background-color: $dark_accent_color  !important;
+}
+
+.list-group-item-light {
+    color: $dark_main_color  !important;
+    background-color: $light_accent_color  !important;
+}
+
 @import "~bootstrap/scss/bootstrap";
