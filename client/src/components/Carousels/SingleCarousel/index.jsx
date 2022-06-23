@@ -11,7 +11,7 @@ const SingleCarousel = () => {
   return (
     <ColBlock>
       <h3 className='pb-3'>Manga of the day</h3>
-      <Carousel interval='50000' variant={mainColor} >
+      <Carousel interval='10000' variant={mainColor} >
         <Carousel.Item>
           <img
             className='d-block w-100'
