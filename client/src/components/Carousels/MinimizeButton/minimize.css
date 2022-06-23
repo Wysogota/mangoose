@@ -1,0 +1,14 @@
+[data-carousel="carousel-Popular"].hide,
+[data-carousel="carousel-New"].hide,
+[data-carousel="carousel-HotNew"].hide {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+[data-carousel="carousel-Popular"],
+[data-carousel="carousel-New"],
+[data-carousel="carousel-HotNew"] {
+  max-height: 250px;
+  transition: max-height 0.3s ease-in;
+}

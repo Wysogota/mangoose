@@ -19,3 +19,15 @@ export const showSidebar = () => ({
 export const hideSidebar = () => ({
   type: ACTION_TYPES.HIDE_SIDEBAR,
 });
+
+export const togglePopularCarousel = () => ({
+  type: ACTION_TYPES.TOGGLE_POPULAR_CAROUSEL,
+});
+
+export const toggleNewCarousel = () => ({
+  type: ACTION_TYPES.TOGGLE_NEW_CAROUSEL,
+});
+
+export const toggleHotNewCarousel = () => ({
+  type: ACTION_TYPES.TOGGLE_HOT_NEW_CAROUSEL,
+});
