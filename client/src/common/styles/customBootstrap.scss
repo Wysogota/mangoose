@@ -33,4 +33,47 @@ $modal-content-border-color: rgba(0, 0, 0, 0.1);
 $modal-header-border-color: rgba(0, 0, 0, 0.1);
 $modal-footer-border-color: rgba(0, 0, 0, 0.1);
 
+
+$carousel-control-color: $light_main_color;
+$carousel-dark-control-icon-filter: none;
+$carousel-indicator-active-bg: $light_main_color;
+$carousel-dark-indicator-active-bg: $dark_main_color;
+
+.carousel {
+    background-color: $light_main_color;
+}
+
+.carousel-inner {
+    border-radius: .5em;
+}
+
+.carousel-dark {
+    background-color: $dark_main_color;
+
+    .carousel-caption {
+        background-color: rgba($light_main_color, 0.9);
+    }
+}
+
+.carousel-caption {
+    max-height: 30%;
+    overflow: hidden;
+
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
+
+    background-color: rgba($dark_main_color, 0.9);
+    right: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 2rem !important;
+}
+
+
+
+
 @import "~bootstrap/scss/bootstrap";
