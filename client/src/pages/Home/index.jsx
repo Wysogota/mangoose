@@ -1,25 +1,35 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Container, Row, Col } from 'react-bootstrap';
-import SidePoster from '../../components/SingleCarousel';
-import MangaCarousel from '../../components/MultipleCarousel';
+import { Container, Row, Col, ListGroup } from 'react-bootstrap';
+import SingleCarousel from '../../components/Carousels/SingleCarousel';
+import MultipleCarousel from '../../components/Carousels/MultipleCarousel';
+import InfoBlock from '../../components/Blocks/InfoBlock';
+import NewsList from '../../components/Lists/NewsList';
+import NewCharaptersList from '../../components/Lists/NewCharaptersList';
 
 const Home = () => {
-  const { theme: { bgTheme, mainColor } } = useSelector(({ themes }) => themes);
   return (
     <Container className='pt-5 pb-5'>
       <Row>
-        <Col xs='12' lg='8'>
-          <MangaCarousel title='Popular' to='#' />
-          <MangaCarousel title='New arrivals' to='#' />
+        <Col xs='12' lg='9'>
+          <Row><MultipleCarousel stateName='Popular' title='Popular' to='#' /></Row>
+          <Row><MultipleCarousel stateName='New' title='New arrivals' to='#' /></Row>
+          <Row><MultipleCarousel stateName='HotNew' title='Hot news' to='#' /></Row>
           <Row>
+            <InfoBlock className='col-12 col-md-6' title='Last news'>
+              <NewsList />
+            </InfoBlock>
+            <InfoBlock className='col-12 col-md-6' title='Recently read' >
+              <NewsList />
+            </InfoBlock>
           </Row>
         </Col>
-        <Col xs='3' className='d-none d-lg-block'>
-          <SidePoster />
-          <Col>
-            <div>New chapters</div>
-          </Col>
+        <Col lg='3' className='d-none d-lg-block'>
+          <Row><SingleCarousel /></Row>
+          <Row>
+            <InfoBlock title='New chapters'>
+              <NewCharaptersList />
+            </InfoBlock>
+          </Row>
         </Col>
       </Row>
     </Container>
