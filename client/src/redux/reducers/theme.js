@@ -13,6 +13,7 @@ const createTheme = (main, inverted) => ({
   invertedTheme: themeStyles[inverted],
   hoveredTheme: themeStyles[main + '_hovered'],
   invertedHoveredTheme: themeStyles[main + '_inverted_hovered'],
+  bgInvertedHoveredTheme: themeStyles[main + '_inverted_hovered_bg'],
 });
 
 const themes = [

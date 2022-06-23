@@ -16,7 +16,7 @@ const filterList = [
 ];
 
 const Sidebar = () => {
-  const { theme: { mainTheme, bgTheme, hoveredTheme, invertedHoveredTheme, invertedColor } } = useSelector(({ themes }) => themes);
+  const { theme: { mainTheme, bgTheme, hoveredTheme, bgInvertedHoveredTheme, invertedColor } } = useSelector(({ themes }) => themes);
   const { isSidebarOpen } = useSelector(({ sidebar }) => sidebar);
   const { hideSidebar, showSignIn } = bindActionCreators(actionCreators, useDispatch());
 
@@ -28,7 +28,7 @@ const Sidebar = () => {
 
   const itemClasses = cx(
     bgTheme,
-    invertedHoveredTheme,
+    bgInvertedHoveredTheme,
     styles.item,
     'flex-grow-1 rounded'
   );
@@ -40,10 +40,12 @@ const Sidebar = () => {
   );
 
   useEffect(() => {
-    window.addEventListener('resize', () => {
-      if (window.innerWidth >= breakpoints.md)
-        hideSidebar();
-    });
+    const hideSidebarHandle = () => {
+      if (window.innerWidth >= breakpoints.md) hideSidebar();
+    };
+
+    window.addEventListener('resize', hideSidebarHandle);
+    return () => window.removeEventListener('resize', hideSidebarHandle);
   }, []);
 
   return (

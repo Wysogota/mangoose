@@ -12,9 +12,9 @@ import ToggleTheme from '../ToggleTheme';
 import styles from './NavItems.module.scss';
 
 const createComponent = (Component, to, Icon, title, options) => {
-  const { theme: { hoveredTheme, invertedHoveredTheme } } = useSelector(({ themes }) => themes);
+  const { theme: { hoveredTheme, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
   const classes = cx(
-    options?.inverted ? invertedHoveredTheme : hoveredTheme,
+    options?.inverted ? bgInvertedHoveredTheme : hoveredTheme,
     'h-100 w-100 d-flex align-items-center'
   );
 
