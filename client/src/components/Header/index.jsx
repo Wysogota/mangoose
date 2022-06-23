@@ -19,6 +19,7 @@ const Header = () => {
 
   useEffect(() => {
     window.addEventListener('scroll', () => setScrolled(window.scrollY !== 0));
+    return () => window.removeEventListener('scroll', () => setScrolled(window.scrollY !== 0));
   }, []);
 
 
