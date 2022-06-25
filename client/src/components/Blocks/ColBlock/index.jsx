@@ -4,7 +4,8 @@ import { Col } from 'react-bootstrap';
 import cx from 'classnames';
 import styles from './ColBlock.module.scss';
 
-const ColBlock = ({ className, children }) => {
+const ColBlock = (props) => {
+  const { className, innerClassName, children } = props;
   const { theme: { bgTheme } } = useSelector(({ themes }) => themes);
   const classes = cx(
     styles.col,
@@ -13,6 +14,7 @@ const ColBlock = ({ className, children }) => {
 
   const innerClasses = cx(
     bgTheme,
+    innerClassName,
     'p-3 rounded',
   );
 
