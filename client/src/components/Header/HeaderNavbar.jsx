@@ -20,10 +20,10 @@ const HeaderNavbar = () => {
       <Nav>{Search(Nav.Link)}</Nav>
       <Nav>{News(Nav.Link)}</Nav>
       <Nav><NavDropdown menuVariant={invertedColor}>
-        {FAQ(NavDropdown.Item, { inverted: true })}
-        {Contacts(NavDropdown.Item, { inverted: true })}
+        {FAQ(NavDropdown.Item, { invertedHovered: true })}
+        {Contacts(NavDropdown.Item, { invertedHovered: true })}
         <NavDropdown.Divider />
-        {Random(NavDropdown.Item, { inverted: true })}
+        {Random(NavDropdown.Item, { invertedHovered: true })}
         {Theme(NavDropdown.Item, { className: 'd-lg-none', shouldInverted: true })}
       </NavDropdown></Nav>
     </Navbar>

@@ -14,7 +14,8 @@ import styles from './NavItems.module.scss';
 const createComponent = (Component, to, Icon, title, options) => {
   const { theme: { hoveredTheme, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
   const classes = cx(
-    options?.inverted ? bgInvertedHoveredTheme : hoveredTheme,
+    options?.className,
+    options?.invertedHovered ? bgInvertedHoveredTheme : hoveredTheme,
     'h-100 w-100 d-flex align-items-center'
   );
 
@@ -24,13 +25,13 @@ const createComponent = (Component, to, Icon, title, options) => {
     : <Component as={Link} to={to} className={classes}><Child /></Component>;
 };
 
-const Catalog = (Component, options) => createComponent(Component, '#', CatalogIcon, 'Catalog', options);
+const Catalog = (Component, options) => createComponent(Component, '/catalog', CatalogIcon, 'Catalog', options);
 const Search = (Component, options) => createComponent(Component, '#', SearchIcon, 'Search', options);
 const FAQ = (Component, options) => createComponent(Component, '#', FAQIcon, 'FAQ', options);
 const News = (Component, options) => createComponent(Component, '#', NewsIcon, 'News', options);
 const Contacts = (Component, options) => createComponent(Component, '#', ContactsIcon, 'Contacts', options);
 const Random = (Component, options) => createComponent(Component, '#', RandomIcon, 'Random', options);
-const Github = (Component, options) => createComponent(Component, 'https://github.com/Wysogota/mangoose', GithubIcon, 'Github', { external: true, inverted: false });
+const Github = (Component, options) => createComponent(Component, 'https://github.com/Wysogota/mangoose', GithubIcon, 'Github', { external: true, invertedHovered: false });
 
 const Theme = (Component, options) =>
   <ToggleTheme
