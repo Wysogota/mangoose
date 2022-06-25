@@ -5,6 +5,7 @@ import MultipleCarousel from '../../components/Carousels/MultipleCarousel';
 import InfoBlock from '../../components/Blocks/InfoBlock';
 import NewsList from '../../components/Lists/NewsList';
 import NewCharaptersList from '../../components/Lists/NewCharaptersList';
+import Genres from '../../components/Catalog/Genres';
 
 const Home = () => {
   return (
@@ -20,6 +21,11 @@ const Home = () => {
             </InfoBlock>
             <InfoBlock className='col-12 col-md-6' title='Recently read' >
               <NewsList />
+            </InfoBlock>
+          </Row>
+          <Row>
+            <InfoBlock title='Catalog'>
+              <Genres />
             </InfoBlock>
           </Row>
         </Col>
