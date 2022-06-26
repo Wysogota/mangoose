@@ -1,7 +1,7 @@
 import React from 'react';
-import ColBlock from '../../../Blocks/ColBlock';
 import { Link } from 'react-router-dom';
-import NavItems from '../../../NavItems';
+import ColBlock from '../../Blocks/ColBlock';
+import NavItems from '../../NavItems';
 const { Catalog } = NavItems;
 
 const CatalogButton = () => {
