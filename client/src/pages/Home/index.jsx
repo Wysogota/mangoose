@@ -1,13 +1,18 @@
-import React from 'react';
-import { Container, Row, Col, ListGroup } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import SingleCarousel from '../../components/Carousels/SingleCarousel';
 import MultipleCarousel from '../../components/Carousels/MultipleCarousel';
-import InfoBlock from '../../components/Blocks/InfoBlock';
 import NewsList from '../../components/Lists/NewsList';
 import NewCharaptersList from '../../components/Lists/NewCharaptersList';
 import Genres from '../../components/Catalog/Genres';
+import HeaderLink from '../../components/HeaderLink';
+import ColBlock from '../../components/Blocks/ColBlock';
+import CatalogButton from '../../components/Catalog/CatalogButton';
+import MangaCatalog from '../../components/Catalog/MangaCatalog';
 
 const Home = () => {
+  const [genres, setGenres] = useState([]);
+
   return (
     <Container className='pt-5 pb-5'>
       <Row>
@@ -16,25 +21,31 @@ const Home = () => {
           <Row><MultipleCarousel stateName='New' title='New arrivals' to='#' /></Row>
           <Row><MultipleCarousel stateName='HotNew' title='Hot news' to='#' /></Row>
           <Row>
-            <InfoBlock className='col-12 col-md-6' title='Last news'>
+            <ColBlock className='col-12 col-md-6'>
+              <HeaderLink to='/news' title='Last news' />
               <NewsList />
-            </InfoBlock>
-            <InfoBlock className='col-12 col-md-6' title='Recently read' >
+            </ColBlock>
+            <ColBlock className='col-12 col-md-6' >
+              <HeaderLink to='#' title='Recently read' />
               <NewsList />
-            </InfoBlock>
+            </ColBlock>
           </Row>
           <Row>
-            <InfoBlock title='Catalog'>
-              <Genres />
-            </InfoBlock>
+            <ColBlock className='col-12'>
+              <HeaderLink to='/news' title='Catalog' />
+              <Genres setGenres={setGenres} />
+            </ColBlock>
+            <MangaCatalog genres={genres} />
+            <Col xs='12'><CatalogButton /></Col>
           </Row>
         </Col>
         <Col lg='3' className='d-none d-lg-block'>
           <Row><SingleCarousel /></Row>
           <Row>
-            <InfoBlock title='New chapters'>
+            <ColBlock title='New chapters'>
+              <HeaderLink to='#' title='New chapters' />
               <NewCharaptersList />
-            </InfoBlock>
+            </ColBlock>
           </Row>
         </Col>
       </Row>
