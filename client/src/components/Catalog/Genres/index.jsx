@@ -61,7 +61,17 @@ const data = [
   },
 ];
 
-const Genres = () => {
+const Genres = ({ setGenres }) => {
+
+  const onClickHandle = (title) => {
+    setGenres((prevGenres) => {
+      title = title.toLowerCase();
+      return (prevGenres.includes(title))
+        ? prevGenres.filter((item) => item !== title)
+        : prevGenres.concat(title);
+    });
+  };
+
   return (
     <Accordion>
       <div className='mb-2'>
@@ -74,7 +84,10 @@ const Genres = () => {
           data
             .filter(({ type }) => type === 'Time')
             .map(({ title, href }) =>
-              <GenreButton key={title} title={title} to={href} />
+              <GenreButton
+                key={title} title={title} to={href}
+                onClick={() => onClickHandle(title)}
+              />
             )
         }</div>
       </Accordion.Collapse>
@@ -83,7 +96,10 @@ const Genres = () => {
           data
             .filter(({ type }) => type === 'Type')
             .map(({ title, href }) =>
-              <GenreButton key={title} title={title} to={href} />
+              <GenreButton
+                key={title} title={title} to={href}
+                onClick={() => onClickHandle(title)}
+              />
             )
         }</div>
       </Accordion.Collapse>
@@ -92,7 +108,10 @@ const Genres = () => {
           data
             .filter(({ type }) => type === 'Genre')
             .map(({ title, href }) =>
-              <GenreButton key={title} title={title} to={href} />
+              <GenreButton
+                key={title} title={title} to={href}
+                onClick={() => onClickHandle(title)}
+              />
             )
         }</div>
       </Accordion.Collapse>
