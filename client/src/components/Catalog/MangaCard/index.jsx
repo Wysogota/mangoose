@@ -12,7 +12,7 @@ const MangaCard = (props) => {
       <Card bg={mainColor} border={mainColor}>
         <Card.Img src={image} />
         <Card.Body>
-          <Card.Title><Link to={to} className={hoveredTheme}>{title}</Link></Card.Title>
+          <Card.Title className='fs-4'><Link to={to} className={hoveredTheme}>{title}</Link></Card.Title>
           <Card.Text>{desc}</Card.Text>
         </Card.Body>
       </Card>

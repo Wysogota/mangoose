@@ -1,16 +1,23 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import cx from 'classnames';
 import { Carousel } from 'react-bootstrap';
 import ColBlock from '../../Blocks/ColBlock';
 import CarouselHeader from '../CarouselHeader';
+import elements from '../../../common/styles/elements.module.scss';
 import CONSTANTS from '../../../constants';
 
 const SingleCarousel = () => {
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
 
+  const headerClasses = cx(
+    elements.header,
+    'pb-3 text-nowrap',
+  );
+
   return (
     <ColBlock>
-      <h3 className='pb-3'>Manga of the day</h3>
+      <h3 className={headerClasses}>Manga of the day</h3>
       <Carousel interval='10000' variant={mainColor} >
         <Carousel.Item>
           <img
