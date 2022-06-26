@@ -19,6 +19,11 @@ const GenreButton = (props) => {
     setClicked(current => !current);
   };
 
+  const buttonGroupClasses = cx(
+    styles.button_group,
+    'mb-2 me-2',
+  );
+
   const titleClasses = cx(
     styles.title,
     bgInvertedHoveredTheme,
@@ -29,11 +34,12 @@ const GenreButton = (props) => {
   const linkClasses = cx(
     bgInvertedHoveredTheme,
     titleHover && bgAccentTheme,
+    clicked && bgAccentTheme,
     'shadow-none border-0',
   );
 
   return (
-    <ButtonGroup className={styles.button_group}>
+    <ButtonGroup className={buttonGroupClasses}>
       <Button
         className={titleClasses}
         variant={clicked ? invertedColor : mainColor}
