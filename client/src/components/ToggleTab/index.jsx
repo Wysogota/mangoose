@@ -12,10 +12,15 @@ const ToggleTab = ({ eventKey, children }) => {
     document.activeElement === ref.current ? setFocused(true) : setFocused(false);
   }, [document.activeElement]);
 
+  const onClickHandle = () => {
+    decoratedOnClick();
+    setFocused(current => !current);
+  };
+
   return (
     <Button
       ref={ref}
-      onClick={decoratedOnClick}
+      onClick={onClickHandle}
       variant={focused ? invertedColor : outlineColor}
       className='me-2 shadow-none'
     >
