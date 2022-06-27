@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Col } from 'react-bootstrap';
 import cx from 'classnames';
 import styles from './ColBlock.module.scss';
 
-const ColBlock = (props) => {
+const ColBlock = (props, ref) => {
   const { className, innerClassName, children } = props;
   const { theme: { bgTheme } } = useSelector(({ themes }) => themes);
   const classes = cx(
@@ -19,7 +19,7 @@ const ColBlock = (props) => {
   );
 
   return (
-    <Col className={classes}>
+    <Col className={classes} ref={ref}>
       <div className={innerClasses}>
         {children}
       </div>
@@ -27,4 +27,4 @@ const ColBlock = (props) => {
   );
 };
 
-export default ColBlock;
+export default forwardRef(ColBlock);
