@@ -74,7 +74,7 @@ const Home = () => {
               <HeaderLink to='/news' title='Catalog' />
               <Genres setGenres={setGenres} />
             </ColBlock>
-            <MangaCatalog genres={genres} className='col-12 col-md-6 col-lg-4 col-xl-3' />
+            <MangaCatalog genres={genres} className='col-10 col-sm-7 col-md-6 col-lg-4 col-xl-3' />
             <Row><CatalogButton /></Row>
           </Row>
         </Col>}
