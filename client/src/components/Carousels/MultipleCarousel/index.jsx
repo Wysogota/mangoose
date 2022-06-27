@@ -76,6 +76,10 @@ const MultipleCarousel = (props) => {
     'carousel-' + invertedColor
   );
   const carouselContainerClasses = cx(!isOpen && 'hide');
+  const imageClasses = cx(
+    styles.image,
+    'rounded',
+  );
 
   const leftChevron = <span className={cx('carousel-control-prev-icon', styles.chevron)}></span>;
   const rightChevron = <span className={cx('carousel-control-next-icon', styles.chevron)}></span>;
@@ -97,7 +101,7 @@ const MultipleCarousel = (props) => {
         >
           {items.map(({ src, alt, to, title }) =>
             <div key={title} className={containerClasses}>
-              <img className={styles.image} src={src} alt={alt} />
+              <img className={imageClasses} src={src} alt={alt} />
               <bsCarousel.Caption>
                 <CarouselHeader to={to} className={styles.header}>{title}</CarouselHeader>
               </bsCarousel.Caption>

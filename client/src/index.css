@@ -12,3 +12,7 @@ a {
 a:hover {
   color: inherit;
 }
+
+.rounded {
+  border-radius: 1rem !important;
+}

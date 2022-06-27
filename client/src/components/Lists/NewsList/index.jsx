@@ -35,13 +35,19 @@ const data = [
 
 const NewsList = () => {
   const { theme: { mainColor, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
+
+  const groupClasses = cx(
+    styles.group,
+    'rounded',
+  );
+
   const itemClasses = cx(
     bgInvertedHoveredTheme,
     'p-0',
   );
 
   return (
-    <ListGroup className={styles.group}>
+    <ListGroup className={groupClasses}>
       {data.map(({ title, href, date }) =>
         <ListGroup.Item key={title + date} variant={mainColor} className={itemClasses}>
           <Link to={href} target='_blank' className='d-flex justify-content-between p-2'>

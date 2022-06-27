@@ -40,13 +40,19 @@ const data = [
 
 const NewCharaptersList = () => {
   const { theme: { mainColor, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
+
+  const groupClasses = cx(
+    styles.group,
+    'rounded',
+  );
+
   const itemClasses = cx(
     bgInvertedHoveredTheme,
     'p-0',
   );
 
   return (
-    <ListGroup className={styles.group}>
+    <ListGroup className={groupClasses}>
       {data.map(({ chapter, manga, href, date }) =>
         <ListGroup.Item key={chapter + date} variant={mainColor} className={itemClasses}>
           <Link to={href} target='_blank' className='d-block p-2'>
