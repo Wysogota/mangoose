@@ -16,3 +16,7 @@ a:hover {
 .rounded {
   border-radius: 1rem !important;
 }
+
+.text-left{
+  text-align: left;
+}
