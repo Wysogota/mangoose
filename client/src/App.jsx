@@ -10,6 +10,7 @@ import SignIn from './components/SignIn';
 import Profile from './pages/Profile';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 const App = () => {
   const { theme: { bgAccentTheme, mainTheme } } = useSelector(({ themes }) => themes);
@@ -31,6 +32,7 @@ const App = () => {
 
       <SignIn />
       <Sidebar />
+      <ScrollToTop showHeight={300} />
     </>
   );
 };
