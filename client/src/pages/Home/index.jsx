@@ -64,7 +64,7 @@ const Home = () => {
               <Genres setGenres={setGenres} />
             </ColBlock>
             <MangaCatalog genres={genres} className={mangaCatalogClasses} />
-            <Col xs='6' className='m-auto'><CatalogButton /></Col>
+            <Row><CatalogButton /></Row>
           </Row>
         </Col>
       </Row>
