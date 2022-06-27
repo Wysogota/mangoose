@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import SingleCarousel from '../../components/Carousels/SingleCarousel';
 import MultipleCarousel from '../../components/Carousels/MultipleCarousel';
@@ -9,9 +9,18 @@ import HeaderLink from '../../components/HeaderLink';
 import ColBlock from '../../components/Blocks/ColBlock';
 import CatalogButton from '../../components/Catalog/CatalogButton';
 import MangaCatalog from '../../components/Catalog/MangaCatalog';
+import Advertisement from '../../components/Advertisement';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
+  const isCarouselOpen = useSelector(({ carousels }) => carousels);
+
   const [genres, setGenres] = useState([]);
+  const [extendedCatalog, setExtendedCatalog] = useState(Object.values(isCarouselOpen).every((carousel) => carousel === true));
+
+  useEffect(() => {
+    setExtendedCatalog(Object.values(isCarouselOpen).every((carousel) => carousel === true));
+  }, [isCarouselOpen]);
 
   const NewCharapters = () => (
     <ColBlock title='New chapters'>
@@ -38,12 +47,28 @@ const Home = () => {
               <NewsList />
             </ColBlock>
           </Row>
+          {!extendedCatalog && <Col xs='12' >
+            <Row>
+              <ColBlock className='col-12'>
+                <HeaderLink to='/news' title='Catalog' />
+                <Genres setGenres={setGenres} />
+              </ColBlock>
+              <MangaCatalog genres={genres} className='col-12 col-md-4' />
+              <Row><CatalogButton /></Row>
+            </Row>
+          </Col>}
         </Col>
         <Col lg='3' className='d-none d-lg-block'>
           <Row><SingleCarousel /></Row>
           <Row><NewCharapters /></Row>
+          <Row>
+            <ColBlock >
+              <HeaderLink to='#' title='advertisement' />
+              <Advertisement />
+            </ColBlock>
+          </Row>
         </Col>
-        <Col xs='12'>
+        {extendedCatalog && <Col xs='12'>
           <Row>
             <ColBlock className='col-12'>
               <HeaderLink to='/news' title='Catalog' />
@@ -52,7 +77,7 @@ const Home = () => {
             <MangaCatalog genres={genres} className='col-12 col-md-6 col-lg-4 col-xl-3' />
             <Row><CatalogButton /></Row>
           </Row>
-        </Col>
+        </Col>}
       </Row>
     </Container>
   );
