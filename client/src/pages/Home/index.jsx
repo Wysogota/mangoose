@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap';
 import SingleCarousel from '../../components/Carousels/SingleCarousel';
 import MultipleCarousel from '../../components/Carousels/MultipleCarousel';
@@ -10,7 +11,6 @@ import ColBlock from '../../components/Blocks/ColBlock';
 import CatalogButton from '../../components/Catalog/CatalogButton';
 import MangaCatalog from '../../components/Catalog/MangaCatalog';
 import Advertisement from '../../components/Advertisement';
-import { useSelector } from 'react-redux';
 
 const Home = () => {
   const isCarouselOpen = useSelector(({ carousels }) => carousels);
