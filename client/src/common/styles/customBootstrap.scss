@@ -45,6 +45,7 @@ $carousel-dark-indicator-active-bg: $dark_main_color;
 
 .carousel-inner {
     border-radius: .5em;
+    border-radius: 1.5rem;
 }
 
 .carousel-dark {
@@ -81,6 +82,51 @@ $carousel-dark-indicator-active-bg: $dark_main_color;
 .list-group-item-light {
     color: $dark_main_color  !important;
     background-color: $light_accent_color  !important;
+}
+
+
+$accordion-button-color: inherit;
+$accordion-button-active-color: inherit;
+$accordion-button-active-bg: transparent;
+$accordion-bg: transparent;
+
+@mixin setIcon($icon, $color) {
+    mask-image: url('../../../public/static/icons/#{$icon}');
+    mask-size: cover;
+    background-image: none !important;
+    background-color: $color;
+}
+
+.accordion-light .accordion-button {
+    &::after {
+        @include setIcon('chevron-open.svg', $light_main_color);
+    }
+
+    &:not(.collapsed) {
+        &::after {
+            @include setIcon('chevron-close.svg', $light_main_color);
+        }
+    }
+}
+
+.accordion-dark .accordion-button {
+    &::after {
+        @include setIcon('chevron-open.svg', $dark_main_color);
+    }
+
+    &:not(.collapsed) {
+        &::after {
+            @include setIcon('chevron-close.svg', $dark_main_color);
+        }
+    }
+}
+
+.accordion-item {
+    border: none !important;
+}
+
+.accordion-button {
+    box-shadow: none !important;
 }
 
 @import "~bootstrap/scss/bootstrap";

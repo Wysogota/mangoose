@@ -1,20 +1,54 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Card } from 'react-bootstrap';
-import ColBlock from '../../Blocks/ColBlock';
+import { Accordion, Card, Carousel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import cx from 'classnames';
+import ColBlock from '../../Blocks/ColBlock';
+import styles from './MangaCard.module.scss';
 
 const MangaCard = (props) => {
-  const { title, desc, image, to } = props;
-  const { theme: { mainColor, hoveredTheme } } = useSelector(({ themes }) => themes);
+  const { title, desc, image, to, className } = props;
+  const { theme: { mainColor, invertedColor, mainTheme, hoveredTheme } } = useSelector(({ themes }) => themes);
+
+  const colBlockClasses = cx(
+    className,
+    'm-auto',
+  );
+
+  const cardClasses = cx(
+    styles.card,
+    'rounded',
+  );
+  const linkClasses = cx(
+    mainTheme,
+    hoveredTheme,
+    'fs-5',
+  );
+  const bodyClasses = cx(
+    mainTheme,
+    'text-left',
+  );
+
   return (
-    <ColBlock className='col-12 col-md-6 m-auto'>
-      <Card bg={mainColor} border={mainColor}>
-        <Card.Img src={image} />
-        <Card.Body>
-          <Card.Title className='fs-4'><Link to={to} className={hoveredTheme}>{title}</Link></Card.Title>
-          <Card.Text>{desc}</Card.Text>
-        </Card.Body>
+    <ColBlock className={colBlockClasses}>
+      <Card
+        bg={mainColor} border={mainColor}
+        className={cardClasses} style={{ backgroundImage: `url(${image})` }}
+      >
+        <div className={'carousel-' + invertedColor}>
+          <Carousel.Caption className='pt-0'>
+            <Accordion className={'accordion-' + invertedColor}>
+              <Accordion.Item eventKey='1'>
+                <Accordion.Header className='fs-3 d-flex justify-content-between' >
+                  <Link to={to} className={linkClasses}>{title}</Link>
+                </Accordion.Header>
+                <Accordion.Body className={bodyClasses}>
+                  {desc}
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+          </Carousel.Caption>
+        </div>
       </Card>
     </ColBlock>
   );
