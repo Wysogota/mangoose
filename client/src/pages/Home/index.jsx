@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import cx from 'classnames';
 import SingleCarousel from '../../components/Carousels/SingleCarousel';
 import MultipleCarousel from '../../components/Carousels/MultipleCarousel';
 import NewsList from '../../components/Lists/NewsList';
@@ -13,25 +12,12 @@ import MangaCatalog from '../../components/Catalog/MangaCatalog';
 
 const Home = () => {
   const [genres, setGenres] = useState([]);
-  const [extendedCatalog, setExtendedCatalog] = useState(false);
-  const genresRef = useRef(null);
-
-  useEffect(() => {
-    const scrollHandle = () => setExtendedCatalog(window.scrollY + 100 >= genresRef?.current.offsetTop);
-    window.addEventListener('scroll', scrollHandle);
-    return () => window.removeEventListener('scroll', scrollHandle);
-  }, []);
 
   const NewCharapters = () => (
     <ColBlock title='New chapters'>
       <HeaderLink to='#' title='New chapters' />
       <NewCharaptersList />
     </ColBlock>
-  );
-
-  const mangaCatalogClasses = cx(
-    'col-12 col-md-6',
-    extendedCatalog ? 'col-lg-4 col-xl-3' : 'col-xl-4',
   );
 
   return (
@@ -57,13 +43,13 @@ const Home = () => {
           <Row><SingleCarousel /></Row>
           <Row><NewCharapters /></Row>
         </Col>
-        <Col xs='12' lg={extendedCatalog ? '12' : '9'}>
+        <Col xs='12'>
           <Row>
-            <ColBlock className='col-12' ref={genresRef}>
+            <ColBlock className='col-12'>
               <HeaderLink to='/news' title='Catalog' />
               <Genres setGenres={setGenres} />
             </ColBlock>
-            <MangaCatalog genres={genres} className={mangaCatalogClasses} />
+            <MangaCatalog genres={genres} className='col-12 col-md-6 col-lg-4 col-xl-3' />
             <Row><CatalogButton /></Row>
           </Row>
         </Col>
