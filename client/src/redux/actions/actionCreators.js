@@ -31,3 +31,18 @@ export const toggleNewCarousel = () => ({
 export const toggleHotNewCarousel = () => ({
   type: ACTION_TYPES.TOGGLE_HOT_NEW_CAROUSEL,
 });
+
+
+
+export const getMangaRequest = (mangaId) => ({
+  type: ACTION_TYPES.GET_MANGA_REQUEST,
+  payload: { mangaId }
+});
+export const getMangaSuccess = (data) => ({
+  type: ACTION_TYPES.GET_MANGA_SUCCESS,
+  payload: { data },
+});
+export const getMangaError = (data) => ({
+  type: ACTION_TYPES.GET_MANGA_ERROR,
+  payload: { data },
+});
