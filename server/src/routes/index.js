@@ -4,6 +4,9 @@ const router = require('express').Router();
 
 fs.readdirSync(__dirname)
   .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
-  .forEach((file) => router.use('/', require('./' + file)));
+  .forEach((file) => {
+    const filename = file.slice(0, -3);
+    router.use(`/${filename}`, require(`./${filename}`));
+  });
 
 module.exports = router;
