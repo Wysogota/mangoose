@@ -2,6 +2,7 @@
 
 body {
   font-family: 'Nunito', sans-serif;
+  --footer-height: 96px;
 }
 
 a {
@@ -13,10 +14,16 @@ a:hover {
   color: inherit;
 }
 
+#root {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: var(--footer-height);
+}
+
 .rounded {
   border-radius: 1rem !important;
 }
 
-.text-left{
+.text-left {
   text-align: left;
 }
