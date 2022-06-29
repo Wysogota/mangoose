@@ -5,17 +5,14 @@ import SingleCarousel from '../../components/Carousels/SingleCarousel';
 import MultipleCarousel from '../../components/Carousels/MultipleCarousel';
 import NewsList from '../../components/Lists/NewsList';
 import NewCharaptersList from '../../components/Lists/NewCharaptersList';
-import Genres from '../../components/Catalog/Genres';
 import HeaderLink from '../../components/HeaderLink';
 import ColBlock from '../../components/Blocks/ColBlock';
-import CatalogButton from '../../components/Catalog/CatalogButton';
-import MangaCatalog from '../../components/Catalog/MangaCatalog';
 import Advertisement from '../../components/Advertisement';
+import HomeMangaCatalog from './HomeMangaCatalog';
 
 const Home = () => {
   const isCarouselOpen = useSelector(({ carousels }) => carousels);
 
-  const [genres, setGenres] = useState([]);
   const [extendedCatalog, setExtendedCatalog] = useState(Object.values(isCarouselOpen).every((carousel) => carousel === true));
 
   useEffect(() => {
@@ -47,16 +44,7 @@ const Home = () => {
               <NewsList />
             </ColBlock>
           </Row>
-          {!extendedCatalog && <Col xs='12' >
-            <Row>
-              <ColBlock className='col-12'>
-                <HeaderLink to='/news' title='Catalog' />
-                <Genres setGenres={setGenres} />
-              </ColBlock>
-              <MangaCatalog genres={genres} className='col-12 col-md-4' />
-              <Row><CatalogButton /></Row>
-            </Row>
-          </Col>}
+          {!extendedCatalog && <HomeMangaCatalog />}
         </Col>
         <Col lg='3' className='d-none d-lg-block'>
           <Row><SingleCarousel /></Row>
@@ -68,16 +56,7 @@ const Home = () => {
             </ColBlock>
           </Row>
         </Col>
-        {extendedCatalog && <Col xs='12'>
-          <Row>
-            <ColBlock className='col-12'>
-              <HeaderLink to='/news' title='Catalog' />
-              <Genres setGenres={setGenres} />
-            </ColBlock>
-            <MangaCatalog genres={genres} className='col-10 col-sm-7 col-md-6 col-lg-4 col-xl-3' />
-            <Row><CatalogButton /></Row>
-          </Row>
-        </Col>}
+        {extendedCatalog && <HomeMangaCatalog extendedCatalog />}
       </Row>
     </Container>
   );
