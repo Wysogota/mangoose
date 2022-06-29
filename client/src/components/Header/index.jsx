@@ -15,19 +15,12 @@ const Header = () => {
   const { theme: { mainTheme, bgTheme, invertedColor, outlineColor } } = useSelector(({ themes }) => themes);
   const { showSignIn } = bindActionCreators(actionCreators, useDispatch());
 
-  const [scrolled, setScrolled] = useState(window.scrollY !== 0);
-
-  useEffect(() => {
-    window.addEventListener('scroll', () => setScrolled(window.scrollY !== 0));
-    return () => window.removeEventListener('scroll', () => setScrolled(window.scrollY !== 0));
-  }, []);
-
 
   const headerClasses = cx(
     styles.header,
+    styles.fixed,
     mainTheme,
     bgTheme,
-    scrolled && styles.scrolled
   );
 
   return (
