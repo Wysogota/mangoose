@@ -3,6 +3,7 @@
 body {
   font-family: 'Nunito', sans-serif;
   --footer-height: 96px;
+  --header-height: 56px;
 }
 
 a {
@@ -15,9 +16,10 @@ a:hover {
 }
 
 #root {
+  padding-top: var(--header-height);
+  padding-bottom: var(--footer-height);
   position: relative;
   min-height: 100vh;
-  padding-bottom: var(--footer-height);
 }
 
 .rounded {
