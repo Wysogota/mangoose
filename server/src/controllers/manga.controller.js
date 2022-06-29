@@ -10,3 +10,13 @@ module.exports.getManga = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.getMangaList = async (req, res, next) => {
+  try {
+    const { query } = req;
+    const manga = await mangadex.getMangaList(query);
+    res.status(200).send({ data: manga });
+  } catch (error) {
+    next(error);
+  }
+};

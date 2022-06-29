@@ -22,8 +22,8 @@
     "lodash": "^4.17.21",
     "mongoose": "^6.3.8",
     "pg": "^8.7.3",
+    "query-string": "^7.1.1",
     "sequelize": "^6.20.1",
-    "unset-value": "^2.0.1",
     "yup": "^0.32.11"
   }
 }

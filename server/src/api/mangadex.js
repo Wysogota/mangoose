@@ -1,45 +1,30 @@
 const axios = require('axios');
-const unset = require('unset-value');
+const queryString = require('query-string');
 
 const client = axios.create({
   baseURL: 'https://api.mangadex.org',
 });
 
-const unsetFromManga = [
-  'attributes.isLocked',
-  'attributes.links',
-  'attributes.originalLanguage',
-  'attributes.publicationDemographic',
-  'attributes.chapterNumbersResetOnNewVolume',
-  'attributes.version',
-  'relationships',
-];
-
-const selectRelationshipsId = (manga, type) => manga.relationships.filter((item) => item.type === type)[0].id;
-
-const getCoverUrl = async (manga) => {
-  const coverId = selectRelationshipsId(manga, 'cover_art');
-  const { data: { data: { attributes: { fileName: coverArt } } } } = await client.get(`/cover/${coverId}`);
-  return `https://uploads.mangadex.org/covers/${manga.id}/${coverArt}`;
+const defaultListOptions = {
+  includedTagsMode: 'AND',
+  'excludedTags[]': 'b13b2a48-c720-44a9-9c77-39c9979373fb', /* -- doujinshi -- */
+  'contentRating[]': ['safe', 'suggestive'],
 };
 
-const getAuthorName = async (manga, type) => {
-  const authorId = selectRelationshipsId(manga, type);
-  const { data: { data: { attributes: { name } } } } = await client.get(`/author/${authorId}`);
-  return name;
+const relationshipsOptions = {
+  'includes[]': ['cover_art', 'author', 'artist']
 };
 
 
+module.exports.getMangaList = async (userOptions) => {
+  const options = Object.assign(userOptions, defaultListOptions, relationshipsOptions);
+  const query = queryString.stringify(options);
+  const { data: { data: mangaList } } = await client.get(`/manga?${query}`);
+  return mangaList;
+};
 
 module.exports.getManga = async (mangaId) => {
-  const { data: { data: manga } } = await client.get(`/manga/${mangaId}`);
-
-
-  manga.attributes.coverUrl = await getCoverUrl(manga);
-  manga.attributes.authors = {
-    author: await getAuthorName(manga, 'author'),
-    artist: await getAuthorName(manga, 'artist'),
-  };
-  unsetFromManga.forEach((prop) => unset(manga, prop));
+  const query = queryString.stringify(relationshipsOptions);
+  const { data: { data: manga } } = await client.get(`/manga/${mangaId}?&${query}`);
   return manga;
 };
