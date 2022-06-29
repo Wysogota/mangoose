@@ -1,5 +1,6 @@
 const axios = require('axios');
 const queryString = require('query-string');
+const Manga = require('../models/Manga');
 
 const client = axios.create({
   baseURL: 'https://api.mangadex.org',
@@ -17,14 +18,20 @@ const relationshipsOptions = {
 
 
 module.exports.getMangaList = async (userOptions) => {
-  const options = Object.assign(userOptions, defaultListOptions, relationshipsOptions);
+  const options = Object.assign(
+    userOptions,
+    defaultListOptions,
+    relationshipsOptions
+  );
   const query = queryString.stringify(options);
-  const { data: { data: mangaList } } = await client.get(`/manga?${query}`);
+  const { data: { data } } = await client.get(`/manga?${query}`);
+  const mangaList = data.map((item) => new Manga(item));
   return mangaList;
 };
 
 module.exports.getManga = async (mangaId) => {
   const query = queryString.stringify(relationshipsOptions);
-  const { data: { data: manga } } = await client.get(`/manga/${mangaId}?&${query}`);
+  const { data: { data } } = await client.get(`/manga/${mangaId}?&${query}`);
+  const manga = new Manga(data);
   return manga;
 };
