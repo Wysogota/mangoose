@@ -34,9 +34,12 @@ export const toggleHotNewCarousel = () => ({
 
 
 
-export const getMangaRequest = (mangaId) => ({
-  type: ACTION_TYPES.GET_MANGA_REQUEST,
+export const getManga = (mangaId) => ({
+  type: ACTION_TYPES.GET_MANGA,
   payload: { mangaId }
+});
+export const getMangaRequest = () => ({
+  type: ACTION_TYPES.GET_MANGA_REQUEST,
 });
 export const getMangaSuccess = (data) => ({
   type: ACTION_TYPES.GET_MANGA_SUCCESS,
@@ -44,5 +47,22 @@ export const getMangaSuccess = (data) => ({
 });
 export const getMangaError = (data) => ({
   type: ACTION_TYPES.GET_MANGA_ERROR,
+  payload: { data },
+});
+
+
+export const getMangaCatalog = (options) => ({
+  type: ACTION_TYPES.GET_MANGA_CATALOG,
+  payload: { options }
+});
+export const getMangaCatalogRequest = () => ({
+  type: ACTION_TYPES.GET_MANGA_CATALOG_REQUEST,
+});
+export const getMangaCatalogSuccess = (data) => ({
+  type: ACTION_TYPES.GET_MANGA_CATALOG_SUCCESS,
+  payload: { data },
+});
+export const getMangaCatalogError = (data) => ({
+  type: ACTION_TYPES.GET_MANGA_CATALOG_ERROR,
   payload: { data },
 });

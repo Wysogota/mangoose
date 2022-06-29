@@ -5,7 +5,7 @@ import signInReducer from './signIn';
 import sidebarReducer from './sidebar';
 import authReducer from './auth';
 import carouselReducer from './carousels';
-import getMangaReducer from './getManga';
+import mangaReducer from './manga';
 
 const rootReducer = combineReducers({
   locales: localeReducer,
@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
   sidebar: sidebarReducer,
   auth: authReducer,
   carousels: carouselReducer,
-  getManga: getMangaReducer,
+  manga: mangaReducer,
 });
 
 export default rootReducer;
