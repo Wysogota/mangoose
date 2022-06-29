@@ -40,7 +40,7 @@ const MangaCard = (props) => {
             <Accordion className={'accordion-' + invertedColor}>
               <Accordion.Item eventKey='1'>
                 <Accordion.Header className='fs-3 d-flex justify-content-between' >
-                  <Link to={to} className={linkClasses}>{title}</Link>
+                  <Link to={`/title/${to}`} className={linkClasses}>{title}</Link>
                 </Accordion.Header>
                 <Accordion.Body className={bodyClasses}>
                   {desc}
