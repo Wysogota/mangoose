@@ -130,4 +130,51 @@ $accordion-bg: transparent;
     box-shadow: none !important;
 }
 
+
+.nav-tabs-light.nav-tabs {
+    border-bottom-color: $dark_active_color;
+
+    .nav-link {
+        color: $dark_main_color;
+        border: none;
+        border-bottom: 1px solid $dark_active_color;
+
+        &:hover,
+        &:focus {
+            background-color: $light_active_color;
+            border-color: $dark_active_color;
+        }
+    }
+
+    .nav-link.active,
+    .nav-item.show .nav-link {
+        color: $light_main_color;
+        background-color: $dark_active_color;
+        border-color: $dark_active_color;
+    }
+}
+
+.nav-tabs-dark.nav-tabs {
+    border-bottom-color: $light_active_color;
+
+    .nav-link {
+        color: $light_main_color;
+        border: none;
+        border-bottom: 1px solid $light_active_color;
+
+        &:hover,
+        &:focus {
+            background-color: $dark_active_color;
+            border-color: $light_active_color;
+        }
+    }
+
+    .nav-link.active,
+    .nav-item.show .nav-link {
+        color: $dark_main_color;
+        background-color: $light_active_color;
+        border-color: $light_active_color;
+    }
+}
+
 @import "~bootstrap/scss/bootstrap";
