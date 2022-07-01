@@ -6,6 +6,7 @@ import sidebarReducer from './sidebar';
 import authReducer from './auth';
 import carouselReducer from './carousels';
 import mangaReducer from './manga';
+import coverReducer from './cover';
 
 const rootReducer = combineReducers({
   locales: localeReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   carousels: carouselReducer,
   manga: mangaReducer,
+  cover: coverReducer,
 });
 
 export default rootReducer;
