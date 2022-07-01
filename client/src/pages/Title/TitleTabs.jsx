@@ -2,9 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Tab, Tabs } from 'react-bootstrap';
 import Tags from '../../components/Title/Tags';
+import Arts from '../../components/Title/Arts';
 
 const TitleTabs = (props) => {
-  const { desc, tags } = props;
+  const { mangaId, desc, tags } = props;
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
 
   return (
@@ -14,6 +15,8 @@ const TitleTabs = (props) => {
           <div >{desc}</div>
           <br />
           <Tags data={tags} />
+          <br />
+          <Arts mangaId={mangaId}/>
         </Tab.Content>
       </Tab>
       <Tab eventKey='chapters' title='Chapters'>
