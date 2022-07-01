@@ -19,10 +19,7 @@ const HomeMangaCatalog = ({ extendedCatalog }) => {
   const { getMangaCatalog } = bindActionCreators(actionCreators, useDispatch());
   const [genres, setGenres] = useState([]);
 
-  useEffect(() => {
-    getMangaCatalog(options);
-  }, []);
-
+  useEffect(() => getMangaCatalog(options), []);
 
   const catalogClasses = extendedCatalog
     ? 'col-10 col-sm-7 col-md-6 col-lg-4 col-xl-3'
@@ -38,7 +35,7 @@ const HomeMangaCatalog = ({ extendedCatalog }) => {
         {mangaCatalog.length &&
           <MangaCatalog catalog={mangaCatalog} genres={genres} className={catalogClasses} />
         }
-        <Row><CatalogButton /></Row>
+        <Row className='pt-5'><CatalogButton /></Row>
       </Row>
     </Col>
   );

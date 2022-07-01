@@ -27,7 +27,7 @@ const Home = () => {
   );
 
   return (
-    <Container className='pt-5 pb-5'>
+    <Container>
       <Row>
         <Col xs='12' lg='9'>
           <Row><MultipleCarousel stateName='Popular' title='Popular' to='#' /></Row>

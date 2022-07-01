@@ -20,7 +20,7 @@ const Catalog = () => {
   useEffect(() => getMangaCatalog(options), []);
 
   return (
-    <Container className='pt-5 pb-5'>
+    <Container>
       <Row>
         <ColBlock className='col-12'>
           <h3 className='pb-3'>Catalog</h3>

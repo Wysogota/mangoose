@@ -22,6 +22,10 @@ a:hover {
   min-height: 100vh;
 }
 
+#content{
+  padding: 3rem 0;
+}
+
 .rounded {
   border-radius: 1rem !important;
 }
