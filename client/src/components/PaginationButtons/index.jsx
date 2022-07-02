@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Pagination } from 'react-bootstrap';
 import cx from 'classnames';
-import styles from './PaginationButtons.module.scss';
 
 const PaginationButtons = (props) => {
   const { itemCount, limit, currentPage, setCurrentPage } = props;
+  const { theme: { mainColor } } = useSelector(({ themes }) => themes);
   const pageCount = Math.ceil(itemCount / limit);
 
   const pageItemClasses = (i) => cx(
@@ -37,61 +38,66 @@ const PaginationButtons = (props) => {
     });
   };
 
-  const startLinkClasses = cx(
-    'page-link',
-    (currentPage === 0) && styles.disabled,
+  const startItemClasses = cx(
+    'page-item',
+    (currentPage === 0) && 'disabled',
   );
-  const endLinkClasses = cx(
-    'page-link',
-    (currentPage === pageCount - 1) && styles.disabled,
+  const endItemClasses = cx(
+    'page-item',
+    (currentPage === pageCount - 1) && 'disabled',
   );
 
   const First = () => (
-    <li className='page-item'>
+    <li className={startItemClasses}>
       <Link
         to='?page=1'
         onClick={() => setCurrentPage(0)}
-        className={startLinkClasses}>
+        className='page-link'>
         «
       </Link>
     </li>
   );
 
   const Prev = () => (
-    <li className='page-item'>
+    <li className={startItemClasses}>
       <Link
         to={`?page=${currentPage}`}
         onClick={() => setCurrentPage(current => current - 1)}
-        className={startLinkClasses}>
+        className='page-link'>
         ‹
       </Link>
     </li>
   );
 
   const Next = () => (
-    <li className='page-item'>
+    <li className={endItemClasses}>
       <Link
         to={`?page=${currentPage + 2}`}
         onClick={() => setCurrentPage(current => current + 1)}
-        className={endLinkClasses}>
+        className='page-link'>
         ›
       </Link>
     </li>
   );
 
   const Last = () => (
-    <li className='page-item'>
+    <li className={endItemClasses}>
       <Link
         to={`?page=${pageCount}`}
         onClick={() => setCurrentPage(pageCount - 1)}
-        className={endLinkClasses}>
+        className='page-link'>
         »
       </Link>
     </li>
   );
 
+  const paginationClasses = cx(
+    'justify-content-center pt-3',
+    `pagination-${mainColor}`,
+  );
+
   return (
-    <Pagination className='justify-content-center pt-3'>
+    <Pagination className={paginationClasses}>
       <First />
       <Prev />
       <PageItems />
