@@ -5,7 +5,7 @@ import { Pagination } from 'react-bootstrap';
 import cx from 'classnames';
 
 const PaginationButtons = (props) => {
-  const { itemCount, limit, currentPage, setCurrentPage } = props;
+  const { itemCount, limit, pageName, currentPage, setCurrentPage } = props;
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
   const pageCount = Math.ceil(itemCount / limit);
 
@@ -27,7 +27,7 @@ const PaginationButtons = (props) => {
       return (
         <li key={page + 1} className={pageItemClasses(page)}>
           <Link
-            to={`?page=${page + 1}`}
+            to={`?${pageName}=${page + 1}`}
             onClick={() => setCurrentPage(page)}
             className='page-link'
           >
@@ -50,7 +50,7 @@ const PaginationButtons = (props) => {
   const First = () => (
     <li className={startItemClasses}>
       <Link
-        to='?page=1'
+        to={`?${pageName}=1`}
         onClick={() => setCurrentPage(0)}
         className='page-link'>
         «
@@ -61,7 +61,7 @@ const PaginationButtons = (props) => {
   const Prev = () => (
     <li className={startItemClasses}>
       <Link
-        to={`?page=${currentPage}`}
+        to={`?${pageName}=${currentPage}`}
         onClick={() => setCurrentPage(current => current - 1)}
         className='page-link'>
         ‹
@@ -72,7 +72,7 @@ const PaginationButtons = (props) => {
   const Next = () => (
     <li className={endItemClasses}>
       <Link
-        to={`?page=${currentPage + 2}`}
+        to={`?${pageName}=${currentPage + 2}`}
         onClick={() => setCurrentPage(current => current + 1)}
         className='page-link'>
         ›
@@ -83,7 +83,7 @@ const PaginationButtons = (props) => {
   const Last = () => (
     <li className={endItemClasses}>
       <Link
-        to={`?page=${pageCount}`}
+        to={`?${pageName}=${pageCount}`}
         onClick={() => setCurrentPage(pageCount - 1)}
         className='page-link'>
         »

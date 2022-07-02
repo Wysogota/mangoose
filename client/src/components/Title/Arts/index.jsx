@@ -11,6 +11,7 @@ import PaginationButtons from '../../PaginationButtons';
 import styles from './Arts.module.scss';
 
 const limit = 5;
+const pageName = 'art-page';
 
 const options = (options) => ({
   mangaId: options.mangaId,
@@ -25,7 +26,7 @@ const Arts = (props) => {
   const { getMangaCovers } = bindActionCreators(actionCreators, useDispatch());
 
   const [searchParams] = useSearchParams();
-  const paramValue = Number.parseInt(searchParams.get('page')) - 1;
+  const paramValue = Number.parseInt(searchParams.get(pageName)) - 1;
   const [currentPage, setCurrentPage] = useState(paramValue | 0);
 
   useEffect(() => {
@@ -62,7 +63,7 @@ const Arts = (props) => {
       </Col>
       <Col>
         <PaginationButtons
-          itemCount={covers.total} limit={limit}
+          itemCount={covers.total} limit={limit} pageName={pageName}
           currentPage={currentPage} setCurrentPage={setCurrentPage}
         />
       </Col>
