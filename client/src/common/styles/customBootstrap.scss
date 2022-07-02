@@ -187,14 +187,11 @@ $accordion-bg: transparent;
         border: none;
 
         &:hover {
-            z-index: 2;
-            color: $light_main_color;
-            background-color: $dark_active_color;
+            background-color: $light_active_color;
         }
 
         &:focus {
-            color: $light_main_color;
-            background-color: $dark_active_color;
+            background-color: $light_active_color;
             outline: none;
             box-shadow: none;
         }
@@ -220,14 +217,11 @@ $accordion-bg: transparent;
         border: none;
 
         &:hover {
-            z-index: 2;
-            color: $dark_main_color;
-            background-color: $light_active_color;
+            background-color: $dark_active_color;
         }
 
         &:focus {
-            color: $dark_main_color;
-            background-color: $light_active_color;
+            background-color: $dark_active_color;
             outline: none;
             box-shadow: none;
         }
