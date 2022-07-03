@@ -1,0 +1,38 @@
+@import '../../../common/styles/colors';
+
+.tags_container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.visible_container {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.conatiner {
+  &>* {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.toggle {
+  box-shadow: none !important;
+}
+
+.toggle.toggle-light {
+  background-color: transparent;
+  border: none;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: $light_main_color  !important;
+  }
+}
+
+.button {
+  min-width: 100px !important;
+  font-size: 0.8rem !important;
+}
