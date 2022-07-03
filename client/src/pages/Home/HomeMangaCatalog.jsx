@@ -15,7 +15,7 @@ const options = {
 };
 
 const HomeMangaCatalog = ({ extendedCatalog }) => {
-  const { mangaCatalog, isFetching } = useSelector(({ manga }) => manga);
+  const { mangaCatalog, isFetching } = useSelector(({ mangaCatalog }) => mangaCatalog);
   const { getMangaCatalog } = bindActionCreators(actionCreators, useDispatch());
   const [genres, setGenres] = useState([]);
 

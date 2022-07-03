@@ -13,7 +13,7 @@ const options = {
 };
 
 const Catalog = () => {
-  const { mangaCatalog, isFetching } = useSelector(({ manga }) => manga);
+  const { mangaCatalog, isFetching } = useSelector(({ mangaCatalog }) => mangaCatalog);
   const { getMangaCatalog } = bindActionCreators(actionCreators, useDispatch());
   const [genres, setGenres] = useState([]);
 

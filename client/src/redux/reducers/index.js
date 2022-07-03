@@ -5,8 +5,9 @@ import signInReducer from './signIn';
 import sidebarReducer from './sidebar';
 import authReducer from './auth';
 import carouselReducer from './carousels';
-import mangaReducer from './manga';
-import coverReducer from './cover';
+import mangaReducer from './mangaApi/manga';
+import mangaCatalogReducer from './mangaApi/mangaCatalog';
+import coverReducer from './mangaApi/cover';
 
 const rootReducer = combineReducers({
   locales: localeReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   carousels: carouselReducer,
   manga: mangaReducer,
+  mangaCatalog: mangaCatalogReducer,
   cover: coverReducer,
 });
 

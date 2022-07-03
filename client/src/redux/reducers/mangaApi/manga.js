@@ -1,24 +1,24 @@
 import produce from 'immer';
-import ACTION_TYPES from '../actions/actionTypes';
+import ACTION_TYPES from '../../actions/actionTypes';
 
 const initialState = {
-  covers: [],
+  manga: null,
   isFetching: false,
   error: null,
 };
 
 const handlers = {
-  [ACTION_TYPES.GET_MANGA_COVERS_REQUEST]: produce((draftState, action) => {
+  [ACTION_TYPES.GET_MANGA_REQUEST]: produce((draftState, action) => {
     draftState.isFetching = true;
     draftState.error = null;
   }),
 
-  [ACTION_TYPES.GET_MANGA_COVERS_SUCCESS]: produce((draftState, action) => {
+  [ACTION_TYPES.GET_MANGA_SUCCESS]: produce((draftState, action) => {
     draftState.isFetching = false;
-    draftState.covers = action.payload.data;
+    draftState.manga = action.payload.data;
   }),
 
-  [ACTION_TYPES.GET_MANGA_COVERS_ERROR]: produce((draftState, action) => {
+  [ACTION_TYPES.GET_MANGA_ERROR]: produce((draftState, action) => {
     draftState.isFetching = false;
     draftState.error = action.payload.error;
   }),
