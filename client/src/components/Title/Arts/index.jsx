@@ -27,7 +27,7 @@ const Arts = (props) => {
 
   const [searchParams] = useSearchParams();
   const paramValue = Number.parseInt(searchParams.get(pageName)) - 1;
-  const [currentPage, setCurrentPage] = useState(paramValue | 0);
+  const [currentPage, setCurrentPage] = useState(paramValue || 0);
 
   useEffect(() => {
     getMangaCovers(options({ mangaId: mangaId, offset: limit * currentPage }));

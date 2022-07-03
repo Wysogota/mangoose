@@ -18,7 +18,7 @@ const Tags = (props) => {
     <Col>
       <Col className={containerClasses} xs='8'>
         <MainHeader>Tags</MainHeader>
-        <div className='d-flex flex-wrap'><TagButtons tags={data} /></div>
+        <TagButtons tags={data} />
       </Col>
       <Col></Col>
     </Col>

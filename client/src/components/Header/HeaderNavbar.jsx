@@ -7,7 +7,7 @@ import styles from './Header.module.scss';
 const { Catalog, Search, FAQ, News, Contacts, Random, Theme } = NavItems;
 
 const HeaderNavbar = () => {
-  const { theme: { invertedColor, mainColor, invertedHoveredTheme, mainTheme } } = useSelector(({ themes }) => themes);
+  const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
 
   const navbarClasses = cx(
     styles.navbar,

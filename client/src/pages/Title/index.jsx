@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
-import { Button, Col, Container, Row, Spinner, Tab, Tabs } from 'react-bootstrap';
+import { Button, Col, Container, Row, Spinner } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import _ from 'lodash';
+import ColBlock from '../../components/Blocks/ColBlock';
 import MainHeader from '../../components/Headers/MainHeader';
 import TitleTabs from './TitleTabs';
 import Cover from '../../components/Title/Cover';
@@ -16,7 +17,7 @@ const Title = () => {
   const { getManga } = bindActionCreators(actionCreators, useDispatch());
 
   const { mangaId } = useParams();
-  useEffect(() => getManga(mangaId), []);
+  useEffect(() => getManga({ mangaId }), []);
 
   if (_.isEmpty(manga) || isFetching) {
     return (
@@ -54,19 +55,23 @@ const Title = () => {
     return (
       <Container>
         <Row className='justify-content-between'>
-          <Col xs='12' lg='3'>
+          <ColBlock className='col-12 col-lg-3'>
             <Cover image={coverUrl} alt={title} />
-            <Button variant={invertedColor} className='w-100 pt-2 pb-2 text-uppercase' style={{ fontWeight: 600 }}>Start reading</Button>
-          </Col>
-          <Col xs='12' lg='8'>
-            <Row>
+            <Button
+              variant={invertedColor}
+              className='w-100 pt-2 pb-2 text-uppercase'
+              style={{ fontWeight: 600 }}
+            >Start reading</Button>
+          </ColBlock>
+          <ColBlock className='col-12 col-lg-9'>
+            <Col>
               <MainHeader className='fs-1'>{title}</MainHeader>
               <MainHeader className='fs-6'>{altTitles.join(' | ')}</MainHeader>
-            </Row>
-            <Row>
-              <TitleTabs desc={desc} tags={tags}/>
-            </Row>
-          </Col>
+            </Col>
+            <Col>
+              <TitleTabs mangaId={mangaId} desc={desc} tags={tags} relationships={relationships} />
+            </Col>
+          </ColBlock>
         </Row>
       </Container>
     );
