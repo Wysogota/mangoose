@@ -17,7 +17,7 @@ const Title = () => {
   const { getManga } = bindActionCreators(actionCreators, useDispatch());
 
   const { mangaId } = useParams();
-  useEffect(() => getManga({ mangaId }), []);
+  useEffect(() => getManga({ mangaId }), [mangaId]);
 
   if (_.isEmpty(manga) || isFetching) {
     return (
