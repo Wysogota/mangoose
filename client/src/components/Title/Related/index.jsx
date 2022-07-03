@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
 import { Spinner } from 'react-bootstrap';
 import MainHeader from '../../Headers/MainHeader';
+import MinorHeader from '../../Headers/MinorHeader';
 import { isEmpty } from 'lodash';
 import { selectRelationshipAttr } from '../../../common/functions';
 import RelatedCard from '../RelatedCard';
@@ -40,9 +41,9 @@ const Related = (props) => {
   return (
     <div>
       <MainHeader>Related</MainHeader>
-      {(isEmpty(relatedManga) || isFetching)
+      {isFetching
         ? <Spinner animation='border' role='status'></Spinner>
-        : relatedManga.map(({
+        : <>{relatedManga.map(({
           id, related, relationships,
           attributes: {
             title, description, status, tags
@@ -58,6 +59,8 @@ const Related = (props) => {
             tags={tags}
           />
         ))}
+          {isEmpty(relatedManga) && <MinorHeader className='text-center'>No Related</MinorHeader>}</>
+      }
     </div>
   );
 };
