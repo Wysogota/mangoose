@@ -14,6 +14,7 @@ const TagButtons = (props) => {
   const tagsRef = useRef([]);
   const overflowedTagsRef = useRef([]);
   const [containerPosition, setContainerPosition] = useState();
+  const [shouldDisplayDropdown, setShouldDisplayDropdown] = useState(false);
 
   const getConatinerPosition = () => {
     const { offsetWidth, offsetLeft } = containerRef.current;
@@ -30,7 +31,7 @@ const TagButtons = (props) => {
 
   useEffect(() => {
     if (shouldOverflow) {
-      if (!isEmpty(tagsRef)) {
+      if (!isEmpty(tagsRef.current)) {
         tagsRef.current.forEach((tag) => {
           const tagPosition = tag.offsetLeft + tag.offsetWidth;
           const hideClassName = 'invisible';
@@ -39,13 +40,15 @@ const TagButtons = (props) => {
             ? tag.classList.add(hideClassName)
             : tag.classList.remove(hideClassName);
         });
+        setShouldDisplayDropdown(!tagsRef.current.every((tag) => !tag.classList.contains('invisible')));
       }
 
-      if (!isEmpty(overflowedTagsRef)) {
+      if (!isEmpty(overflowedTagsRef.current)) {
         overflowedTagsRef.current.forEach((tag, i) => {
           const tagPosition = tagsRef.current[i].offsetLeft + tagsRef.current[i].offsetWidth;
           const hideClassName = 'd-none';
 
+          if (!tag) return;
           tagPosition < containerPosition
             ? tag.classList.add(hideClassName)
             : tag.classList.remove(hideClassName);
@@ -92,7 +95,7 @@ const TagButtons = (props) => {
           );
         })
       }</div>
-      {shouldOverflow && <Dropdown>
+      {shouldOverflow && shouldDisplayDropdown && <Dropdown>
         <Dropdown.Toggle className={toggleClasses} variant={mainColor}></Dropdown.Toggle>
         <Dropdown.Menu variant={invertedColor} align='end' renderOnMount>{
           tags.map(({ attributes: { name } }, i) => {
