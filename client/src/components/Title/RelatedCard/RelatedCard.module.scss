@@ -1,3 +1,5 @@
+@import '../../../common/styles/colors';
+
 $card-height: 220px;
 
 .tags_container {
@@ -8,6 +10,15 @@ $card-height: 220px;
 
 .card {
   height: $card-height;
+  border: none !important;
+}
+
+.card.card-light {
+  background-color: $light_accent_color ;
+}
+
+.card.card-dark {
+  background-color: $dark_accent_color;
 }
 
 .image {
@@ -24,12 +35,34 @@ $card-height: 220px;
 }
 
 .status {
-  // background-color: black;
+  width: 90px;
+  padding: 0.2rem;
+  margin-bottom: 0.5rem;
+  margin-left: 0.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.status.status-light {
+  background-color: rgba($dark_main_color, 0.1);
+}
+
+.status.status-dark {
+  background-color: rgba($light_main_color, 0.1);
 }
 
 .description {
+  height: 72px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.tag-light {
+  background-color: $dark_active_color  !important;
+}
+
+.tag-dark {
+  background-color: $light_active_color  !important;
 }

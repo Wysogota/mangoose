@@ -7,8 +7,8 @@ import styles from './TagButtons.module.scss';
 import CONSTANTS from '../../../constants';
 
 const TagButtons = (props) => {
-  const { tags, shouldOverflow } = props;
-  const { theme, theme: { invertedColor, mainColor } } = useSelector(({ themes }) => themes);
+  const { tags, tagClassName, shouldOverflow } = props;
+  const { theme, theme: { invertedColor, mainColor, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
 
   const containerRef = useRef(null);
   const tagsRef = useRef([]);
@@ -69,12 +69,14 @@ const TagButtons = (props) => {
   );
 
   const tagsClasses = cx(
-    styles.button,
+    styles.tag,
+    tagClassName,
     'p-1 me-2'
   );
 
   const overflowedTagsClasses = cx(
-    styles.button,
+    styles.overflow_tag,
+    bgInvertedHoveredTheme,
     'p-1 me-2 w-100'
   );
 
@@ -101,14 +103,13 @@ const TagButtons = (props) => {
           tags.map(({ attributes: { name } }, i) => {
             const localeName = name[CONSTANTS.DEFAULT_LOCALE];
             return (
-              <Button
+              <Dropdown.Item
                 key={localeName}
                 ref={(tag) => overflowedTagsRef.current[i] = tag}
-                variant={mainColor}
                 className={overflowedTagsClasses}
               >
                 {localeName}
-              </Button>
+              </Dropdown.Item>
             );
           })
         }</Dropdown.Menu>
