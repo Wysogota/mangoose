@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { Col, Tab, Tabs } from 'react-bootstrap';
@@ -13,10 +13,18 @@ const TitleTabs = (props) => {
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
   const { info, chapters, related, commets } = CONSTANTS.TITLE_TABS;
   const [searchParams] = useSearchParams();
-  const paramValue = searchParams.get('tab');
+  const [paramValue, setParamValue] = useState(searchParams.get('tab'));
+  useEffect(() => setParamValue(searchParams.get('tab')), [searchParams]);
 
   return (
-    <Tabs justify defaultActiveKey={paramValue || info} className={`nav-tabs-${mainColor}`} data-link-tab='link-tab' mountOnEnter>
+    <Tabs
+      justify
+      activeKey={paramValue || info}
+      onSelect={(key) => setParamValue(key)}
+      className={`nav-tabs-${mainColor}`}
+      data-link-tab='link-tab'
+      mountOnEnter
+    >
       <Tab eventKey={info} title={<TabLink to={info}>Information</TabLink>}>
         <Tab.Content>
           <Col>{desc}</Col>
