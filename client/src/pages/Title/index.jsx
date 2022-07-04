@@ -10,6 +10,8 @@ import MainHeader from '../../components/Headers/MainHeader';
 import TitleTabs from './TitleTabs';
 import Cover from '../../components/Title/Cover';
 import CONSTANTS from '../../constants';
+import TitleInfoList from './TitleInfoList';
+import { selectRelationshipAttr } from '../../common/functions';
 
 const Title = () => {
   const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
@@ -50,18 +52,27 @@ const Title = () => {
         .map((item) => item[CONSTANTS.DEFAULT_LOCALE])
     ];
 
-    const coverUrl = relationships.filter((item) => item.type === 'cover_art')[0].attributes.url;
+    const { cover_art, author: { name: authorName }, artist: { name: atristName } } = selectRelationshipAttr(
+      relationships,
+      ['cover_art', 'author', 'artist']
+    );
+
+    const { status, lastChapter, publicationDemographic, year } = attributes;
+    const titleInfoAttr = {
+      status, lastChapter, publicationDemographic, year, authorName, atristName
+    };
 
     return (
       <Container>
         <Row className='justify-content-between'>
           <ColBlock className='col-12 col-lg-3'>
-            <Cover image={coverUrl} alt={title} />
+            <Cover image={cover_art.url} alt={title} />
             <Button
               variant={invertedColor}
-              className='w-100 pt-2 pb-2 text-uppercase'
+              className='w-100 pt-2 pb-2 mb-3 text-uppercase'
               style={{ fontWeight: 600 }}
             >Start reading</Button>
+            <TitleInfoList attributes={titleInfoAttr} />
           </ColBlock>
           <ColBlock className='col-12 col-lg-9'>
             <Col>
