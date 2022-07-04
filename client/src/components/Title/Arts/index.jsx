@@ -9,10 +9,10 @@ import cx from 'classnames';
 import MainHeader from '../../Headers/MainHeader';
 import PaginationButtons from '../../PaginationButtons';
 import styles from './Arts.module.scss';
+import CONSTANTS from '../../../constants';
+const { PARAM_NAME: { page } } = CONSTANTS;
 
 const limit = 5;
-const pageName = 'art-page';
-
 const options = (options) => ({
   mangaId: options.mangaId,
   limit,
@@ -20,18 +20,35 @@ const options = (options) => ({
 });
 
 const Arts = (props) => {
-  const { mangaId } = props;
+  const { mangaId, paramName, tabParamValue } = props;
   const { covers, isFetching } = useSelector(({ cover }) => cover);
   const { theme: { bgAccentTheme } } = useSelector(({ themes }) => themes);
   const { getMangaCovers } = bindActionCreators(actionCreators, useDispatch());
 
-  const [searchParams] = useSearchParams();
-  const paramValue = Number.parseInt(searchParams.get(pageName)) - 1;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const paramValue = Number.parseInt(searchParams.get(page)) - 1;
   const [currentPage, setCurrentPage] = useState(paramValue || 0);
+  const [existedParams, setExistedParams] = useState([]);
 
   useEffect(() => {
-    getMangaCovers(options({ mangaId: mangaId, offset: limit * currentPage }));
+    getMangaCovers(options({
+      mangaId: mangaId,
+      offset: limit * currentPage
+    }));
   }, [currentPage]);
+
+  useEffect(() => {
+    const paramValue = searchParams.get(paramName);
+    if (paramValue) {
+      setExistedParams([`${paramName}=${paramValue}`]);
+      if (!searchParams.get(page) && paramValue === tabParamValue) {
+        setSearchParams({
+          [paramName]: paramValue,
+          [page]: currentPage + 1
+        });
+      }
+    }
+  }, [searchParams]);
 
   const containerClasses = cx(
     styles.arts_conatiner,
@@ -63,8 +80,9 @@ const Arts = (props) => {
       </Col>
       <Col>
         <PaginationButtons
-          itemCount={covers.total} limit={limit} pageName={pageName}
+          itemCount={covers.total} limit={limit}
           currentPage={currentPage} setCurrentPage={setCurrentPage}
+          existedParams={existedParams}
         />
       </Col>
     </Col>

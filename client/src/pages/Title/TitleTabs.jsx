@@ -7,6 +7,7 @@ import Arts from '../../components/Title/Arts';
 import Related from '../../components/Title/Related';
 import TabLink from '../../components/Tabs/TabLink';
 import CONSTANTS from '../../constants';
+const { PARAM_NAME: { tab } } = CONSTANTS;
 
 const TitleTabs = (props) => {
   const { mangaId, desc, tags, relationships } = props;
@@ -31,7 +32,7 @@ const TitleTabs = (props) => {
           <br />
           <Tags data={tags} />
           <br />
-          <Arts mangaId={mangaId} />
+          <Arts mangaId={mangaId} paramName={tab} tabParamValue={info}/>
         </Tab.Content>
       </Tab>
       <Tab eventKey={chapters} title={<TabLink to={chapters}>Chapters</TabLink>}>

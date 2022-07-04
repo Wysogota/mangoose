@@ -3,11 +3,17 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Pagination } from 'react-bootstrap';
 import cx from 'classnames';
+import CONSTANTS from '../../constants';
+const { PARAM_NAME: { page: pageName } } = CONSTANTS;
 
 const PaginationButtons = (props) => {
-  const { itemCount, limit, pageName, currentPage, setCurrentPage } = props;
+  const { itemCount, limit, currentPage, setCurrentPage, existedParams } = props;
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
   const pageCount = Math.ceil(itemCount / limit);
+
+  const getUrl = (page) => existedParams
+    ? `?${existedParams}&${pageName}=${page}`
+    : `?${pageName}=${page}`;
 
   const pageItemClasses = (i) => cx(
     'page-item',
@@ -27,7 +33,7 @@ const PaginationButtons = (props) => {
       return (
         <li key={page + 1} className={pageItemClasses(page)}>
           <Link
-            to={`?${pageName}=${page + 1}`}
+            to={getUrl(page + 1)}
             onClick={() => setCurrentPage(page)}
             className='page-link'
           >
@@ -50,7 +56,7 @@ const PaginationButtons = (props) => {
   const First = () => (
     <li className={startItemClasses}>
       <Link
-        to={`?${pageName}=1`}
+        to={getUrl(1)}
         onClick={() => setCurrentPage(0)}
         className='page-link'>
         «
@@ -61,7 +67,7 @@ const PaginationButtons = (props) => {
   const Prev = () => (
     <li className={startItemClasses}>
       <Link
-        to={`?${pageName}=${currentPage}`}
+        to={getUrl(currentPage)}
         onClick={() => setCurrentPage(current => current - 1)}
         className='page-link'>
         ‹
@@ -72,7 +78,7 @@ const PaginationButtons = (props) => {
   const Next = () => (
     <li className={endItemClasses}>
       <Link
-        to={`?${pageName}=${currentPage + 2}`}
+        to={getUrl(currentPage + 2)}
         onClick={() => setCurrentPage(current => current + 1)}
         className='page-link'>
         ›
@@ -83,7 +89,7 @@ const PaginationButtons = (props) => {
   const Last = () => (
     <li className={endItemClasses}>
       <Link
-        to={`?${pageName}=${pageCount}`}
+        to={getUrl(pageCount)}
         onClick={() => setCurrentPage(pageCount - 1)}
         className='page-link'>
         »
