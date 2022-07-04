@@ -16,7 +16,7 @@ const Tags = (props) => {
 
   return (
     <Col>
-      <Col className={containerClasses} xs='8'>
+      <Col className={containerClasses}>
         <MainHeader>Tags</MainHeader>
         <TagButtons tags={data} />
       </Col>
