@@ -25,9 +25,9 @@ const Arts = (props) => {
   const { theme: { bgAccentTheme } } = useSelector(({ themes }) => themes);
   const { getMangaCovers } = bindActionCreators(actionCreators, useDispatch());
 
+  const getPageValue = () => Number.parseInt(searchParams.get(page)) - 1;
   const [searchParams, setSearchParams] = useSearchParams();
-  const paramValue = Number.parseInt(searchParams.get(page)) - 1;
-  const [currentPage, setCurrentPage] = useState(paramValue || 0);
+  const [currentPage, setCurrentPage] = useState(getPageValue() || 0);
   const [existedParams, setExistedParams] = useState([]);
 
   useEffect(() => {
@@ -48,6 +48,7 @@ const Arts = (props) => {
         });
       }
     }
+    setCurrentPage(getPageValue());
   }, [searchParams]);
 
   const containerClasses = cx(
