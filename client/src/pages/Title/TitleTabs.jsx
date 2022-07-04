@@ -1,17 +1,23 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Col, Row, Tab, Tabs } from 'react-bootstrap';
+import { useSearchParams } from 'react-router-dom';
+import { Col, Tab, Tabs } from 'react-bootstrap';
 import Tags from '../../components/Title/Tags';
 import Arts from '../../components/Title/Arts';
 import Related from '../../components/Title/Related';
+import TabLink from '../../components/Tabs/TabLink';
+import CONSTANTS from '../../constants';
 
 const TitleTabs = (props) => {
   const { mangaId, desc, tags, relationships } = props;
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
+  const { info, chapters, related, commets } = CONSTANTS.TITLE_TABS;
+  const [searchParams] = useSearchParams();
+  const paramValue = searchParams.get('tab');
 
   return (
-    <Tabs justify defaultActiveKey='info' className={`nav-tabs-${mainColor}`} mountOnEnter>
-      <Tab eventKey='info' title='Information'>
+    <Tabs justify defaultActiveKey={paramValue || info} className={`nav-tabs-${mainColor}`} data-link-tab='link-tab' mountOnEnter>
+      <Tab eventKey={info} title={<TabLink to={info}>Information</TabLink>}>
         <Tab.Content>
           <Col>{desc}</Col>
           <br />
@@ -20,12 +26,14 @@ const TitleTabs = (props) => {
           <Arts mangaId={mangaId} />
         </Tab.Content>
       </Tab>
-      <Tab eventKey='chapters' title='Chapters'>
+      <Tab eventKey={chapters} title={<TabLink to={chapters}>Chapters</TabLink>}>
       </Tab>
-      <Tab eventKey='related' title='Related'>
-        <Related relationships={relationships} />
+      <Tab eventKey={related} title={<TabLink to={related}>Related</TabLink>}>
+        <Tab.Content>
+          <Related relationships={relationships} />
+        </Tab.Content>
       </Tab>
-      <Tab eventKey='commets' title='Commets' disabled>
+      <Tab eventKey={commets} title={<TabLink to={commets}>Commets</TabLink>} disabled>
       </Tab>
     </Tabs>
   );
