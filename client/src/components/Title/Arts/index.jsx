@@ -28,7 +28,7 @@ const Arts = (props) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(0);
   const [existedParams, setExistedParams] = useState([]);
-
+  const [isSameTab, setIsSameTab] = useState();
   useEffect(() => {
     getMangaCovers(options({
       mangaId: mangaId,
@@ -38,14 +38,17 @@ const Arts = (props) => {
 
   useEffect(() => {
     const paramValue = searchParams.get(paramName);
-    if (paramValue) {
+    if (paramValue && paramValue === tabParamValue) {
+      setIsSameTab(true);
       setExistedParams([`${paramName}=${paramValue}`]);
-      if (!searchParams.get(page) && paramValue === tabParamValue) {
+      if (!searchParams.get(page)) {
         setSearchParams({
           [paramName]: paramValue,
-          [page]: currentPage + 1
+          [page]: isSameTab ? currentPage + 1 : 1
         });
       }
+    } else {
+      setIsSameTab(false);
     }
 
     const pageValue = Number.parseInt(searchParams.get(page)) - 1;
