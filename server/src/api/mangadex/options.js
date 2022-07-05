@@ -18,8 +18,8 @@ module.exports.coversOptions = (options) => ({
 module.exports.chapterOptions = (options) => ({
   manga: options.mangaId,
   translatedLanguage: [options.lang],
-  'order[chapter]': 'asc',
-  limit: 100,
+  'order[volume]': 'asc',
+  limit: options.limit,
   offset: options.offset,
 });
 
