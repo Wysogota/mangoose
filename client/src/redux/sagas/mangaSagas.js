@@ -31,3 +31,13 @@ export function* getMangaCoversSaga(action) {
     yield put(actionCreators.getMangaCoversError({ error }));
   }
 }
+
+export function* getChaptersSaga(action) {
+  yield put(actionCreators.getChaptersRequest());
+  try {
+    const { data: { data } } = yield API.getChapters(action.payload.options);
+    yield put(actionCreators.getChaptersSuccess(data));
+  } catch (error) {
+    yield put(actionCreators.getChaptersError({ error }));
+  }
+}

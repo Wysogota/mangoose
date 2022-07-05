@@ -82,3 +82,19 @@ export const getMangaCoversError = (data) => ({
   type: ACTION_TYPES.GET_MANGA_COVERS_ERROR,
   payload: { data },
 });
+
+export const getChapters = (options) => ({
+  type: ACTION_TYPES.GET_CHAPTERS,
+  payload: { options }
+});
+export const getChaptersRequest = () => ({
+  type: ACTION_TYPES.GET_CHAPTERS_REQUEST,
+});
+export const getChaptersSuccess = (data) => ({
+  type: ACTION_TYPES.GET_CHAPTERS_SUCCESS,
+  payload: { data },
+});
+export const getChaptersError = (data) => ({
+  type: ACTION_TYPES.GET_CHAPTERS_ERROR,
+  payload: { data },
+});
