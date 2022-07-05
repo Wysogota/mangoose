@@ -1,12 +1,17 @@
 import React from 'react';
 import { Image } from 'react-bootstrap';
-
+import cx from 'classnames';
 import styles from './Cover.module.scss';
 
 const Cover = (props) => {
-  const { image, alt } = props;
+  const { image, alt, className } = props;
+  const containerClasses = cx(
+    className,
+    'pb-3'
+  );
+
   return (
-    <div className='pb-3'>
+    <div className={containerClasses}>
       <Image
         src={image}
         alt={alt}

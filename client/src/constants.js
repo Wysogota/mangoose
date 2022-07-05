@@ -12,6 +12,7 @@ export default {
   DARK_COLOR: 'dark',
   breakpoints: {
     md: 768,
+    lg: 992,
     xl: 1200,
   },
   TITLE_TABS: {

@@ -1,27 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
-import { Button, Col, Container, Row, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
+import cx from 'classnames';
 import ColBlock from '../../components/Blocks/ColBlock';
 import MainHeader from '../../components/Headers/MainHeader';
 import TitleTabs from './TitleTabs';
 import Cover from '../../components/Title/Cover';
-import CONSTANTS from '../../constants';
 import TitleInfoList from './TitleInfoList';
+import ReadingButtonsBlock from '../../components/Title/ReadingButtonsBlock';
 import { selectRelationshipAttr } from '../../common/functions';
+import styles from './Title.module.scss';
+import CONSTANTS from '../../constants';
+const { breakpoints: { lg } } = CONSTANTS;
 
 const Title = () => {
-  const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
   const { manga, isFetching } = useSelector(({ manga }) => manga);
   const { getManga } = bindActionCreators(actionCreators, useDispatch());
 
   const { mangaId } = useParams();
   useEffect(() => getManga({ mangaId }), [mangaId]);
 
-  if (_.isEmpty(manga) || isFetching) {
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= lg);
+  useEffect(() => {
+    const resizeHandler = () => setIsMobileView(window.innerWidth <= lg);
+    addEventListener('resize', resizeHandler);
+    return () => removeEventListener('resize', resizeHandler);
+  }, []);
+
+  if (isEmpty(manga) || isFetching) {
     return (
       <Container>
         <Row>
@@ -62,21 +72,33 @@ const Title = () => {
       status, lastChapter, publicationDemographic, year, authorName, atristName
     };
 
+    const coverBlockClasses = cx(
+      'col-12 col-lg-4 col-xxl-3',
+      isMobileView && 'm-auto',
+    );
+
+    const tabBlockClasses = cx(
+      'col-12 col-lg-8 col-xxl-9',
+      isMobileView && styles.block_mobile
+    );
+
+    const coverClasses = cx(
+      isMobileView && 'col-8 col-sm-6 m-auto'
+    );
+
     return (
       <Container>
         <Row className='justify-content-between'>
-          <ColBlock className='col-12 col-lg-3'>
-            <Cover image={cover_art.url} alt={title} />
-            <Button
-              variant={invertedColor}
-              className='w-100 pt-2 pb-2 mb-3 text-uppercase'
-              style={{ fontWeight: 600 }}
-            >
-              Start reading
-            </Button>
-            <TitleInfoList attributes={titleInfoAttr} className='d-none d-lg-block' />
+          <ColBlock className={coverBlockClasses}>
+            <Cover image={cover_art.url} alt={title} className={coverClasses} />
+            {!isMobileView &&
+              <>
+                <ReadingButtonsBlock />
+                <TitleInfoList attributes={titleInfoAttr} />
+              </>
+            }
           </ColBlock>
-          <ColBlock className='col-12 col-lg-9'>
+          <ColBlock className={tabBlockClasses}>
             <Col>
               <MainHeader className='fs-1'>{title}</MainHeader>
               <MainHeader className='fs-6'>{altTitles.join(' | ')}</MainHeader>
@@ -89,6 +111,7 @@ const Title = () => {
             </Col>
           </ColBlock>
         </Row>
+        {isMobileView && <ReadingButtonsBlock isMobileView />}
       </Container>
     );
   }
