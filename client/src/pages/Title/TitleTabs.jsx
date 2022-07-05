@@ -6,6 +6,7 @@ import Tags from '../../components/Title/Tags';
 import Arts from '../../components/Title/Arts';
 import Related from '../../components/Title/Related';
 import TabLink from '../../components/Tabs/TabLink';
+import TitleInfoList from './TitleInfoList';
 import CONSTANTS from '../../constants';
 const {
   PARAM_NAME: { tab },
@@ -13,7 +14,7 @@ const {
 } = CONSTANTS;
 
 const TitleTabs = (props) => {
-  const { mangaId, desc, tags, relationships } = props;
+  const { mangaId, desc, tags, relationships, titleInfoAttr } = props;
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
   const [searchParams] = useSearchParams();
   const [paramValue, setParamValue] = useState(searchParams.get(tab));
@@ -31,6 +32,8 @@ const TitleTabs = (props) => {
       <Tab eventKey={info} title={<TabLink to={info}>Information</TabLink>}>
         <Tab.Content>
           <Col>{desc}</Col>
+          <br />
+          <TitleInfoList attributes={titleInfoAttr} className='d-block d-lg-none' inline/>
           <br />
           <Tags data={tags} />
           <br />

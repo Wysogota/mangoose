@@ -71,8 +71,10 @@ const Title = () => {
               variant={invertedColor}
               className='w-100 pt-2 pb-2 mb-3 text-uppercase'
               style={{ fontWeight: 600 }}
-            >Start reading</Button>
-            <TitleInfoList attributes={titleInfoAttr} />
+            >
+              Start reading
+            </Button>
+            <TitleInfoList attributes={titleInfoAttr} className='d-none d-lg-block' />
           </ColBlock>
           <ColBlock className='col-12 col-lg-9'>
             <Col>
@@ -80,7 +82,10 @@ const Title = () => {
               <MainHeader className='fs-6'>{altTitles.join(' | ')}</MainHeader>
             </Col>
             <Col>
-              <TitleTabs mangaId={mangaId} desc={desc} tags={tags} relationships={relationships} />
+              <TitleTabs
+                mangaId={mangaId} desc={desc} tags={tags}
+                relationships={relationships} titleInfoAttr={titleInfoAttr}
+              />
             </Col>
           </ColBlock>
         </Row>
