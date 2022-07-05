@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ListGroup } from 'react-bootstrap';
 import cx from 'classnames';
-import styles from './NewCharaptersList.module.scss';
+import styles from './NewChaptersList.module.scss';
 
 const data = [
   {
@@ -38,7 +38,7 @@ const data = [
   },
 ];
 
-const NewCharaptersList = () => {
+const NewChaptersList = () => {
   const { theme: { mainColor, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
 
   const groupClasses = cx(
@@ -66,4 +66,4 @@ const NewCharaptersList = () => {
   );
 };
 
-export default NewCharaptersList;
+export default NewChaptersList;
