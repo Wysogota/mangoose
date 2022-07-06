@@ -48,3 +48,8 @@ module.exports.getChapters = async (options) => {
   const { data } = await client.get(`/chapter?${query}`);
   return data;
 };
+
+module.exports.getChapterPages = async (options) => {
+  const { data: { chapter } } = await client.get(`/at-home/server/${options.chapterId}`);
+  return chapter;
+};
