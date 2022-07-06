@@ -10,10 +10,11 @@ import MainHeader from '../../Headers/MainHeader';
 import PaginationButtons from '../../PaginationButtons';
 import styles from './Arts.module.scss';
 import CONSTANTS from '../../../constants';
+import usePagination from '../../../hooks/usePagination';
 const { PARAM_NAME: { page } } = CONSTANTS;
 
 const limit = 5;
-const options = (options) => ({
+const queryOptions = (options) => ({
   mangaId: options.mangaId,
   limit,
   offset: options.offset
@@ -25,35 +26,12 @@ const Arts = (props) => {
   const { theme: { bgAccentTheme } } = useSelector(({ themes }) => themes);
   const { getMangaCovers } = bindActionCreators(actionCreators, useDispatch());
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [currentPage, setCurrentPage] = useState(0);
-  const [existedParams, setExistedParams] = useState([]);
-  const [isSameTab, setIsSameTab] = useState();
-  useEffect(() => {
-    getMangaCovers(options({
-      mangaId: mangaId,
-      offset: limit * currentPage
-    }));
-  }, [currentPage]);
-
-  useEffect(() => {
-    const paramValue = searchParams.get(paramName);
-    if (paramValue && paramValue === tabParamValue) {
-      setIsSameTab(true);
-      setExistedParams([`${paramName}=${paramValue}`]);
-      if (!searchParams.get(page)) {
-        setSearchParams({
-          [paramName]: paramValue,
-          [page]: isSameTab ? currentPage + 1 : 1
-        });
-      }
-    } else {
-      setIsSameTab(false);
-    }
-
-    const pageValue = Number.parseInt(searchParams.get(page)) - 1;
-    setCurrentPage(pageValue || 0);
-  }, [searchParams]);
+  const { currentPage, setCurrentPage, existedParams } = usePagination({
+    actionCreator: getMangaCovers,
+    queryOptions,
+    mangaId, paramName, tabParamValue,
+    limit,
+  });
 
   const containerClasses = cx(
     styles.arts_conatiner,
