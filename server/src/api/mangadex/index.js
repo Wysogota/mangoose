@@ -42,7 +42,9 @@ module.exports.getManga = async (options) => {
 };
 
 module.exports.getChapters = async (options) => {
-  const query = queryString.stringify(chapterOptions(options), stringifyOptions);
+  const query = chapterOptions(options)
+    .map((item) => queryString.stringify(item, stringifyOptions))
+    .join('&');
   const { data } = await client.get(`/chapter?${query}`);
   return data;
 };

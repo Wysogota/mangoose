@@ -15,13 +15,15 @@ module.exports.coversOptions = (options) => ({
   offset: options.offset,
 });
 
-module.exports.chapterOptions = (options) => ({
-  manga: options.mangaId,
-  translatedLanguage: [options.lang],
-  'order[volume]': 'asc',
-  limit: options.limit,
-  offset: options.offset,
-});
+module.exports.chapterOptions = (options) => ([
+  { 'manga': options.mangaId },
+  { 'translatedLanguage': [options.lang] },
+  { 'order[volume]': 'asc' },
+  { 'order[chapter]': 'asc' },
+  { 'limit': options.limit },
+  { 'offset': options.offset },
+  { 'includes': ['scanlation_group', 'user'] }
+]);
 
 module.exports.stringifyOptions = {
   arrayFormat: 'bracket'
