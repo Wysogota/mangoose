@@ -98,3 +98,19 @@ export const getChaptersError = (data) => ({
   type: ACTION_TYPES.GET_CHAPTERS_ERROR,
   payload: { data },
 });
+
+export const getChapterPages = (options) => ({
+  type: ACTION_TYPES.GET_CHAPTER_PAGES,
+  payload: { options }
+});
+export const getChapterPagesRequest = () => ({
+  type: ACTION_TYPES.GET_CHAPTER_PAGES_REQUEST,
+});
+export const getChapterPagesSuccess = (data) => ({
+  type: ACTION_TYPES.GET_CHAPTER_PAGES_SUCCESS,
+  payload: { data },
+});
+export const getChapterPagesError = (data) => ({
+  type: ACTION_TYPES.GET_CHAPTER_PAGES_ERROR,
+  payload: { data },
+});

@@ -41,3 +41,13 @@ export function* getChaptersSaga(action) {
     yield put(actionCreators.getChaptersError({ error }));
   }
 }
+
+export function* getChapterPagesSaga(action) {
+  yield put(actionCreators.getChapterPagesRequest());
+  try {
+    const { data: { data } } = yield API.getChapterPages(action.payload.options);
+    yield put(actionCreators.getChapterPagesSuccess(data));
+  } catch (error) {
+    yield put(actionCreators.getChapterPagesError({ error }));
+  }
+}
