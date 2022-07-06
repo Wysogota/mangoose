@@ -1,0 +1,23 @@
+@import '../../../common/styles/functions';
+
+.container {
+  align-items: center;
+}
+
+.link_title {
+  padding-right: 0.5rem;
+  @extend %text-overflow;
+}
+
+.pages {
+  font-size: 0.7rem;
+  font-weight: 300;
+}
+
+.creator {
+  font-size: 0.9rem;
+
+  &>* {
+    display: block;
+  }
+}

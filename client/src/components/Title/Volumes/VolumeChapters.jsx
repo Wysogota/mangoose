@@ -1,16 +1,21 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import ChaptersList from '../ChaptersList';
+import styles from './Volumes.module.scss';
 
 const VolumeChapters = (props) => {
   const { chapters, volumeName } = props;
-  const { theme: { bgHoveredTheme } } = useSelector(({ themes }) => themes);
 
-  return chapters.data
-    .filter(({ attributes: { volume } }) => volume === volumeName)
-    .map(({ id, attributes: { chapter, title } }) => {
-      return <Link key={id} to='#' className={'d-block p-2 ' + bgHoveredTheme}>{title || 'externalLink'}</Link>;
-    });
+  const getChaptersList = () => [...new Set(
+    chapters.data
+      .filter(({ attributes: { volume } }) => volume === volumeName)
+      .map(({ attributes: { chapter } }) => chapter)
+  )];
+
+  return getChaptersList().map((volumeChapter) =>
+  (<div key={volumeChapter} className='mb-2'>
+    <h5 className={styles.chapter_header}>Chapter {volumeChapter}</h5>
+    <ChaptersList chapters={chapters} volumeChapter={volumeChapter} />
+  </div>));
 };
 
 export default VolumeChapters;
