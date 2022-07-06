@@ -65,3 +65,11 @@
     color: $dark_main_color  !important;
   }
 }
+
+.light_hovered_bg:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark_hovered_bg:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
