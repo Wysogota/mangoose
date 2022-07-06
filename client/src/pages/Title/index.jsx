@@ -12,7 +12,7 @@ import TitleTabs from './TitleTabs';
 import Cover from '../../components/Title/Cover';
 import TitleInfoList from './TitleInfoList';
 import ReadingButtonsBlock from '../../components/Title/ReadingButtonsBlock';
-import { selectRelationshipAttr } from '../../common/functions';
+import { selectRelationship } from '../../common/functions';
 import styles from './Title.module.scss';
 import CONSTANTS from '../../constants';
 const { breakpoints: { lg } } = CONSTANTS;
@@ -62,10 +62,11 @@ const Title = () => {
         .map((item) => item[CONSTANTS.DEFAULT_LOCALE])
     ];
 
-    const { cover_art, author: { name: authorName }, artist: { name: atristName } } = selectRelationshipAttr(
-      relationships,
-      ['cover_art', 'author', 'artist']
-    );
+    const {
+      cover_art: { attributes: { url: coverUrl } },
+      author: { attributes: { name: authorName } },
+      artist: { attributes: { name: atristName } }
+    } = selectRelationship(relationships, ['cover_art', 'author', 'artist']);
 
     const { status, lastChapter, publicationDemographic, year } = attributes;
     const titleInfoAttr = {
@@ -90,7 +91,7 @@ const Title = () => {
       <Container>
         <Row className='justify-content-between'>
           <ColBlock className={coverBlockClasses}>
-            <Cover image={cover_art.url} alt={title} className={coverClasses} />
+            <Cover image={coverUrl} alt={title} className={coverClasses} />
             {!isMobileView &&
               <>
                 <ReadingButtonsBlock />

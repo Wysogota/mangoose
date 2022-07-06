@@ -6,7 +6,7 @@ import { Spinner } from 'react-bootstrap';
 import MainHeader from '../../Headers/MainHeader';
 import MinorHeader from '../../Headers/MinorHeader';
 import { isEmpty } from 'lodash';
-import { selectRelationshipAttr } from '../../../common/functions';
+import { selectRelationship } from '../../../common/functions';
 import RelatedCard from '../RelatedCard';
 import CONSTANTS from '../../../constants';
 import { capitalize } from 'lodash';
@@ -51,7 +51,7 @@ const Related = (props) => {
         }) => (
           <RelatedCard key={id}
             id={id}
-            image={selectRelationshipAttr(relationships, 'cover_art').url}
+            image={selectRelationship(relationships, 'cover_art').attributes.url}
             related={related}
             title={title[CONSTANTS.DEFAULT_LOCALE]}
             description={description[CONSTANTS.DEFAULT_LOCALE]}
