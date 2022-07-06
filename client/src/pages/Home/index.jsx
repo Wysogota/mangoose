@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import SingleCarousel from '../../components/Carousels/SingleCarousel';
 import MultipleCarousel from '../../components/Carousels/MultipleCarousel';
 import NewsList from '../../components/Lists/NewsList';
-import NewCharaptersList from '../../components/Lists/NewCharaptersList';
+import NewChaptersList from '../../components/Lists/NewChaptersList';
 import HeaderLink from '../../components/HeaderLink';
 import ColBlock from '../../components/Blocks/ColBlock';
 import Advertisement from '../../components/Advertisement';
@@ -19,10 +19,10 @@ const Home = () => {
     setExtendedCatalog(Object.values(isCarouselOpen).every((carousel) => carousel === true));
   }, [isCarouselOpen]);
 
-  const NewCharapters = () => (
+  const NewChapters = () => (
     <ColBlock title='New chapters'>
       <HeaderLink to='#' title='New chapters' />
-      <NewCharaptersList />
+      <NewChaptersList />
     </ColBlock>
   );
 
@@ -33,7 +33,7 @@ const Home = () => {
           <Row><MultipleCarousel stateName='Popular' title='Popular' to='#' /></Row>
           <Row><MultipleCarousel stateName='New' title='New arrivals' to='#' /></Row>
           <Row><MultipleCarousel stateName='HotNew' title='Hot news' to='#' /></Row>
-          <Row className='d-flex d-lg-none'><NewCharapters /></Row>
+          <Row className='d-flex d-lg-none'><NewChapters /></Row>
           <Row>
             <ColBlock className='col-12 col-md-6'>
               <HeaderLink to='/news' title='Last news' />
@@ -48,7 +48,7 @@ const Home = () => {
         </Col>
         <Col lg='3' className='d-none d-lg-block'>
           <Row><SingleCarousel /></Row>
-          <Row><NewCharapters /></Row>
+          <Row><NewChapters /></Row>
           <Row>
             <ColBlock >
               <HeaderLink to='#' title='advertisement' />

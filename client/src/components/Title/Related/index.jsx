@@ -40,7 +40,7 @@ const Related = (props) => {
 
   return (
     <div>
-      <MainHeader>Related</MainHeader>
+      <MainHeader>Related Titles</MainHeader>
       {isFetching
         ? <Spinner animation='border' role='status'></Spinner>
         : <>{relatedManga.map(({
