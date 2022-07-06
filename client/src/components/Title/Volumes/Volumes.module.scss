@@ -1,0 +1,15 @@
+@import '../../../common/styles/colors';
+
+.volume-dark {
+  background-color: $dark_accent_color;
+}
+
+.volume-light {
+  background-color: $light_accent_color;
+}
+
+.header {
+  &>* {
+    font-size: 1.25rem !important;
+  }
+}

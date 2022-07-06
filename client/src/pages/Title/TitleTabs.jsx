@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import { Col, Tab, Tabs } from 'react-bootstrap';
 import Tags from '../../components/Title/Tags';
 import Arts from '../../components/Title/Arts';
+import Chapters from '../../components/Title/Chapters';
 import Related from '../../components/Title/Related';
 import TabLink from '../../components/Tabs/TabLink';
 import TitleInfoList from './TitleInfoList';
@@ -41,6 +42,7 @@ const TitleTabs = (props) => {
         </Tab.Content>
       </Tab>
       <Tab eventKey={chapters} title={<TabLink to={chapters}>Chapters</TabLink>}>
+        <Chapters mangaId={mangaId} paramName={tab} tabParamValue={chapters}/>
       </Tab>
       <Tab eventKey={related} title={<TabLink to={related}>Related</TabLink>}>
         <Tab.Content>
