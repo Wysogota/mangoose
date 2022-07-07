@@ -32,6 +32,15 @@ export function* getMangaCoversSaga(action) {
   }
 }
 
+export function* getChapterSaga(action) {
+  yield put(actionCreators.getChapterRequest());
+  try {
+    const { data: { data } } = yield API.getChapter(action.payload.options);
+    yield put(actionCreators.getChapterSuccess(data));
+  } catch (error) {
+    yield put(actionCreators.getChapterError({ error }));
+  }
+}
 export function* getChaptersSaga(action) {
   yield put(actionCreators.getChaptersRequest());
   try {

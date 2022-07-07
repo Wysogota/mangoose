@@ -3,7 +3,7 @@ const mangadex = require('../api/mangadex');
 module.exports.getChapter = async (req, res, next) => {
   try {
     const { params: { chapterId } } = req;
-    const chapter = await mangadex.getChapters({ chapterId });
+    const chapter = await mangadex.getChapter({ chapterId });
     res.status(200).send({ data: chapter });
   } catch (error) {
     next(error);

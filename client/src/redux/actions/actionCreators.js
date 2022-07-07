@@ -99,6 +99,22 @@ export const getChaptersError = (data) => ({
   payload: { data },
 });
 
+export const getChapter = (options) => ({
+  type: ACTION_TYPES.GET_CHAPTER,
+  payload: { options }
+});
+export const getChapterRequest = () => ({
+  type: ACTION_TYPES.GET_CHAPTER_REQUEST,
+});
+export const getChapterSuccess = (data) => ({
+  type: ACTION_TYPES.GET_CHAPTER_SUCCESS,
+  payload: { data },
+});
+export const getChapterError = (data) => ({
+  type: ACTION_TYPES.GET_CHAPTER_ERROR,
+  payload: { data },
+});
+
 export const getChapterPages = (options) => ({
   type: ACTION_TYPES.GET_CHAPTER_PAGES,
   payload: { options }

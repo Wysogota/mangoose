@@ -15,6 +15,8 @@ export const getMangaCatalog = (options) => client.get(`/manga/?${stringify(opti
 
 export const getMangaCovers = (options) => client.get(`/cover/?${stringify(options, stringifyOptions)}`);
 
+export const getChapter = (options) => client.get(`/chapter/${options.chapterId}`);
+
 export const getChapters = (options) => client.get(`/chapter/?${stringify(options, stringifyOptions)}`);
 
 export const getChapterPages = (options) => client.get(`/chapter/pages/${options.chapterId}`);

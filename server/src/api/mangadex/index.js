@@ -58,8 +58,6 @@ module.exports.getChapterPages = async (options) => {
 
 module.exports.getChapter = async (options) => {
   const query = queryString.stringify(relationshipsChapterOptions, stringifyOptions);
-  const { data: { data } } = await client.get(`/chapter/${options.chapterId}?&${query}`);
+  const { data: { data } } = await client.get(`/chapter/${options.chapterId}?${query}`);
   return data;
-  // const manga = new Manga(data);
-  // return manga;
 };
