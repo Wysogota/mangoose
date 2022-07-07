@@ -60,3 +60,13 @@ export function* getChapterPagesSaga(action) {
     yield put(actionCreators.getChapterPagesError({ error }));
   }
 }
+
+export function* getNextChapterIdSaga(action) {
+  yield put(actionCreators.getNextChapterIdRequest());
+  try {
+    const { data: { data } } = yield API.getNextChapterId(action.payload.options);
+    yield put(actionCreators.getNextChapterIdSuccess(data));
+  } catch (error) {
+    yield put(actionCreators.getNextChapterIdError({ error }));
+  }
+}

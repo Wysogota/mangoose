@@ -20,3 +20,5 @@ export const getChapter = (options) => client.get(`/chapter/${options.chapterId}
 export const getChapters = (options) => client.get(`/chapter/?${stringify(options, stringifyOptions)}`);
 
 export const getChapterPages = (options) => client.get(`/chapter/pages/${options.chapterId}`);
+
+export const getNextChapterId = (options) => client.get(`/chapter/next/?${stringify(options, stringifyOptions)}`);
