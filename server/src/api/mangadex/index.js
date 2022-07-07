@@ -3,7 +3,9 @@ const queryString = require('query-string');
 const Manga = require('../../models/Manga');
 const Cover = require('../../models/Cover');
 const {
-  coversOptions, chapterOptions, defaultListOptions, relationshipsOptions, stringifyOptions
+  coversOptions, chapterOptions, defaultListOptions,
+  relationshipsOptions, relationshipsChapterOptions,
+  stringifyOptions
 } = require('./options');
 
 const client = axios.create({
@@ -52,4 +54,12 @@ module.exports.getChapters = async (options) => {
 module.exports.getChapterPages = async (options) => {
   const { data: { chapter } } = await client.get(`/at-home/server/${options.chapterId}`);
   return chapter;
+};
+
+module.exports.getChapter = async (options) => {
+  const query = queryString.stringify(relationshipsChapterOptions, stringifyOptions);
+  const { data: { data } } = await client.get(`/chapter/${options.chapterId}?&${query}`);
+  return data;
+  // const manga = new Manga(data);
+  // return manga;
 };

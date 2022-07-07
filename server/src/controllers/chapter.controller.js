@@ -1,5 +1,14 @@
 const mangadex = require('../api/mangadex');
 
+module.exports.getChapter = async (req, res, next) => {
+  try {
+    const { params: { chapterId } } = req;
+    const chapter = await mangadex.getChapters({ chapterId });
+    res.status(200).send({ data: chapter });
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports.getChapters = async (req, res, next) => {
   try {
     const { query } = req;

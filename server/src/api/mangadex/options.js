@@ -25,6 +25,10 @@ module.exports.chapterOptions = (options) => ([
   { 'includes': ['scanlation_group', 'user'] }
 ]);
 
+module.exports.relationshipsChapterOptions = {
+  includes: ['manga', 'scanlation_group']
+};
+
 module.exports.stringifyOptions = {
   arrayFormat: 'bracket'
 };
