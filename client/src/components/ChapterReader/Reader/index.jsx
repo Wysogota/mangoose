@@ -1,24 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Carousel } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
 import styles from './Reader.module.scss';
 import './reader.scss';
-import CONSTANTS from '../../../constants';
-const { PARAM_NAME: { page } } = CONSTANTS;
-
 
 const Reader = (props) => {
   const [_, setSearchParams] = useSearchParams();
   const { chapterPages, currentPage, setCurrentPage } = props;
 
-  const handleSelect = (selectedPage) => {
+  const handleSelect = (selectedPage, e) => {
     setCurrentPage(selectedPage);
-    setSearchParams(`?page=${selectedPage}`);
+    setSearchParams(`?page=${selectedPage + 1}`);
+    e.target.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <Carousel id='reader'
-      interval={null} indicators={false} nextIcon={null} prevIcon={null}
+      interval={null} indicators={false} nextIcon={null} prevIcon={null} slide={false}
       activeIndex={currentPage} onSelect={handleSelect}
     >
       {chapterPages.data.map(((image, i) =>
