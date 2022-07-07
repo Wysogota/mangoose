@@ -19,7 +19,7 @@ const queryOptions = (options) => ({
 
 const Chapters = (props) => {
   const { mangaId, paramName, tabParamValue } = props;
-  const { chapters, isFetching } = useSelector(({ chapter }) => chapter);
+  const { chapters, isFetching } = useSelector(({ chapters }) => chapters);
   const { getChapters } = bindActionCreators(actionCreators, useDispatch());
 
   const { currentPage, setCurrentPage, existedParams } = usePagination({
