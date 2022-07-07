@@ -5,8 +5,7 @@ import * as actionCreators from '../../redux/actions/actionCreators';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { Container, Row, Col, Carousel, Spinner } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
-import styles from './ChapterReader.module.scss';
-import './reader.scss';
+import Reader from '../../components/ChapterReader/Reader';
 import CONSTANTS from '../../constants';
 const { PARAM_NAME: { page } } = CONSTANTS;
 
@@ -16,7 +15,7 @@ const ChapterReader = () => {
   const { getChapterPages } = bindActionCreators(actionCreators, useDispatch());
   const { chapterId } = useParams();
   useEffect(() => getChapterPages({ chapterId }), [chapterId]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(Number.parseInt(searchParams.get(page)) || 0);
 
   useEffect(() => {
@@ -29,10 +28,12 @@ const ChapterReader = () => {
     };
   }, [theme]);
 
-  const handleSelect = (selectedPage) => {
-    setCurrentPage(selectedPage);
-    setSearchParams(`?page=${selectedPage}`);
-  };
+  useEffect(() => {
+    const paramValue = searchParams.get(page);
+    if (paramValue) {
+      setCurrentPage(Number.parseInt(paramValue));
+    }
+  }, [searchParams]);
 
   return (
     <Container fluid>
@@ -44,21 +45,8 @@ const ChapterReader = () => {
         <Col>
           {(isEmpty(chapterPages.data) || isFetching)
             ? <Spinner animation='border' role='status'></Spinner>
-            :
-            <Carousel id='reader'
-              interval={null} indicators={false} nextIcon={null} prevIcon={null}
-              activeIndex={currentPage} onSelect={handleSelect}
-            >
-              {chapterPages.data.map(((image, i) =>
-                <Carousel.Item key={i}>
-                  <img
-                    className={styles.image}
-                    src={`https://uploads.mangadex.org/data/${chapterPages.hash}/${image}`}
-                    alt="First slide"
-                  />
-                </Carousel.Item>
-              ))}
-            </Carousel>}
+            : <Reader chapterPages={chapterPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+          }
         </Col>
       </Row>
     </Container>
