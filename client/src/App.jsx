@@ -9,6 +9,7 @@ import SignUp from './pages/SignUp';
 import SignIn from './components/SignIn';
 import Profile from './pages/Profile';
 import Title from './pages/Title';
+import ChapterReader from './pages/ChapterReader';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -30,6 +31,7 @@ const App = () => {
           <Route path='/profile' element={<Profile />} />
           <Route path='/catalog' element={<Catalog />} />
           <Route path='/title/:mangaId' element={<Title />} />
+          <Route path='/chapter/:chapterId' element={<ChapterReader />} />
         </Routes>
       </div>
       <Footer />

@@ -31,7 +31,7 @@ const Chapters = (props) => {
         <div key={id} className={constainerClasses}>
           {externalUrl
             ? <ExternalChapterLink externalUrl={externalUrl} chapter={chapter} />
-            : <ChapterLink title={title} pages={pages} />
+            : <ChapterLink chapterId={id} title={title} pages={pages} />
           }
 
           <div className={creatorClasses}>

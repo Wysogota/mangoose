@@ -1,0 +1,13 @@
+#reader {
+  background-color: transparent;
+
+  .carousel-control-prev {
+    width: auto !important;
+    right: 50%;
+  }
+
+  .carousel-control-next {
+    width: auto !important;
+    left: 50%;
+  }
+}

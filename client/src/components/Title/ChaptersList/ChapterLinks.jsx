@@ -19,9 +19,9 @@ export const ExternalChapterLink = (props) => {
 };
 
 export const ChapterLink = (props) => {
-  const { title, pages } = props;
+  const { chapterId, title, pages } = props;
   return (
-    <Link to='#' className={linkClasses}>
+    <Link to={`/chapter/${chapterId}`} className={linkClasses}>
       <div className={styles.link_title}>{title}</div>
       <div className={styles.pages}>pages: {pages}</div>
     </Link >
