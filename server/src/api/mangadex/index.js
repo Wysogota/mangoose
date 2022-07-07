@@ -5,7 +5,7 @@ const Cover = require('../../models/Cover');
 const {
   coversOptions, chapterOptions, defaultListOptions,
   relationshipsOptions, relationshipsChapterOptions,
-  stringifyOptions
+  nextChapterIdOptions, stringifyOptions
 } = require('./options');
 
 const client = axios.create({
@@ -60,4 +60,10 @@ module.exports.getChapter = async (options) => {
   const query = queryString.stringify(relationshipsChapterOptions, stringifyOptions);
   const { data: { data } } = await client.get(`/chapter/${options.chapterId}?${query}`);
   return data;
+};
+
+module.exports.getNextChapterId = async (options) => {
+  const query = queryString.stringify(nextChapterIdOptions(options), stringifyOptions);
+  const { data: { data } } = await client.get(`/chapter?${query}`);
+  return data[0].id;
 };

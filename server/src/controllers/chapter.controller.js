@@ -28,3 +28,13 @@ module.exports.getChapterPages = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.getNextChapterId = async (req, res, next) => {
+  try {
+    const { query } = req;
+    const chapterId = await mangadex.getNextChapterId(query);
+    res.status(200).send({ data: chapterId });
+  } catch (error) {
+    next(error);
+  }
+};
