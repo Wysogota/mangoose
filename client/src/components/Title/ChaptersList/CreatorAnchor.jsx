@@ -2,8 +2,8 @@ import React from 'react';
 import { selectRelationship } from '../../../common/functions';
 
 const CreatorAnchor = (props) => {
-  const { relationships, type, Icon } = props;
-  
+  const { relationships, type, Icon, className } = props;
+
   const creatorLink = (type, creatorId) => `https://mangadex.org/${type}/${creatorId}`;
 
   const isCreaterUser = type === 'user';
@@ -12,7 +12,7 @@ const CreatorAnchor = (props) => {
   const creator = selectRelationship(relationships, propValue);
 
   return (
-    <a href={creatorLink(type, creator.id)} target='_blank' rel='noreferrer'>
+    <a href={creatorLink(type, creator.id)} className={className} target='_blank' rel='noreferrer'>
       <Icon />
       <span className='ms-2'>{creator.attributes[createrName]}</span>
     </a>);

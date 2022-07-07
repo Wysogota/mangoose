@@ -7,6 +7,7 @@ import { Container, Row, Col, Carousel, Spinner } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 import Reader from '../../components/ChapterReader/Reader';
 import CONSTANTS from '../../constants';
+import InfoPanel from '../../components/ChapterReader/InfoPanel';
 const { PARAM_NAME: { page } } = CONSTANTS;
 
 const ChapterReader = () => {
@@ -16,7 +17,7 @@ const ChapterReader = () => {
   const { chapterId } = useParams();
   useEffect(() => getChapterPages({ chapterId }), [chapterId]);
   const [searchParams] = useSearchParams();
-  const [currentPage, setCurrentPage] = useState(Number.parseInt(searchParams.get(page)) || 0);
+  const [currentPage, setCurrentPage] = useState(Number.parseInt(searchParams.get(page)) - 1 || 0);
 
   useEffect(() => {
     const hideFooterIds = ['root', 'content', 'footer'];
@@ -31,25 +32,23 @@ const ChapterReader = () => {
   useEffect(() => {
     const paramValue = searchParams.get(page);
     if (paramValue) {
-      setCurrentPage(Number.parseInt(paramValue));
+      setCurrentPage(Number.parseInt(paramValue) - 1);
     }
   }, [searchParams]);
 
   return (
-    <Container fluid>
-      <Row>
-        <Col className='p-5'>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          {(isEmpty(chapterPages.data) || isFetching)
-            ? <Spinner animation='border' role='status'></Spinner>
-            : <Reader chapterPages={chapterPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
-          }
-        </Col>
-      </Row>
-    </Container>
+    (isEmpty(chapterPages.data) || isFetching)
+      ? <Spinner animation='border' role='status'></Spinner>
+      : <Container fluid>
+        <Row className='p-5'>
+          <InfoPanel currentPage={currentPage} pageCount={chapterPages.data.length}/>
+        </Row>
+        <Row>
+          <Col>
+            <Reader chapterPages={chapterPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+          </Col>
+        </Row>
+      </Container>
   );
 };
 
