@@ -33,3 +33,19 @@ a:hover {
 .text-left {
   text-align: left;
 }
+
+#footer.disable-footer {
+  display: none;
+}
+
+#content.disable-footer {
+  padding: 0;
+}
+
+#root.disable-footer {
+  padding: 0;
+}
+
+#header.static-header{
+  position: static;
+}

@@ -24,7 +24,7 @@ const Header = () => {
   );
 
   return (
-    <Container fluid className={headerClasses}>
+    <Container fluid id='header' className={headerClasses}>
       <Row className='justify-content-center'>
         <Col xs='2' sm='1' className='d-md-none'> <HeaderSidebar /> </Col>
         <Col sm='4' md='3' lg='4' className='d-none d-sm-block text-md-center'> <Logo /> </Col>

@@ -34,7 +34,7 @@ const Footer = () => {
   );
 
   return (
-    <Container fluid className={footerClasses}>
+    <Container fluid id='footer' className={footerClasses}>
       <Row>
         <Col xs='6' sm='6' md='3' lg='4'>
           <Logo className='d-flex align-items-center justify-content-md-center h-100' />
