@@ -1,0 +1,5 @@
+@import '../../../common/styles/functions';
+
+.creator_name {
+  @extend %text-overflow;
+}

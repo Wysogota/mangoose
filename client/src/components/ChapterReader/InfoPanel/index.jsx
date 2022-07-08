@@ -6,7 +6,7 @@ import cx from 'classnames';
 import { isEmpty } from 'lodash';
 import { BsPeopleFill as GroupIcon } from 'react-icons/bs';
 import { selectRelationship } from '../../../common/functions';
-import CreatorAnchor from '../../Title/ChaptersList/CreatorAnchor';
+import CreatorAnchor from '../../Title/CreatorAnchor';
 import InputPage from '../InputPage';
 import MenuButton from '../MenuButton';
 import styles from './InfoPanel.module.scss';
