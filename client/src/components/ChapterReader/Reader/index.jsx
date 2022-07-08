@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
-import { Carousel } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { isEmpty } from 'lodash';
+import React, { useEffect, useState } from 'react';
+import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
+import * as actionCreators from '../../../redux/actions/actionCreators';
+import { Carousel, Spinner } from 'react-bootstrap';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { selectRelationship } from '../../../common/functions';
 import styles from './Reader.module.scss';
@@ -9,19 +12,37 @@ import './reader.scss';
 const Reader = (props) => {
   const [_, setSearchParams] = useSearchParams();
   const { chapterPages, currentPage } = props;
+
   const { chapter } = useSelector(({ chapter }) => chapter);
-  const { nextChapterId } = useSelector(({ nextChapterId }) => nextChapterId);
+  const { nextChapterId, isFetching } = useSelector(({ nextChapterId }) => nextChapterId);
+  const { getNextChapterId } = bindActionCreators(actionCreators, useDispatch());
+
   const [prevPage, setPrevPage] = useState(currentPage);
   const navigate = useNavigate();
 
-  const handleSelect = (selectedPage, e) => {
+  useEffect(() => {
+    if (!isEmpty(chapter)) {
+      const {
+        manga: { id: mangaId },
+        scanlation_group: { id: groupId }
+      } = selectRelationship(chapter.relationships, ['manga', 'scanlation_group']);
 
+      getNextChapterId({
+        mangaId,
+        groupId,
+        chapter: chapter.attributes.chapter,
+      });
+    }
+  }, [chapter]);
+
+  const handleSelect = (selectedPage, e) => {
     const pagesCount = chapterPages.data.length - 1;
     const { prev, next } = nextChapterId;
     const mangaId = selectRelationship(chapter.relationships, 'manga').id;
 
-    const chooseNavigate = (navigeChapter) =>
-      navigeChapter ? navigate(`/chapter/${navigeChapter}`) : navigate(`/title/${mangaId}`);
+    const chooseNavigate = (navigeChapter) => navigeChapter
+      ? navigate(`/chapter/${navigeChapter}`)
+      : navigate(`/title/${mangaId}`);
 
     if (selectedPage === 0 && prevPage === pagesCount) {
       chooseNavigate(next);
@@ -34,6 +55,10 @@ const Reader = (props) => {
     setPrevPage(selectedPage);
     e.target.scrollIntoView({ behavior: 'smooth' });
   };
+
+  if (!nextChapterId || isFetching) {
+    return <Spinner animation='border' role='status'></Spinner>;
+  }
 
   return (
     <Carousel id='reader'

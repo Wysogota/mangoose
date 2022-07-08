@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react';
-import { bindActionCreators } from 'redux';
-import { useSelector, useDispatch } from 'react-redux';
-import * as actionCreators from '../../../redux/actions/actionCreators';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Row, Col, Spinner } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import cx from 'classnames';
 import { isEmpty } from 'lodash';
 import { BsPeopleFill as GroupIcon } from 'react-icons/bs';
@@ -15,28 +13,7 @@ import CONSTANTS from '../../../constants.js';
 const InfoPanel = (props) => {
   const { currentPage, pageCount } = props;
   const { theme: { bgTheme, hoveredTheme } } = useSelector(({ themes }) => themes);
-  const { chapterId } = useParams();
-
   const { chapter, isFetching } = useSelector(({ chapter }) => chapter);
-  const { getChapter } = bindActionCreators(actionCreators, useDispatch());
-  const { getNextChapterId } = bindActionCreators(actionCreators, useDispatch());
-
-  useEffect(() => getChapter({ chapterId }), [chapterId]);
-
-  useEffect(() => {
-    if (!isEmpty(chapter)) {
-      const {
-        manga: { id: mangaId },
-        scanlation_group: { id: groupId }
-      } = selectRelationship(chapter.relationships, ['manga', 'scanlation_group']);
-
-      getNextChapterId({
-        mangaId,
-        groupId,
-        chapter: chapter.attributes.chapter,
-      });
-    }
-  }, [chapter]);
 
   const blocksClasses = cx(
     bgTheme,

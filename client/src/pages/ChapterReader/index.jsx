@@ -5,20 +5,32 @@ import * as actionCreators from '../../redux/actions/actionCreators';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
+import InfoPanel from '../../components/ChapterReader/InfoPanel';
 import Reader from '../../components/ChapterReader/Reader';
 import CONSTANTS from '../../constants';
-import InfoPanel from '../../components/ChapterReader/InfoPanel';
 const { PARAM_NAME: { page } } = CONSTANTS;
 
 const ChapterReader = () => {
-  const { theme } = useSelector(({ themes }) => themes);
   const { chapterId } = useParams();
 
+  const { theme } = useSelector(({ themes }) => themes);
   const { chapterPages, isFetching } = useSelector(({ chapterPages }) => chapterPages);
   const { getChapterPages } = bindActionCreators(actionCreators, useDispatch());
+  const { getChapter } = bindActionCreators(actionCreators, useDispatch());
 
   const [searchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(Number.parseInt(searchParams.get(page)) - 1 || 0);
+
+  useEffect(() => {
+    getChapter({ chapterId });
+    getChapterPages({ chapterId });
+  }, [chapterId]);
+
+  useEffect(() => {
+    const paramValue = searchParams.get(page);
+    const parsedPage = Number.parseInt(paramValue) - 1;
+    setCurrentPage(paramValue ? parsedPage : 0);
+  }, [searchParams]);
 
   useEffect(() => {
     const hideFooterIds = ['root', 'content', 'footer'];
@@ -30,26 +42,22 @@ const ChapterReader = () => {
     };
   }, [theme]);
 
-  useEffect(() => getChapterPages({ chapterId }), [chapterId]);
 
-  useEffect(() => {
-    const paramValue = searchParams.get(page);
-    setCurrentPage(paramValue ? (Number.parseInt(paramValue) - 1) : 0);
-  }, [searchParams]);
+  if (isEmpty(chapterPages) || isFetching) {
+    return <Spinner animation='border' role='status' />;
+  }
 
   return (
-    (isEmpty(chapterPages.data) || isFetching)
-      ? <Spinner animation='border' role='status'></Spinner>
-      : <Container fluid>
-        <Row className='p-5'>
-          <InfoPanel currentPage={currentPage} pageCount={chapterPages.data.length} />
-        </Row>
-        <Row>
-          <Col>
-            <Reader chapterPages={chapterPages} currentPage={currentPage} />
-          </Col>
-        </Row>
-      </Container>
+    <Container fluid>
+      <Row className='p-5'>
+        <InfoPanel currentPage={currentPage} pageCount={chapterPages.data.length} />
+      </Row>
+      <Row>
+        <Col>
+          <Reader chapterPages={chapterPages} currentPage={currentPage} />
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
