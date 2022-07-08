@@ -11,6 +11,7 @@ import InputPage from '../InputPage';
 import MenuButton from '../MenuButton';
 import styles from './InfoPanel.module.scss';
 import CONSTANTS from '../../../constants.js';
+const { DEFAULT_LOCALE, TITLE_TABS: { chapters } } = CONSTANTS;
 
 const InfoPanel = (props) => {
   const { currentPage, pageCount } = props;
@@ -43,8 +44,8 @@ const InfoPanel = (props) => {
       <Row className='mb-2 m-auto'>
         <Col>
           <h2 className='m-0'>{chapterTitle}</h2>
-          <Link to={`/title/${id}`} className={subHeaderClasses}>
-            {mangaTitle[CONSTANTS.DEFAULT_LOCALE]}
+          <Link to={`/title/${id}?tab=${chapters}`} className={subHeaderClasses}>
+            {mangaTitle[DEFAULT_LOCALE]}
           </Link>
         </Col>
         <Col className='text-end align-self-end'>

@@ -8,6 +8,8 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { selectRelationship } from '../../../common/functions';
 import styles from './Reader.module.scss';
 import './reader.scss';
+import CONSTANTS from '../../../constants';
+const { TITLE_TABS: { chapters } } = CONSTANTS;
 
 const Reader = (props) => {
   const [_, setSearchParams] = useSearchParams();
@@ -42,7 +44,7 @@ const Reader = (props) => {
 
     const chooseNavigate = (navigeChapter) => navigeChapter
       ? navigate(`/chapter/${navigeChapter}`)
-      : navigate(`/title/${mangaId}`);
+      : navigate(`/title/${mangaId}?tab=${chapters}`);
 
     if (selectedPage === 0 && prevPage === pagesCount) {
       chooseNavigate(next);
