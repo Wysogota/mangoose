@@ -41,9 +41,11 @@ const InfoPanel = (props) => {
 
   return (
     <>
-      <Row className='mb-2 m-auto'>
+      <Row className='m-auto'>
+        <Col><h2 className='m-0'>{chapterTitle}</h2></Col>
+      </Row>
+      <Row className='mb-3 m-auto'>
         <Col>
-          <h2 className='m-0'>{chapterTitle}</h2>
           <Link to={`/title/${id}?tab=${chapters}`} className={subHeaderClasses}>
             {mangaTitle[DEFAULT_LOCALE]}
           </Link>

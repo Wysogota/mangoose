@@ -1,9 +1,10 @@
 import React from 'react';
+import cx from 'classnames';
 import { selectRelationship } from '../../../common/functions';
 import styles from './CreatorAnchor.module.scss';
 
 const CreatorAnchor = (props) => {
-  const { relationships, type, Icon } = props;
+  const { relationships, type, Icon, className } = props;
 
   const creatorLink = (type, creatorId) => `https://mangadex.org/${type}/${creatorId}`;
 
@@ -12,10 +13,15 @@ const CreatorAnchor = (props) => {
   const propValue = isCreaterUser ? 'user' : 'scanlation_group';
   const creator = selectRelationship(relationships, propValue);
 
+  const classes = cx(
+    styles.creator_name,
+    className,
+  );
+
   if (!creator) return null;
 
   return (
-    <a href={creatorLink(type, creator.id)} className={styles.creator_name} target='_blank' rel='noreferrer'>
+    <a href={creatorLink(type, creator.id)} className={classes} target='_blank' rel='noreferrer'>
       <Icon />
       <span className='ms-2'>{creator.attributes[createrName]}</span>
     </a>);
