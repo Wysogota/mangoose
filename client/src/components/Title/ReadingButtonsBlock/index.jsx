@@ -5,12 +5,12 @@ import cx from 'classnames';
 import styles from './ReadingButtonsBlock.module.scss';
 
 const ReadingButtonsBlock = (props) => {
-  const { isMobileView } = props;
+  const { isAdaptiveView } = props;
   const { theme: { invertedColor, bgTheme } } = useSelector(({ themes }) => themes);
 
   const containerClasses = cx(
     bgTheme,
-    isMobileView && styles.fixed_position,
+    isAdaptiveView && styles.fixed_position,
     'pt-3'
   );
 

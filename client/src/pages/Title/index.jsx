@@ -12,6 +12,7 @@ import TitleTabs from './TitleTabs';
 import Cover from '../../components/Title/Cover';
 import TitleInfoList from './TitleInfoList';
 import ReadingButtonsBlock from '../../components/Title/ReadingButtonsBlock';
+import { useAdaptiveView } from '../../hooks';
 import { selectRelationship } from '../../common/functions';
 import styles from './Title.module.scss';
 import CONSTANTS from '../../constants';
@@ -24,12 +25,7 @@ const Title = () => {
   const { mangaId } = useParams();
   useEffect(() => getManga({ mangaId }), [mangaId]);
 
-  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= lg);
-  useEffect(() => {
-    const resizeHandler = () => setIsMobileView(window.innerWidth <= lg);
-    addEventListener('resize', resizeHandler);
-    return () => removeEventListener('resize', resizeHandler);
-  }, []);
+  const isAdaptiveView = useAdaptiveView(lg);
 
   if (isEmpty(manga) || isFetching) {
     return (
@@ -75,16 +71,16 @@ const Title = () => {
 
     const coverBlockClasses = cx(
       'col-12 col-lg-4 col-xxl-3',
-      isMobileView && 'm-auto',
+      isAdaptiveView && 'm-auto',
     );
 
     const tabBlockClasses = cx(
       'col-12 col-lg-8 col-xxl-9',
-      isMobileView && styles.block_mobile
+      isAdaptiveView && styles.block_mobile
     );
 
     const coverClasses = cx(
-      isMobileView && 'col-8 col-sm-6 m-auto'
+      isAdaptiveView && 'col-8 col-sm-6 m-auto'
     );
 
     return (
@@ -92,7 +88,7 @@ const Title = () => {
         <Row className='justify-content-between'>
           <ColBlock className={coverBlockClasses}>
             <Cover image={coverUrl} alt={title} className={coverClasses} />
-            {!isMobileView &&
+            {!isAdaptiveView &&
               <>
                 <ReadingButtonsBlock />
                 <TitleInfoList attributes={titleInfoAttr} />
@@ -112,7 +108,7 @@ const Title = () => {
             </Col>
           </ColBlock>
         </Row>
-        {isMobileView && <ReadingButtonsBlock isMobileView />}
+        {isAdaptiveView && <ReadingButtonsBlock isAdaptiveView />}
       </Container>
     );
   }
