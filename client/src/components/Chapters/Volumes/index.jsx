@@ -1,6 +1,6 @@
 import React from 'react';
-import { Accordion } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { Accordion } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import VolumeChapters from './VolumeChapters';
 import styles from './Volumes.module.scss';
 

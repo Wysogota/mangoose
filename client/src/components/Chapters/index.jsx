@@ -1,12 +1,12 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
-import * as actionCreators from '../../../redux/actions/actionCreators';
+import * as actionCreators from '../../redux/actions/actionCreators';
 import { Col, Spinner } from 'react-bootstrap';
-import PaginationButtons from '../../PaginationButtons';
-import Volumes from '../Volumes';
-import { useTabPagination, useCheckingEmptyTab } from '../../../hooks';
-import CONSTANTS from '../../../constants';
+import PaginationButtons from '../PaginationButtons';
+import Volumes from './Volumes';
+import { useTabPagination, useCheckingEmptyTab } from '../../hooks';
+import CONSTANTS from '../../constants';
 
 const limit = 20;
 const queryOptions = (options) => ({
