@@ -4,14 +4,20 @@ import { formatDistanceToNow } from 'date-fns';
 import cx from 'classnames';
 import { BsPersonFill as UserIcon, BsPeopleFill as GroupIcon } from 'react-icons/bs';
 import { ChapterLink, ExternalChapterLink } from './ChapterLinks';
-import CreatorAnchor from './CreatorAnchor';
+import CreatorAnchor from '../CreatorAnchor';
+import { useAdaptiveView } from '../../../hooks';
 import styles from './ChaptersList.module.scss';
+import CONSTANTS from '../../../constants';
+const { breakpoints: { md } } = CONSTANTS;
 
 const ChaptersList = (props) => {
   const { chapters, volumeChapter } = props;
   const { theme: { bgHoveredTheme } } = useSelector(({ themes }) => themes);
 
+  const isAdaptiveView = useAdaptiveView(md);
   const getDateValue = (publishAt) => formatDistanceToNow(new Date(publishAt));
+
+  const chapterLinkClasses = 'col-6';
 
   const constainerClasses = cx(
     styles.container,
@@ -21,7 +27,20 @@ const ChaptersList = (props) => {
 
   const creatorClasses = cx(
     styles.creator,
-    'col-4'
+    isAdaptiveView ? 'd-flex justify-content-between' : 'col-3',
+  );
+
+  const CreatorAnchors = ({ relationships }) => (
+    <div className={creatorClasses}>
+      <CreatorAnchor relationships={relationships} type='user' Icon={UserIcon} />
+      <CreatorAnchor relationships={relationships} type='group' Icon={GroupIcon} />
+    </div>
+  );
+
+  const PublishDate = ({ publishAt, className }) => (
+    <time dateTime={publishAt} className={className}>
+      {getDateValue(publishAt)}
+    </time>
   );
 
   return (chapters.data
@@ -30,19 +49,23 @@ const ChaptersList = (props) => {
       return (
         <div key={id} className={constainerClasses}>
           {externalUrl
-            ? <ExternalChapterLink externalUrl={externalUrl} chapter={chapter} />
-            : <ChapterLink chapterId={id} title={title} pages={pages} />
-          }
+            ? <ExternalChapterLink className={chapterLinkClasses} externalUrl={externalUrl} chapter={chapter} />
+            : <ChapterLink className={chapterLinkClasses} chapterId={id} title={title} pages={pages} />}
 
-          <div className={creatorClasses}>
-            <CreatorAnchor relationships={relationships} type='user' Icon={UserIcon} />
-            <CreatorAnchor relationships={relationships} type='group' Icon={GroupIcon} />
-          </div>
+          {isAdaptiveView
+            ? (<div className='col-6 d-flex justify-content-end flex-column text-end'>
+              <PublishDate publishAt={publishAt} />
+              <CreatorAnchors relationships={relationships} />
+            </div>)
+            : (<>
+              <CreatorAnchors relationships={relationships} />
+              <PublishDate
+                publishAt={publishAt}
+                className='col-3 d-flex justify-content-end text-end'
+              />
+            </>)}
 
-          <time dateTime={publishAt} className='col-2 d-flex justify-content-end text-end'>
-            {getDateValue(publishAt)}
-          </time>
-        </div >
+        </div>
       );
     }));
 };

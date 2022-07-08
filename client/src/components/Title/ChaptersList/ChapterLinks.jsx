@@ -4,13 +4,13 @@ import { BsBoxArrowUpRight as ExternalLinkIcon } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import styles from './ChaptersList.module.scss';
 
-const linkClasses = cx(
-  styles.link_title,
-  'col-6'
-);
-
 export const ExternalChapterLink = (props) => {
-  const { externalUrl, chapter } = props;
+  const { externalUrl, chapter, className } = props;
+  const linkClasses = cx(
+    styles.link_title,
+    className,
+  );
+
   return (
     <a href={externalUrl} target='_blank' rel='noreferrer' className={linkClasses}>
       <ExternalLinkIcon /><span className='ms-2'>ch. {chapter}</span>
@@ -19,7 +19,12 @@ export const ExternalChapterLink = (props) => {
 };
 
 export const ChapterLink = (props) => {
-  const { chapterId, title, pages } = props;
+  const { chapterId, title, pages, className } = props;
+  const linkClasses = cx(
+    styles.link_title,
+    className,
+  );
+
   return (
     <Link to={`/chapter/${chapterId}`} className={linkClasses}>
       <div className={styles.link_title}>{title}</div>
