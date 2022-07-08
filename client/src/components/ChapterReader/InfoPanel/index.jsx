@@ -7,6 +7,7 @@ import { isEmpty } from 'lodash';
 import { BsPeopleFill as GroupIcon } from 'react-icons/bs';
 import { selectRelationship } from '../../../common/functions';
 import CreatorAnchor from '../../Title/ChaptersList/CreatorAnchor';
+import MenuButton from '../MenuButton';
 import styles from './InfoPanel.module.scss';
 import CONSTANTS from '../../../constants.js';
 
@@ -56,7 +57,7 @@ const InfoPanel = (props) => {
       <Row>
         <Col className={blocksClasses}>Vol.{volumeNum}, Ch.{chapterNum}</Col>
         <Col className={blocksClasses}>Page: {currentPage + 1} / {pageCount}</Col>
-        <Col className={blocksClasses}></Col>
+        <Col className={blocksClasses}><MenuButton /></Col>
       </Row>
     </>
   );
