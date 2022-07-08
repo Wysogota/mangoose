@@ -3,7 +3,7 @@ const queryString = require('query-string');
 const Manga = require('../../models/Manga');
 const Cover = require('../../models/Cover');
 const {
-  coversOptions, chapterOptions, defaultListOptions,
+  coversOptions, chaptersOptions, mangaListOptions,
   relationshipsOptions, relationshipsChapterOptions,
   nextChapterIdOptions, stringifyOptions
 } = require('./options');
@@ -27,10 +27,11 @@ module.exports.getMangaCovers = async (options) => {
 module.exports.getMangaList = async (options) => {
   const assignedOptions = Object.assign(
     options,
-    defaultListOptions,
+    mangaListOptions,
     relationshipsOptions
   );
   const query = queryString.stringify(assignedOptions, stringifyOptions);
+  console.log(query);
   const { data: { data } } = await client.get(`/manga?${query}`);
   const mangaList = data.map((item) => new Manga(item));
   return mangaList;
@@ -44,7 +45,7 @@ module.exports.getManga = async (options) => {
 };
 
 module.exports.getChapters = async (options) => {
-  const query = chapterOptions(options)
+  const query = chaptersOptions(options)
     .map((item) => queryString.stringify(item, stringifyOptions))
     .join('&');
   const { data } = await client.get(`/chapter?${query}`);

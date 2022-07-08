@@ -1,6 +1,7 @@
-module.exports.defaultListOptions = {
+module.exports.mangaListOptions = {
   includedTagsMode: 'AND',
   excludedTags: ['b13b2a48-c720-44a9-9c77-39c9979373fb'], /* -- doujinshi -- */
+  originalLanguage: ['ja'],
   contentRating: ['safe', 'suggestive'],
 };
 
@@ -15,7 +16,7 @@ module.exports.coversOptions = (options) => ({
   offset: options.offset,
 });
 
-module.exports.chapterOptions = (options) => ([
+module.exports.chaptersOptions = (options) => ([
   { 'manga': options.mangaId },
   { 'translatedLanguage': [options.lang] },
   { 'order[volume]': 'asc' },
@@ -32,7 +33,7 @@ module.exports.relationshipsChapterOptions = {
 module.exports.nextChapterIdOptions = (options, isNext) => {
   const parsedChapter = Number.parseInt(options.chapter);
   const chapter = isNext ? parsedChapter + 1 : parsedChapter - 1;
-  
+
   return {
     manga: options.mangaId,
     groups: [options.groupId],
