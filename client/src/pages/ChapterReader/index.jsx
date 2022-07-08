@@ -12,10 +12,11 @@ const { PARAM_NAME: { page } } = CONSTANTS;
 
 const ChapterReader = () => {
   const { theme } = useSelector(({ themes }) => themes);
+  const { chapterId } = useParams();
+  
   const { chapterPages, isFetching } = useSelector(({ chapterPages }) => chapterPages);
   const { getChapterPages } = bindActionCreators(actionCreators, useDispatch());
-  const { chapterId } = useParams();
-  useEffect(() => getChapterPages({ chapterId }), [chapterId]);
+  
   const [searchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(Number.parseInt(searchParams.get(page)) - 1 || 0);
 
@@ -29,10 +30,14 @@ const ChapterReader = () => {
     };
   }, [theme]);
 
+  useEffect(() => getChapterPages({ chapterId }), [chapterId]);
+
   useEffect(() => {
     const paramValue = searchParams.get(page);
     if (paramValue) {
       setCurrentPage(Number.parseInt(paramValue) - 1);
+    } else{
+      setCurrentPage(0);
     }
   }, [searchParams]);
 
@@ -45,7 +50,7 @@ const ChapterReader = () => {
         </Row>
         <Row>
           <Col>
-            <Reader chapterPages={chapterPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            <Reader chapterPages={chapterPages} currentPage={currentPage} />
           </Col>
         </Row>
       </Container>
