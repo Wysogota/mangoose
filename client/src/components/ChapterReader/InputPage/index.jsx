@@ -7,7 +7,7 @@ import styles from './InputPage.module.scss';
 const InputPage = (props) => {
   const { page, pageCount, className } = props;
   const { theme: { mainTheme, hoveredTheme } } = useSelector(({ themes }) => themes);
-  const [_, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
 
   const handleChange = ({ target }) => {
     let newPage = page;

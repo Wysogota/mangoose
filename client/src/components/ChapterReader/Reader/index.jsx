@@ -12,7 +12,7 @@ import CONSTANTS from '../../../constants';
 const { TITLE_TABS: { chapters } } = CONSTANTS;
 
 const Reader = (props) => {
-  const [_, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
   const { chapterPages, currentPage } = props;
 
   const { chapter } = useSelector(({ chapter }) => chapter);
