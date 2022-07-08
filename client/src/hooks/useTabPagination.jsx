@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import CONSTANTS from '../constants';
 const { PARAM_NAME: { page } } = CONSTANTS;
 
-const usePagination = (options) => {
+const useTabPagination = (options) => {
   const { actionCreator, queryOptions, mangaId, paramName, tabParamValue, limit } = options;
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(0);
@@ -39,4 +39,4 @@ const usePagination = (options) => {
   return { currentPage, setCurrentPage, existedParams };
 };
 
-export default usePagination;
+export default useTabPagination;

@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
-import { useSearchParams } from 'react-router-dom';
 import { Col, Image, Spinner } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 import cx from 'classnames';
 import MainHeader from '../../Headers/MainHeader';
 import PaginationButtons from '../../PaginationButtons';
+import { useTabPagination } from '../../../hooks';
 import styles from './Arts.module.scss';
 import CONSTANTS from '../../../constants';
-import usePagination from '../../../hooks/usePagination';
 const { PARAM_NAME: { page } } = CONSTANTS;
 
 const limit = 5;
@@ -26,7 +25,7 @@ const Arts = (props) => {
   const { theme: { bgAccentTheme } } = useSelector(({ themes }) => themes);
   const { getMangaCovers } = bindActionCreators(actionCreators, useDispatch());
 
-  const { currentPage, setCurrentPage, existedParams } = usePagination({
+  const { currentPage, setCurrentPage, existedParams } = useTabPagination({
     actionCreator: getMangaCovers,
     queryOptions,
     mangaId, paramName, tabParamValue,

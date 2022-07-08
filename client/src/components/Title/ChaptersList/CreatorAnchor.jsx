@@ -11,6 +11,8 @@ const CreatorAnchor = (props) => {
   const propValue = isCreaterUser ? 'user' : 'scanlation_group';
   const creator = selectRelationship(relationships, propValue);
 
+  if (!creator) return null;
+
   return (
     <a href={creatorLink(type, creator.id)} className={className} target='_blank' rel='noreferrer'>
       <Icon />

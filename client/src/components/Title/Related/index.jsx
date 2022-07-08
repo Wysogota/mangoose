@@ -3,13 +3,11 @@ import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
 import { Spinner } from 'react-bootstrap';
-import MainHeader from '../../Headers/MainHeader';
-import MinorHeader from '../../Headers/MinorHeader';
-import { isEmpty } from 'lodash';
-import { selectRelationship } from '../../../common/functions';
-import RelatedCard from '../RelatedCard';
-import CONSTANTS from '../../../constants';
 import { capitalize } from 'lodash';
+import RelatedCard from '../RelatedCard';
+import { useCheckingEmptyTab } from '../../../hooks';
+import { selectRelationship } from '../../../common/functions';
+import CONSTANTS from '../../../constants';
 
 const Related = (props) => {
   const { relationships } = props;
@@ -38,10 +36,12 @@ const Related = (props) => {
     }
   }, [mangaCatalog]);
 
+  const emptyTab = useCheckingEmptyTab(relatedManga, 'No Related');
+  if (emptyTab) return emptyTab;
+
   return (
-    <div>
-      <MainHeader>Related Titles</MainHeader>
-      {isFetching
+    <div>{
+      isFetching
         ? <Spinner animation='border' role='status'></Spinner>
         : <>{relatedManga.map(({
           id, related, relationships,
@@ -49,8 +49,8 @@ const Related = (props) => {
             title, description, status, tags
           }
         }) => (
-          <RelatedCard key={id}
-            id={id}
+          <RelatedCard
+            key={id} id={id}
             image={selectRelationship(relationships, 'cover_art').attributes.url}
             related={related}
             title={title[CONSTANTS.DEFAULT_LOCALE]}
@@ -59,9 +59,8 @@ const Related = (props) => {
             tags={tags}
           />
         ))}
-          {isEmpty(relatedManga) && <MinorHeader className='text-center'>No Related</MinorHeader>}</>
-      }
-    </div>
+        </>
+    }</div>
   );
 };
 

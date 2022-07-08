@@ -1,1 +1,2 @@
-export { default as usePagination } from './usePagination';
+export { default as useTabPagination } from './useTabPagination';
+export { default as useCheckingEmptyTab } from './useCheckingEmptyTab';
