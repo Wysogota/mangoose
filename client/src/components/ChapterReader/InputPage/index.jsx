@@ -5,7 +5,7 @@ import cx from 'classnames';
 import styles from './InputPage.module.scss';
 
 const InputPage = (props) => {
-  const { page, pageCount } = props;
+  const { page, pageCount, className } = props;
   const { theme: { mainTheme, hoveredTheme } } = useSelector(({ themes }) => themes);
   const [_, setSearchParams] = useSearchParams();
 
@@ -23,6 +23,7 @@ const InputPage = (props) => {
     styles.input,
     mainTheme,
     hoveredTheme,
+    className,
     'text-end',
   );
 

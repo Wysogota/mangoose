@@ -10,7 +10,7 @@ const MenuButton = () => {
     elements.icon_button,
     mainTheme,
     hoveredTheme,
-    'w-100 align-middle'
+    'w-100'
   );
   return (
     <button className={classes}><span>Menu</span><MenuIcon /></button>

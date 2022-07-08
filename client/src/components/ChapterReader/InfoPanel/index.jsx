@@ -19,7 +19,8 @@ const InfoPanel = (props) => {
 
   const blocksClasses = cx(
     bgTheme,
-    'me-1 ms-1 p-1 text-center rounded-2'
+    'me-1 ms-1 p-1 rounded-2',
+    'd-flex justify-content-center align-items-center flex-wrap'
   );
 
   const subHeaderClasses = cx(
@@ -39,7 +40,7 @@ const InfoPanel = (props) => {
 
   return (
     <>
-      <Row className='mb-2'>
+      <Row className='mb-2 m-auto'>
         <Col>
           <h2 className='m-0'>{chapterTitle}</h2>
           <Link to={`/title/${id}`} className={subHeaderClasses}>
@@ -55,12 +56,18 @@ const InfoPanel = (props) => {
           />
         </Col>
       </Row>
-      <Row>
-        <Col className={blocksClasses}>Vol.{volumeNum}, Ch.{chapterNum}</Col>
-        <Col className={blocksClasses}>
-          Page: <InputPage page={currentPage + 1} pageCount={pageCount} /> / {pageCount}
+      <Row className='m-auto'>
+        <Col xs='2' md='3' className={blocksClasses}>
+          <span className='ms-1 me-1'>Vol.{volumeNum},</span>
+          <span className='ms-1 me-1'>Ch.{chapterNum}</span>
         </Col>
-        <Col className={blocksClasses}><MenuButton /></Col>
+        <Col className={blocksClasses}>
+          Page:
+          <InputPage page={currentPage + 1} pageCount={pageCount} className='pe-1' />
+          /
+          <span className='ps-1'>{pageCount}</span>
+        </Col>
+        <Col xs='2' md='3' className={blocksClasses}><MenuButton /></Col>
       </Row>
     </>
   );
