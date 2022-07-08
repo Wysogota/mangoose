@@ -7,7 +7,7 @@ import { ChapterLink, ExternalChapterLink } from './ChapterLinks';
 import CreatorAnchor from './CreatorAnchor';
 import styles from './ChaptersList.module.scss';
 
-const Chapters = (props) => {
+const ChaptersList = (props) => {
   const { chapters, volumeChapter } = props;
   const { theme: { bgHoveredTheme } } = useSelector(({ themes }) => themes);
 
@@ -47,4 +47,4 @@ const Chapters = (props) => {
     }));
 };
 
-export default Chapters;
+export default ChaptersList;
