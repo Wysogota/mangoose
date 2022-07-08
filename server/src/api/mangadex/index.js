@@ -63,7 +63,12 @@ module.exports.getChapter = async (options) => {
 };
 
 module.exports.getNextChapterId = async (options) => {
-  const query = queryString.stringify(nextChapterIdOptions(options), stringifyOptions);
-  const { data: { data } } = await client.get(`/chapter?${query}`);
-  return data[0].id;
+  const prevChapterQuery = queryString.stringify(nextChapterIdOptions(options), stringifyOptions);
+  const nextChapterQuery = queryString.stringify(nextChapterIdOptions(options, true), stringifyOptions);
+  const { data: { data: prevChapter } } = await client.get(`/chapter?${prevChapterQuery}`);
+  const { data: { data: nextChapter } } = await client.get(`/chapter?${nextChapterQuery}`);
+  return {
+    prev: prevChapter[0].id,
+    next: nextChapter[0].id
+  };
 };

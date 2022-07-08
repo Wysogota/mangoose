@@ -29,12 +29,17 @@ module.exports.relationshipsChapterOptions = {
   includes: ['manga', 'scanlation_group']
 };
 
-module.exports.nextChapterIdOptions = (options) => ({
-  manga: options.mangaId,
-  groups: [options.groupId],
-  chapter: options.chapter,
-  limit: 1,
-});
+module.exports.nextChapterIdOptions = (options, isNext) => {
+  const parsedChapter = Number.parseInt(options.chapter);
+  const chapter = isNext ? parsedChapter + 1 : parsedChapter - 1;
+  
+  return {
+    manga: options.mangaId,
+    groups: [options.groupId],
+    chapter,
+    limit: 1,
+  };
+};
 
 module.exports.stringifyOptions = {
   arrayFormat: 'bracket'
