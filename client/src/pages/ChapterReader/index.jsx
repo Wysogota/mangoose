@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { Container, Row, Col, Carousel, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 import Reader from '../../components/ChapterReader/Reader';
 import CONSTANTS from '../../constants';
@@ -13,10 +13,10 @@ const { PARAM_NAME: { page } } = CONSTANTS;
 const ChapterReader = () => {
   const { theme } = useSelector(({ themes }) => themes);
   const { chapterId } = useParams();
-  
+
   const { chapterPages, isFetching } = useSelector(({ chapterPages }) => chapterPages);
   const { getChapterPages } = bindActionCreators(actionCreators, useDispatch());
-  
+
   const [searchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(Number.parseInt(searchParams.get(page)) - 1 || 0);
 
@@ -34,11 +34,7 @@ const ChapterReader = () => {
 
   useEffect(() => {
     const paramValue = searchParams.get(page);
-    if (paramValue) {
-      setCurrentPage(Number.parseInt(paramValue) - 1);
-    } else{
-      setCurrentPage(0);
-    }
+    setCurrentPage(paramValue ? (Number.parseInt(paramValue) - 1) : 0);
   }, [searchParams]);
 
   return (
@@ -46,7 +42,7 @@ const ChapterReader = () => {
       ? <Spinner animation='border' role='status'></Spinner>
       : <Container fluid>
         <Row className='p-5'>
-          <InfoPanel currentPage={currentPage} pageCount={chapterPages.data.length}/>
+          <InfoPanel currentPage={currentPage} pageCount={chapterPages.data.length} />
         </Row>
         <Row>
           <Col>

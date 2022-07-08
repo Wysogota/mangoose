@@ -2,20 +2,34 @@ import React, { useState } from 'react';
 import { Carousel } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import { selectRelationship } from '../../../common/functions';
 import styles from './Reader.module.scss';
 import './reader.scss';
 
 const Reader = (props) => {
   const [_, setSearchParams] = useSearchParams();
   const { chapterPages, currentPage } = props;
+  const { chapter } = useSelector(({ chapter }) => chapter);
   const { nextChapterId } = useSelector(({ nextChapterId }) => nextChapterId);
-  const [prevPage, setPrevPage] = useState(0);
+  const [prevPage, setPrevPage] = useState(currentPage);
   const navigate = useNavigate();
 
   const handleSelect = (selectedPage, e) => {
-    (selectedPage === 0 && prevPage === chapterPages.data.length - 1)
-      ? navigate(`/chapter/${nextChapterId}`, { state: true })
-      : setSearchParams(`?page=${selectedPage + 1}`);
+
+    const pagesCount = chapterPages.data.length - 1;
+    const { prev, next } = nextChapterId;
+    const mangaId = selectRelationship(chapter.relationships, 'manga').id;
+
+    const chooseNavigate = (navigeChapter) =>
+      navigeChapter ? navigate(`/chapter/${navigeChapter}`) : navigate(`/title/${mangaId}`);
+
+    if (selectedPage === 0 && prevPage === pagesCount) {
+      chooseNavigate(next);
+    } else if (prevPage === 0 && selectedPage === pagesCount) {
+      chooseNavigate(prev);
+    } else {
+      setSearchParams(`?page=${selectedPage + 1}`);
+    }
 
     setPrevPage(selectedPage);
     e.target.scrollIntoView({ behavior: 'smooth' });

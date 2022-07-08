@@ -68,7 +68,7 @@ module.exports.getNextChapterId = async (options) => {
   const { data: { data: prevChapter } } = await client.get(`/chapter?${prevChapterQuery}`);
   const { data: { data: nextChapter } } = await client.get(`/chapter?${nextChapterQuery}`);
   return {
-    prev: prevChapter[0].id,
-    next: nextChapter[0].id
+    prev: prevChapter[0]?.id,
+    next: nextChapter[0]?.id
   };
 };

@@ -33,7 +33,7 @@ const InfoPanel = (props) => {
       getNextChapterId({
         mangaId,
         groupId,
-        chapter: Number.parseInt(chapter.attributes.chapter) + 1,
+        chapter: chapter.attributes.chapter,
       });
     }
   }, [chapter]);
