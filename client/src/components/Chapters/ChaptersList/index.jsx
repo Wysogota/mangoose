@@ -48,9 +48,18 @@ const ChaptersList = (props) => {
     .map(({ id, attributes: { title, chapter, externalUrl, pages, publishAt }, relationships }) => {
       return (
         <div key={id} className={constainerClasses}>
-          {externalUrl
-            ? <ExternalChapterLink className={chapterLinkClasses} externalUrl={externalUrl} chapter={chapter} />
-            : <ChapterLink className={chapterLinkClasses} chapterId={id} title={title} pages={pages} />}
+          {externalUrl ?
+            <ExternalChapterLink
+              className={chapterLinkClasses}
+              externalUrl={externalUrl}
+              chapter={chapter}
+            /> :
+            <ChapterLink
+              className={chapterLinkClasses}
+              chapterId={id}
+              title={title || `Chapter ${chapter}`}
+              pages={pages}
+            />}
 
           {isAdaptiveView
             ? (<div className='col-6 d-flex justify-content-end flex-column text-end'>
