@@ -9,9 +9,14 @@ import HeaderLink from '../../components/HeaderLink';
 import ColBlock from '../../components/Blocks/ColBlock';
 import Advertisement from '../../components/Advertisement';
 import HomeMangaCatalog from './HomeMangaCatalog';
+import { getPageTitle } from '../../common/functions';
+import CONSTANTS from '../../constants';
+const { PAGES: { HOME: { name } } } = CONSTANTS;
 
 const Home = () => {
   const isCarouselOpen = useSelector(({ carousels }) => carousels);
+
+  useEffect(() => { document.title = getPageTitle(name); }, []);
 
   const [extendedCatalog, setExtendedCatalog] = useState(Object.values(isCarouselOpen).every((carousel) => carousel === true));
 

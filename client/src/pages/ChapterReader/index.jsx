@@ -7,19 +7,35 @@ import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 import InfoPanel from '../../components/ChapterReader/InfoPanel';
 import Reader from '../../components/ChapterReader/Reader';
+import { getPageTitle, selectRelationship } from '../../common/functions';
 import CONSTANTS from '../../constants';
-const { PARAM_NAME: { PAGE } } = CONSTANTS;
+const {
+  PARAM_NAME: { PAGE },
+  PAGES: { CHAPTER_READER: { name } },
+  DEFAULT_LOCALE,
+} = CONSTANTS;
 
 const ChapterReader = () => {
   const { chapterId } = useParams();
 
   const { theme } = useSelector(({ themes }) => themes);
   const { chapterPages, isFetching } = useSelector(({ chapterPages }) => chapterPages);
+  const { chapter } = useSelector(({ chapter }) => chapter);
   const { getChapterPages } = bindActionCreators(actionCreators, useDispatch());
   const { getChapter } = bindActionCreators(actionCreators, useDispatch());
 
   const [searchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(Number.parseInt(searchParams.get(PAGE)) - 1 || 0);
+
+  useEffect(() => {
+    if (isEmpty(chapter))
+      document.title = getPageTitle(name);
+    else {
+      const mangaTitle = selectRelationship(chapter.relationships, 'manga').attributes.title[DEFAULT_LOCALE];
+      const chapterTitle = chapter.attributes.title;
+      document.title = getPageTitle(`${chapterTitle} - ${mangaTitle}`);
+    }
+  }, [chapter]);
 
   useEffect(() => {
     getChapter({ chapterId });

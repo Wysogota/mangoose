@@ -8,6 +8,9 @@ import Genres from '../../components/Catalog/Genres';
 import MangaCatalog from '../../components/Catalog/MangaCatalog';
 import PaginationButtons from '../../components/PaginationButtons';
 import { useCheckingEmptyValues, usePagination } from '../../hooks';
+import { getPageTitle } from '../../common/functions';
+import CONSTANTS from '../../constants';
+const { PAGES: { CATALOG: { name } } } = CONSTANTS;
 
 const limit = 32;
 
@@ -20,6 +23,8 @@ const Catalog = () => {
   const { mangaCatalog, total, isFetching } = useSelector(({ mangaCatalog }) => mangaCatalog);
   const { getMangaCatalog } = bindActionCreators(actionCreators, useDispatch());
   const [genres, setGenres] = useState([]);
+
+  useEffect(() => { document.title = getPageTitle(name); }, []);
 
   const { currentPage, setCurrentPage } = usePagination({
     actionCreator: getMangaCatalog,

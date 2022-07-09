@@ -12,7 +12,10 @@ import CONSTANTS from '../../../constants';
 const {
   TITLE_TABS: { CHAPTERS },
   PARAM_NAME: { TAB, PAGE },
-  PAGES: { TITLE, CHAPTER },
+  PAGES: {
+    TITLE: { path: titlePath },
+    CHAPTER_READER: { path: chapterPath }
+  },
 } = CONSTANTS;
 
 const Reader = (props) => {
@@ -47,8 +50,8 @@ const Reader = (props) => {
     const mangaId = selectRelationship(chapter.relationships, 'manga').id;
 
     const chooseNavigate = (navigeChapter) => navigeChapter
-      ? navigate(`/${CHAPTER}/${navigeChapter}`)
-      : navigate(`/${TITLE}/${mangaId}?${TAB}=${CHAPTERS}`);
+      ? navigate(`/${chapterPath}/${navigeChapter}`)
+      : navigate(`/${titlePath}/${mangaId}?${TAB}=${CHAPTERS}`);
 
     if (selectedPage === 0 && prevPage === pagesCount) {
       chooseNavigate(next);

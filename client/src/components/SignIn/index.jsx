@@ -9,6 +9,8 @@ import { Formik, Form } from 'formik';
 import Input from '../../components/Input';
 import CloseButton from '../CloseButton';
 import { SIGN_IN_SCHEMA } from '../../utils/validationSchemas';
+import CONSTANTS from '../../constants';
+const { PAGES: { SIGN_UP: { path: signupPath } } } = CONSTANTS;
 
 const initialValues = {
   email: '',
@@ -47,7 +49,7 @@ const SignIn = () => {
             <Button className='text-capitalize' variant={invertedColor} type='submit'>sign in</Button>
             <div>
               <span>Dont have account? </span>
-              <Link to='/signup' onClick={hideSignIn} className={mainTheme}>Sign Up</Link>
+              <Link to={`/${signupPath}`} onClick={hideSignIn} className={mainTheme}>Sign Up</Link>
             </div>
           </Modal.Footer>
         </Form>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
@@ -10,11 +10,12 @@ import HeaderSidebar from './BurgerButton';
 import Logo from '../Logo';
 import ToggleTheme from '../ToggleTheme';
 import styles from './Header.module.scss';
+import CONSTANTS from '../../constants';
+const { PAGES: { SIGN_UP: { path } } } = CONSTANTS;
 
 const Header = () => {
   const { theme: { mainTheme, bgTheme, invertedColor, outlineColor } } = useSelector(({ themes }) => themes);
   const { showSignIn } = bindActionCreators(actionCreators, useDispatch());
-
 
   const headerClasses = cx(
     styles.header,
@@ -32,7 +33,7 @@ const Header = () => {
         <Col xs='10' sm='6' md='3' lg='4' className='text-end text-md-center'>
           <ButtonGroup className='pt-2 pb-2'>
             <Button onClick={showSignIn} variant={outlineColor}>Sign In</Button>
-            <Button as={Link} to='/signup' variant={invertedColor}>Sign Up</Button>
+            <Button as={Link} to={`/${path}`} variant={invertedColor}>Sign Up</Button>
           </ButtonGroup>
           <ToggleTheme Component='button' btnClasses='ps-3 d-none d-lg-inline-block' imageClasses='fs-3' />
         </Col>

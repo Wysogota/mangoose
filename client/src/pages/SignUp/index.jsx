@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import cx from 'classnames';
 import { Col, Container, Row, Button } from 'react-bootstrap';
 import { Formik, Form } from 'formik';
 import Input from '../../components/Input';
+import { getPageTitle } from '../../common/functions';
 import { SIGN_UP_SCHEMA } from '../../utils/validationSchemas';
+import CONSTANTS from '../../constants';
+const { PAGES: { SIGN_UP: { name } } } = CONSTANTS;
 
 const initialValues = {
   nickname: '',
@@ -15,6 +18,8 @@ const initialValues = {
 
 const SignUp = () => {
   const { theme: { mainTheme, bgTheme, invertedColor } } = useSelector(({ themes }) => themes);
+
+  useEffect(() => { document.title = getPageTitle(name); }, []);
 
   const onSubmit = (values, formikBag) => {
     formikBag.resetForm();

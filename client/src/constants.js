@@ -16,8 +16,26 @@ export default {
     xl: 1200,
   },
   PAGES: {
-    TITLE: 'title',
-    CHAPTER: 'chapter'
+    HOME: {
+      name: 'Home',
+      path: '',
+    },
+    CATALOG: {
+      name: 'Catalog',
+      path: 'catalog',
+    },
+    SIGN_UP: {
+      name: 'Sign Up',
+      path: 'signup',
+    },
+    TITLE: {
+      name: 'Title',
+      path: 'title',
+    },
+    CHAPTER_READER: {
+      name: 'Reader',
+      path: 'chapter',
+    },
   },
   TITLE_TABS: {
     INFO: 'info',

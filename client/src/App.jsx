@@ -13,6 +13,13 @@ import ChapterReader from './pages/ChapterReader';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import CONSTANTS from './constants';
+const { PAGES: {
+  SIGN_UP: { path: signupPath },
+  CATALOG: { path: catalogPath },
+  TITLE: { path: titlePath },
+  CHAPTER_READER: { path: chapterPath },
+} } = CONSTANTS;
 
 const App = () => {
   const { theme: { bgAccentTheme, mainTheme } } = useSelector(({ themes }) => themes);
@@ -27,11 +34,11 @@ const App = () => {
       <div id='content'>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/signup' element={<SignUp />} />
+          <Route path={`/${signupPath}`} element={<SignUp />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/catalog' element={<Catalog />} />
-          <Route path='/title/:mangaId' element={<Title />} />
-          <Route path='/chapter/:chapterId' element={<ChapterReader />} />
+          <Route path={`/${catalogPath}`} element={<Catalog />} />
+          <Route path={`/${titlePath}/:mangaId`} element={<Title />} />
+          <Route path={`/${chapterPath}/:chapterId`} element={<ChapterReader />} />
         </Routes>
       </div>
       <Footer />

@@ -1,4 +1,6 @@
-import { isArray } from "lodash";
+import { isArray } from 'lodash';
+import CONSTANTS from '../../constants';
+const { WEBSITE_NAME } = CONSTANTS;
 
 export const selectRelationship = (relationships, type) => {
   if (isArray(type)) {
@@ -11,3 +13,5 @@ export const selectRelationship = (relationships, type) => {
   }
   return relationships.filter((item) => item.type === type)[0];
 };
+
+export const getPageTitle = (title) => `${title} - ${WEBSITE_NAME}`;

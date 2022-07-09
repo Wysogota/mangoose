@@ -8,8 +8,11 @@ import {
   BsNewspaper as NewsIcon, BsFillEnvelopeFill as ContactsIcon, BsShuffle as RandomIcon
 } from 'react-icons/bs';
 import ToggleTheme from '../ToggleTheme';
-
 import styles from './NavItems.module.scss';
+import CONSTANTS from '../../constants';
+const { PAGES: {
+  CATALOG: { name: catalogName, path: catalogPath },
+} } = CONSTANTS;
 
 const createComponent = (Component, to, Icon, title, options) => {
   const { theme: { hoveredTheme, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
@@ -25,7 +28,7 @@ const createComponent = (Component, to, Icon, title, options) => {
     : <Component as={Link} to={to} className={classes}><Child /></Component>;
 };
 
-const Catalog = (Component, options) => createComponent(Component, '/catalog', CatalogIcon, 'Catalog', options);
+const Catalog = (Component, options) => createComponent(Component, `/${catalogPath}`, CatalogIcon, catalogName, options);
 const Search = (Component, options) => createComponent(Component, '#', SearchIcon, 'Search', options);
 const FAQ = (Component, options) => createComponent(Component, '#', FAQIcon, 'FAQ', options);
 const News = (Component, options) => createComponent(Component, '#', NewsIcon, 'News', options);
