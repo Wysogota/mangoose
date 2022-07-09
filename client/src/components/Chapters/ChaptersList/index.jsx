@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { formatDistanceToNow } from 'date-fns';
 import cx from 'classnames';
-import { BsPersonFill as UserIcon, BsPeopleFill as GroupIcon } from 'react-icons/bs';
+import { BsPersonFill as UserIcon, BsPeopleFill as GroupIcon, BsClockFill as ClockIcon } from 'react-icons/bs';
 import { ChapterLink, ExternalChapterLink } from './ChapterLinks';
 import CreatorAnchor from '../CreatorAnchor';
 import { useAdaptiveView } from '../../../hooks';
@@ -12,12 +12,15 @@ const { breakpoints: { md } } = CONSTANTS;
 
 const ChaptersList = (props) => {
   const { chapters, volumeChapter } = props;
-  const { theme: { bgHoveredTheme } } = useSelector(({ themes }) => themes);
+  const { theme: { bgHoveredTheme, hoveredTheme } } = useSelector(({ themes }) => themes);
 
   const isAdaptiveView = useAdaptiveView(md);
   const getDateValue = (publishAt) => formatDistanceToNow(new Date(publishAt));
 
-  const chapterLinkClasses = 'col-6';
+  const chapterLinkClasses = cx(
+    hoveredTheme,
+    'col-6'
+  );
 
   const constainerClasses = cx(
     styles.container,
@@ -25,21 +28,32 @@ const ChaptersList = (props) => {
     'p-2 d-flex justify-content-between text-nowrap rounded-2',
   );
 
-  const creatorClasses = cx(
+  const creatorContainerClasses = cx(
     styles.creator,
     isAdaptiveView ? 'd-flex justify-content-between' : 'col-3',
   );
 
+  const creatorClasses = cx(
+    hoveredTheme,
+    isAdaptiveView && 'col-6',
+  );
+
+  const userCreatorClasses = cx(
+    creatorClasses,
+    isAdaptiveView && 'text-start pe-2',
+  );
+
   const CreatorAnchors = ({ relationships }) => (
-    <div className={creatorClasses}>
-      <CreatorAnchor relationships={relationships} type='user' Icon={UserIcon} />
-      <CreatorAnchor relationships={relationships} type='group' Icon={GroupIcon} />
+    <div className={creatorContainerClasses}>
+      <CreatorAnchor className={userCreatorClasses} relationships={relationships} type='user' Icon={UserIcon} />
+      <CreatorAnchor className={creatorClasses} relationships={relationships} type='group' Icon={GroupIcon} />
     </div>
   );
 
   const PublishDate = ({ publishAt, className }) => (
     <time dateTime={publishAt} className={className}>
-      {getDateValue(publishAt)}
+      <ClockIcon className={styles.clock_icon} />
+      <span className='ms-1'>{getDateValue(publishAt)}</span>
     </time>
   );
 
@@ -70,7 +84,7 @@ const ChaptersList = (props) => {
               <CreatorAnchors relationships={relationships} />
               <PublishDate
                 publishAt={publishAt}
-                className='col-3 d-flex justify-content-end text-end'
+                className='col-3 align-middle text-end'
               />
             </>)}
 
