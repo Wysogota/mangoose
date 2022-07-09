@@ -146,3 +146,19 @@ export const getNextChapterIdError = (data) => ({
   type: ACTION_TYPES.GET_NEXT_CHAPTER_ID_ERROR,
   payload: { data },
 });
+
+export const getFirstChapterId = (options) => ({
+  type: ACTION_TYPES.GET_FIRST_CHAPTER_ID,
+  payload: { options }
+});
+export const getFirstChapterIdRequest = () => ({
+  type: ACTION_TYPES.GET_FIRST_CHAPTER_ID_REQUEST,
+});
+export const getFirstChapterIdSuccess = (data) => ({
+  type: ACTION_TYPES.GET_FIRST_CHAPTER_ID_SUCCESS,
+  payload: { data },
+});
+export const getFirstChapterIdError = (data) => ({
+  type: ACTION_TYPES.GET_FIRST_CHAPTER_ID_ERROR,
+  payload: { data },
+});
