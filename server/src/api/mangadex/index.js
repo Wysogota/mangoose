@@ -5,7 +5,7 @@ const Cover = require('../../models/Cover');
 const {
   coversOptions, chaptersOptions, mangaListOptions,
   relationshipsOptions, relationshipsChapterOptions,
-  nextChapterIdOptions, stringifyOptions
+  nextChapterIdOptions, firstChapterIdOptions, stringifyOptions
 } = require('./options');
 
 const client = axios.create({
@@ -71,4 +71,12 @@ module.exports.getNextChapterId = async (options) => {
     prev: prevChapter[0]?.id,
     next: nextChapter[0]?.id
   };
+};
+
+module.exports.getFirstChapterId = async (options) => {
+  const query = firstChapterIdOptions(options)
+    .map((item) => queryString.stringify(item, stringifyOptions))
+    .join('&');
+  const { data: { data } } = await client.get(`/chapter?${query}`);
+  return data[0].id;
 };

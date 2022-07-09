@@ -42,6 +42,14 @@ module.exports.nextChapterIdOptions = (options, isNext) => {
   };
 };
 
+module.exports.firstChapterIdOptions = (options) => ([
+  { 'manga': options.mangaId },
+  { 'translatedLanguage': [options.lang] },
+  { 'order[volume]': 'asc' },
+  { 'order[chapter]': 'asc' },
+  { 'limit': 1 },
+])
+
 module.exports.stringifyOptions = {
   arrayFormat: 'bracket'
 };
