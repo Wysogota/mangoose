@@ -31,9 +31,14 @@ module.exports.getMangaList = async (options) => {
     relationshipsOptions
   );
   const query = queryString.stringify(assignedOptions, stringifyOptions);
-  const { data: { data } } = await client.get(`/manga?${query}`);
-  const mangaList = data.map((item) => new Manga(item));
-  return mangaList;
+  const { data: { data, limit, offset, total } } = await client.get(`/manga?${query}`);
+  const response = {
+    mangaList: data.map((item) => new Manga(item)),
+    limit,
+    offset,
+    total,
+  };
+  return response;
 };
 
 module.exports.getManga = async (options) => {

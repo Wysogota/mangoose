@@ -1,7 +1,7 @@
 module.exports.mangaListOptions = {
   includedTagsMode: 'AND',
   excludedTags: ['b13b2a48-c720-44a9-9c77-39c9979373fb'], /* -- doujinshi -- */
-  originalLanguage: ['ja'],
+  originalLanguage: ['ja', 'en'],
   contentRating: ['safe', 'suggestive'],
 };
 
@@ -48,7 +48,7 @@ module.exports.firstChapterIdOptions = (options) => ([
   { 'order[volume]': 'asc' },
   { 'order[chapter]': 'asc' },
   { 'limit': 1 },
-])
+]);
 
 module.exports.stringifyOptions = {
   arrayFormat: 'bracket'
