@@ -6,18 +6,29 @@ import { Container, Row } from 'react-bootstrap';
 import ColBlock from '../../components/Blocks/ColBlock';
 import Genres from '../../components/Catalog/Genres';
 import MangaCatalog from '../../components/Catalog/MangaCatalog';
+import PaginationButtons from '../../components/PaginationButtons';
+import { useCheckingEmptyValues, usePagination } from '../../hooks';
 
-const options = {
-  limit: 32,
-  offset: 0
-};
+const limit = 32;
+
+const queryOptions = (options) => ({
+  limit,
+  offset: options.offset
+});
 
 const Catalog = () => {
-  const { mangaCatalog, isFetching } = useSelector(({ mangaCatalog }) => mangaCatalog);
+  const { mangaCatalog, total, isFetching } = useSelector(({ mangaCatalog }) => mangaCatalog);
   const { getMangaCatalog } = bindActionCreators(actionCreators, useDispatch());
   const [genres, setGenres] = useState([]);
 
-  useEffect(() => getMangaCatalog(options), []);
+  const { currentPage, setCurrentPage } = usePagination({
+    actionCreator: getMangaCatalog,
+    queryOptions,
+    limit,
+  });
+
+  const emptyCatalog = useCheckingEmptyValues(mangaCatalog, 'Catalog Empty', isFetching);
+  if (emptyCatalog) return emptyCatalog;
 
   return (
     <Container>
@@ -28,7 +39,12 @@ const Catalog = () => {
         </ColBlock>
         <MangaCatalog catalog={mangaCatalog} genres={genres} className='col-10 col-sm-7 col-md-6 col-lg-4 col-xl-3' />
       </Row>
-
+      <Row>
+        <PaginationButtons
+          itemCount={total} limit={limit}
+          currentPage={currentPage} setCurrentPage={setCurrentPage}
+        />
+      </Row>
     </Container>
   );
 };
