@@ -4,7 +4,7 @@ import { Row, Col, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
 import { isEmpty } from 'lodash';
-import { BsPeopleFill as GroupIcon } from 'react-icons/bs';
+import { BsPeopleFill as GroupIcon, BsCaretLeftFill as PrevIcon, BsCaretRightFill as NextIcon } from 'react-icons/bs';
 import { selectRelationship } from '../../../common/functions';
 import CreatorAnchor from '../../Chapters/CreatorAnchor';
 import InputPage from '../InputPage';
@@ -16,7 +16,8 @@ const { DEFAULT_LOCALE, TITLE_TABS: { chapters } } = CONSTANTS;
 const InfoPanel = (props) => {
   const { currentPage, pageCount } = props;
   const { theme: { bgTheme, hoveredTheme } } = useSelector(({ themes }) => themes);
-  const { chapter, isFetching } = useSelector(({ chapter }) => chapter);
+  const { chapter, chapterIsFetching } = useSelector(({ chapter }) => chapter);
+  const { nextChapterId, nextChapterIdIsFetching } = useSelector(({ nextChapterId }) => nextChapterId);
 
   const blocksClasses = cx(
     bgTheme,
@@ -29,7 +30,7 @@ const InfoPanel = (props) => {
     hoveredTheme,
   );
 
-  if (isEmpty(chapter) || isFetching) {
+  if (isEmpty(chapter) || !nextChapterId || chapterIsFetching || nextChapterIdIsFetching) {
     return <Spinner animation='border' role='status'></Spinner>;
   }
 
@@ -38,6 +39,7 @@ const InfoPanel = (props) => {
     relationships,
   } = chapter;
   const { id, attributes: { title: mangaTitle } } = selectRelationship(relationships, 'manga');
+  const { prev, next } = nextChapterId;
 
   return (
     <>
@@ -65,10 +67,14 @@ const InfoPanel = (props) => {
           <span className='ms-1 me-1'>Ch.{chapterNum}</span>
         </Col>
         <Col className={blocksClasses}>
-          Page:
-          <InputPage page={currentPage + 1} pageCount={pageCount} className='pe-1' />
-          /
-          <span className='ps-1'>{pageCount}</span>
+          <Link to={`/chapter/${prev}`} className={styles.prev_chapter}><PrevIcon /></Link>
+          <div>
+            Page:
+            <InputPage page={currentPage + 1} pageCount={pageCount} className='pe-1' />
+            /
+            <span className='ps-1'>{pageCount}</span>
+          </div>
+          <Link to={`/chapter/${next}`} className={styles.next_chapter}><NextIcon /></Link>
         </Col>
         <Col xs='2' md='3' className={blocksClasses}><MenuButton /></Col>
       </Row>

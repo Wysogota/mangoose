@@ -1,4 +1,15 @@
-.sub_header{
+.sub_header {
   font-size: 0.9rem;
   font-weight: 300;
+}
+
+.prev_chapter {
+  padding-left: 1rem;
+  flex: 1 1 0;
+}
+
+.next_chapter {
+  padding-right: 1rem;
+  flex: 1 1 0;
+  text-align: end;
 }
