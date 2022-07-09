@@ -35,6 +35,22 @@ const InfoPanel = (props) => {
     hoveredTheme,
   );
 
+  const disabledClasses = (id) => cx(
+    !id && styles.diabled_control
+  );
+
+  const prevControlClasses = (id) => cx(
+    styles.prev_chapter,
+    hoveredTheme,
+    disabledClasses(id),
+  );
+
+  const nextControlClasses = (id) => cx(
+    styles.next_chapter,
+    hoveredTheme,
+    disabledClasses(id),
+  );
+
   if (isEmpty(chapter) || !nextChapterId || chapterIsFetching || nextChapterIdIsFetching) {
     return <Spinner animation='border' role='status'></Spinner>;
   }
@@ -72,14 +88,14 @@ const InfoPanel = (props) => {
           <span className='ms-1 me-1'>Ch.{chapterNum}</span>
         </Col>
         <Col className={blocksClasses}>
-          <Link to={`/${CHAPTER}/${prev}`} className={styles.prev_chapter}><PrevIcon /></Link>
+          <Link to={`/${CHAPTER}/${prev}`} className={prevControlClasses(prev)}><PrevIcon /></Link>
           <div>
             Page:
             <InputPage page={currentPage + 1} pageCount={pageCount} className='pe-1' />
             /
             <span className='ps-1'>{pageCount}</span>
           </div>
-          <Link to={`/${CHAPTER}/${next}`} className={styles.next_chapter}><NextIcon /></Link>
+          <Link to={`/${CHAPTER}/${next}`} className={nextControlClasses(next)}><NextIcon /></Link>
         </Col>
         <Col xs='2' md='3' className={blocksClasses}><MenuButton /></Col>
       </Row>
