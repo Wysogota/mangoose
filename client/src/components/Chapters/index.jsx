@@ -5,10 +5,11 @@ import * as actionCreators from '../../redux/actions/actionCreators';
 import { Col, Spinner } from 'react-bootstrap';
 import PaginationButtons from '../PaginationButtons';
 import Volumes from './Volumes';
-import { useTabPagination, useCheckingEmptyTab } from '../../hooks';
+import { useTabPagination, useCheckingEmptyValues } from '../../hooks';
 import CONSTANTS from '../../constants';
 
 const limit = 20;
+
 const queryOptions = (options) => ({
   mangaId: options.mangaId,
   lang: CONSTANTS.DEFAULT_LOCALE,
@@ -28,17 +29,15 @@ const Chapters = (props) => {
     limit,
   });
 
-  const emptyTab = useCheckingEmptyTab(chapters.data, 'No Chapters');
+  const emptyTab = useCheckingEmptyValues(chapters.data, 'No Chapters', isFetching);
   if (emptyTab) return emptyTab;
 
   return (
     <Col>
       <Col>
-      </Col>{
-        isFetching
-          ? <Spinner animation='border' role='status'></Spinner>
-          : <Volumes chapters={chapters} />
-      }<Col>
+      </Col>
+      <Volumes chapters={chapters} />
+      <Col>
       </Col>
       <PaginationButtons
         itemCount={chapters.total} limit={limit}

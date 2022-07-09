@@ -28,5 +28,6 @@ export default {
   PARAM_NAME: {
     TAB: 'tab',
     PAGE: 'page'
-  }
+  },
+  RELATED_FILTER: ['doujinshi', 'based_on'],
 };

@@ -2,27 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
-import { Spinner } from 'react-bootstrap';
-import { capitalize } from 'lodash';
+import { capitalize, isEmpty } from 'lodash';
 import RelatedCard from '../RelatedCard';
-import { useCheckingEmptyTab } from '../../../hooks';
+import { useCheckingEmptyValues } from '../../../hooks';
 import { selectRelationship } from '../../../common/functions';
 import CONSTANTS from '../../../constants';
+const { RELATED_FILTER, DEFAULT_LOCALE } = CONSTANTS;
 
 const Related = (props) => {
-  const { relationships } = props;
-  const filteredRelationshops = relationships.filter((item) => item.related && item.related !== 'doujinshi' && item.related !== 'based_on');
+  const filteredRelationshops = props.relationships.filter(
+    (item) => item.related && !RELATED_FILTER.includes(item.related)
+  );
   const { mangaCatalog, isFetching } = useSelector(({ mangaCatalog }) => mangaCatalog);
   const { getMangaCatalog } = bindActionCreators(actionCreators, useDispatch());
   const [relatedManga, setRelatedManga] = useState([]);
 
   useEffect(() => {
     const mangaIds = filteredRelationshops.map(({ id }) => id);
-    getMangaCatalog({ ids: mangaIds, limit: 100 });
+    if (mangaIds.length) getMangaCatalog({ ids: mangaIds, limit: 100 });
   }, []);
 
   useEffect(() => {
-    if (mangaCatalog.length === filteredRelationshops.length) {
+    if (!isEmpty(mangaCatalog)) {
       const relatedList = filteredRelationshops.map(({ id, related }) => ({
         id,
         related: capitalize(related.replaceAll('_', ' ')),
@@ -36,30 +37,25 @@ const Related = (props) => {
     }
   }, [mangaCatalog]);
 
-  const emptyTab = useCheckingEmptyTab(relatedManga, 'No Related');
+  const emptyTab = useCheckingEmptyValues(relatedManga, 'No Related', isFetching);
   if (emptyTab) return emptyTab;
 
   return (
     <div>{
-      isFetching
-        ? <Spinner animation='border' role='status'></Spinner>
-        : <>{relatedManga.map(({
-          id, related, relationships,
-          attributes: {
-            title, description, status, tags
-          }
-        }) => (
-          <RelatedCard
-            key={id} id={id}
-            image={selectRelationship(relationships, 'cover_art').attributes.url}
-            related={related}
-            title={title[CONSTANTS.DEFAULT_LOCALE]}
-            description={description[CONSTANTS.DEFAULT_LOCALE]}
-            status={capitalize(status)}
-            tags={tags}
-          />
-        ))}
-        </>
+      relatedManga.map(({
+        id, related, relationships,
+        attributes: { title, description, status, tags }
+      }) => (
+        <RelatedCard
+          key={id} id={id}
+          image={selectRelationship(relationships, 'cover_art').attributes.url}
+          related={related}
+          title={title[DEFAULT_LOCALE]}
+          description={description[DEFAULT_LOCALE]}
+          status={capitalize(status)}
+          tags={tags}
+        />
+      ))
     }</div>
   );
 };
