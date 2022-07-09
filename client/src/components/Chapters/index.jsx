@@ -22,10 +22,11 @@ const Chapters = (props) => {
   const { chapters, isFetching } = useSelector(({ chapters }) => chapters);
   const { getChapters } = bindActionCreators(actionCreators, useDispatch());
 
+  const queryParams = { mangaId };
   const { currentPage, setCurrentPage, existedParams } = useTabPagination({
     actionCreator: getChapters,
-    queryOptions,
-    mangaId, paramName, tabParamValue,
+    queryOptions, queryParams,
+    paramName, tabParamValue,
     limit,
   });
 

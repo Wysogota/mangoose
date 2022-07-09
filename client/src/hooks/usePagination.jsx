@@ -4,22 +4,23 @@ import CONSTANTS from '../constants';
 const { PARAM_NAME: { PAGE } } = CONSTANTS;
 
 const usePagination = (options) => {
-  const { actionCreator, queryOptions, limit } = options;
+  const { actionCreator, queryOptions, queryParams = {}, limit } = options;
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
-    actionCreator(queryOptions({
-      offset: limit * currentPage
-    }));
+    actionCreator(queryOptions(Object.assign(
+      queryParams,
+      { offset: limit * currentPage },
+    )));
   }, [currentPage]);
 
   useEffect(() => {
-      if (!searchParams.get(PAGE)) {
-        setSearchParams({
-          [PAGE]: currentPage + 1
-        });
-      }
+    if (!searchParams.get(PAGE)) {
+      setSearchParams({
+        [PAGE]: currentPage + 1
+      });
+    }
 
     const pageValue = Number.parseInt(searchParams.get(PAGE)) - 1;
     setCurrentPage(pageValue || 0);

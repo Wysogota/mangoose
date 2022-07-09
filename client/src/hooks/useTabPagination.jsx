@@ -4,17 +4,21 @@ import CONSTANTS from '../constants';
 const { PARAM_NAME: { PAGE } } = CONSTANTS;
 
 const useTabPagination = (options) => {
-  const { actionCreator, queryOptions, mangaId, paramName, tabParamValue, limit } = options;
+  const {
+    actionCreator, queryOptions, queryParams = {}, limit,
+    paramName, tabParamValue,
+  } = options;
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(0);
   const [existedParams, setExistedParams] = useState([]);
   const [isSameTab, setIsSameTab] = useState();
 
   useEffect(() => {
-    actionCreator(queryOptions({
-      mangaId: mangaId,
-      offset: limit * currentPage
-    }));
+    actionCreator(queryOptions(Object.assign(
+      queryParams,
+      { offset: limit * currentPage },
+    )));
   }, [currentPage]);
 
   useEffect(() => {

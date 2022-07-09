@@ -11,6 +11,7 @@ import { useTabPagination } from '../../../hooks';
 import styles from './Arts.module.scss';
 
 const limit = 5;
+
 const queryOptions = (options) => ({
   mangaId: options.mangaId,
   limit,
@@ -23,10 +24,11 @@ const Arts = (props) => {
   const { theme: { bgAccentTheme } } = useSelector(({ themes }) => themes);
   const { getMangaCovers } = bindActionCreators(actionCreators, useDispatch());
 
+  const queryParams = { mangaId };
   const { currentPage, setCurrentPage, existedParams } = useTabPagination({
     actionCreator: getMangaCovers,
-    queryOptions,
-    mangaId, paramName, tabParamValue,
+    queryOptions, queryParams,
+    paramName, tabParamValue,
     limit,
   });
 
