@@ -18,15 +18,15 @@ const StartReadingButton = () => {
   useEffect(() => getFirstChapterId({ mangaId, lang: DEFAULT_LOCALE }), [mangaId]);
 
   const startReadingClasses = cx(
-    'w-100 pt-2 pb-2 mb-3 text-uppercase',
+    'd-block w-100 pt-2 pb-2 text-uppercase',
     styles.start_reading,
   );
 
   return (
-    <Button variant={invertedColor} className={startReadingClasses}>
+    <Button variant={invertedColor} className='w-100 mb-3 p-0'>
       {isFetching
-        ? <div>Loading...</div>
-        : <Link to={`/chapter/${firstChapterId}`}>Start reading</Link>}
+        ? <div className={startReadingClasses}>Loading...</div>
+        : <Link to={`/chapter/${firstChapterId}`} className={startReadingClasses}>Start reading</Link>}
     </Button>
   );
 };
