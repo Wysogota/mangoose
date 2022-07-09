@@ -10,46 +10,46 @@ import TabLink from '../../components/Tabs/TabLink';
 import TitleInfoList from './TitleInfoList';
 import CONSTANTS from '../../constants';
 const {
-  PARAM_NAME: { tab },
-  TITLE_TABS: { info, chapters, related, commets }
+  PARAM_NAME: { TAB },
+  TITLE_TABS: { INFO, CHAPTERS, RELATED, COMMENTS }
 } = CONSTANTS;
 
 const TitleTabs = (props) => {
   const { mangaId, desc, tags, relationships, titleInfoAttr } = props;
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
   const [searchParams] = useSearchParams();
-  const [paramValue, setParamValue] = useState(searchParams.get(tab));
-  useEffect(() => setParamValue(searchParams.get(tab)), [searchParams]);
+  const [paramValue, setParamValue] = useState(searchParams.get(TAB));
+  useEffect(() => setParamValue(searchParams.get(TAB)), [searchParams]);
 
   return (
     <Tabs
       justify
-      activeKey={paramValue || info}
+      activeKey={paramValue || INFO}
       onSelect={(key) => setParamValue(key)}
       className={`nav-tabs-${mainColor}`}
       data-link-tab='link-tab'
       mountOnEnter
     >
-      <Tab eventKey={info} title={<TabLink to={info}>Information</TabLink>}>
+      <Tab eventKey={INFO} title={<TabLink to={INFO}>Information</TabLink>}>
         <Tab.Content>
           <Col>{desc}</Col>
           <br />
-          <TitleInfoList attributes={titleInfoAttr} className='d-block d-lg-none' inline/>
+          <TitleInfoList attributes={titleInfoAttr} className='d-block d-lg-none' inline />
           <br />
           <Tags data={tags} />
           <br />
-          <Arts mangaId={mangaId} paramName={tab} tabParamValue={info} />
+          <Arts mangaId={mangaId} paramName={TAB} tabParamValue={INFO} />
         </Tab.Content>
       </Tab>
-      <Tab eventKey={chapters} title={<TabLink to={chapters}>Chapters</TabLink>}>
-        <Chapters mangaId={mangaId} paramName={tab} tabParamValue={chapters}/>
+      <Tab eventKey={CHAPTERS} title={<TabLink to={CHAPTERS}>Chapters</TabLink>}>
+        <Chapters mangaId={mangaId} paramName={TAB} tabParamValue={CHAPTERS} />
       </Tab>
-      <Tab eventKey={related} title={<TabLink to={related}>Related</TabLink>}>
+      <Tab eventKey={RELATED} title={<TabLink to={RELATED}>Related</TabLink>}>
         <Tab.Content>
           <Related relationships={relationships} />
         </Tab.Content>
       </Tab>
-      <Tab eventKey={commets} title={<TabLink to={commets}>Commets</TabLink>} disabled>
+      <Tab eventKey={COMMENTS} title={<TabLink to={COMMENTS}>Commets</TabLink>} disabled>
       </Tab>
     </Tabs>
   );

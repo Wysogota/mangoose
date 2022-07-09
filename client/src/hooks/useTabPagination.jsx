@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import CONSTANTS from '../constants';
-const { PARAM_NAME: { page } } = CONSTANTS;
+const { PARAM_NAME: { PAGE } } = CONSTANTS;
 
 const useTabPagination = (options) => {
   const { actionCreator, queryOptions, mangaId, paramName, tabParamValue, limit } = options;
@@ -22,17 +22,17 @@ const useTabPagination = (options) => {
     if (paramValue && paramValue === tabParamValue) {
       setIsSameTab(true);
       setExistedParams([`${paramName}=${paramValue}`]);
-      if (!searchParams.get(page)) {
+      if (!searchParams.get(PAGE)) {
         setSearchParams({
           [paramName]: paramValue,
-          [page]: isSameTab ? currentPage + 1 : 1
+          [PAGE]: isSameTab ? currentPage + 1 : 1
         });
       }
     } else {
       setIsSameTab(false);
     }
 
-    const pageValue = Number.parseInt(searchParams.get(page)) - 1;
+    const pageValue = Number.parseInt(searchParams.get(PAGE)) - 1;
     setCurrentPage(pageValue || 0);
   }, [searchParams]);
 

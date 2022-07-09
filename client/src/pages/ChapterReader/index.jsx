@@ -8,7 +8,7 @@ import { isEmpty } from 'lodash';
 import InfoPanel from '../../components/ChapterReader/InfoPanel';
 import Reader from '../../components/ChapterReader/Reader';
 import CONSTANTS from '../../constants';
-const { PARAM_NAME: { page } } = CONSTANTS;
+const { PARAM_NAME: { PAGE } } = CONSTANTS;
 
 const ChapterReader = () => {
   const { chapterId } = useParams();
@@ -19,7 +19,7 @@ const ChapterReader = () => {
   const { getChapter } = bindActionCreators(actionCreators, useDispatch());
 
   const [searchParams] = useSearchParams();
-  const [currentPage, setCurrentPage] = useState(Number.parseInt(searchParams.get(page)) - 1 || 0);
+  const [currentPage, setCurrentPage] = useState(Number.parseInt(searchParams.get(PAGE)) - 1 || 0);
 
   useEffect(() => {
     getChapter({ chapterId });
@@ -27,7 +27,7 @@ const ChapterReader = () => {
   }, [chapterId]);
 
   useEffect(() => {
-    const paramValue = searchParams.get(page);
+    const paramValue = searchParams.get(PAGE);
     const parsedPage = Number.parseInt(paramValue) - 1;
     setCurrentPage(paramValue ? parsedPage : 0);
   }, [searchParams]);

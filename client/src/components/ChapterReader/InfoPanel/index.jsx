@@ -11,7 +11,12 @@ import InputPage from '../InputPage';
 import MenuButton from '../MenuButton';
 import styles from './InfoPanel.module.scss';
 import CONSTANTS from '../../../constants.js';
-const { DEFAULT_LOCALE, TITLE_TABS: { chapters } } = CONSTANTS;
+const {
+  DEFAULT_LOCALE,
+  TITLE_TABS: { CHAPTERS },
+  PARAM_NAME: { TAB },
+  PAGES: { TITLE, CHAPTER },
+} = CONSTANTS;
 
 const InfoPanel = (props) => {
   const { currentPage, pageCount } = props;
@@ -48,7 +53,7 @@ const InfoPanel = (props) => {
       </Row>
       <Row className='mb-3 m-auto'>
         <Col>
-          <Link to={`/title/${id}?tab=${chapters}`} className={subHeaderClasses}>
+          <Link to={`/${TITLE}/${id}?${TAB}=${CHAPTERS}`} className={subHeaderClasses}>
             {mangaTitle[DEFAULT_LOCALE]}
           </Link>
         </Col>
@@ -67,14 +72,14 @@ const InfoPanel = (props) => {
           <span className='ms-1 me-1'>Ch.{chapterNum}</span>
         </Col>
         <Col className={blocksClasses}>
-          <Link to={`/chapter/${prev}`} className={styles.prev_chapter}><PrevIcon /></Link>
+          <Link to={`/${CHAPTER}/${prev}`} className={styles.prev_chapter}><PrevIcon /></Link>
           <div>
             Page:
             <InputPage page={currentPage + 1} pageCount={pageCount} className='pe-1' />
             /
             <span className='ps-1'>{pageCount}</span>
           </div>
-          <Link to={`/chapter/${next}`} className={styles.next_chapter}><NextIcon /></Link>
+          <Link to={`/${CHAPTER}/${next}`} className={styles.next_chapter}><NextIcon /></Link>
         </Col>
         <Col xs='2' md='3' className={blocksClasses}><MenuButton /></Col>
       </Row>

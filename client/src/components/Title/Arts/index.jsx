@@ -9,8 +9,6 @@ import MainHeader from '../../Headers/MainHeader';
 import PaginationButtons from '../../PaginationButtons';
 import { useTabPagination } from '../../../hooks';
 import styles from './Arts.module.scss';
-import CONSTANTS from '../../../constants';
-const { PARAM_NAME: { page } } = CONSTANTS;
 
 const limit = 5;
 const queryOptions = (options) => ({

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Pagination } from 'react-bootstrap';
 import cx from 'classnames';
 import CONSTANTS from '../../constants';
-const { PARAM_NAME: { page: pageName } } = CONSTANTS;
+const { PARAM_NAME: { PAGE } } = CONSTANTS;
 
 const PaginationButtons = (props) => {
   const { itemCount, limit, currentPage, setCurrentPage, existedParams } = props;
@@ -12,8 +12,8 @@ const PaginationButtons = (props) => {
   const pageCount = Math.ceil(itemCount / limit);
 
   const getUrl = (page) => existedParams
-    ? `?${existedParams}&${pageName}=${page}`
-    : `?${pageName}=${page}`;
+    ? `?${existedParams}&${PAGE}=${page}`
+    : `?${PAGE}=${page}`;
 
   const pageItemClasses = (i) => cx(
     'page-item',

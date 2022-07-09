@@ -15,14 +15,18 @@ export default {
     lg: 992,
     xl: 1200,
   },
+  PAGES: {
+    TITLE: 'title',
+    CHAPTER: 'chapter'
+  },
   TITLE_TABS: {
-    info: 'info',
-    chapters: 'chapters',
-    related: 'related',
-    commets: 'commets',
+    INFO: 'info',
+    CHAPTERS: 'chapters',
+    RELATED: 'related',
+    COMMENTS: 'commets',
   },
   PARAM_NAME: {
-    tab: 'tab',
-    page: 'page'
+    TAB: 'tab',
+    PAGE: 'page'
   }
 };

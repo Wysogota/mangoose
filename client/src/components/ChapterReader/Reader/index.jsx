@@ -1,15 +1,19 @@
-import { isEmpty } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
+import { isEmpty } from 'lodash';
 import { Carousel, Spinner } from 'react-bootstrap';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { selectRelationship } from '../../../common/functions';
 import styles from './Reader.module.scss';
 import './reader.scss';
 import CONSTANTS from '../../../constants';
-const { TITLE_TABS: { chapters } } = CONSTANTS;
+const {
+  TITLE_TABS: { CHAPTERS },
+  PARAM_NAME: { TAB, PAGE },
+  PAGES: { TITLE, CHAPTER },
+} = CONSTANTS;
 
 const Reader = (props) => {
   const [, setSearchParams] = useSearchParams();
@@ -43,22 +47,22 @@ const Reader = (props) => {
     const mangaId = selectRelationship(chapter.relationships, 'manga').id;
 
     const chooseNavigate = (navigeChapter) => navigeChapter
-      ? navigate(`/chapter/${navigeChapter}`)
-      : navigate(`/title/${mangaId}?tab=${chapters}`);
+      ? navigate(`/${CHAPTER}/${navigeChapter}`)
+      : navigate(`/${TITLE}/${mangaId}?${TAB}=${CHAPTERS}`);
 
     if (selectedPage === 0 && prevPage === pagesCount) {
       chooseNavigate(next);
     } else if (prevPage === 0 && selectedPage === pagesCount) {
       chooseNavigate(prev);
     } else {
-      setSearchParams(`?page=${selectedPage + 1}`, { replace: true });
+      setSearchParams(`?${PAGE}=${selectedPage + 1}`, { replace: true });
     }
 
     setPrevPage(selectedPage);
     e.target.scrollIntoView({ behavior: 'smooth' });
   };
 
-  if (!nextChapterId || isFetching) {
+  if (isFetching) {
     return <Spinner animation='border' role='status'></Spinner>;
   }
 
