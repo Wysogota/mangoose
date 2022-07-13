@@ -8,13 +8,13 @@ import styles from './SearchInput.module.scss';
 
 const limit = 5;
 
-const SearchInput = (props) => {
-  const { setIsInputEmpty } = props;
+const SearchInput = () => {
   const { theme: { bgAccentTheme, mainTheme } } = useSelector(({ themes }) => themes);
-  const { getMangaSearch } = bindActionCreators(actionCreators, useDispatch());
+  const { inputValue } = useSelector(({ mangaSearch }) => mangaSearch);
+  const { getMangaSearch, setSearchValue } = bindActionCreators(actionCreators, useDispatch());
 
   const handleChange = ({ target: { value } }) => {
-    setIsInputEmpty(!value);
+    setSearchValue(value);
     getMangaSearch({ title: value, limit })
   };
 
@@ -33,7 +33,7 @@ const SearchInput = (props) => {
   return (
     <div className={containerClasses}>
       <SearchIcon className='ms-2 me-2' />
-      <input className={inputClasses} placeholder='Search' onChange={handleChange} />
+      <input className={inputClasses} placeholder='Search' onChange={handleChange} value={inputValue}/>
     </div>
   );
 };

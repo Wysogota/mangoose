@@ -1,8 +1,8 @@
 import produce from 'immer';
-import { isEmpty } from 'lodash';
 import ACTION_TYPES from '../../actions/actionTypes';
 
 const initialState = {
+  inputValue: '',
   mangaSearch: [],
   limit: 0,
   offset: 0,
@@ -26,12 +26,16 @@ const handlers = {
     draftState.total = action.payload.data.total;
   }),
 
-  [ACTION_TYPES.GET_MANGA_SEARCH_ERROR]: ((draftState, action) => {
+  [ACTION_TYPES.GET_MANGA_SEARCH_ERROR]: produce((draftState, action) => {
     draftState.isFetching = false;
     draftState.error = action.payload.error;
   }),
 
-  [ACTION_TYPES.CLEAR_MANGA_SEARCH]: ((draftState, action) => {
+  [ACTION_TYPES.SET_SEARCH_VALUE]: produce((draftState, action) => {
+    draftState.inputValue = action.payload.data;
+  }),
+
+  [ACTION_TYPES.CLEAR_MANGA_SEARCH]: (() => {
     return initialState;
   }),
 };

@@ -1,5 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
+import * as actionCreators from '../../../redux/actions/actionCreators';
 import { capitalize } from 'lodash';
 import { selectRelationship } from '../../../common/functions';
 import { useCheckingEmptyValues } from '../../../hooks';
@@ -7,12 +9,12 @@ import RelatedCard from '../../Title/RelatedCard';
 import CONSTANTS from '../../../constants';
 const { DEFAULT_LOCALE } = CONSTANTS;
 
-const SearchResult = (props) => {
-  const { isInputEmpty } = props;
-  const { mangaSearch, isFetching } = useSelector(({ mangaSearch }) => mangaSearch);
+const SearchResult = () => {
+  const { mangaSearch, inputValue, isFetching } = useSelector(({ mangaSearch }) => mangaSearch);
+  const { hideSearchbar } = bindActionCreators(actionCreators, useDispatch());
 
   const emptyResult = useCheckingEmptyValues(mangaSearch, 'No results found', isFetching);
-  if (emptyResult && !isInputEmpty) return emptyResult;
+  if (emptyResult && inputValue) return emptyResult;
 
   return (
     <div>
@@ -21,7 +23,7 @@ const SearchResult = (props) => {
         attributes: { title, description, status, tags }
       }) => (
         <RelatedCard
-          key={id} id={id}
+          key={id} id={id} onClick={hideSearchbar}
           image={selectRelationship(relationships, 'cover_art').attributes.url}
           title={title[DEFAULT_LOCALE]}
           description={description[DEFAULT_LOCALE]}

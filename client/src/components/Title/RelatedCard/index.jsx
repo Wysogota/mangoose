@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 
 const RelatedCard = (props) => {
-  const { id, image, related, title, description, status, tags } = props;
+  const { id, image, related, title, description, status, tags, onClick } = props;
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
 
   const cardClasses = cx(
@@ -30,7 +30,7 @@ const RelatedCard = (props) => {
   );
 
   return (
-    <Card className={cardClasses}>
+    <Card className={cardClasses} onClick={onClick}>
       <Col xs='4' md='3' xl='2'>
         <Card.Img src={image} className={imageClasses} />
       </Col>

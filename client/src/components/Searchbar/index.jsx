@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
@@ -13,7 +13,6 @@ const Searchbar = () => {
   const { theme: { mainTheme, bgTheme } } = useSelector(({ themes }) => themes);
   const { isSearchbarOpen } = useSelector(({ modalItems }) => modalItems);
   const { hideSearchbar, clearMangaSearch } = bindActionCreators(actionCreators, useDispatch());
-  const [isInputEmpty, setIsInputEmpty] = useState(true);
 
   const onEnterHandle = () => document.getElementsByClassName('modal')[0].classList.add(styles.searchbar_zIndex);
   const onHideHandle = () => {
@@ -38,10 +37,10 @@ const Searchbar = () => {
       dialogClassName={styles.searchbar} contentClassName={contentClasses} backdropClassName={backdropClasses}
     >
       <Modal.Header>
-        <SearchInput setIsInputEmpty={setIsInputEmpty}/>
+        <SearchInput />
       </Modal.Header>
       <Modal.Body>
-        <SearchResult isInputEmpty={isInputEmpty}/>
+        <SearchResult />
       </Modal.Body>
 
     </Modal>
