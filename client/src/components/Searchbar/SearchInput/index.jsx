@@ -1,12 +1,19 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
+import * as actionCreators from '../../../redux/actions/actionCreators';
 import { BsSearch as SearchIcon } from 'react-icons/bs';
 import cx from 'classnames';
 import styles from './SearchInput.module.scss';
 
+const limit = 5;
+
 const SearchInput = () => {
 
   const { theme: { bgAccentTheme, mainTheme } } = useSelector(({ themes }) => themes);
+  const { getMangaSearch } = bindActionCreators(actionCreators, useDispatch());
+
+  const handleChange = ({ target: { value } }) => getMangaSearch({ title: value, limit });
 
   const containerClasses = cx(
     styles.container,
@@ -23,7 +30,7 @@ const SearchInput = () => {
   return (
     <div className={containerClasses}>
       <SearchIcon className='ms-2 me-2' />
-      <input className={inputClasses} placeholder='Search'></input>
+      <input className={inputClasses} placeholder='Search' onChange={handleChange} />
     </div>
   );
 };
