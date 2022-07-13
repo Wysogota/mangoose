@@ -1,14 +1,16 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
 import { BsSearch as SearchIcon } from 'react-icons/bs';
 
 const Search = ({ Component, options }) => {
-  const { showSearchbar } = bindActionCreators(actionCreators, useDispatch());
-  
+  const { isSearchbarOpen } = useSelector(({ modalItems }) => modalItems);
+  const { showSearchbar, hideSearchbar } = bindActionCreators(actionCreators, useDispatch());
+  const OnClickHandle = () => isSearchbarOpen ? hideSearchbar() : showSearchbar();
+
   return (
-    <Component onClick={showSearchbar}><SearchIcon /> Search </Component>
+    <Component onClick={OnClickHandle}><SearchIcon /> Search </Component>
   );
 };
 
