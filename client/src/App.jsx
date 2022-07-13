@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import cx from 'classnames';
 import Sidebar from './components/Sidebar';
+import SearchBar from './components/Searchbar';
 import Home from './pages/Home';
 import Catalog from './pages/Catalog';
 import SignUp from './pages/SignUp';
@@ -45,7 +46,8 @@ const App = () => {
 
       <SignIn />
       <Sidebar />
-      <ScrollToTop showHeight={300} />
+      <SearchBar />
+      <ScrollToTop showHeight={400} />
     </>
   );
 };

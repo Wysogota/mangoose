@@ -1,0 +1,21 @@
+@import '../../common/styles/variables';
+@import '../../common/styles/colors';
+
+.searchbar {
+  margin-top: 0 !important;
+  padding-top: $header-height;
+}
+
+.content {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border: none !important;
+}
+
+.backdrop {
+  z-index: 900 !important;
+}
+
+.searchbar_zIndex {
+  z-index: 900 !important;
+}
