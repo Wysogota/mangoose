@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
 import localeReducer from './locale';
 import themeReducer from './theme';
-import signInReducer from './signIn';
-import sidebarReducer from './sidebar';
+import modalItemsReducer from './modalItems';
 import authReducer from './auth';
 import carouselReducer from './carousels';
 import mangaReducer from './mangaApi/manga';
@@ -17,8 +16,7 @@ import firstChapterIdReducer from './mangaApi/firstChapterId';
 const rootReducer = combineReducers({
   locales: localeReducer,
   themes: themeReducer,
-  signIn: signInReducer,
-  sidebar: sidebarReducer,
+  modalItems: modalItemsReducer,
   auth: authReducer,
   carousels: carouselReducer,
   manga: mangaReducer,

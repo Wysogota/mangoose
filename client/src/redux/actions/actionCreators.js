@@ -20,6 +20,14 @@ export const hideSidebar = () => ({
   type: ACTION_TYPES.HIDE_SIDEBAR,
 });
 
+export const showSearchbar = () => ({
+  type: ACTION_TYPES.SHOW_SEARCHBAR,
+});
+
+export const hideSearchbar = () => ({
+  type: ACTION_TYPES.HIDE_SEARCHBAR,
+});
+
 export const togglePopularCarousel = () => ({
   type: ACTION_TYPES.TOGGLE_POPULAR_CAROUSEL,
 });
