@@ -1,28 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
+@import './common/styles/variables';
 
 body {
   font-family: 'Nunito', sans-serif;
-  --footer-height: 96px;
-  --header-height: 56px;
 }
 
 a {
   text-decoration: none;
   color: inherit;
-}
 
-a:hover {
-  color: inherit;
+  &:hover {
+    color: inherit;
+  }
 }
 
 #root {
-  padding-top: var(--header-height);
-  padding-bottom: var(--footer-height);
+  padding-top: $header-height;
+  padding-bottom: $footer-height;
   position: relative;
   min-height: 100vh;
 }
 
-#content{
+#content {
   padding: 3rem 0;
 }
 
@@ -46,6 +45,6 @@ a:hover {
   padding: 0;
 }
 
-#header.static-header{
+#header.static-header {
   position: static;
 }

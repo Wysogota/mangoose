@@ -8,7 +8,7 @@ import App from './App';
 import ScrollToTopOnRouteChange from './utils/ScrollToTopOnRouteChange';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './common/styles/customBootstrap.scss';
-import './index.css';
+import './index.scss';
 
 ReactDOM.render(
   <React.StrictMode>
