@@ -5,7 +5,7 @@ import * as actionCreators from '../../redux/actions/actionCreators';
 import cx from 'classnames';
 import { Modal, Nav, Navbar } from 'react-bootstrap';
 import Logo from '../Logo';
-import NavItems from '../NavItems';
+import * as NavItems from '../NavItems';
 import Avatar from '../Avatar';
 import styles from './Sidebar.module.scss';
 import CONSTANTS from '../../constants';
@@ -17,7 +17,7 @@ const filterList = [
 
 const Sidebar = () => {
   const { theme: { mainTheme, bgTheme, hoveredTheme, bgInvertedHoveredTheme, invertedColor } } = useSelector(({ themes }) => themes);
-  const { isSidebarOpen } = useSelector(({ sidebar }) => sidebar);
+  const { isSidebarOpen } = useSelector(({ modalItems }) => modalItems);
   const { hideSidebar, showSignIn } = bindActionCreators(actionCreators, useDispatch());
 
   const contentClasses = cx(
@@ -58,8 +58,8 @@ const Sidebar = () => {
           {Object.values(NavItems).filter(({ name }) => filterList.indexOf(name) < 0).map((Component) =>
             <Nav key={Component.name} onClick={hideSidebar} className={itemClasses}>{
               Component.name === 'Theme'
-                ? Component(Nav.Link, { shouldInverted: true })
-                : Component(Nav.Link)
+                ? <Component Component={Nav.Link} options={{ shouldInverted: true }} />
+                : <Component Component={Nav.Link} />
             }</Nav>
           )}
         </Navbar>

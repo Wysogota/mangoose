@@ -19,7 +19,7 @@ const initialValues = {
 
 const SignIn = () => {
   const { theme: { mainTheme, bgTheme, invertedColor } } = useSelector(({ themes }) => themes);
-  const { isSignInShown } = useSelector(({ signIn }) => signIn);
+  const { isSignInShown } = useSelector(({ modalItems }) => modalItems);
   const { hideSignIn } = bindActionCreators(actionCreators, useDispatch());
 
   const contentClasses = cx(mainTheme, bgTheme);

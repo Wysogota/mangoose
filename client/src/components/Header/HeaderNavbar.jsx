@@ -2,9 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import cx from 'classnames';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import NavItems from '../NavItems';
+import { Catalog, Search, FAQ, News, Contacts, Random, Theme } from '../NavItems';
 import styles from './Header.module.scss';
-const { Catalog, Search, FAQ, News, Contacts, Random, Theme } = NavItems;
 
 const HeaderNavbar = () => {
   const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
@@ -16,15 +15,15 @@ const HeaderNavbar = () => {
 
   return (
     <Navbar className={navbarClasses} variant={invertedColor} >
-      <Nav>{Catalog(Nav.Link)}</Nav>
-      <Nav>{Search(Nav.Link)}</Nav>
-      <Nav>{News(Nav.Link)}</Nav>
+      <Nav><Catalog Component={Nav.Link} /></Nav>
+      <Nav><Search Component={Nav.Link} /></Nav>
+      <Nav><News Component={Nav.Link} /></Nav>
       <Nav><NavDropdown menuVariant={invertedColor}>
-        {FAQ(NavDropdown.Item, { invertedHovered: true })}
-        {Contacts(NavDropdown.Item, { invertedHovered: true })}
+        <FAQ Component={NavDropdown.Item} options={{ invertedHovered: true }} />
+        <Contacts Component={NavDropdown.Item} options={{ invertedHovered: true }} />
         <NavDropdown.Divider />
-        {Random(NavDropdown.Item, { invertedHovered: true })}
-        {Theme(NavDropdown.Item, { className: 'd-lg-none', shouldInverted: true })}
+        <Random Component={NavDropdown.Item} options={{ invertedHovered: true }} />
+        <Theme Component={NavDropdown.Item} options={{ className: 'd-lg-none', shouldInverted: true }} />
       </NavDropdown></Nav>
     </Navbar>
   );

@@ -3,16 +3,11 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
 import {
-  BsGithub as GithubIcon,
-  BsGridFill as CatalogIcon, BsSearch as SearchIcon, BsFillQuestionCircleFill as FAQIcon,
+  BsGithub as GithubIcon, BsGridFill as CatalogIcon, BsFillQuestionCircleFill as FAQIcon,
   BsNewspaper as NewsIcon, BsFillEnvelopeFill as ContactsIcon, BsShuffle as RandomIcon
 } from 'react-icons/bs';
-import ToggleTheme from '../ToggleTheme';
-import styles from './NavItems.module.scss';
 import CONSTANTS from '../../constants';
-const { PAGES: {
-  CATALOG: { name: catalogName, path: catalogPath },
-} } = CONSTANTS;
+const { PAGES: { CATALOG: { name: catalogName, path: catalogPath } } } = CONSTANTS;
 
 const createComponent = (Component, to, Icon, title, options) => {
   const { theme: { hoveredTheme, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
@@ -22,26 +17,34 @@ const createComponent = (Component, to, Icon, title, options) => {
     'h-100 w-100 d-flex align-items-center'
   );
 
-  const Child = () => (<><Icon /><span className={styles.ml}>{title}</span></>);
+  const Child = () => (<><Icon /><span className='ms-2'>{title}</span></>);
   return options?.external
     ? <a href={to} target='_blank' rel='noreferrer' className={classes}><Child /></a>
     : <Component as={Link} to={to} className={classes}><Child /></Component>;
 };
 
-const Catalog = (Component, options) => createComponent(Component, `/${catalogPath}`, CatalogIcon, catalogName, options);
-const Search = (Component, options) => createComponent(Component, '#', SearchIcon, 'Search', options);
-const FAQ = (Component, options) => createComponent(Component, '#', FAQIcon, 'FAQ', options);
-const News = (Component, options) => createComponent(Component, '#', NewsIcon, 'News', options);
-const Contacts = (Component, options) => createComponent(Component, '#', ContactsIcon, 'Contacts', options);
-const Random = (Component, options) => createComponent(Component, '#', RandomIcon, 'Random', options);
-const Github = (Component, options) => createComponent(Component, 'https://github.com/Wysogota/mangoose', GithubIcon, 'Github', { external: true, invertedHovered: false });
+const Catalog = ({ Component, options }) =>
+  createComponent(Component, `/${catalogPath}`, CatalogIcon, catalogName, options);
 
-const Theme = (Component, options) =>
-  <ToggleTheme
-    Component={Component} shouldInverted={options?.shouldInverted}
-    btnClasses={'h-100 w-100 d-flex align-items-center ' + options?.className}
-  >
-    <span className={styles.ml}>Toggle theme</span>
-  </ToggleTheme>;
+const FAQ = ({ Component, options }) =>
+  createComponent(Component, '#', FAQIcon, 'FAQ', options);
 
-export default { Catalog, Search, FAQ, News, Contacts, Random, Theme, Github };
+const News = ({ Component, options }) =>
+  createComponent(Component, '#', NewsIcon, 'News', options);
+
+const Contacts = ({ Component, options }) =>
+  createComponent(Component, '#', ContactsIcon, 'Contacts', options);
+
+const Random = ({ Component, options }) =>
+  createComponent(Component, '#', RandomIcon, 'Random', options);
+
+const Github = ({ Component, options }) =>
+  createComponent(Component, 'https://github.com/Wysogota/mangoose', GithubIcon, 'Github', {
+    external: true,
+    invertedHovered: false
+  });
+
+
+export { default as Search } from './Search';
+export { default as Theme } from './Theme';
+export { Catalog, FAQ, News, Contacts, Random, Github };
