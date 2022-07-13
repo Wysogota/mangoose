@@ -6,6 +6,7 @@ import authReducer from './auth';
 import carouselReducer from './carousels';
 import mangaReducer from './mangaApi/manga';
 import mangaCatalogReducer from './mangaApi/mangaCatalog';
+import mangaSearchReducer from './mangaApi/mangaSearch';
 import coverReducer from './mangaApi/cover';
 import chapterReducer from './mangaApi/chapter';
 import chaptersReducer from './mangaApi/chapters';
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   carousels: carouselReducer,
   manga: mangaReducer,
   mangaCatalog: mangaCatalogReducer,
+  mangaSearch: mangaSearchReducer,
   cover: coverReducer,
   chapter: chapterReducer,
   chapters: chaptersReducer,

@@ -22,6 +22,16 @@ export function* getMangaCatalogSaga(action) {
   }
 }
 
+export function* getMangaSearchSaga(action) {
+  yield put(actionCreators.getMangaSearchRequest());
+  try {
+    const { data: { data } } = yield API.getMangaCatalog(action.payload.options);
+    yield put(actionCreators.getMangaSearchSuccess(data));
+  } catch (error) {
+    yield put(actionCreators.getMangaSearchError({ error }));
+  }
+}
+
 export function* getMangaCoversSaga(action) {
   yield put(actionCreators.getMangaCoversRequest());
   try {

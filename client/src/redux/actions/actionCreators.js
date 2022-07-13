@@ -75,6 +75,22 @@ export const getMangaCatalogError = (data) => ({
   payload: { data },
 });
 
+export const getMangaSearch = (options) => ({
+  type: ACTION_TYPES.GET_MANGA_SEARCH,
+  payload: { options }
+});
+export const getMangaSearchRequest = () => ({
+  type: ACTION_TYPES.GET_MANGA_SEARCH_REQUEST,
+});
+export const getMangaSearchSuccess = (data) => ({
+  type: ACTION_TYPES.GET_MANGA_SEARCH_SUCCESS,
+  payload: { data },
+});
+export const getMangaSearchError = (data) => ({
+  type: ACTION_TYPES.GET_MANGA_SEARCH_ERROR,
+  payload: { data },
+});
+
 export const getMangaCovers = (options) => ({
   type: ACTION_TYPES.GET_MANGA_COVERS,
   payload: { options }
