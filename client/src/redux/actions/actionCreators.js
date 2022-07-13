@@ -90,6 +90,9 @@ export const getMangaSearchError = (data) => ({
   type: ACTION_TYPES.GET_MANGA_SEARCH_ERROR,
   payload: { data },
 });
+export const clearMangaSearch = () => ({
+  type: ACTION_TYPES.CLEAR_MANGA_SEARCH,
+});
 
 export const getMangaCovers = (options) => ({
   type: ACTION_TYPES.GET_MANGA_COVERS,

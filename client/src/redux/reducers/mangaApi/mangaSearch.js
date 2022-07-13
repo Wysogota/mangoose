@@ -1,4 +1,5 @@
 import produce from 'immer';
+import { isEmpty } from 'lodash';
 import ACTION_TYPES from '../../actions/actionTypes';
 
 const initialState = {
@@ -18,7 +19,7 @@ const handlers = {
 
   [ACTION_TYPES.GET_MANGA_SEARCH_SUCCESS]: produce((draftState, action) => {
     draftState.isFetching = false;
-    
+
     draftState.mangaSearch = action.payload.data.mangaList;
     draftState.limit = action.payload.data.limit;
     draftState.offset = action.payload.data.offset;
@@ -28,6 +29,10 @@ const handlers = {
   [ACTION_TYPES.GET_MANGA_SEARCH_ERROR]: ((draftState, action) => {
     draftState.isFetching = false;
     draftState.error = action.payload.error;
+  }),
+
+  [ACTION_TYPES.CLEAR_MANGA_SEARCH]: ((draftState, action) => {
+    return initialState;
   }),
 };
 

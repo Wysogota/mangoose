@@ -8,12 +8,15 @@ import styles from './SearchInput.module.scss';
 
 const limit = 5;
 
-const SearchInput = () => {
-
+const SearchInput = (props) => {
+  const { setIsInputEmpty } = props;
   const { theme: { bgAccentTheme, mainTheme } } = useSelector(({ themes }) => themes);
   const { getMangaSearch } = bindActionCreators(actionCreators, useDispatch());
 
-  const handleChange = ({ target: { value } }) => getMangaSearch({ title: value, limit });
+  const handleChange = ({ target: { value } }) => {
+    setIsInputEmpty(!value);
+    getMangaSearch({ title: value, limit })
+  };
 
   const containerClasses = cx(
     styles.container,
