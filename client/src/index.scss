@@ -29,6 +29,16 @@ a {
   border-radius: 1rem !important;
 }
 
+.rounded-bottom {
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+}
+
+.rounded-top {
+  border-top-left-radius: 1rem !important;
+  border-top-right-radius: 1rem !important;
+}
+
 .text-left {
   text-align: left;
 }

@@ -27,6 +27,7 @@ const Searchbar = () => {
     mainTheme,
     bgTheme,
     styles.content,
+    'rounded-bottom',
   );
 
   return (
