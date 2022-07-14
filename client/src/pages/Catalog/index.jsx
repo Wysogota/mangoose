@@ -36,24 +36,28 @@ const Catalog = () => {
   return (
     <Container>
       <Row>
-        <ColBlock className='col-12'>
+        <ColBlock>
           <h3 className='pb-3'>Catalog</h3>
           <SearchInput limit={limit} className='mb-3' />
           <Genres setGenres={setGenres} />
         </ColBlock>
-        {emptyCatalog ?
-          emptyCatalog :
-          <MangaCatalog
-            catalog={mangaSearch} genres={genres}
-            className='col-10 col-sm-7 col-md-6 col-lg-4 col-xl-3'
-          />}
       </Row>
-      <Row>
-        <PaginationButtons
-          itemCount={total} limit={limit}
-          currentPage={currentPage} setCurrentPage={setCurrentPage}
-        />
-      </Row>
+      {emptyCatalog ?
+        emptyCatalog :
+        <>
+          <Row>
+            <MangaCatalog
+              catalog={mangaSearch} genres={genres}
+              className='col-10 col-sm-7 col-md-6 col-lg-4 col-xl-3'
+            />
+          </Row>
+          <Row>
+            <PaginationButtons
+              itemCount={total} limit={limit}
+              currentPage={currentPage} setCurrentPage={setCurrentPage}
+            />
+          </Row>
+        </>}
     </Container>
   );
 };
