@@ -10,24 +10,14 @@ import CONSTANTS from '../../constants';
 
 const limit = 20;
 
-const queryOptions = (options) => ({
-  mangaId: options.mangaId,
-  lang: CONSTANTS.DEFAULT_LOCALE,
-  limit,
-  offset: options.offset
-});
-
 const Chapters = (props) => {
   const { mangaId, paramName, tabParamValue } = props;
   const { chapters, isFetching } = useSelector(({ chapters }) => chapters);
   const { getChapters } = bindActionCreators(actionCreators, useDispatch());
 
-  const queryParams = { mangaId };
+  const queryParams = { mangaId, lang: CONSTANTS.DEFAULT_LOCALE };
   const { currentPage, setCurrentPage, existedParams } = useTabPagination({
-    actionCreator: getChapters,
-    queryOptions, queryParams,
-    paramName, tabParamValue,
-    limit,
+    actionCreator: getChapters, queryParams, limit, paramName, tabParamValue,
   });
 
   const emptyTab = useCheckingEmptyValues(chapters.data, 'No Chapters', isFetching);

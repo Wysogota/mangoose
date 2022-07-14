@@ -5,7 +5,7 @@ const { PARAM_NAME: { PAGE } } = CONSTANTS;
 
 const useTabPagination = (options) => {
   const {
-    actionCreator, queryOptions, queryParams = {}, limit,
+    actionCreator, queryParams = {}, limit,
     paramName, tabParamValue,
   } = options;
 
@@ -15,10 +15,10 @@ const useTabPagination = (options) => {
   const [isSameTab, setIsSameTab] = useState();
 
   useEffect(() => {
-    actionCreator(queryOptions(Object.assign(
+    actionCreator(Object.assign(
       queryParams,
-      { offset: limit * currentPage },
-    )));
+      { limit, offset: limit * currentPage },
+    ));
   }, [currentPage]);
 
   useEffect(() => {

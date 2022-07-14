@@ -12,12 +12,6 @@ import styles from './Arts.module.scss';
 
 const limit = 5;
 
-const queryOptions = (options) => ({
-  mangaId: options.mangaId,
-  limit,
-  offset: options.offset
-});
-
 const Arts = (props) => {
   const { mangaId, paramName, tabParamValue } = props;
   const { covers, isFetching } = useSelector(({ cover }) => cover);
@@ -26,10 +20,7 @@ const Arts = (props) => {
 
   const queryParams = { mangaId };
   const { currentPage, setCurrentPage, existedParams } = useTabPagination({
-    actionCreator: getMangaCovers,
-    queryOptions, queryParams,
-    paramName, tabParamValue,
-    limit,
+    actionCreator: getMangaCovers, queryParams, limit, paramName, tabParamValue,
   });
 
   const containerClasses = cx(
