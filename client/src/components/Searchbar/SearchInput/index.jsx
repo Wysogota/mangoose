@@ -6,21 +6,22 @@ import { BsSearch as SearchIcon } from 'react-icons/bs';
 import cx from 'classnames';
 import styles from './SearchInput.module.scss';
 
-const limit = 5;
 
-const SearchInput = () => {
+const SearchInput = (props) => {
+  const { limit, className } = props;
   const { theme: { bgAccentTheme, mainTheme } } = useSelector(({ themes }) => themes);
   const { inputValue } = useSelector(({ mangaSearch }) => mangaSearch);
   const { getMangaSearch, setSearchValue } = bindActionCreators(actionCreators, useDispatch());
 
   const handleChange = ({ target: { value } }) => {
     setSearchValue(value);
-    getMangaSearch({ title: value, limit })
+    getMangaSearch({ title: value, limit });
   };
 
   const containerClasses = cx(
     styles.container,
     bgAccentTheme,
+    className,
     'rounded-2 d-flex align-items-center',
   );
 
@@ -33,7 +34,7 @@ const SearchInput = () => {
   return (
     <div className={containerClasses}>
       <SearchIcon className='ms-2 me-2' />
-      <input className={inputClasses} placeholder='Search' onChange={handleChange} value={inputValue}/>
+      <input className={inputClasses} placeholder='Search' onChange={handleChange} value={inputValue} />
     </div>
   );
 };

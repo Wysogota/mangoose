@@ -10,39 +10,43 @@ import PaginationButtons from '../../components/PaginationButtons';
 import { useCheckingEmptyValues, usePagination } from '../../hooks';
 import { getPageTitle } from '../../common/functions';
 import CONSTANTS from '../../constants';
-const { PAGES: { CATALOG: { name } } } = CONSTANTS;
+import SearchInput from '../../components/Searchbar/SearchInput';
+import { useSearchParams } from 'react-router-dom';
+const { PARAM_NAME: { PAGE }, PAGES: { CATALOG: { name } } } = CONSTANTS;
 
 const limit = 32;
 
-const queryOptions = (options) => ({
-  limit,
-  offset: options.offset
-});
-
 const Catalog = () => {
-  const { mangaCatalog, total, isFetching } = useSelector(({ mangaCatalog }) => mangaCatalog);
-  const { getMangaCatalog } = bindActionCreators(actionCreators, useDispatch());
+  const { inputValue, mangaSearch, total, isFetching } = useSelector(({ mangaSearch }) => mangaSearch);
+  const { getMangaSearch } = bindActionCreators(actionCreators, useDispatch());
   const [genres, setGenres] = useState([]);
 
   useEffect(() => { document.title = getPageTitle(name); }, []);
 
+  const queryParams = { title: inputValue };
   const { currentPage, setCurrentPage } = usePagination({
-    actionCreator: getMangaCatalog,
-    queryOptions,
-    limit,
+    actionCreator: getMangaSearch, queryParams, limit,
   });
 
-  const emptyCatalog = useCheckingEmptyValues(mangaCatalog, 'Catalog Empty', isFetching);
-  if (emptyCatalog) return emptyCatalog;
+  const [, setSearchParams] = useSearchParams();
+  useEffect(() => setSearchParams({ [PAGE]: 1 }, { replace: true }), [inputValue]);
+
+  const emptyCatalog = useCheckingEmptyValues(mangaSearch, 'Catalog Empty', isFetching);
 
   return (
     <Container>
       <Row>
         <ColBlock className='col-12'>
           <h3 className='pb-3'>Catalog</h3>
+          <SearchInput limit={limit} className='mb-3' />
           <Genres setGenres={setGenres} />
         </ColBlock>
-        <MangaCatalog catalog={mangaCatalog} genres={genres} className='col-10 col-sm-7 col-md-6 col-lg-4 col-xl-3' />
+        {emptyCatalog ?
+          emptyCatalog :
+          <MangaCatalog
+            catalog={mangaSearch} genres={genres}
+            className='col-10 col-sm-7 col-md-6 col-lg-4 col-xl-3'
+          />}
       </Row>
       <Row>
         <PaginationButtons

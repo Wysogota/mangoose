@@ -8,6 +8,8 @@ import styles from './Searchbar.module.scss';
 import SearchInput from './SearchInput';
 import SearchResult from './SearchResult';
 
+const limit = 5;
+
 const Searchbar = () => {
 
   const { theme: { mainTheme, bgTheme } } = useSelector(({ themes }) => themes);
@@ -37,7 +39,7 @@ const Searchbar = () => {
       dialogClassName={styles.searchbar} contentClassName={contentClasses} backdropClassName={backdropClasses}
     >
       <Modal.Header>
-        <SearchInput />
+        <SearchInput limit={limit} />
       </Modal.Header>
       <Modal.Body>
         <SearchResult />
