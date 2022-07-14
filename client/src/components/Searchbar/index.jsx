@@ -7,16 +7,21 @@ import cx from 'classnames';
 import styles from './Searchbar.module.scss';
 import SearchInput from './SearchInput';
 import SearchResult from './SearchResult';
+import { isEmpty } from 'lodash';
 
 const limit = 5;
 
 const Searchbar = () => {
-
   const { theme: { mainTheme, bgTheme } } = useSelector(({ themes }) => themes);
   const { isSearchbarOpen } = useSelector(({ modalItems }) => modalItems);
+  const { mangaSearch } = useSelector(({ mangaSearch }) => mangaSearch);
   const { hideSearchbar, clearMangaSearch } = bindActionCreators(actionCreators, useDispatch());
 
   const onEnterHandle = () => document.getElementsByClassName('modal')[0].classList.add(styles.searchbar_zIndex);
+  const onHideHandle = () => {
+    if (isEmpty(mangaSearch)) clearMangaSearch();
+    hideSearchbar();
+  };
 
   const backdropClasses = cx(
     styles.backdrop,
@@ -32,10 +37,8 @@ const Searchbar = () => {
 
   return (
     <Modal
-      show={isSearchbarOpen} onHide={hideSearchbar}
-      onEnter={clearMangaSearch} onEntered={onEnterHandle}
-      size='lg' dialogClassName={styles.searchbar}
-      contentClassName={contentClasses} backdropClassName={backdropClasses}
+      show={isSearchbarOpen} onHide={onHideHandle} onEntered={onEnterHandle} size='lg'
+      dialogClassName={styles.searchbar} contentClassName={contentClasses} backdropClassName={backdropClasses}
     >
       <Modal.Header>
         <SearchInput limit={limit} />
@@ -43,7 +46,6 @@ const Searchbar = () => {
       <Modal.Body>
         <SearchResult />
       </Modal.Body>
-
     </Modal>
   );
 };
