@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
 import { capitalize, isEmpty } from 'lodash';
-import RelatedCard from '../RelatedCard';
+import RelatedCard from '../../MangaCard';
 import { useCheckingEmptyValues } from '../../../hooks';
 import { selectRelationship } from '../../../common/functions';
 import CONSTANTS from '../../../constants';

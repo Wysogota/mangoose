@@ -1,13 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Card, Col, Dropdown } from 'react-bootstrap';
+import { Card, Col } from 'react-bootstrap';
 import cx from 'classnames';
-import TagButtons from '../TagButtons';
-import styles from './RelatedCard.module.scss';
+import TagButtons from '../Title/TagButtons';
+import styles from './MangaCard.module.scss';
 import { Link } from 'react-router-dom';
 
-
-const RelatedCard = (props) => {
+const MangaCard = (props) => {
   const { id, image, related, title, description, status, tags, onClick } = props;
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
 
@@ -40,7 +39,7 @@ const RelatedCard = (props) => {
             <Card.Title className={titleClasses}><Link to={`/title/${id}`}>{title}</Link></Card.Title>
             <div className={statusClasses}>{status}</div>
           </div>
-          <Card.Subtitle className='pb-2'>{related}</Card.Subtitle>
+          {related && <Card.Subtitle className='pb-2'>{related}</Card.Subtitle>}
           <Card.Text className={styles.description}>{description}</Card.Text>
           <TagButtons tags={tags} tagClassName={styles[`tag-${mainColor}`]} shouldOverflow />
         </Card.Body>
@@ -50,4 +49,4 @@ const RelatedCard = (props) => {
   );
 };
 
-export default RelatedCard;
+export default MangaCard;

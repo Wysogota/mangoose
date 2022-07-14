@@ -5,7 +5,7 @@ import * as actionCreators from '../../../redux/actions/actionCreators';
 import { capitalize } from 'lodash';
 import { selectRelationship } from '../../../common/functions';
 import { useCheckingEmptyValues } from '../../../hooks';
-import RelatedCard from '../../Title/RelatedCard';
+import RelatedCard from '../../MangaCard';
 import CONSTANTS from '../../../constants';
 const { DEFAULT_LOCALE } = CONSTANTS;
 
