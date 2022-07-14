@@ -17,10 +17,6 @@ const Searchbar = () => {
   const { hideSearchbar, clearMangaSearch } = bindActionCreators(actionCreators, useDispatch());
 
   const onEnterHandle = () => document.getElementsByClassName('modal')[0].classList.add(styles.searchbar_zIndex);
-  const onHideHandle = () => {
-    clearMangaSearch();
-    hideSearchbar();
-  };
 
   const backdropClasses = cx(
     styles.backdrop,
@@ -35,8 +31,10 @@ const Searchbar = () => {
 
   return (
     <Modal
-      show={isSearchbarOpen} onHide={onHideHandle} onEntered={onEnterHandle} size='lg'
-      dialogClassName={styles.searchbar} contentClassName={contentClasses} backdropClassName={backdropClasses}
+      show={isSearchbarOpen} onHide={hideSearchbar}
+      onEnter={clearMangaSearch} onEntered={onEnterHandle}
+      size='lg' dialogClassName={styles.searchbar}
+      contentClassName={contentClasses} backdropClassName={backdropClasses}
     >
       <Modal.Header>
         <SearchInput limit={limit} />

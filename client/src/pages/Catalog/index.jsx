@@ -2,26 +2,29 @@ import React, { useEffect, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
+import { useSearchParams } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
 import ColBlock from '../../components/Blocks/ColBlock';
+import SearchInput from '../../components/Searchbar/SearchInput';
 import Genres from '../../components/Catalog/Genres';
 import MangaCatalog from '../../components/Catalog/MangaCatalog';
 import PaginationButtons from '../../components/PaginationButtons';
 import { useCheckingEmptyValues, usePagination } from '../../hooks';
 import { getPageTitle } from '../../common/functions';
 import CONSTANTS from '../../constants';
-import SearchInput from '../../components/Searchbar/SearchInput';
-import { useSearchParams } from 'react-router-dom';
 const { PARAM_NAME: { PAGE }, PAGES: { CATALOG: { name } } } = CONSTANTS;
 
 const limit = 32;
 
 const Catalog = () => {
   const { inputValue, mangaSearch, total, isFetching } = useSelector(({ mangaSearch }) => mangaSearch);
-  const { getMangaSearch } = bindActionCreators(actionCreators, useDispatch());
+  const { getMangaSearch, clearMangaSearch } = bindActionCreators(actionCreators, useDispatch());
   const [genres, setGenres] = useState([]);
 
-  useEffect(() => { document.title = getPageTitle(name); }, []);
+  useEffect(() => {
+    document.title = getPageTitle(name);
+    return () => clearMangaSearch();
+  }, []);
 
   const queryParams = { title: inputValue };
   const { currentPage, setCurrentPage } = usePagination({
