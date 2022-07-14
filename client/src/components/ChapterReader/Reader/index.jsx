@@ -58,7 +58,7 @@ const Reader = (props) => {
     } else if (prevPage === 0 && selectedPage === pagesCount) {
       chooseNavigate(prev);
     } else {
-      setSearchParams(`?${PAGE}=${selectedPage + 1}`, { replace: true });
+      setSearchParams({ [PAGE]: selectedPage + 1 }, { replace: true });
     }
 
     setPrevPage(selectedPage);

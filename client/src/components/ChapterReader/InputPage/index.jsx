@@ -20,7 +20,7 @@ const InputPage = (props) => {
     else if (target.value < 0) newPage = 1;
     else newPage = target.value;
 
-    setSearchParams(`?${PAGE}=${newPage || 1}`, { replace: true });
+    setSearchParams({[PAGE]: newPage || 1}, { replace: true });
   };
 
   const classes = cx(
