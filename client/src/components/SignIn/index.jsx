@@ -49,7 +49,7 @@ const SignIn = () => {
             <Button className='text-capitalize' variant={invertedColor} type='submit'>sign in</Button>
             <div>
               <span>Dont have account? </span>
-              <Link to={`/${signupPath}`} onClick={hideSignIn} className={mainTheme}>Sign Up</Link>
+              <Link to={signupPath} onClick={hideSignIn} className={mainTheme}>Sign Up</Link>
             </div>
           </Modal.Footer>
         </Form>

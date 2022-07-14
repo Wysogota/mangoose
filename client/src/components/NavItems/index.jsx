@@ -24,7 +24,7 @@ const createComponent = (Component, to, Icon, title, options) => {
 };
 
 const Catalog = ({ Component, options }) =>
-  createComponent(Component, `/${catalogPath}`, CatalogIcon, catalogName, options);
+  createComponent(Component, catalogPath, CatalogIcon, catalogName, options);
 
 const FAQ = ({ Component, options }) =>
   createComponent(Component, '#', FAQIcon, 'FAQ', options);

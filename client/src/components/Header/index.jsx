@@ -33,7 +33,7 @@ const Header = () => {
         <Col xs='10' sm='6' md='3' lg='4' className='text-end text-md-center'>
           <ButtonGroup className='pt-2 pb-2'>
             <Button onClick={showSignIn} variant={outlineColor}>Sign In</Button>
-            <Button as={Link} to={`/${path}`} variant={invertedColor}>Sign Up</Button>
+            <Button as={Link} to={path} variant={invertedColor}>Sign Up</Button>
           </ButtonGroup>
           <ToggleTheme Component='button' btnClasses='ps-3 d-none d-lg-inline-block' imageClasses='fs-3' />
         </Col>

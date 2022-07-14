@@ -18,23 +18,23 @@ export default {
   PAGES: {
     HOME: {
       name: 'Home',
-      path: '',
+      path: '/',
     },
     CATALOG: {
       name: 'Catalog',
-      path: 'catalog',
+      path: '/catalog',
     },
     SIGN_UP: {
       name: 'Sign Up',
-      path: 'signup',
+      path: '/signup',
     },
     TITLE: {
       name: 'Title',
-      path: 'title',
+      path: '/title',
     },
     CHAPTER_READER: {
       name: 'Reader',
-      path: 'chapter',
+      path: '/chapter',
     },
   },
   TITLE_TABS: {

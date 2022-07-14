@@ -72,7 +72,7 @@ const InfoPanel = (props) => {
       </Row>
       <Row className='mb-3 m-auto'>
         <Col>
-          <Link to={`/${titlePath}/${id}?${TAB}=${CHAPTERS}`} className={subHeaderClasses}>
+          <Link to={`${titlePath}/${id}?${TAB}=${CHAPTERS}`} className={subHeaderClasses}>
             {mangaTitle[DEFAULT_LOCALE]}
           </Link>
         </Col>
@@ -91,14 +91,14 @@ const InfoPanel = (props) => {
           <span className='ms-1 me-1'>Ch.{chapterNum}</span>
         </Col>
         <Col className={blocksClasses}>
-          <Link to={`/${chapterPath}/${prev}`} className={prevControlClasses(prev)}><PrevIcon /></Link>
+          <Link to={`${chapterPath}/${prev}`} className={prevControlClasses(prev)}><PrevIcon /></Link>
           <div>
             Page:
             <InputPage page={currentPage + 1} pageCount={pageCount} className='pe-1' />
             /
             <span className='ps-1'>{pageCount}</span>
           </div>
-          <Link to={`/${chapterPath}/${next}`} className={nextControlClasses(next)}><NextIcon /></Link>
+          <Link to={`${chapterPath}/${next}`} className={nextControlClasses(next)}><NextIcon /></Link>
         </Col>
         <Col xs='2' md='3' className={blocksClasses}><MenuButton /></Col>
       </Row>

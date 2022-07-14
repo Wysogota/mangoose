@@ -50,8 +50,8 @@ const Reader = (props) => {
     const mangaId = selectRelationship(chapter.relationships, 'manga').id;
 
     const chooseNavigate = (navigeChapter) => navigeChapter
-      ? navigate(`/${chapterPath}/${navigeChapter}`)
-      : navigate(`/${titlePath}/${mangaId}?${TAB}=${CHAPTERS}`);
+      ? navigate(`${chapterPath}/${navigeChapter}`)
+      : navigate(`${titlePath}/${mangaId}?${TAB}=${CHAPTERS}`);
 
     if (selectedPage === 0 && prevPage === pagesCount) {
       chooseNavigate(next);

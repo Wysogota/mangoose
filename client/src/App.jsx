@@ -16,6 +16,7 @@ import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import CONSTANTS from './constants';
 const { PAGES: {
+  HOME: { path: homePath },
   SIGN_UP: { path: signupPath },
   CATALOG: { path: catalogPath },
   TITLE: { path: titlePath },
@@ -34,12 +35,12 @@ const App = () => {
       <Header />
       <div id='content'>
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path={`/${signupPath}`} element={<SignUp />} />
+          <Route path={homePath} element={<Home />} />
+          <Route path={signupPath} element={<SignUp />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path={`/${catalogPath}`} element={<Catalog />} />
-          <Route path={`/${titlePath}/:mangaId`} element={<Title />} />
-          <Route path={`/${chapterPath}/:chapterId`} element={<ChapterReader />} />
+          <Route path={catalogPath} element={<Catalog />} />
+          <Route path={`${titlePath}/:mangaId`} element={<Title />} />
+          <Route path={`${chapterPath}/:chapterId`} element={<ChapterReader />} />
         </Routes>
       </div>
       <Footer />
