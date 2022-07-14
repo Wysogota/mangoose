@@ -11,7 +11,7 @@ const VolumeChapters = (props) => {
   const innerContainerClasses = cx(
     styles.inner_chapters,
     styles[`inner_chapters-${mainColor}`],
-    'rounded-bottom',
+    'rounded-bottom-2',
   )
 
   const getChaptersList = () => [...new Set(

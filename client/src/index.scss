@@ -34,9 +34,19 @@ a {
   border-bottom-right-radius: 1rem !important;
 }
 
+.rounded-bottom-2 {
+  border-bottom-left-radius: 0.25rem !important;
+  border-bottom-right-radius: 0.25rem !important;
+}
+
 .rounded-top {
   border-top-left-radius: 1rem !important;
   border-top-right-radius: 1rem !important;
+}
+
+.rounded-top-2 {
+  border-top-left-radius: 0.25rem !important;
+  border-top-right-radius: 0.25rem !important;
 }
 
 .text-left {
