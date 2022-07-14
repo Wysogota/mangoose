@@ -14,7 +14,7 @@ const TagButtons = (props) => {
   const tagsRef = useRef([]);
   const overflowedTagsRef = useRef([]);
   const [containerPosition, setContainerPosition] = useState();
-  const [shouldDisplayDropdown, setShouldDisplayDropdown] = useState(false);
+  const [shouldDisplayDropdown, setShouldDisplayDropdown] = useState(true);
 
   const getConatinerPosition = () => {
     const { offsetWidth, offsetLeft } = containerRef.current;
@@ -23,7 +23,6 @@ const TagButtons = (props) => {
 
   useEffect(() => {
     if (shouldOverflow) {
-      getConatinerPosition();
       addEventListener('resize', getConatinerPosition);
       return () => removeEventListener('resize', getConatinerPosition);
     }
@@ -31,6 +30,8 @@ const TagButtons = (props) => {
 
   useEffect(() => {
     if (shouldOverflow) {
+      getConatinerPosition();
+
       if (!isEmpty(tagsRef.current)) {
         tagsRef.current.forEach((tag) => {
           const tagPosition = tag.offsetLeft + tag.offsetWidth;
@@ -55,9 +56,7 @@ const TagButtons = (props) => {
         });
       }
     }
-
   }, [tagsRef, theme, overflowedTagsRef, containerPosition]);
-
 
   const containerClasses = cx(
     shouldOverflow ? styles.visible_container : styles.conatiner
