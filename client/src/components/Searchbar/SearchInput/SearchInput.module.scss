@@ -8,6 +8,14 @@
   color: inherit;
 }
 
+.container-light:focus-within {
+  outline: 1px solid $light_main_color;
+}
+
+.container-dark:focus-within {
+  outline: 1px solid $dark_main_color;
+}
+
 .input {
   border: none;
   outline: none;

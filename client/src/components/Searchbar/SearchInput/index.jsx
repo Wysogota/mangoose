@@ -9,7 +9,7 @@ import styles from './SearchInput.module.scss';
 
 const SearchInput = (props) => {
   const { limit, className } = props;
-  const { theme: { bgAccentTheme, mainTheme } } = useSelector(({ themes }) => themes);
+  const { theme: { bgAccentTheme, mainTheme, invertedColor } } = useSelector(({ themes }) => themes);
   const { inputValue } = useSelector(({ mangaSearch }) => mangaSearch);
   const { getMangaSearch, setSearchValue } = bindActionCreators(actionCreators, useDispatch());
 
@@ -20,6 +20,7 @@ const SearchInput = (props) => {
 
   const containerClasses = cx(
     styles.container,
+    styles[`container-${invertedColor}`],
     bgAccentTheme,
     className,
     'rounded-2 d-flex align-items-center',
@@ -34,7 +35,13 @@ const SearchInput = (props) => {
   return (
     <div className={containerClasses}>
       <SearchIcon className='ms-2 me-2' />
-      <input className={inputClasses} placeholder='Search' onChange={handleChange} value={inputValue} />
+      <input
+        data-name='searchInput'
+        className={inputClasses}
+        placeholder='Search'
+        onChange={handleChange}
+        value={inputValue}
+      />
     </div>
   );
 };
