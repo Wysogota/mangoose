@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { isEmpty } from 'lodash';
+import { get, isEmpty } from 'lodash';
 import cx from 'classnames';
 import ColBlock from '../../components/Blocks/ColBlock';
 import MainHeader from '../../components/Headers/MainHeader';
@@ -56,11 +56,10 @@ const Title = () => {
       .map((item) => item[DEFAULT_LOCALE])
   ];
 
-  const {
-    cover_art: { attributes: { url: coverUrl } },
-    author: { attributes: { name: authorName } },
-    artist: { attributes: { name: atristName } }
-  } = selectRelationship(relationships, ['cover_art', 'author', 'artist']);
+  const { cover_art, author, artist } = selectRelationship(relationships, ['cover_art', 'author', 'artist']);
+  const coverUrl = get(cover_art, 'attributes.url');
+  const authorName = get(author, 'attributes.name');
+  const atristName = get(artist, 'attributes.name');
 
   const { status, lastChapter, publicationDemographic, year } = attributes;
   const titleInfoAttr = {
