@@ -35,7 +35,7 @@ const HomeMangaCatalog = ({ extendedCatalog }) => {
         {mangaCatalog.length &&
           <MangaCatalog catalog={mangaCatalog} genres={genres} className={catalogClasses} />
         }
-        <Row className='pt-5'><CatalogButton /></Row>
+        <Row className='pt-5'><CatalogButton title='More' /></Row>
       </Row>
     </Col>
   );

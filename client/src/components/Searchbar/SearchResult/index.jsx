@@ -2,14 +2,16 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
-import { capitalize } from 'lodash';
+import { capitalize, isEmpty } from 'lodash';
 import { selectRelationship } from '../../../common/functions';
 import { useCheckingEmptyValues } from '../../../hooks';
 import RelatedCard from '../../MangaCard';
 import CONSTANTS from '../../../constants';
+import CatalogButton from '../../Catalog/CatalogButton';
 const { DEFAULT_LOCALE } = CONSTANTS;
 
 const SearchResult = () => {
+  const { theme: { bgAccentTheme } } = useSelector(({ themes }) => themes);
   const { mangaSearch, inputValue, isFetching } = useSelector(({ mangaSearch }) => mangaSearch);
   const { hideSearchbar } = bindActionCreators(actionCreators, useDispatch());
 
@@ -31,6 +33,9 @@ const SearchResult = () => {
           tags={tags}
         />
       ))
+      }
+      {!isEmpty(mangaSearch) &&
+        <CatalogButton title='Load More' onClick={hideSearchbar} bgTheme={bgAccentTheme} stopAnimation />
       }
     </div>
   );

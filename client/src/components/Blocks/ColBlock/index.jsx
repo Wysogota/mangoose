@@ -5,7 +5,7 @@ import cx from 'classnames';
 import styles from './ColBlock.module.scss';
 
 const ColBlock = (props) => {
-  const { className, innerClassName, children } = props;
+  const { className, innerClassName, children, onClick } = props;
   const { theme: { bgTheme } } = useSelector(({ themes }) => themes);
   const classes = cx(
     styles.col,
@@ -19,7 +19,7 @@ const ColBlock = (props) => {
   );
 
   return (
-    <Col className={classes}>
+    <Col className={classes} onClick={onClick}>
       <div className={innerClasses}>
         {children}
       </div>

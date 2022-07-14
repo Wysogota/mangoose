@@ -4,10 +4,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
 import { Modal } from 'react-bootstrap';
 import cx from 'classnames';
-import styles from './Searchbar.module.scss';
+import { isEmpty } from 'lodash';
 import SearchInput from './SearchInput';
 import SearchResult from './SearchResult';
-import { isEmpty } from 'lodash';
+import styles from './Searchbar.module.scss';
 
 const limit = 5;
 

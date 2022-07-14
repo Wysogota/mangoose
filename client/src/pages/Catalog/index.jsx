@@ -20,24 +20,19 @@ const Catalog = () => {
   const { inputValue, mangaSearch, total, isFetching } = useSelector(({ mangaSearch }) => mangaSearch);
   const { getMangaSearch, clearMangaSearch } = bindActionCreators(actionCreators, useDispatch());
   const [genres, setGenres] = useState([]);
-  const [shouldClearSearch, setShouldClearSearch] = useState(!!inputValue);
 
   useEffect(() => {
     document.title = getPageTitle(name);
-    clearMangaSearch();
     return () => clearMangaSearch();
   }, []);
 
-  const queryParams = { title: shouldClearSearch ? '' : inputValue };
+  const queryParams = { title: inputValue };
   const { currentPage, setCurrentPage } = usePagination({
     actionCreator: getMangaSearch, queryParams, limit,
   });
 
   const [, setSearchParams] = useSearchParams();
-  useEffect(() => {
-    setSearchParams({ [PAGE]: 1 }, { replace: true });
-    setShouldClearSearch(false);
-  }, [inputValue]);
+  useEffect(() => setSearchParams({ [PAGE]: 1 }, { replace: true }), [inputValue]);
 
   const emptyCatalog = useCheckingEmptyValues(mangaSearch, 'Catalog Empty', isFetching);
 
