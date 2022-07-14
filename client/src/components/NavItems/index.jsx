@@ -9,40 +9,62 @@ import {
 import CONSTANTS from '../../constants';
 const { PAGES: { CATALOG: { name: catalogName, path: catalogPath } } } = CONSTANTS;
 
-const createComponent = (Component, to, Icon, title, options) => {
+const getComponentOptions = (title, to, options) => ({
+  ...options,
+  title: options.title || title,
+  to,
+});
+
+const createComponent = (Component, Icon, options) => {
+  const { title, to, className, onClick, invertedHovered, external } = options;
   const { theme: { hoveredTheme, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
+
   const classes = cx(
-    options?.className,
-    options?.invertedHovered ? bgInvertedHoveredTheme : hoveredTheme,
+    className,
+    invertedHovered ? bgInvertedHoveredTheme : hoveredTheme,
     'h-100 w-100 d-flex align-items-center'
   );
 
   const Child = () => (<><Icon /><span className='ms-2'>{title}</span></>);
-  return options?.external
-    ? <a href={to} target='_blank' rel='noreferrer' className={classes}><Child /></a>
-    : <Component as={Link} to={to} className={classes}><Child /></Component>;
+  return external
+    ? <a href={to} target='_blank' rel='noreferrer' className={classes} onClick={onClick}><Child /></a>
+    : <Component as={Link} to={to} className={classes} onClick={onClick}><Child /></Component>;
 };
 
-const Catalog = ({ Component, options }) =>
-  createComponent(Component, catalogPath, CatalogIcon, catalogName, options);
 
-const FAQ = ({ Component, options }) =>
-  createComponent(Component, '#', FAQIcon, 'FAQ', options);
+const Catalog = ({ Component, options = {} }) => {
+  const assignedOptions = getComponentOptions(catalogName, catalogPath, options);
+  return createComponent(Component, CatalogIcon, assignedOptions);
+};
 
-const News = ({ Component, options }) =>
-  createComponent(Component, '#', NewsIcon, 'News', options);
+const FAQ = ({ Component, options = {} }) => {
+  const assignedOptions = getComponentOptions('FAQ', '#', options);
+  return createComponent(Component, FAQIcon, assignedOptions);
+};
 
-const Contacts = ({ Component, options }) =>
-  createComponent(Component, '#', ContactsIcon, 'Contacts', options);
+const News = ({ Component, options = {} }) => {
+  const assignedOptions = getComponentOptions('News', '#', options);
+  return createComponent(Component, NewsIcon, assignedOptions);
+};
 
-const Random = ({ Component, options }) =>
-  createComponent(Component, '#', RandomIcon, 'Random', options);
+const Contacts = ({ Component, options = {} }) => {
+  const assignedOptions = getComponentOptions('Contacts', '#', options);
+  return createComponent(Component, ContactsIcon, assignedOptions);
+};
 
-const Github = ({ Component, options }) =>
-  createComponent(Component, 'https://github.com/Wysogota/mangoose', GithubIcon, 'Github', {
+const Random = ({ Component, options = {} }) => {
+  const assignedOptions = getComponentOptions('Random', '#', options);
+  return createComponent(Component, RandomIcon, assignedOptions);
+};
+
+const Github = ({ Component, options = {} }) => {
+  const defaultOptions = {
     external: true,
-    invertedHovered: false
-  });
+    invertedHovered: false,
+  };
+  const assignedOptions = getComponentOptions('Github', 'https://github.com/Wysogota/mangoose', defaultOptions);
+  return createComponent(Component, GithubIcon, assignedOptions);
+};
 
 
 export { default as Search } from './Search';
