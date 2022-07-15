@@ -193,3 +193,18 @@ export const getFirstChapterIdError = (data) => ({
   type: ACTION_TYPES.GET_FIRST_CHAPTER_ID_ERROR,
   payload: { data },
 });
+
+export const getTagList = () => ({
+  type: ACTION_TYPES.GET_TAG_LIST,
+});
+export const getTagListRequest = () => ({
+  type: ACTION_TYPES.GET_TAG_LIST_REQUEST,
+});
+export const getTagListSuccess = (data) => ({
+  type: ACTION_TYPES.GET_TAG_LIST_SUCCESS,
+  payload: { data },
+});
+export const getTagListError = (data) => ({
+  type: ACTION_TYPES.GET_TAG_LIST_ERROR,
+  payload: { data },
+});

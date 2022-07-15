@@ -4,6 +4,7 @@ import {
   getMangaSaga, getMangaCatalogSaga, getMangaSearchSaga,
   getMangaCoversSaga, getChapterSaga, getChaptersSaga,
   getChapterPagesSaga, getNextChapterIdSaga, getFirstChapterIdSaga,
+  getTagListSaga,
 } from './mangaSagas';
 
 export default function* rootSaga() {
@@ -16,4 +17,5 @@ export default function* rootSaga() {
   yield takeLatest(ACTION_TYPES.GET_CHAPTER_PAGES, getChapterPagesSaga);
   yield takeLatest(ACTION_TYPES.GET_NEXT_CHAPTER_ID, getNextChapterIdSaga);
   yield takeLatest(ACTION_TYPES.GET_FIRST_CHAPTER_ID, getFirstChapterIdSaga);
+  yield takeLatest(ACTION_TYPES.GET_TAG_LIST, getTagListSaga);
 }

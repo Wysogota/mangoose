@@ -24,3 +24,5 @@ export const getChapterPages = (options) => client.get(`/chapter/pages/${options
 export const getNextChapterId = (options) => client.get(`/chapter/next/?${stringify(options, stringifyOptions)}`);
 
 export const getFirstChapterId = (options) => client.get(`/chapter/first/?${stringify(options, stringifyOptions)}`);
+
+export const getTagList = () => client.get('/manga/tag');

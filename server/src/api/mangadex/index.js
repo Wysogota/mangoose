@@ -43,7 +43,7 @@ module.exports.getMangaList = async (options) => {
 
 module.exports.getTagList = async () => {
   const { data: { data } } = await client.get('/manga/tag');
-  return data;
+  return data.map(({ attributes: { group, name } }) => ({ group, name }));
 };
 
 module.exports.getManga = async (options) => {

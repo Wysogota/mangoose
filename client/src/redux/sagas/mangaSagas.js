@@ -90,3 +90,12 @@ export function* getFirstChapterIdSaga(action) {
     yield put(actionCreators.getFirstChapterIdError({ error }));
   }
 }
+export function* getTagListSaga() {
+  yield put(actionCreators.getTagListRequest());
+  try {
+    const { data: { data } } = yield API.getTagList();
+    yield put(actionCreators.getTagListSuccess(data));
+  } catch (error) {
+    yield put(actionCreators.getTagListError({ error }));
+  }
+}
