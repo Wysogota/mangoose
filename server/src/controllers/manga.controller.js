@@ -20,3 +20,12 @@ module.exports.getMangaList = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.getTagList = async (req, res, next) => {
+  try {
+    const tags = await mangadex.getTagList();
+    res.status(200).send({ data: tags });
+  } catch (error) {
+    next(error);
+  }
+};

@@ -3,7 +3,8 @@ const Controller = require('../controllers/manga.controller');
 
 const router = Router();
 
-router.get('/:mangaId', Controller.getManga);
+router.get('/tag', Controller.getTagList);
 router.get('/', Controller.getMangaList);
+router.get('/:mangaId', Controller.getManga);
 
 module.exports = router;

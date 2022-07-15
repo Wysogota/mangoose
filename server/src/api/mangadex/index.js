@@ -41,6 +41,11 @@ module.exports.getMangaList = async (options) => {
   return response;
 };
 
+module.exports.getTagList = async () => {
+  const { data: { data } } = await client.get('/manga/tag');
+  return data;
+};
+
 module.exports.getManga = async (options) => {
   const query = queryString.stringify(relationshipsOptions, stringifyOptions);
   const { data: { data } } = await client.get(`/manga/${options.mangaId}?&${query}`);
