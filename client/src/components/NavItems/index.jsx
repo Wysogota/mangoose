@@ -1,5 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
+import * as actionCreators from '../../redux/actions/actionCreators';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
 import {
@@ -18,6 +20,12 @@ const getComponentOptions = (title, to, options) => ({
 const createComponent = (Component, Icon, options) => {
   const { title, to, className, onClick, invertedHovered, external } = options;
   const { theme: { hoveredTheme, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
+  const { hideSearchbar } = bindActionCreators(actionCreators, useDispatch());
+
+  const onClickHandle = () => {
+    hideSearchbar();
+    onClick();
+  }
 
   const classes = cx(
     className,
@@ -27,8 +35,8 @@ const createComponent = (Component, Icon, options) => {
 
   const Child = () => (<><Icon /><span className='ms-2'>{title}</span></>);
   return external
-    ? <a href={to} target='_blank' rel='noreferrer' className={classes} onClick={onClick}><Child /></a>
-    : <Component as={Link} to={to} className={classes} onClick={onClick}><Child /></Component>;
+    ? <a href={to} target='_blank' rel='noreferrer' className={classes} onClick={onClickHandle}><Child /></a>
+    : <Component as={Link} to={to} className={classes} onClick={onClickHandle}><Child /></Component>;
 };
 
 

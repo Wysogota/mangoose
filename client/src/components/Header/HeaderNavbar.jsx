@@ -9,12 +9,7 @@ import styles from './Header.module.scss';
 
 const HeaderNavbar = () => {
   const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
-  const { clearMangaSearch, hideSearchbar } = bindActionCreators(actionCreators, useDispatch());
-  
-  const CatalogOnClickHandle = () => {
-    clearMangaSearch();
-    hideSearchbar();
-  };
+  const { clearMangaSearch } = bindActionCreators(actionCreators, useDispatch());
 
   const navbarClasses = cx(
     styles.navbar,
@@ -23,7 +18,7 @@ const HeaderNavbar = () => {
 
   return (
     <Navbar className={navbarClasses} variant={invertedColor} >
-      <Nav><Catalog Component={Nav.Link} options={{ onClick: CatalogOnClickHandle }} /></Nav>
+      <Nav><Catalog Component={Nav.Link} options={{ onClick: clearMangaSearch }} /></Nav>
       <Nav><Search Component={Nav.Link} /></Nav>
       <Nav><News Component={Nav.Link} /></Nav>
       <Nav><NavDropdown menuVariant={invertedColor}>
