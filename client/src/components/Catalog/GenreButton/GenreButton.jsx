@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, ButtonGroup } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { BsChevronDoubleRight as TransitionIcon } from 'react-icons/bs';
 import cx from 'classnames';
 import styles from './GenreButton.module.scss';
+import CONSTANTS from '../../../constants';
+const { PARAM_NAME: { FILTER: { TAGS } } } = CONSTANTS;
 
 const GenreButton = (props) => {
-  const { title, to, onClick } = props;
+  const { id, title, to, onClick } = props;
   const { theme: { mainColor, invertedColor, bgAccentTheme, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
 
-  const [clicked, setClicked] = useState(false);
+  const [searchParams] = useSearchParams();
+  const checkClicked = searchParams.getAll(TAGS).includes(id);
+
+  const [clicked, setClicked] = useState(checkClicked);
   const [linkHover, setLinkHover] = useState(false);
   const [titleHover, setTitleHover] = useState(false);
 

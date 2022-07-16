@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
+import { useSearchParams } from 'react-router-dom';
 import { BsSearch as SearchIcon } from 'react-icons/bs';
 import cx from 'classnames';
 import styles from './SearchInput.module.scss';
-
+import CONSTANTS from '../../../constants';
+const { PARAM_NAME: { FILTER: { TITLE } } } = CONSTANTS;
 
 const SearchInput = (props) => {
   const { limit, className } = props;
   const { theme: { bgAccentTheme, mainTheme, invertedColor } } = useSelector(({ themes }) => themes);
   const { inputValue } = useSelector(({ mangaSearch }) => mangaSearch);
   const { getMangaSearch, setSearchValue } = bindActionCreators(actionCreators, useDispatch());
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => setSearchValue(searchParams.get(TITLE)), []);
 
   const handleChange = ({ target: { value } }) => {
     setSearchValue(value);

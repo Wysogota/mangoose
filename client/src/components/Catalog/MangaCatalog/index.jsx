@@ -3,15 +3,15 @@ import MangaCard from '../MangaCard';
 import CONSTANTS from '../../../constants';
 
 const MangaCatalog = (props) => {
-  const { catalog, genres, className } = props;
+  const { catalog, className } = props;
+
   return (
     catalog
-      // .filter((manga) => genres.every(genre => manga.genres.includes(genre)))
       .map((manga) => {
         const {
           id,
           attributes: {
-            title: { [CONSTANTS.DEFAULT_LOCALE]: title },
+            title: { [CONSTANTS.DEFAULT_LOCALE]: title }, //TODO если пусто тогда искать первое что не пусто
             description: { [CONSTANTS.DEFAULT_LOCALE]: desc }
           },
           relationships,

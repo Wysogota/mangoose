@@ -45,7 +45,14 @@ export default {
   },
   PARAM_NAME: {
     TAB: 'tab',
-    PAGE: 'page'
+    PAGE: 'page',
+    FILTER: {
+      TITLE: 'title',
+      TAGS: 'includedTags',
+      ORDER: 'order',
+      AUTHOR: 'author',
+      ARTIST: 'artist',
+    }
   },
   RELATED_FILTER: ['doujinshi', 'based_on'],
 };

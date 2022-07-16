@@ -7,12 +7,12 @@ import CONSTANTS from '../../constants';
 const { PARAM_NAME: { PAGE } } = CONSTANTS;
 
 const PaginationButtons = (props) => {
-  const { itemCount, limit, currentPage, setCurrentPage, existedParams } = props;
+  const { itemCount, limit, currentPage, setCurrentPage, existedParams, isPageFirst } = props;
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
   const pageCount = Math.ceil(itemCount / limit);
 
   const getUrl = (page) => existedParams
-    ? `?${existedParams}&${PAGE}=${page}`
+    ? isPageFirst ? `?${PAGE}=${page}&${existedParams}` : `?${existedParams}&${PAGE}=${page}`
     : `?${PAGE}=${page}`;
 
   const pageItemClasses = (i) => cx(

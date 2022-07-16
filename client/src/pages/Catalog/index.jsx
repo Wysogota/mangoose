@@ -12,27 +12,40 @@ import PaginationButtons from '../../components/PaginationButtons';
 import { useCheckingEmptyValues, usePagination } from '../../hooks';
 import { getPageTitle } from '../../common/functions';
 import CONSTANTS from '../../constants';
-const { PARAM_NAME: { PAGE }, PAGES: { CATALOG: { name } } } = CONSTANTS;
+const {
+  PARAM_NAME: { PAGE, FILTER: { TITLE, TAGS } },
+  PAGES: { CATALOG: { name } }
+} = CONSTANTS;
 
 const limit = 32;
 
 const Catalog = () => {
   const { inputValue, mangaSearch, total, isFetching } = useSelector(({ mangaSearch }) => mangaSearch);
   const { getMangaSearch, clearMangaSearch } = bindActionCreators(actionCreators, useDispatch());
-  const [genres, setGenres] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     document.title = getPageTitle(name);
     return () => clearMangaSearch();
   }, []);
 
-  const queryParams = { title: inputValue };
-  const { currentPage, setCurrentPage } = usePagination({
+  useEffect(() => {
+    searchParams.set(PAGE, 1);
+    searchParams.set(TITLE, inputValue);
+    setSearchParams(searchParams, { replace: true });
+  }, [inputValue]);
+
+  const queryParams = { title: inputValue, includedTags: searchParams.getAll(TAGS) };
+  const { currentPage, setCurrentPage, existedParams } = usePagination({
     actionCreator: getMangaSearch, queryParams, limit,
   });
 
-  const [, setSearchParams] = useSearchParams();
-  useEffect(() => setSearchParams({ [PAGE]: 1 }, { replace: true }), [inputValue]);
+  useEffect(() => {
+    getMangaSearch(Object.assign(
+      queryParams,
+      { limit, offset: 0 },
+    ));
+  }, [searchParams]);
 
   const emptyCatalog = useCheckingEmptyValues(mangaSearch, 'Catalog Empty', isFetching);
 
@@ -42,7 +55,7 @@ const Catalog = () => {
         <ColBlock>
           <h3 className='pb-3'>Catalog</h3>
           <SearchInput limit={limit} className='mb-3' />
-          <Genres setGenres={setGenres} />
+          <Genres />
         </ColBlock>
       </Row>
       {emptyCatalog ?
@@ -50,7 +63,7 @@ const Catalog = () => {
         <>
           <Row>
             <MangaCatalog
-              catalog={mangaSearch} genres={genres}
+              catalog={mangaSearch}
               className='col-10 col-sm-7 col-md-6 col-lg-4 col-xl-3'
             />
           </Row>
@@ -58,6 +71,7 @@ const Catalog = () => {
             <PaginationButtons
               itemCount={total} limit={limit}
               currentPage={currentPage} setCurrentPage={setCurrentPage}
+              existedParams={existedParams} isPageFirst
             />
           </Row>
         </>}
