@@ -1,67 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
+import * as actionCreators from '../../../redux/actions/actionCreators';
 import { Accordion } from 'react-bootstrap';
 import GenreButton from '../GenreButton/GenreButton';
 import ToggleTab from '../../ToggleTab';
+import { useCheckingEmptyValues } from '../../../hooks';
+import CONSTANTS from '../../../constants';
+import { capitalize } from 'lodash';
+const { DEFAULT_LOCALE } = CONSTANTS;
 
-const data = [
-  {
-    title: 'Latest',
-    href: '#',
-    type: 'Time'
-  },
-  {
-    title: 'Newest',
-    href: '#',
-    type: 'Time'
-  },
-  {
-    title: 'Top View',
-    href: '#',
-    type: 'Type'
-  },
-  {
-    title: 'Complete',
-    href: '#',
-    type: 'Type'
-  },
-  {
-    title: 'Ongoing',
-    href: '#',
-    type: 'Type'
-  },
-  {
-    title: 'Random',
-    href: '#',
-    type: 'Type'
-  },
-  {
-    title: 'Action',
-    href: '#',
-    type: 'Genre'
-  },
-  {
-    title: 'Adventure',
-    href: '#',
-    type: 'Genre'
-  },
-  {
-    title: 'Drama',
-    href: '#',
-    type: 'Genre'
-  },
-  {
-    title: 'Seinen',
-    href: '#',
-    type: 'Genre'
-  },
-  {
-    title: 'Psychological',
-    href: '#',
-    type: 'Genre'
-  },
+const defaultTags = [
+  'time', 'author', 'artist',
 ];
 
 const Genres = ({ setGenres }) => {
+
+  const { tags, isFetching } = useSelector(({ tags }) => tags);
+  const { getTagList } = bindActionCreators(actionCreators, useDispatch());
+  useEffect(() => getTagList(), []);
 
   const onClickHandle = (title) => {
     setGenres((prevGenres) => {
@@ -70,55 +27,46 @@ const Genres = ({ setGenres }) => {
         ? prevGenres.filter((item) => item !== title)
         : prevGenres.concat(title);
     });
+
+    
   };
+
+  const fetching = useCheckingEmptyValues(tags, 'Fail to load', isFetching);
+  if (fetching) return fetching;
+
+  const tagGroupNames = [
+    ...new Set(tags.map(({ group }) => group)),
+    ...defaultTags,
+  ];
+
+  const getTagsByGroup = (groupName) => [
+    ...new Set(tags
+      .filter(({ group }) => group === groupName)
+      .map(({ name }) => name[DEFAULT_LOCALE])
+    )
+  ];
 
   return (
     <Accordion>
       <div className='mb-2'>
-        <ToggleTab eventKey='1'>By Time</ToggleTab>
-        <ToggleTab eventKey='2'>By Type</ToggleTab>
-        <ToggleTab eventKey='3'>By Genre</ToggleTab>
+        {tagGroupNames.map((group, i) =>
+          <ToggleTab key={group} eventKey={i + 1}>By {capitalize(group)}</ToggleTab>
+        )}
       </div>
-      <Accordion.Collapse eventKey='1'>
-        <div>{
-          data
-            .filter(({ type }) => type === 'Time')
-            .map(({ title, href }) =>
+      {tagGroupNames.map((group, i) =>
+        <Accordion.Collapse key={group} eventKey={i + 1}>
+          <>{
+            getTagsByGroup(group).map((title) =>
               <GenreButton
-                key={title} title={title} to={href}
+                key={title} title={title} to={'#'}
                 onClick={() => onClickHandle(title)}
               />
             )
-        }</div>
-      </Accordion.Collapse>
-      <Accordion.Collapse eventKey='2'>
-        <div>{
-          data
-            .filter(({ type }) => type === 'Type')
-            .map(({ title, href }) =>
-              <GenreButton
-                key={title} title={title} to={href}
-                onClick={() => onClickHandle(title)}
-              />
-            )
-        }</div>
-      </Accordion.Collapse>
-      <Accordion.Collapse eventKey='3'>
-        <div>{
-          data
-            .filter(({ type }) => type === 'Genre')
-            .map(({ title, href }) =>
-              <GenreButton
-                key={title} title={title} to={href}
-                onClick={() => onClickHandle(title)}
-              />
-            )
-        }</div>
-      </Accordion.Collapse>
+          }</>
+        </Accordion.Collapse>
+      )}
     </Accordion >
   );
 };
 
 export default Genres;
-
-
