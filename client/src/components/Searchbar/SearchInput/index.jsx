@@ -16,8 +16,6 @@ const SearchInput = (props) => {
   const { getMangaSearch, setSearchValue } = bindActionCreators(actionCreators, useDispatch());
   const [searchParams] = useSearchParams();
 
-  useEffect(() => setSearchValue(searchParams.get(TITLE)), []);
-
   const handleChange = ({ target: { value } }) => {
     setSearchValue(value);
     getMangaSearch({ title: value, limit });

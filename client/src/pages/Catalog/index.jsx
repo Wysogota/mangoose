@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
@@ -21,11 +21,12 @@ const limit = 32;
 
 const Catalog = () => {
   const { inputValue, mangaSearch, total, isFetching } = useSelector(({ mangaSearch }) => mangaSearch);
-  const { getMangaSearch, clearMangaSearch } = bindActionCreators(actionCreators, useDispatch());
+  const { getMangaSearch, clearMangaSearch, setSearchValue } = bindActionCreators(actionCreators, useDispatch());
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     document.title = getPageTitle(name);
+    if (!inputValue) setSearchValue(searchParams.get(TITLE));
     return () => clearMangaSearch();
   }, []);
 
