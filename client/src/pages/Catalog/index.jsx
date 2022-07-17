@@ -56,8 +56,7 @@ const Catalog = () => {
           <Genres />
         </ColBlock>
       </Row>
-      {emptyCatalog ?
-        emptyCatalog :
+      {emptyCatalog ? emptyCatalog :
         <>
           <Row>
             <MangaCatalog
