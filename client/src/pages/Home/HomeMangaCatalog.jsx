@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
@@ -8,21 +8,26 @@ import CatalogButton from '../../components/Catalog/CatalogButton';
 import Genres from '../../components/Catalog/Genres';
 import MangaCatalog from '../../components/Catalog/MangaCatalog';
 import HeaderLink from '../../components/HeaderLink';
+import { useCheckingEmptyValues } from '../../hooks';
+import { useSearchParams } from 'react-router-dom';
+import CONSTANTS from '../../constants';
+const { PARAM_NAME: { FILTER: { TITLE, TAGS } } } = CONSTANTS;
 
-const options = {
-  limit: 12,
-  offset: 0
-};
+const limit = 12;
 
 const HomeMangaCatalog = ({ extendedCatalog }) => {
   const { mangaCatalog, isFetching } = useSelector(({ mangaCatalog }) => mangaCatalog);
   const { getMangaCatalog } = bindActionCreators(actionCreators, useDispatch());
+  const [searchParams] = useSearchParams();
 
-  useEffect(() => getMangaCatalog(options), []);
+  const queryParams = { title: searchParams.get(TITLE), includedTags: searchParams.getAll(TAGS), limit };
+  useEffect(() => getMangaCatalog(queryParams), [searchParams]);
 
   const catalogClasses = extendedCatalog
     ? 'col-10 col-sm-7 col-md-6 col-lg-4 col-xl-3'
     : 'col-12 col-md-4';
+
+  const emptyCatalog = useCheckingEmptyValues(mangaCatalog, 'Catalog Empty', isFetching);
 
   return (
     <Col>
@@ -31,10 +36,12 @@ const HomeMangaCatalog = ({ extendedCatalog }) => {
           <HeaderLink to='/news' title='Catalog' />
           <Genres redirect />
         </ColBlock>
-        {mangaCatalog.length &&
-          <MangaCatalog catalog={mangaCatalog} className={catalogClasses} />
+        {emptyCatalog ? emptyCatalog :
+          <>
+            <MangaCatalog catalog={mangaCatalog} className={catalogClasses} />
+            <Row className='pt-5'><CatalogButton title='More' params={searchParams} /></Row>
+          </>
         }
-        <Row className='pt-5'><CatalogButton title='More' /></Row>
       </Row>
     </Col>
   );

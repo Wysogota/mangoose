@@ -7,7 +7,7 @@ import { Catalog } from '../../NavItems';
 import styles from './CatalogButton.module.scss';
 
 const CatalogButton = (props) => {
-  const { onClick, title, bgTheme, stopAnimation } = props;
+  const { onClick, title, params, bgTheme, stopAnimation } = props;
   const classes = cx(
     styles.button,
     'm-auto',
@@ -19,7 +19,7 @@ const CatalogButton = (props) => {
       whileInView={{ y: 0, opacity: 1, transition: { duration: 0.7 } }}
     >
       <ColBlock className={classes} innerClassName={bgTheme} >
-        <Catalog Component={Link} options={{ className: 'justify-content-center fs-5', onClick, title }} />
+        <Catalog Component={Link} options={{ className: 'justify-content-center fs-5', onClick, title, params }} />
       </ColBlock>
     </motion.div>
 
