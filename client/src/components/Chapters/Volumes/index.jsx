@@ -12,19 +12,23 @@ const Volumes = (props) => {
     chapters.data.map(({ attributes: { volume } }) => volume)
   )];
 
-  return getVolumesList().map((volume) =>
-    <Accordion key={volume}
-      className={
-        `accordion-${invertedColor} rounded mb-3 `
-        + styles[`volume-${mainColor}`]
-      }
-      defaultActiveKey={volume}
-    >
-      <Accordion.Item eventKey={volume} >
-        <Accordion.Header className={styles.header}>Volume {volume}</Accordion.Header>
-        <Accordion.Body >{<VolumeChapters chapters={chapters} volumeName={volume} />}</Accordion.Body>
-      </Accordion.Item>
-    </Accordion>
+  return (
+    <section>{
+      getVolumesList().map((volume) =>
+        <Accordion key={volume}
+          className={
+            `accordion-${invertedColor} rounded mb-3 `
+            + styles[`volume-${mainColor}`]
+          }
+          defaultActiveKey={volume}
+        >
+          <Accordion.Item eventKey={volume} >
+            <Accordion.Header className={styles.header}>Volume {volume}</Accordion.Header>
+            <Accordion.Body >{<VolumeChapters chapters={chapters} volumeName={volume} />}</Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+      )
+    }</section>
   );
 };
 
