@@ -7,21 +7,19 @@ import { isEmpty } from 'lodash';
 import cx from 'classnames';
 import MainHeader from '../../Headers/MainHeader';
 import PaginationButtons from '../../PaginationButtons';
-import { useTabPagination } from '../../../hooks';
+import { usePagination } from '../../../hooks';
 import styles from './Arts.module.scss';
 
 const limit = 5;
 
 const Arts = (props) => {
-  const { mangaId, paramName, tabParamValue } = props;
+  const { mangaId } = props;
   const { covers, isFetching } = useSelector(({ cover }) => cover);
   const { theme: { bgAccentTheme } } = useSelector(({ themes }) => themes);
   const { getMangaCovers } = bindActionCreators(actionCreators, useDispatch());
 
   const queryParams = { mangaId };
-  const { currentPage, setCurrentPage, existedParams } = useTabPagination({
-    actionCreator: getMangaCovers, queryParams, limit, paramName, tabParamValue,
-  });
+  usePagination({ actionCreator: getMangaCovers, queryParams, limit});
 
   const containerClasses = cx(
     styles.arts_conatiner,
@@ -52,11 +50,7 @@ const Arts = (props) => {
         }</div>
       </Col>
       <Col>
-        <PaginationButtons
-          itemCount={covers.total} limit={limit}
-          currentPage={currentPage} setCurrentPage={setCurrentPage}
-          existedParams={existedParams}
-        />
+        <PaginationButtons itemCount={covers.total} limit={limit} />
       </Col>
     </Col>
   );

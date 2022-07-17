@@ -38,11 +38,11 @@ const TitleTabs = (props) => {
           <br />
           <Tags data={tags} />
           <br />
-          <Arts mangaId={mangaId} paramName={TAB} tabParamValue={INFO} />
+          <Arts mangaId={mangaId} />
         </Tab.Content>
       </Tab>
       <Tab eventKey={CHAPTERS} title={<TabLink to={CHAPTERS}>Chapters</TabLink>}>
-        <Chapters mangaId={mangaId} paramName={TAB} tabParamValue={CHAPTERS} />
+        <Chapters mangaId={mangaId} />
       </Tab>
       <Tab eventKey={RELATED} title={<TabLink to={RELATED}>Related</TabLink>}>
         <Tab.Content>
