@@ -26,27 +26,29 @@ const Catalog = () => {
 
   useEffect(() => {
     document.title = getPageTitle(name);
-    if (!inputValue) setSearchValue(searchParams.get(TITLE));
+    const titleParamValue = searchParams.get(TITLE);
+    if (!inputValue && titleParamValue) setSearchValue(titleParamValue);
+
+    getMangaSearch(Object.assign(
+      queryParams,
+      { limit, offset: limit * (Number.parseInt(searchParams.get(PAGE)) - 1) || 0 },
+    ));
     return () => clearMangaSearch();
   }, []);
 
   useEffect(() => {
-    searchParams.set(PAGE, 1);
-    searchParams.set(TITLE, inputValue);
-    setSearchParams(searchParams, { replace: true });
+    const isFocused = document.activeElement === document.querySelector('[data-name="searchInput"]');
+    if (isFocused) {
+      searchParams.set(PAGE, 1);
+      inputValue
+        ? searchParams.set(TITLE, inputValue)
+        : searchParams.delete(TITLE);
+      setSearchParams(searchParams, { replace: true });
+    }
   }, [inputValue]);
 
-  const queryParams = { title: inputValue, includedTags: searchParams.getAll(TAGS) };
-  const { currentPage, setCurrentPage, existedParams } = usePagination({
-    actionCreator: getMangaSearch, queryParams, limit,
-  });
-
-  useEffect(() => {
-    getMangaSearch(Object.assign(
-      queryParams,
-      { limit, offset: 0 },
-    ));
-  }, [searchParams]);
+  const queryParams = { title: searchParams.get(TITLE), includedTags: searchParams.getAll(TAGS) };
+  usePagination({ actionCreator: getMangaSearch, queryParams, limit });
 
   const emptyCatalog = useCheckingEmptyValues(mangaSearch, 'Catalog Empty', isFetching);
 
@@ -69,11 +71,7 @@ const Catalog = () => {
             />
           </Row>
           <Row>
-            <PaginationButtons
-              itemCount={total} limit={limit}
-              currentPage={currentPage} setCurrentPage={setCurrentPage}
-              existedParams={existedParams} isPageFirst
-            />
+            <PaginationButtons itemCount={total} limit={limit} />
           </Row>
         </>}
     </Container>

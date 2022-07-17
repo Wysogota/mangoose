@@ -1,24 +1,31 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Pagination } from 'react-bootstrap';
 import cx from 'classnames';
 import CONSTANTS from '../../constants';
 const { PARAM_NAME: { PAGE } } = CONSTANTS;
 
 const PaginationButtons = (props) => {
-  const { itemCount, limit, currentPage, setCurrentPage, existedParams, isPageFirst } = props;
+  const { itemCount, limit } = props;
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const pageCount = Math.ceil(itemCount / limit);
+  const currentPage = (Number.parseInt(searchParams.get(PAGE)) - 1) || 0;
 
-  const getUrl = (page) => existedParams
-    ? isPageFirst ? `?${PAGE}=${page}&${existedParams}` : `?${existedParams}&${PAGE}=${page}`
-    : `?${PAGE}=${page}`;
-
-  const pageItemClasses = (i) => cx(
-    'page-item',
-    (currentPage === i) && 'active'
+  const pageItemClasses = (i) => cx((currentPage === i) && 'active');
+  const startItemClasses = cx((currentPage === 0) && 'disabled');
+  const endItemClasses = cx((currentPage === pageCount - 1) && 'disabled');
+  const paginationClasses = cx(
+    'justify-content-center pt-3',
+    `pagination-${mainColor}`,
   );
+
+  const onClickHandle = (searchParam) => {
+    searchParams.set(PAGE, searchParam);
+    setSearchParams(searchParams, { replace: true });
+  };
 
   const PageItems = () => {
     const displayCount = pageCount < 5 ? pageCount : 5;
@@ -31,84 +38,35 @@ const PaginationButtons = (props) => {
     return new Array(displayCount).fill(null).map((_, i) => {
       const page = (currentPage + i) - shift;
       return (
-        <li key={page + 1} className={pageItemClasses(page)}>
-          <Link
-            to={getUrl(page + 1)}
-            onClick={() => setCurrentPage(page)}
-            className='page-link'
-          >
-            {page + 1}
-          </Link>
-        </li>
+        <Pagination.Item key={page}
+          className={pageItemClasses(page)}
+          onClick={() => onClickHandle(page + 1)}
+        >
+          {page + 1}
+        </Pagination.Item>
       );
     });
   };
 
-  const startItemClasses = cx(
-    'page-item',
-    (currentPage === 0) && 'disabled',
-  );
-  const endItemClasses = cx(
-    'page-item',
-    (currentPage === pageCount - 1) && 'disabled',
-  );
-
-  const First = () => (
-    <li className={startItemClasses}>
-      <Link
-        to={getUrl(1)}
-        onClick={() => setCurrentPage(0)}
-        className='page-link'>
-        «
-      </Link>
-    </li>
-  );
-
-  const Prev = () => (
-    <li className={startItemClasses}>
-      <Link
-        to={getUrl(currentPage)}
-        onClick={() => setCurrentPage(current => current - 1)}
-        className='page-link'>
-        ‹
-      </Link>
-    </li>
-  );
-
-  const Next = () => (
-    <li className={endItemClasses}>
-      <Link
-        to={getUrl(currentPage + 2)}
-        onClick={() => setCurrentPage(current => current + 1)}
-        className='page-link'>
-        ›
-      </Link>
-    </li>
-  );
-
-  const Last = () => (
-    <li className={endItemClasses}>
-      <Link
-        to={getUrl(pageCount)}
-        onClick={() => setCurrentPage(pageCount - 1)}
-        className='page-link'>
-        »
-      </Link>
-    </li>
-  );
-
-  const paginationClasses = cx(
-    'justify-content-center pt-3',
-    `pagination-${mainColor}`,
-  );
-
   return (
     <Pagination className={paginationClasses}>
-      <First />
-      <Prev />
+      <Pagination.First
+        onClick={() => onClickHandle(1)}
+        className={startItemClasses}
+      />
+      <Pagination.Prev
+        onClick={() => onClickHandle(currentPage)}
+        className={startItemClasses}
+      />
       <PageItems />
-      <Next />
-      <Last />
+      <Pagination.Next
+        onClick={() => onClickHandle(currentPage + 2)}
+        className={endItemClasses}
+      />
+      <Pagination.Last
+        onClick={() => onClickHandle(pageCount)}
+        className={endItemClasses}
+      />
     </Pagination>
   );
 };
