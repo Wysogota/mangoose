@@ -54,14 +54,14 @@ const GenreButton = (props) => {
       >
         {title}
       </Button>
-      <Button
+      {to && <Button
         className={linkClasses}
         variant={mainColor}
         onMouseEnter={() => setLinkHover(true)}
         onMouseLeave={() => setLinkHover(false)}
       >
         <Link to={to}><TransitionIcon /></Link>
-      </Button>
+      </Button>}
     </ButtonGroup>
   );
 };

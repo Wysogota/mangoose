@@ -3,20 +3,24 @@ import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
 import { useSearchParams } from 'react-router-dom';
+import { capitalize } from 'lodash';
 import { Accordion } from 'react-bootstrap';
 import GenreButton from '../GenreButton/GenreButton';
 import ToggleTab from '../../ToggleTab';
 import { useCheckingEmptyValues } from '../../../hooks';
 import CONSTANTS from '../../../constants';
-import { capitalize } from 'lodash';
-
-const { DEFAULT_LOCALE, PARAM_NAME: { FILTER: { TAGS } } } = CONSTANTS;
+const {
+  DEFAULT_LOCALE,
+  PARAM_NAME: { FILTER: { TAGS } },
+  PAGES: { CATALOG: { path } }
+} = CONSTANTS;
 
 const defaultTags = [
   'order', 'author', 'artist',
 ];
 
-const Genres = () => {
+const Genres = (props) => {
+  const { redirect } = props;
   const { tags, isFetching } = useSelector(({ tags }) => tags);
   const { getTagList } = bindActionCreators(actionCreators, useDispatch());
   useEffect(() => getTagList(), []);
@@ -48,7 +52,7 @@ const Genres = () => {
   const getTagsByGroup = (groupName) => [
     ...new Set(tags
       .filter(({ group }) => group === groupName)
-      .map(({ id, name }) => ({ id, name: name[DEFAULT_LOCALE] }))
+      .map(({ id, name }) => ({ id, name: name[DEFAULT_LOCALE], type: TAGS }))
     )
   ];
 
@@ -62,10 +66,10 @@ const Genres = () => {
       {tagGroupNames.map((group, i) =>
         <Accordion.Collapse key={group} eventKey={i + 1}>
           <>{
-            getTagsByGroup(group).map(({ id, name }) =>
+            getTagsByGroup(group).map(({ id, name, type }) =>
               <GenreButton
-                key={name} id={id} title={name} to={'#'}
-                onClick={() => onClickHandle(TAGS, id)}
+                key={name} id={id} title={name} to={redirect && `${path}?${type}=${id}`}
+                onClick={() => onClickHandle(type, id)}
               />
             )
           }</>

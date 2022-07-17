@@ -17,7 +17,6 @@ const options = {
 const HomeMangaCatalog = ({ extendedCatalog }) => {
   const { mangaCatalog, isFetching } = useSelector(({ mangaCatalog }) => mangaCatalog);
   const { getMangaCatalog } = bindActionCreators(actionCreators, useDispatch());
-  const [genres, setGenres] = useState([]);
 
   useEffect(() => getMangaCatalog(options), []);
 
@@ -30,10 +29,10 @@ const HomeMangaCatalog = ({ extendedCatalog }) => {
       <Row>
         <ColBlock className='col-12'>
           <HeaderLink to='/news' title='Catalog' />
-          <Genres setGenres={setGenres} />
+          <Genres redirect />
         </ColBlock>
         {mangaCatalog.length &&
-          <MangaCatalog catalog={mangaCatalog} genres={genres} className={catalogClasses} />
+          <MangaCatalog catalog={mangaCatalog} className={catalogClasses} />
         }
         <Row className='pt-5'><CatalogButton title='More' /></Row>
       </Row>
