@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
@@ -23,8 +23,22 @@ const Genres = (props) => {
   const { redirect } = props;
   const { tags, isFetching } = useSelector(({ tags }) => tags);
   const { getTagList } = bindActionCreators(actionCreators, useDispatch());
-  useEffect(() => getTagList(), []);
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const tabRef = useRef([]);
+  const [focusedTab, setFocusedTab] = useState();
+
+  useEffect(() => {
+    getTagList();
+
+    const focusHandle = () => {
+      if (tabRef.current.some((tab) => tab === document.activeElement))
+        setFocusedTab(document.activeElement);
+    };
+
+    document.addEventListener('focusin', focusHandle);
+    return () => document.removeEventListener('focusin', focusHandle);
+  }, []);
 
   const onClickHandle = (name, value) => {
     const existedValues = searchParams.getAll(name);
@@ -56,11 +70,20 @@ const Genres = (props) => {
     )
   ];
 
+  const hasSelectedTags = (group) => getTagsByGroup(group).some(
+    ({ id, type }) => searchParams.getAll(type).includes(id)
+  );
+
   return (
     <Accordion>
       <div className='mb-2'>
         {tagGroupNames.map((group, i) =>
-          <ToggleTab key={group} eventKey={i + 1}>By {capitalize(group)}</ToggleTab>
+          <ToggleTab key={group}
+            eventKey={i + 1}
+            ref={(tag) => tabRef.current[i] = tag}
+            focused={tabRef.current[i] === focusedTab}
+            selected={hasSelectedTags(group)}
+          >By {capitalize(group)}</ToggleTab>
         )}
       </div>
       {tagGroupNames.map((group, i) =>

@@ -1,27 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { forwardRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, useAccordionButton } from 'react-bootstrap';
 
-const ToggleTab = ({ eventKey, children }) => {
+const ToggleTab = (props, ref) => {
+  const { eventKey, selected, focused, children } = props;
   const { theme: { outlineColor, invertedColor } } = useSelector(({ themes }) => themes);
-  const [focused, setFocused] = useState(false);
-  const ref = useRef(null);
   const decoratedOnClick = useAccordionButton(eventKey);
-
-  useEffect(() => {
-    document.activeElement === ref.current ? setFocused(true) : setFocused(false);
-  }, [document.activeElement]);
-
-  const onClickHandle = () => {
-    decoratedOnClick();
-    setFocused(current => !current);
-  };
 
   return (
     <Button
       ref={ref}
-      onClick={onClickHandle}
-      variant={focused ? invertedColor : outlineColor}
+      onClick={decoratedOnClick}
+      variant={(focused || selected) ? invertedColor : outlineColor}
       className='me-2 shadow-none'
     >
       {children}
@@ -29,4 +19,4 @@ const ToggleTab = ({ eventKey, children }) => {
   );
 };
 
-export default ToggleTab;
+export default forwardRef(ToggleTab);
