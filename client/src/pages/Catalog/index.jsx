@@ -28,11 +28,6 @@ const Catalog = () => {
     document.title = getPageTitle(name);
     const titleParamValue = searchParams.get(TITLE);
     if (!inputValue && titleParamValue) setSearchValue(titleParamValue);
-
-    getMangaSearch(Object.assign(
-      queryParams,
-      { limit, offset: limit * (Number.parseInt(searchParams.get(PAGE)) - 1) || 0 },
-    ));
     return () => clearMangaSearch();
   }, []);
 
@@ -73,7 +68,8 @@ const Catalog = () => {
           <Row>
             <PaginationButtons itemCount={total} limit={limit} />
           </Row>
-        </>}
+        </>
+      }
     </Container>
   );
 };
