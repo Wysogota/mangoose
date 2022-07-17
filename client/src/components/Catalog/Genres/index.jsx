@@ -5,7 +5,7 @@ import * as actionCreators from '../../../redux/actions/actionCreators';
 import { useSearchParams } from 'react-router-dom';
 import { capitalize } from 'lodash';
 import { Accordion } from 'react-bootstrap';
-import GenreButton from '../GenreButton/GenreButton';
+import GenreButton from '../GenreButton';
 import ToggleTab from '../../ToggleTab';
 import { useCheckingEmptyValues } from '../../../hooks';
 import CONSTANTS from '../../../constants';
