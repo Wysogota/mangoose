@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
+import { useSearchParams } from 'react-router-dom';
 import { Col, Row } from 'react-bootstrap';
 import ColBlock from '../../components/Blocks/ColBlock';
 import CatalogButton from '../../components/Catalog/CatalogButton';
@@ -9,12 +10,8 @@ import Genres from '../../components/Catalog/Genres';
 import MangaCatalog from '../../components/Catalog/MangaCatalog';
 import HeaderLink from '../../components/HeaderLink';
 import { useCheckingEmptyValues } from '../../hooks';
-import { useSearchParams } from 'react-router-dom';
 import CONSTANTS from '../../constants';
-const {
-  PARAM_NAME: { FILTER: { TAGS, SORT } },
-  SORT_LIST: [RELEVANCE], SORT_DIRECTION: { DESC }
-} = CONSTANTS;
+const { PARAM_NAME: { FILTER: { TAGS, SORT } } } = CONSTANTS;
 
 const limit = 12;
 
@@ -25,7 +22,7 @@ const HomeMangaCatalog = ({ extendedCatalog }) => {
 
   const queryParams = {
     [TAGS]: searchParams.getAll(TAGS),
-    [SORT]: searchParams.get(SORT) || `${RELEVANCE.type}.${DESC}`,
+    [SORT]: searchParams.get(SORT),
     limit
   };
   useEffect(() => getMangaCatalog(queryParams), [searchParams]);

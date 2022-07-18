@@ -15,7 +15,6 @@ import CONSTANTS from '../../constants';
 const {
   PARAM_NAME: { PAGE, FILTER: { TITLE, TAGS, SORT } },
   PAGES: { CATALOG: { name } },
-  SORT_LIST: [RELEVANCE], SORT_DIRECTION: { DESC }
 } = CONSTANTS;
 
 const limit = 32;
@@ -51,7 +50,7 @@ const Catalog = () => {
   const queryParams = {
     [TITLE]: searchParams.get(TITLE),
     [TAGS]: searchParams.getAll(TAGS),
-    [SORT]: searchParams.get(SORT) || `${RELEVANCE.type}.${DESC}`
+    [SORT]: searchParams.get(SORT),
   };
   usePagination({ actionCreator: getMangaSearch, queryParams, limit });
 
