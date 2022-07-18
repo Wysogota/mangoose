@@ -3,24 +3,27 @@ import { useSelector } from 'react-redux';
 import { Dropdown } from 'react-bootstrap';
 import { capitalize } from 'lodash';
 import { useSearchParams } from 'react-router-dom';
+import Order from '../Order';
 import CONSTANTS from '../../../constants';
-const { SORT_LIST, PARAM_NAME: { FILTER: { SORT } }, SORT_DIRECTION } = CONSTANTS;
+const { SORT_LIST, PARAM_NAME: { FILTER: { SORT } }, SORT_DIRECTION: { ASC } } = CONSTANTS;
 
 const Sort = () => {
   const { theme: { outlineColor, invertedColor } } = useSelector(({ themes }) => themes);
-  const [order, setOrder] = useState(SORT_DIRECTION.DESC);
+  const [order, setOrder] = useState(ASC);
   const [eventKey, setEventKey] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    const sort = searchParams.get(SORT);
-    if (sort) setEventKey(SORT_LIST.findIndex(({ type }) => type === sort.split('.')[0]));
+    const sortParam = searchParams.get(SORT);
+    if (sortParam) {
+      setEventKey(SORT_LIST.findIndex(({ type }) => type === sortParam.split('.')[0]));
+    }
   }, [searchParams]);
 
   const onClickHandle = (type) => {
-    type
-      ? searchParams.set(SORT, `${type}.${order}`)
-      : searchParams.delete(SORT);
+    type === SORT_LIST[0].type
+      ? searchParams.set(SORT, type)
+      : searchParams.set(SORT, `${type}.${order}`);
     setSearchParams(searchParams, { replace: true });
   };
 
@@ -38,6 +41,8 @@ const Sort = () => {
             {capitalize(name)}
           </Dropdown.Item>
         )}
+        <Dropdown.Divider />
+        <Order setOrder={setOrder} />
       </Dropdown.Menu>
     </Dropdown>
   );
