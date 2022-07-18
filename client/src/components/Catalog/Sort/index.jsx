@@ -5,6 +5,7 @@ import { capitalize } from 'lodash';
 import { useSearchParams } from 'react-router-dom';
 import Order from '../Order';
 import CONSTANTS from '../../../constants';
+import { getObjectFromArray } from '../../../common/functions';
 const { SORT_LIST, PARAM_NAME: { FILTER: { SORT } }, SORT_DIRECTION: { ASC } } = CONSTANTS;
 
 const Sort = () => {
@@ -21,14 +22,15 @@ const Sort = () => {
   }, [searchParams]);
 
   const onClickHandle = (type) => {
-    type === SORT_LIST[0].type
+    const relevance = getObjectFromArray(SORT_LIST, 'type', 'relevance');
+    type === relevance.type
       ? searchParams.set(SORT, type)
       : searchParams.set(SORT, `${type}.${order}`);
     setSearchParams(searchParams, { replace: true });
   };
 
   return (
-    <Dropdown className='d-inline-block' >
+    <Dropdown className='d-inline-block' autoClose={false}>
       <Dropdown.Toggle className='d-flex align-items-center p-1 pe-2' variant={outlineColor}>
         <div className='pe-4 text-start'>
           <div style={{ fontSize: '0.7rem' }}>Sort By</div>
