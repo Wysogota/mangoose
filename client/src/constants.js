@@ -54,5 +54,39 @@ export default {
       ARTIST: 'artist',
     }
   },
+  SORT: [
+    {
+      name: 'not selected',
+      type: '',
+    },
+    {
+      name: 'best match',
+      type: 'relevance',
+    },
+    {
+      name: 'upload time',
+      type: 'latestUploadedChapter',
+    },
+    {
+      name: 'title',
+      type: 'title',
+    },
+    {
+      name: 'rating',
+      type: 'rating',
+    },
+    {
+      name: 'followed count',
+      type: 'followedCount',
+    },
+    {
+      name: 'added',
+      type: 'createdAt',
+    },
+    {
+      name: 'year',
+      type: 'year',
+    },
+  ],
   RELATED_FILTER: ['doujinshi', 'based_on'],
 };

@@ -43,9 +43,9 @@ const Catalog = () => {
   }, [inputValue]);
 
   const queryParams = {
-    title: searchParams.get(TITLE),
-    includedTags: searchParams.getAll(TAGS),
-    order: searchParams.get(ORDER)
+    [TITLE]: searchParams.get(TITLE),
+    [TAGS]: searchParams.getAll(TAGS),
+    [ORDER]: searchParams.get(ORDER)
   };
   usePagination({ actionCreator: getMangaSearch, queryParams, limit });
 
