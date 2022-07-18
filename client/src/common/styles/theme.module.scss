@@ -12,6 +12,10 @@
   background-color: $dark_accent_color  !important;
 }
 
+.dark_inverted_accent_bg {
+  background-color: $light_accent_color  !important;
+}
+
 .light {
   color: $dark_main_color  !important;
 }
@@ -22,6 +26,10 @@
 
 .light_accent_bg {
   background-color: $light_accent_color  !important;
+}
+
+.light_inverted_accent_bg {
+  background-color: $dark_accent_color  !important;
 }
 
 .light_hovered:hover,

@@ -10,6 +10,7 @@ const createTheme = (main, inverted) => ({
   mainTheme: themeStyles[main],
   bgTheme: themeStyles[main + '_bg'],
   bgAccentTheme: themeStyles[main + '_accent_bg'],
+  bgInvertedAccentTheme: themeStyles[main + '_inverted_accent_bg'],
   invertedTheme: themeStyles[inverted],
   hoveredTheme: themeStyles[main + '_hovered'],
   invertedHoveredTheme: themeStyles[main + '_inverted_hovered'],
