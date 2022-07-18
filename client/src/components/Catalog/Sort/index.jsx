@@ -3,13 +3,15 @@ import { useSelector } from 'react-redux';
 import { Dropdown } from 'react-bootstrap';
 import { capitalize } from 'lodash';
 import { useSearchParams } from 'react-router-dom';
+import cx from 'classnames';
 import Order from '../Order';
+import styles from './Sort.module.scss';
 import CONSTANTS from '../../../constants';
 import { getObjectFromArray } from '../../../common/functions';
 const { SORT_LIST, PARAM_NAME: { FILTER: { SORT } }, SORT_DIRECTION: { ASC } } = CONSTANTS;
 
 const Sort = () => {
-  const { theme: { outlineColor, invertedColor } } = useSelector(({ themes }) => themes);
+  const { theme: { outlineColor, invertedColor, bgInvertedAccentTheme, invertedTheme } } = useSelector(({ themes }) => themes);
   const [order, setOrder] = useState(ASC);
   const [eventKey, setEventKey] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,17 +31,29 @@ const Sort = () => {
     setSearchParams(searchParams, { replace: true });
   };
 
+  const selectedItemClasses = (type) => {
+    const sortParam = searchParams.get(SORT);
+    if (sortParam) {
+      const paramName = sortParam.split('.')[0];
+      if (paramName === type) return cx(bgInvertedAccentTheme, invertedTheme);
+    }
+  };
+
   return (
-    <Dropdown className='d-inline-block' autoClose={false}>
-      <Dropdown.Toggle className='d-flex align-items-center p-1 pe-2' variant={outlineColor}>
+    <Dropdown className='d-inline-block' autoClose='outside'>
+      <Dropdown.Toggle className='d-flex align-items-center p-1 pe-2 shadow-none' variant={outlineColor}>
         <div className='pe-4 text-start'>
-          <div style={{ fontSize: '0.7rem' }}>Sort By</div>
+          <div className={styles.header}>Sort By</div>
           <div>{capitalize(SORT_LIST[eventKey].name)}</div>
         </div>
       </Dropdown.Toggle>
       <Dropdown.Menu variant={invertedColor}>
         {SORT_LIST.map(({ name, type }, i) =>
-          <Dropdown.Item key={type} onClick={() => onClickHandle(type)} eventKey={i}>
+          <Dropdown.Item
+            key={type} eventKey={i}
+            onClick={() => onClickHandle(type)}
+            className={selectedItemClasses(type)}
+          >
             {capitalize(name)}
           </Dropdown.Item>
         )}

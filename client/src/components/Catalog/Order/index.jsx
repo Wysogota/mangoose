@@ -16,8 +16,10 @@ const Order = (props) => {
     const sortParam = searchParams.get(SORT);
     if (sortParam) {
       const [sort, order] = searchParams.get(SORT).split('.');
+
       const newOrder = (order === ASC) ? DESC : ASC;
       setOrder(newOrder);
+
       const relevance = getObjectFromArray(SORT_LIST, 'type', 'relevance');
       if (sort !== relevance.type) {
         searchParams.set(SORT, `${sort}.${newOrder}`);
@@ -29,8 +31,8 @@ const Order = (props) => {
   return (
     <Dropdown.Item onClick={onClickHandle}>
       {direction
-        ? <><ASCIcon /><span>{ASC.toUpperCase()}</span></>
-        : <><DESCIcon /><span>{DESC.toUpperCase()}</span></>
+        ? <><ASCIcon /><span className='ms-2'>Ascending</span></>
+        : <><DESCIcon /><span className='ms-2'>Descending</span></>
       }
     </Dropdown.Item>
   );
