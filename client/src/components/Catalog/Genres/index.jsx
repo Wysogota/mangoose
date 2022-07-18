@@ -9,6 +9,7 @@ import GenreButton from '../GenreButton';
 import ToggleTab from '../../ToggleTab';
 import { useCheckingEmptyValues } from '../../../hooks';
 import CONSTANTS from '../../../constants';
+import Sort from '../Sort';
 const {
   DEFAULT_LOCALE,
   PARAM_NAME: { FILTER: { TAGS } },
@@ -16,7 +17,7 @@ const {
 } = CONSTANTS;
 
 const defaultTags = [
-  'order', 'author', 'artist',
+ 'author', 'artist',
 ];
 
 const Genres = (props) => {
@@ -52,7 +53,6 @@ const Genres = (props) => {
       existedValues.forEach((value) => searchParams.append(name, value));
     }
     setSearchParams(searchParams, { replace: true });
-
   };
 
   const fetching = useCheckingEmptyValues(tags, 'Fail to load', isFetching);
@@ -76,7 +76,8 @@ const Genres = (props) => {
 
   return (
     <Accordion>
-      <div className='mb-2'>
+      <div className='mb-2 d-flex align-items-center justify-content-between'>
+        <div>
         {tagGroupNames.map((group, i) =>
           <ToggleTab key={group}
             eventKey={i + 1}
@@ -85,6 +86,8 @@ const Genres = (props) => {
             selected={hasSelectedTags(group)}
           >By {capitalize(group)}</ToggleTab>
         )}
+        </div>
+         <Sort />
       </div>
       {tagGroupNames.map((group, i) =>
         <Accordion.Collapse key={group} eventKey={i + 1}>

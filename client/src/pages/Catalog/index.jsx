@@ -13,7 +13,7 @@ import { useCheckingEmptyValues, usePagination } from '../../hooks';
 import { getPageTitle } from '../../common/functions';
 import CONSTANTS from '../../constants';
 const {
-  PARAM_NAME: { PAGE, FILTER: { TITLE, TAGS } },
+  PARAM_NAME: { PAGE, FILTER: { TITLE, TAGS, ORDER } },
   PAGES: { CATALOG: { name } }
 } = CONSTANTS;
 
@@ -42,7 +42,11 @@ const Catalog = () => {
     }
   }, [inputValue]);
 
-  const queryParams = { title: searchParams.get(TITLE), includedTags: searchParams.getAll(TAGS) };
+  const queryParams = {
+    title: searchParams.get(TITLE),
+    includedTags: searchParams.getAll(TAGS),
+    order: searchParams.get(ORDER)
+  };
   usePagination({ actionCreator: getMangaSearch, queryParams, limit });
 
   const emptyCatalog = useCheckingEmptyValues(mangaSearch, 'Catalog Empty', isFetching);
