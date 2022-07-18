@@ -56,10 +56,6 @@ export default {
   },
   SORT_LIST: [
     {
-      name: 'not selected',
-      type: '',
-    },
-    {
       name: 'best match',
       type: 'relevance',
     },
@@ -88,5 +84,9 @@ export default {
       type: 'year',
     },
   ],
+  SORT_DIRECTION: {
+    ASC: 'asc',
+    DESC: 'desc',
+  },
   RELATED_FILTER: ['doujinshi', 'based_on'],
 };

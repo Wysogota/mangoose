@@ -11,7 +11,10 @@ import HeaderLink from '../../components/HeaderLink';
 import { useCheckingEmptyValues } from '../../hooks';
 import { useSearchParams } from 'react-router-dom';
 import CONSTANTS from '../../constants';
-const { PARAM_NAME: { FILTER: { TITLE, TAGS } } } = CONSTANTS;
+const {
+  PARAM_NAME: { FILTER: { TAGS, SORT } },
+  SORT_LIST: [RELEVANCE], SORT_DIRECTION: { DESC }
+} = CONSTANTS;
 
 const limit = 12;
 
@@ -20,7 +23,11 @@ const HomeMangaCatalog = ({ extendedCatalog }) => {
   const { getMangaCatalog } = bindActionCreators(actionCreators, useDispatch());
   const [searchParams] = useSearchParams();
 
-  const queryParams = { title: searchParams.get(TITLE), includedTags: searchParams.getAll(TAGS), limit };
+  const queryParams = {
+    [TAGS]: searchParams.getAll(TAGS),
+    [SORT]: searchParams.get(SORT) || `${RELEVANCE.type}.${DESC}`,
+    limit
+  };
   useEffect(() => getMangaCatalog(queryParams), [searchParams]);
 
   const catalogClasses = extendedCatalog

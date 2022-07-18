@@ -4,16 +4,11 @@ import { Dropdown } from 'react-bootstrap';
 import { capitalize } from 'lodash';
 import { useSearchParams } from 'react-router-dom';
 import CONSTANTS from '../../../constants';
-const { SORT_LIST, PARAM_NAME: { FILTER: { SORT } } } = CONSTANTS;
-
-const direction = {
-  asc: 'asc',
-  desc: 'desc',
-};
+const { SORT_LIST, PARAM_NAME: { FILTER: { SORT } }, SORT_DIRECTION } = CONSTANTS;
 
 const Sort = () => {
   const { theme: { outlineColor, invertedColor } } = useSelector(({ themes }) => themes);
-  const [order, setOrder] = useState(direction.desc);
+  const [order, setOrder] = useState(SORT_DIRECTION.DESC);
   const [eventKey, setEventKey] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
 
