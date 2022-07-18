@@ -49,12 +49,12 @@ export default {
     FILTER: {
       TITLE: 'title',
       TAGS: 'includedTags',
-      ORDER: 'order',
+      SORT: 'order',
       AUTHOR: 'author',
       ARTIST: 'artist',
     }
   },
-  SORT: [
+  SORT_LIST: [
     {
       name: 'not selected',
       type: '',
