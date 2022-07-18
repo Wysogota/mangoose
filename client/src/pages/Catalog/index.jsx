@@ -43,6 +43,11 @@ const Catalog = () => {
     }
   }, [inputValue]);
 
+  useEffect(() => {
+    searchParams.set(PAGE, 1);
+    setSearchParams(searchParams, { replace: true });
+  }, [searchParams.get(SORT)]);
+
   const queryParams = {
     [TITLE]: searchParams.get(TITLE),
     [TAGS]: searchParams.getAll(TAGS),
