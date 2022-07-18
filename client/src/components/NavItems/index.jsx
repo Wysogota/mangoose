@@ -34,9 +34,22 @@ const createComponent = (Component, Icon, options) => {
   );
 
   const Child = () => (<><Icon /><span className='ms-2'>{title}</span></>);
-  return external
-    ? <a href={to} target='_blank' rel='noreferrer' className={classes} onClick={onClickHandle}><Child /></a>
-    : <Component as={Link} to={`${to}?${params}`} className={classes} onClick={onClickHandle}><Child /></Component>;
+  return external ?
+    (<a
+      href={to} target='_blank' rel='noreferrer'
+      className={classes}
+      onClick={onClickHandle}
+    >
+      <Child />
+    </a>) :
+    (<Component
+      as={Link}
+      to={params ? `${to}?${params}` : to}
+      className={classes}
+      onClick={onClickHandle}
+    >
+      <Child />
+    </Component>);
 };
 
 
