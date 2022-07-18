@@ -7,7 +7,7 @@ const {
   relationshipsOptions, relationshipsChapterOptions,
   nextChapterIdOptions, firstChapterIdOptions, stringifyOptions
 } = require('./options');
-const { configureOrder } = require('./functions');
+const { configureOrder, deleteBlankParams } = require('./functions');
 
 const client = axios.create({
   baseURL: 'https://api.mangadex.org',
@@ -26,6 +26,7 @@ module.exports.getMangaCovers = async (options) => {
 };
 
 module.exports.getMangaList = async (options) => {
+  options = deleteBlankParams(options);
   options = configureOrder(options);
   const assignedOptions = Object.assign(
     options,
