@@ -1,3 +1,7 @@
+const authorPropNames = [
+  'author', 'artist'
+];
+
 module.exports.configureOrder = (options) => {
   if (!options.order) return options;
 
@@ -9,4 +13,8 @@ module.exports.configureOrder = (options) => {
 
 module.exports.deleteBlankParams = (options) => Object.fromEntries(
   Object.entries(options).filter(([, value]) => value)
+);
+
+module.exports.getAuthorProps = (options) => Object.keys(options).filter(
+  (key) => authorPropNames.includes(key)
 );

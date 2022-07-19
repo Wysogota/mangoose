@@ -5,9 +5,9 @@ const Cover = require('../../models/Cover');
 const {
   coversOptions, chaptersOptions, mangaListOptions,
   relationshipsOptions, relationshipsChapterOptions,
-  nextChapterIdOptions, firstChapterIdOptions, stringifyOptions
+  nextChapterIdOptions, firstChapterIdOptions, stringifyOptions, authorOptions
 } = require('./options');
-const { configureOrder, deleteBlankParams } = require('./functions');
+const { configureOrder, deleteBlankParams, getAuthorProps } = require('./functions');
 
 const client = axios.create({
   baseURL: 'https://api.mangadex.org',
@@ -28,11 +28,18 @@ module.exports.getMangaCovers = async (options) => {
 module.exports.getMangaList = async (options) => {
   options = deleteBlankParams(options);
   options = configureOrder(options);
+
+  for (const key of getAuthorProps(options)) {
+    options[key + 's'] = [await this.getAuthorId({ authorName: options[key] })];
+    delete options[key];
+  }
+
   const assignedOptions = Object.assign(
     options,
     mangaListOptions,
     relationshipsOptions
   );
+
   const query = queryString.stringify(assignedOptions, stringifyOptions);
   const { data: { data, limit, offset, total } } = await client.get(`/manga?${query}`);
   const response = {
@@ -92,4 +99,10 @@ module.exports.getFirstChapterId = async (options) => {
     .join('&');
   const { data: { data } } = await client.get(`/chapter?${query}`);
   return data[0].id;
+};
+
+module.exports.getAuthorId = async (options) => {
+  const query = queryString.stringify(authorOptions(options.authorName), stringifyOptions);
+  const { data: { data: [author] } } = await client.get(`/author?${query}`);
+  return author.id;
 };

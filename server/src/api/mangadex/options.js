@@ -50,6 +50,11 @@ module.exports.firstChapterIdOptions = (options) => ([
   { 'limit': 1 },
 ]);
 
+module.exports.authorOptions = (name) => ({
+  name,
+  limit: 1,
+});
+
 module.exports.stringifyOptions = {
   arrayFormat: 'bracket'
 };
