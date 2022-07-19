@@ -73,6 +73,7 @@ const Genres = (props) => {
   const hasSelectedTags = (group) => getTagsByGroup(group).some(
     ({ id, type }) => searchParams.getAll(type).includes(id)
   );
+  const hasSelectedAuthors = (author) => !!searchParams.get(author);
 
   const TagsTab = () => (
     <div className='mb-2'>{
@@ -113,6 +114,7 @@ const Genres = (props) => {
             eventKey={eventKey + 1}
             ref={(tag) => tabRef.current[eventKey] = tag}
             focused={tabRef.current[eventKey] === focusedTab}
+            selected={hasSelectedAuthors(author)}
           >
             By {capitalize(author)}
           </ToggleTab>
