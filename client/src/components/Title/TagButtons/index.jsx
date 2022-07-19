@@ -109,12 +109,13 @@ const TagButtons = (props) => {
           tags.map(({ id, attributes: { name } }, i) => {
             const localeName = name[CONSTANTS.DEFAULT_LOCALE];
             return (
-              <Dropdown.Item
+              <Dropdown.Item as={Link}
                 key={localeName}
+                to={getPath(id)}
                 ref={(tag) => overflowedTagsRef.current[i] = tag}
                 className={overflowedTagsClasses}
               >
-                <Link to={getPath(id)} >{localeName}</Link>
+                {localeName}
               </Dropdown.Item>
             );
           })
