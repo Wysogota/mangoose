@@ -88,5 +88,8 @@ export default {
     ASC: 'asc',
     DESC: 'desc',
   },
+  AUTHORS: [
+    'author', 'artist',
+  ],
   RELATED_FILTER: ['doujinshi', 'based_on'],
 };
