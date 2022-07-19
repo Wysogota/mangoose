@@ -8,13 +8,14 @@ import Order from '../Order';
 import styles from './Sort.module.scss';
 import CONSTANTS from '../../../constants';
 import { getObjectFromArray } from '../../../common/functions';
-const { SORT_LIST, PARAM_NAME: { FILTER: { SORT } }, SORT_DIRECTION: { ASC } } = CONSTANTS;
+const { SORT_LIST, PARAM_NAME: { FILTER: { SORT } }, SORT_DIRECTION: { DESC } } = CONSTANTS;
 
 const Sort = () => {
   const { theme: { outlineColor, invertedColor, bgInvertedAccentTheme, invertedTheme } } = useSelector(({ themes }) => themes);
-  const [order, setOrder] = useState(ASC);
   const [eventKey, setEventKey] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
+  const paramOrder = searchParams.get(SORT)?.split('.')[1];
+  const [order, setOrder] = useState(paramOrder || DESC);
 
   useEffect(() => {
     const sortParam = searchParams.get(SORT);
