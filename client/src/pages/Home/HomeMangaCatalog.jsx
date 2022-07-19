@@ -11,7 +11,10 @@ import MangaCatalog from '../../components/Catalog/MangaCatalog';
 import HeaderLink from '../../components/HeaderLink';
 import { useCheckingEmptyValues } from '../../hooks';
 import CONSTANTS from '../../constants';
-const { PARAM_NAME: { FILTER: { TAGS, SORT } } } = CONSTANTS;
+const {
+  PARAM_NAME: { FILTER: { TAGS, SORT } },
+  PAGES: { CATALOG: { path } }
+} = CONSTANTS;
 
 const limit = 12;
 
@@ -37,7 +40,7 @@ const HomeMangaCatalog = ({ extendedCatalog }) => {
     <Col>
       <Row>
         <ColBlock className='col-12'>
-          <HeaderLink to='/news' title='Catalog' />
+          <HeaderLink to={path} title='Catalog' />
           <Genres redirect />
         </ColBlock>
         {emptyCatalog ? emptyCatalog :
