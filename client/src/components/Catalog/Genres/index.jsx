@@ -13,8 +13,8 @@ import { useCheckingEmptyValues } from '../../../hooks';
 import CONSTANTS from '../../../constants';
 const {
   DEFAULT_LOCALE,
-  PARAM_NAME: { FILTER: { TAGS } },
-  PAGES: { CATALOG: { path } }
+  PARAM_NAME: { FILTER, FILTER: { TAGS } },
+  PAGES: { CATALOG: { path } },
 } = CONSTANTS;
 
 const authors = [
@@ -121,16 +121,29 @@ const Genres = (props) => {
     }</div>
   );
 
-  const AuthorsItems = () => (
-    authors.map((author, i) =>
-      <Accordion.Collapse key={author} eventKey={i + 1 + tagGroupNames.length} >
-        <SearchingInput
-          containerClassName='mb-3'
-          placeholder={capitalize(author)}
-        />
-      </Accordion.Collapse>
-    )
-  );
+  const AuthorsItems = () => {
+
+    const onChangeHandle = (key, value) => {
+      value
+        ? searchParams.set(key, value)
+        : searchParams.delete(key);
+
+      setSearchParams(searchParams, { replace: true });
+    };
+
+    return (
+      authors.map((author, i) =>
+        <Accordion.Collapse key={author} eventKey={i + 1 + tagGroupNames.length} >
+          <SearchingInput
+            containerClassName='mb-3'
+            placeholder={capitalize(author)}
+            value={searchParams.get(FILTER[author.toUpperCase()]) || ''}
+            onChange={(e) => onChangeHandle(author, e.target.value)}
+          />
+        </Accordion.Collapse>
+      )
+    );
+  };
 
   return (
     <Accordion>

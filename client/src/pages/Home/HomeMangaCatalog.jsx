@@ -12,7 +12,7 @@ import HeaderLink from '../../components/HeaderLink';
 import { useCheckingEmptyValues } from '../../hooks';
 import CONSTANTS from '../../constants';
 const {
-  PARAM_NAME: { FILTER: { TAGS, SORT } },
+  PARAM_NAME: { FILTER: { TAGS, SORT, AUTHOR, ARTIST } },
   PAGES: { CATALOG: { path } }
 } = CONSTANTS;
 
@@ -26,6 +26,8 @@ const HomeMangaCatalog = ({ extendedCatalog }) => {
   const queryParams = {
     [TAGS]: searchParams.getAll(TAGS),
     [SORT]: searchParams.get(SORT),
+    [AUTHOR]: searchParams.get(AUTHOR),
+    [ARTIST]: searchParams.get(ARTIST),
     limit
   };
   useEffect(() => getMangaCatalog(queryParams), [searchParams]);
