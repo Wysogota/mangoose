@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
-import { BsCaretDownFill as ASCIcon, BsCaretUpFill as DESCIcon } from 'react-icons/bs';
+import { BsCaretDownFill as DESCIcon, BsCaretUpFill as ASCIcon } from 'react-icons/bs';
 import { getObjectFromArray } from '../../../common/functions';
 import CONSTANTS from '../../../constants';
 const { SORT_DIRECTION: { ASC, DESC }, PARAM_NAME: { FILTER: { SORT } }, SORT_LIST } = CONSTANTS;
@@ -31,8 +31,8 @@ const Order = (props) => {
   return (
     <Dropdown.Item onClick={onClickHandle}>
       {direction
-        ? <><ASCIcon /><span className='ms-2'>Ascending</span></>
-        : <><DESCIcon /><span className='ms-2'>Descending</span></>
+        ? <><DESCIcon /><span className='ms-2'>Descending</span></>
+        : <><ASCIcon /><span className='ms-2'>Ascending</span></>
       }
     </Dropdown.Item>
   );
