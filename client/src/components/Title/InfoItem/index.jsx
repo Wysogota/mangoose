@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 const defaultValue = '¯\\_(ツ)_/¯';
 
 const InfoItem = (props) => {
-  const { title, value, inline } = props;
+  const { to, title, value, inline } = props;
   const { theme: { bgHoveredTheme } } = useSelector(({ themes }) => themes);
 
   const containerClasses = cx(
@@ -22,7 +22,7 @@ const InfoItem = (props) => {
   );
 
   return (
-    <Link to='#' className={containerClasses}>
+    <Link to={to} className={containerClasses}>
       <div className={titleClasses}>{capitalize(title) + ':'}</div>
       <div>{startCase(value) || defaultValue}</div>
     </Link>
