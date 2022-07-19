@@ -5,6 +5,8 @@ import cx from 'classnames';
 import TagButtons from '../Title/TagButtons';
 import styles from './MangaCard.module.scss';
 import { Link } from 'react-router-dom';
+import CONSTANTS from '../../constants';
+const { PAGES: { TITLE: { path } } } = CONSTANTS;
 
 const MangaCard = (props) => {
   const { id, image, related, title, description, status, tags, onClick } = props;
@@ -36,7 +38,7 @@ const MangaCard = (props) => {
       <Col xs='8' md='9' xl='10'>
         <Card.Body>
           <div className='d-flex justify-content-between'>
-            <Card.Title className={titleClasses}><Link to={`/title/${id}`}>{title}</Link></Card.Title>
+            <Card.Title className={titleClasses}><Link to={`${path}/${id}`}>{title}</Link></Card.Title>
             <div className={statusClasses}>{status}</div>
           </div>
           {related && <Card.Subtitle className='pb-2'>{related}</Card.Subtitle>}

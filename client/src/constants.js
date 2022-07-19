@@ -60,7 +60,7 @@ export default {
       type: 'relevance',
     },
     {
-      name: 'upload time',
+      name: 'upload chapter',
       type: 'latestUploadedChapter',
     },
     {
@@ -76,7 +76,7 @@ export default {
       type: 'followedCount',
     },
     {
-      name: 'added',
+      name: 'created at',
       type: 'createdAt',
     },
     {
