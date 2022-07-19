@@ -1,0 +1,6 @@
+@import '../../common/styles/functions';
+
+.tab{
+  width: 120px;
+  @extend %text-overflow;
+}

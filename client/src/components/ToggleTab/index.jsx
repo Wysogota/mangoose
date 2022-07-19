@@ -1,6 +1,8 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import cx from 'classnames';
 import { Button, useAccordionButton } from 'react-bootstrap';
+import styles from './ToggleTab.module.scss';
 
 const ToggleTab = (props, ref) => {
   const { eventKey, selected, focused, children } = props;
@@ -14,12 +16,17 @@ const ToggleTab = (props, ref) => {
   };
   useEffect(() => focused && setClicked(false), [focused]);
 
+  const classes = cx(
+    styles.tab,
+    'me-2 shadow-none'
+  );
+
   return (
     <Button
       ref={ref}
       onClick={onClickHandle}
       variant={(focused && clicked) || selected ? invertedColor : outlineColor}
-      className='me-2 shadow-none'
+      className={classes}
     >
       {children}
     </Button>
