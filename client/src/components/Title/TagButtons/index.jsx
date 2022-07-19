@@ -4,7 +4,12 @@ import { Button, Dropdown } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 import cx from 'classnames';
 import styles from './TagButtons.module.scss';
+import { Link } from 'react-router-dom';
 import CONSTANTS from '../../../constants';
+const {
+  PARAM_NAME: { FILTER: { TAGS } },
+  PAGES: { CATALOG: { path } }
+} = CONSTANTS;
 
 const TagButtons = (props) => {
   const { tags, tagClassName, shouldOverflow } = props;
@@ -58,6 +63,8 @@ const TagButtons = (props) => {
     }
   }, [tagsRef, theme, overflowedTagsRef, containerPosition]);
 
+  const getPath = (id) => `${path}?${TAGS}=${id}`;
+
   const containerClasses = cx(
     shouldOverflow ? styles.visible_container : styles.conatiner
   );
@@ -82,7 +89,7 @@ const TagButtons = (props) => {
   return (
     <div className={styles.tags_container}>
       <div ref={containerRef} className={containerClasses}>{
-        tags.map(({ attributes: { name } }, i) => {
+        tags.map(({ id, attributes: { name } }, i) => {
           const localeName = name[CONSTANTS.DEFAULT_LOCALE];
           return (
             <Button
@@ -91,7 +98,7 @@ const TagButtons = (props) => {
               variant={invertedColor}
               className={tagsClasses}
             >
-              {localeName}
+              <Link to={getPath(id)} >{localeName}</Link>
             </Button>
           );
         })
@@ -99,7 +106,7 @@ const TagButtons = (props) => {
       {shouldOverflow && shouldDisplayDropdown && <Dropdown>
         <Dropdown.Toggle className={toggleClasses} variant={mainColor}></Dropdown.Toggle>
         <Dropdown.Menu variant={invertedColor} align='end' renderOnMount>{
-          tags.map(({ attributes: { name } }, i) => {
+          tags.map(({ id, attributes: { name } }, i) => {
             const localeName = name[CONSTANTS.DEFAULT_LOCALE];
             return (
               <Dropdown.Item
@@ -107,7 +114,7 @@ const TagButtons = (props) => {
                 ref={(tag) => overflowedTagsRef.current[i] = tag}
                 className={overflowedTagsClasses}
               >
-                {localeName}
+                <Link to={getPath(id)} >{localeName}</Link>
               </Dropdown.Item>
             );
           })
