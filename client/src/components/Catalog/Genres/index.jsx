@@ -7,17 +7,18 @@ import { capitalize } from 'lodash';
 import { Accordion } from 'react-bootstrap';
 import GenreButton from '../GenreButton';
 import ToggleTab from '../../ToggleTab';
+import SearchingInput from '../../SearchingInput';
+import Sort from '../Sort';
 import { useCheckingEmptyValues } from '../../../hooks';
 import CONSTANTS from '../../../constants';
-import Sort from '../Sort';
 const {
   DEFAULT_LOCALE,
   PARAM_NAME: { FILTER: { TAGS } },
   PAGES: { CATALOG: { path } }
 } = CONSTANTS;
 
-const defaultTags = [
- 'author', 'artist',
+const authors = [
+  'author', 'artist',
 ];
 
 const Genres = (props) => {
@@ -60,7 +61,6 @@ const Genres = (props) => {
 
   const tagGroupNames = [
     ...new Set(tags.map(({ group }) => group)),
-    ...defaultTags,
   ];
 
   const getTagsByGroup = (groupName) => [
@@ -74,33 +74,75 @@ const Genres = (props) => {
     ({ id, type }) => searchParams.getAll(type).includes(id)
   );
 
+  const TagsTab = () => (
+    <div className='mb-2'>{
+      tagGroupNames.map((group, i) =>
+        <ToggleTab key={group}
+          eventKey={i + 1}
+          ref={(tag) => tabRef.current[i] = tag}
+          focused={tabRef.current[i] === focusedTab}
+          selected={hasSelectedTags(group)}
+        >
+          By {capitalize(group)}
+        </ToggleTab>
+      )
+    }</div>
+  );
+
+  const TagsItems = () => (
+    tagGroupNames.map((group, i) =>
+      <Accordion.Collapse key={group} eventKey={i + 1}>
+        <>{getTagsByGroup(group).map(({ id, name, type }) =>
+          <GenreButton
+            key={name} id={id}
+            title={name}
+            to={redirect && `${path}?${type}=${id}`}
+            onClick={() => onClickHandle(type, id)}
+          />
+        )}</>
+      </Accordion.Collapse>
+    )
+  );
+
+  const AuthorsTab = () => (
+    <div>{
+      authors.map((author, i) => {
+        const eventKey = i + tagGroupNames.length;
+        return (
+          <ToggleTab key={author}
+            eventKey={eventKey + 1}
+            ref={(tag) => tabRef.current[eventKey] = tag}
+            focused={tabRef.current[eventKey] === focusedTab}
+          >
+            By {capitalize(author)}
+          </ToggleTab>
+        );
+      })
+    }</div>
+  );
+
+  const AuthorsItems = () => (
+    authors.map((author, i) =>
+      <Accordion.Collapse key={author} eventKey={i + 1 + tagGroupNames.length} >
+        <SearchingInput
+          containerClassName='mb-3'
+          placeholder={capitalize(author)}
+        />
+      </Accordion.Collapse>
+    )
+  );
+
   return (
     <Accordion>
       <div className='mb-2 d-flex align-items-center justify-content-between'>
-        <div>
-        {tagGroupNames.map((group, i) =>
-          <ToggleTab key={group}
-            eventKey={i + 1}
-            ref={(tag) => tabRef.current[i] = tag}
-            focused={tabRef.current[i] === focusedTab}
-            selected={hasSelectedTags(group)}
-          >By {capitalize(group)}</ToggleTab>
-        )}
+        <div className='w-100'>
+          {TagsTab()}
+          {AuthorsTab()}
         </div>
-         <Sort />
+        <Sort />
       </div>
-      {tagGroupNames.map((group, i) =>
-        <Accordion.Collapse key={group} eventKey={i + 1}>
-          <>{
-            getTagsByGroup(group).map(({ id, name, type }) =>
-              <GenreButton
-                key={name} id={id} title={name} to={redirect && `${path}?${type}=${id}`}
-                onClick={() => onClickHandle(type, id)}
-              />
-            )
-          }</>
-        </Accordion.Collapse>
-      )}
+      {TagsItems()}
+      {AuthorsItems()}
     </Accordion >
   );
 };
