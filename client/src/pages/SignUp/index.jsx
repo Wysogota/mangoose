@@ -10,7 +10,7 @@ import CONSTANTS from '../../constants';
 const { PAGES: { SIGN_UP: { name } } } = CONSTANTS;
 
 const initialValues = {
-  nickname: '',
+  username: '',
   email: '',
   password: '',
   passwordConfirm: '',
@@ -42,7 +42,7 @@ const SignUp = () => {
               validationSchema={SIGN_UP_SCHEMA}
             >
               <Form>
-                <Input name='nickname' label='Nickname' placeholder='Enter nickname' />
+                <Input name='username' label='Username' placeholder='Enter username' />
                 <Input name='email' label='Email address' placeholder='Enter email' type='email' />
                 <Input name='password' label='Password' placeholder='Enter password' type='password' />
                 <Input name='passwordConfirm' label='Password confirmation' placeholder='Password confirmation' type='password' />
