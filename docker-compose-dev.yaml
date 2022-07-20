@@ -51,7 +51,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=website-dev
+      - POSTGRES_DB=mangoose-dev
     networks:
       - backend
     ports:

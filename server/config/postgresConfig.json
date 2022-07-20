@@ -1,9 +1,10 @@
 {
+  "/**docker**/ host": "db-dev",
   "development": {
     "username": "postgres",
     "password": "password",
-    "database": "website-dev",
-    "host": "db-dev",
+    "database": "mangoose-dev",
+    "host": "localhost",
     "dialect": "postgres",
     "operatorsAliases": "Op",
     "migrationStorage": "json",
@@ -12,7 +13,7 @@
   "test": {
     "username": "postgres",
     "password": "admin",
-    "database": "website-test",
+    "database": "mangoose-test",
     "host": "localhost",
     "dialect": "postgres",
     "operatorsAliases": "Op"
@@ -20,7 +21,7 @@
   "production": {
     "username": "postgres",
     "password": "admin",
-    "database": "website-prod",
+    "database": "mangoose-prod",
     "host": "localhost",
     "dialect": "postgres",
     "operatorsAliases": "Op"

@@ -2,4 +2,5 @@ const path = require('path');
 
 module.exports = {
   'config': path.resolve('./config', 'postgresConfig.json'),
+  'models-path': path.resolve('./src/models'),
 };
