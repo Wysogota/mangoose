@@ -1,7 +1,7 @@
 const axios = require('axios');
 const queryString = require('query-string');
-const Manga = require('../../models/Manga');
-const Cover = require('../../models/Cover');
+const Manga = require('../../models/mangadex/Manga');
+const Cover = require('../../models/mangadex/Cover');
 const {
   coversOptions, chaptersOptions, mangaListOptions,
   relationshipsOptions, relationshipsChapterOptions,
