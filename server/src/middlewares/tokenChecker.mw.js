@@ -9,8 +9,6 @@ module.exports = (req, res, next) => {
 
     jwt.verify(accessToken, ACCESS_TOKEN_SECRET, (err, decoded) => {
       if (err) next(createHttpError(401, 'Unauthorized access.'));
-
-      req.decoded = decoded;
       next();
     });
   } else {

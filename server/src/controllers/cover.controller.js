@@ -1,4 +1,3 @@
-const createError = require('http-errors');
 const mangadex = require('../api/mangadex');
 
 module.exports.getMangaCovers = async (req, res, next) => {
