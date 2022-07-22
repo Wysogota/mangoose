@@ -1,6 +1,7 @@
 const createHttpError = require('http-errors');
 const { User, RefreshToken } = require('../models');
 const { getAccessToken, getRefreshToken } = require('../jwt');
+const { destroyOverLimitTokens } = require('../functions/controllers.fn');
 
 module.exports.signIn = async (req, res, next) => {
   try {
@@ -9,6 +10,7 @@ module.exports.signIn = async (req, res, next) => {
     const user = await User.findOne({ where: { email } });
 
     if (user && await user.comparePassword(password)) {
+      await destroyOverLimitTokens(user);
 
       const accessToken = await getAccessToken(user);
       const refreshToken = await getRefreshToken(user);
