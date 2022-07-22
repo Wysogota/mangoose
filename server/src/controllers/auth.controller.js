@@ -33,6 +33,21 @@ module.exports.signIn = async (req, res, next) => {
   }
 };
 
+module.exports.signOut = async (req, res, next) => {
+  try {
+    const { body: { refreshToken } } = req;
+
+    await RefreshToken.destroy({ where: { value: refreshToken } });
+    res.send({
+      data: {
+        status: 'Logged out',
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports.signUp = async (req, res, next) => {
   try {
     const { body } = req;
@@ -57,13 +72,13 @@ module.exports.refresh = async (req, res, next) => {
 
       res.send({
         data: {
-          status: 'Access token',
+          status: 'Updated access token',
           tokens: {
             access: accessToken,
           }
         }
       });
-    } else{
+    } else {
       next(createHttpError(401, 'Incorrect data'));
     }
 
