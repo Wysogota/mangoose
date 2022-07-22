@@ -1,4 +1,5 @@
 const createHttpError = require('http-errors');
+const { decode } = require('jsonwebtoken');
 const { User, RefreshToken } = require('../models');
 const { getAccessToken, getRefreshToken } = require('../jwt');
 const { destroyOverLimitTokens } = require('../functions/controllers.fn');
@@ -15,7 +16,10 @@ module.exports.signIn = async (req, res, next) => {
       const accessToken = await getAccessToken(user);
       const refreshToken = await getRefreshToken(user);
 
-      await user.createRefreshToken({ value: refreshToken });
+      await user.createRefreshToken({
+        value: refreshToken,
+        expiresIn: decode(refreshToken).exp,
+      });
 
       res.send({
         data: {

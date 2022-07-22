@@ -24,6 +24,11 @@ module.exports = {
       ua: {
         type: Sequelize.STRING
       },
+      expiresIn: {
+        field: 'expires_in',
+        allowNull: false,
+        type: Sequelize.DATE
+      },
       createdAt: {
         field: 'created_at',
         allowNull: false,

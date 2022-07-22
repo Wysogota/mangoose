@@ -27,7 +27,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     ua: {
       type: DataTypes.STRING,
-    }
+    },
+    expiresIn: {
+      field: 'expires_in',
+      allowNull: false,
+      type: DataTypes.DATE,
+      set(expire) {
+        this.setDataValue('expiresIn', new Date(expire * 1000));
+      }
+    },
   }, {
     sequelize,
     modelName: 'RefreshToken',
