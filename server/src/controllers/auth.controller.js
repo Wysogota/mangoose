@@ -35,14 +35,19 @@ module.exports.signIn = async (req, res, next) => {
 
 module.exports.signOut = async (req, res, next) => {
   try {
-    const { body: { refreshToken } } = req;
+    const { body: { tokens: { refresh: refreshToken } } } = req;
 
-    await RefreshToken.destroy({ where: { value: refreshToken } });
-    res.send({
-      data: {
-        status: 'Logged out',
-      }
-    });
+    const isTokenDestroyed = await RefreshToken.destroy({ where: { value: refreshToken } });
+
+    if (isTokenDestroyed) {
+      res.send({
+        data: {
+          status: 'Logged out',
+        }
+      });
+    } else {
+      next(createHttpError(401, 'Incorrect provided token'));
+    }
   } catch (error) {
     next(error);
   }
@@ -64,7 +69,7 @@ module.exports.signUp = async (req, res, next) => {
 
 module.exports.refresh = async (req, res, next) => {
   try {
-    const { body: { refreshToken, email } } = req;
+    const { body: { email, tokens: { refresh: refreshToken } } } = req;
     const user = await User.findOne({ where: { email } });
 
     if (await RefreshToken.isTokenExists(refreshToken, user.id)) {

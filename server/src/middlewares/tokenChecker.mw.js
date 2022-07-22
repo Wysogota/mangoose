@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const createHttpError = require('http-errors');
 
 module.exports = (req, res, next) => {
-  const accessToken = req.headers['x-access-token'];
+  const accessToken = req.body.tokens?.access || req.headers['x-access-token'];
 
   if (accessToken) {
     const { ACCESS_TOKEN_SECRET } = process.env;
