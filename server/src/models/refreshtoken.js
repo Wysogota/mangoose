@@ -1,5 +1,5 @@
 'use strict';
-const { Model } = require('sequelize');
+const { Model, Op } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class RefreshToken extends Model {
     static associate({ User }) {
@@ -13,6 +13,15 @@ module.exports = (sequelize, DataTypes) => {
         .findOne({ where: { value: token } })
         .then((token) => token.userId === userId)
         .catch(() => false);
+    }
+
+    static async destroyExpiredTokens() {
+      const destroyedCount = await RefreshToken.destroy({
+        where: {
+          expiresIn: { [Op.lte]: new Date() }
+        }
+      });
+      console.log(`<----- Destroyed ${destroyedCount} refresh tokens`);
     }
   }
   RefreshToken.init({
