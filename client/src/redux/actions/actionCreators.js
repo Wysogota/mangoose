@@ -208,3 +208,38 @@ export const getTagListError = (data) => ({
   type: ACTION_TYPES.GET_TAG_LIST_ERROR,
   payload: { data },
 });
+
+export const getMe = () => ({
+  type: ACTION_TYPES.GET_ME,
+});
+export const getMeRequest = () => ({
+  type: ACTION_TYPES.GET_ME_REQUEST,
+});
+export const getMeSuccess = (data) => ({
+  type: ACTION_TYPES.GET_ME_SUCCESS,
+  payload: { data },
+});
+export const getMeError = (data) => ({
+  type: ACTION_TYPES.GET_ME_ERROR,
+  payload: { data },
+});
+
+
+export const signIn = (options) => ({
+  type: ACTION_TYPES.SIGN_IN,
+  payload: { options },
+});
+export const signInRequest = () => ({
+  type: ACTION_TYPES.SIGN_IN_REQUEST,
+});
+export const signInSuccess = (data) => ({
+  type: ACTION_TYPES.SIGN_IN_SUCCESS,
+  payload: { data },
+});
+export const signInError = (data) => ({
+  type: ACTION_TYPES.SIGN_IN_ERROR,
+  payload: { data },
+});
+
+
+

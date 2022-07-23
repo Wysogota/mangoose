@@ -14,6 +14,7 @@ import ChapterReader from './pages/ChapterReader';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import { useCheckAuth } from './hooks';
 import CONSTANTS from './constants';
 const { PAGES: {
   HOME: { path: homePath },
@@ -26,6 +27,7 @@ const { PAGES: {
 const App = () => {
   const { theme: { bgAccentTheme, mainTheme } } = useSelector(({ themes }) => themes);
 
+  useCheckAuth();
   useEffect(() => {
     document.body.className = cx(bgAccentTheme, mainTheme);
   }, [mainTheme]);
