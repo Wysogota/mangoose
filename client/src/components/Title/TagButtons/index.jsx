@@ -28,6 +28,7 @@ const TagButtons = (props) => {
 
   useEffect(() => {
     if (shouldOverflow) {
+      getConatinerPosition();
       addEventListener('resize', getConatinerPosition);
       return () => removeEventListener('resize', getConatinerPosition);
     }
@@ -35,7 +36,6 @@ const TagButtons = (props) => {
 
   useEffect(() => {
     if (shouldOverflow) {
-      getConatinerPosition();
 
       if (!isEmpty(tagsRef.current)) {
         tagsRef.current.forEach((tag) => {
