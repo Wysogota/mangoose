@@ -4,14 +4,19 @@ import { Spinner } from 'react-bootstrap';
 import MinorHeader from '../components/Headers/MinorHeader';
 
 const useLoading = (options) => {
-  const { data, title, isFetching } = options;
+  const { data, title, isFetching, spinner = true } = options;
+
+  if (!spinner && isFetching) {
+    return <></>;
+  }
 
   if (isFetching) {
     return (
       <Spinner animation='border' role='status'></Spinner>
     );
   }
-  if (isEmpty(data)) {
+
+  if (title && isEmpty(data)) {
     return (
       <MinorHeader className='text-center mt-5 mb-5'>{title}</MinorHeader>
     );
