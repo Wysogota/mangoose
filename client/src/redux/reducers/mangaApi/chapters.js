@@ -3,6 +3,9 @@ import ACTION_TYPES from '../../actions/actionTypes';
 
 const initialState = {
   chapters: [],
+  limit: 0,
+  offset: 0,
+  total: 0,
   isFetching: false,
   error: null,
 };
@@ -15,7 +18,12 @@ const handlers = {
 
   [ACTION_TYPES.GET_CHAPTERS_SUCCESS]: produce((draftState, action) => {
     draftState.isFetching = false;
-    draftState.chapters = action.payload.data;
+
+    const { data, limit, offset, total } = action.payload.data;
+    draftState.chapters = data;
+    draftState.limit = limit;
+    draftState.offset = offset;
+    draftState.total = total;
   }),
 
   [ACTION_TYPES.GET_CHAPTERS_ERROR]: produce((draftState, action) => {

@@ -12,19 +12,19 @@ const limit = 20;
 
 const Chapters = (props) => {
   const { mangaId } = props;
-  const { chapters, isFetching } = useSelector(({ chapters }) => chapters);
+  const { chapters, total, isFetching } = useSelector(({ chapters }) => chapters);
   const { getChapters } = bindActionCreators(actionCreators, useDispatch());
 
   const queryParams = { mangaId, lang: DEFAULT_LOCALE };
   usePagination({ actionCreator: getChapters, queryParams, limit });
 
-  const loading = useLoading({ data: chapters.data, title: 'No Chapters', isFetching });
+  const loading = useLoading({ data: chapters, title: 'No Chapters', isFetching });
   if (loading) return loading;
 
   return (
     <>
       <Volumes chapters={chapters} />
-      <PaginationButtons itemCount={chapters.total} limit={limit} />
+      <PaginationButtons itemCount={total} limit={limit} />
     </>
   );
 };

@@ -57,7 +57,7 @@ const ChaptersList = (props) => {
     </time>
   );
 
-  return (chapters.data
+  return (chapters
     .filter(({ attributes: { chapter } }) => chapter === volumeChapter)
     .map(({ id, attributes: { title, chapter, externalUrl, pages, publishAt }, relationships }) => {
       return (

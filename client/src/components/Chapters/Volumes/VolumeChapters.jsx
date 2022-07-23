@@ -15,7 +15,7 @@ const VolumeChapters = (props) => {
   )
 
   const getChaptersList = () => [...new Set(
-    chapters.data
+    chapters
       .filter(({ attributes: { volume } }) => volume === volumeName)
       .map(({ attributes: { chapter } }) => chapter)
   )];

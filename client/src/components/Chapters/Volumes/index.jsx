@@ -9,7 +9,7 @@ const Volumes = (props) => {
   const { theme: { invertedColor, mainColor } } = useSelector(({ themes }) => themes);
 
   const getVolumesList = () => [...new Set(
-    chapters.data.map(({ attributes: { volume } }) => volume)
+    chapters.map(({ attributes: { volume } }) => volume)
   )];
 
   return (

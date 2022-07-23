@@ -2,7 +2,7 @@ import produce from 'immer';
 import ACTION_TYPES from '../../actions/actionTypes';
 
 const initialState = {
-  manga: null,
+  manga: {},
   isFetching: false,
   error: null,
 };
