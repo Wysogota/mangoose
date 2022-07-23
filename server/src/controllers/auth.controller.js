@@ -7,7 +7,6 @@ const { REFRESH_TOKEN_NAME, ACCESS_TOKEN_NAME } = require('../constants');
 
 module.exports.signIn = async (req, res, next) => {
   try {
-    console.log(req.body);
     const { body: { email, password } } = req;
 
     const user = await User.findOne({ where: { email } });

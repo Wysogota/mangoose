@@ -12,7 +12,5 @@ module.exports = (req, res, next) => {
       if (err) next(createHttpError(401, 'Unauthorized access.'));
       next();
     });
-  } else {
-    next(createHttpError(204, 'No token provided.'));
   }
 };
