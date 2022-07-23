@@ -13,3 +13,15 @@ export function* signInSaga(action) {
     yield put(actionCreators.signInError(errors));
   }
 }
+
+export function* signOutSaga() {
+  yield put(actionCreators.signOutRequest());
+  try {
+    yield API.signOut();
+
+    yield put(actionCreators.signOutSuccess());
+  } catch (error) {
+    const { response: { data: { errors } } } = error;
+    yield put(actionCreators.signOutError(errors));
+  }
+}

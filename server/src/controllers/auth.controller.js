@@ -41,16 +41,18 @@ module.exports.signIn = async (req, res, next) => {
 
 module.exports.signOut = async (req, res, next) => {
   try {
-    const { body: { tokens: { refresh: refreshToken } } } = req;
+    const refreshToken = req.cookies[REFRESH_TOKEN_NAME];
 
     const isTokenDestroyed = await RefreshToken.destroy({ where: { value: refreshToken } });
-
     if (isTokenDestroyed) {
-      res.send({
-        data: {
-          status: 'Logged out',
-        }
-      });
+      res
+        .clearCookie(REFRESH_TOKEN_NAME)
+        .clearCookie(ACCESS_TOKEN_NAME)
+        .send({
+          data: {
+            status: 'Logged out',
+          }
+        });
     } else {
       next(createHttpError(401, 'Incorrect provided token'));
     }

@@ -14,7 +14,7 @@ const { PAGES: { SIGN_UP: { path: signUpPath } } } = CONSTANTS;
 const HeaderAuthButtons = () => {
   const { theme: { invertedColor, outlineColor } } = useSelector(({ themes }) => themes);
   const { me, isFetching } = useSelector(({ me }) => me);
-  const { showSignIn } = bindActionCreators(actionCreators, useDispatch());
+  const { showSignIn, signOut } = bindActionCreators(actionCreators, useDispatch());
 
   const loading = useLoading({ isFetching, spinner: false });
   if (loading) return loading;
@@ -26,10 +26,9 @@ const HeaderAuthButtons = () => {
         <Button as={Link} to={signUpPath} variant={invertedColor}>Sign Up</Button>
       </ButtonGroup> :
       <span>
-        <Button variant={outlineColor}>Sign Out</Button>
+        <Button onClick={signOut} variant={outlineColor}>Sign Out</Button>
         <Avatar />
       </span>
-
   );
 };
 

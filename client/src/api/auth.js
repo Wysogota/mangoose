@@ -7,3 +7,5 @@ const client = axios.create({
 });
 
 export const signIn = (options) => client.post('/auth/signin', options);
+
+export const signOut = () => client.delete('/auth/signout');

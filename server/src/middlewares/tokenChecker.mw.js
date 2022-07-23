@@ -12,5 +12,8 @@ module.exports = (req, res, next) => {
       if (err) next(createHttpError(401, 'Unauthorized access.'));
       next();
     });
+  } else {
+    res.status(200).send('No token provided');
   }
+
 };

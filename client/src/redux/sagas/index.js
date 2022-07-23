@@ -6,7 +6,7 @@ import {
   getChapterPagesSaga, getNextChapterIdSaga, getFirstChapterIdSaga,
   getTagListSaga,
 } from './mangaSagas';
-import { signInSaga } from './authSagas';
+import { signInSaga, signOutSaga } from './authSagas';
 import { getMeSaga } from './userSaga';
 
 export default function* rootSaga() {
@@ -22,5 +22,7 @@ export default function* rootSaga() {
   yield takeLatest(ACTION_TYPES.GET_TAG_LIST, getTagListSaga);
 
   yield takeLatest(ACTION_TYPES.SIGN_IN, signInSaga);
+  yield takeLatest(ACTION_TYPES.SIGN_OUT, signOutSaga);
+
   yield takeLatest(ACTION_TYPES.GET_ME, getMeSaga);
 }

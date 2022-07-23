@@ -241,5 +241,19 @@ export const signInError = (data) => ({
   payload: { data },
 });
 
+export const signOut = () => ({
+  type: ACTION_TYPES.SIGN_OUT,
+});
+export const signOutRequest = () => ({
+  type: ACTION_TYPES.SIGN_OUT_REQUEST,
+});
+export const signOutSuccess = () => ({
+  type: ACTION_TYPES.SIGN_OUT_SUCCESS,
+});
+export const signOutError = (data) => ({
+  type: ACTION_TYPES.SIGN_OUT_ERROR,
+  payload: { data },
+});
+
 
 
