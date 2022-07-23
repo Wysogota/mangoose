@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
 const createHttpError = require('http-errors');
+const { ACCESS_TOKEN_NAME } = require('../constants');
 
 module.exports = (req, res, next) => {
-  const accessToken = req.body.tokens?.access || req.headers['x-access-token'];
+  const accessToken = req.cookies[ACCESS_TOKEN_NAME];
 
   if (accessToken) {
     const { ACCESS_TOKEN_SECRET } = process.env;
@@ -12,6 +13,6 @@ module.exports = (req, res, next) => {
       next();
     });
   } else {
-    next(createHttpError(403, 'No token provided.'));
+    next(createHttpError(204, 'No token provided.'));
   }
 };

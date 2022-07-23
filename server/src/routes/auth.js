@@ -3,7 +3,7 @@ const Controller = require('../controllers/auth.controller');
 
 const router = Router();
 
-router.get('/signin', Controller.signIn);
+router.post('/signin', Controller.signIn);
 router.delete('/signout', Controller.signOut);
 router.post('/signup', Controller.signUp);
 router.get('/refresh', Controller.refresh);

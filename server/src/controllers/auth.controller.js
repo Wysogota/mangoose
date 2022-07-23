@@ -2,10 +2,12 @@ const createHttpError = require('http-errors');
 const { decode } = require('jsonwebtoken');
 const { User, RefreshToken } = require('../models');
 const { getAccessToken, getRefreshToken } = require('../jwt');
-const { destroyOverLimitTokens } = require('../functions/controllers.fn');
+const { destroyOverLimitTokens, getTokenCookieOptions } = require('../functions/controllers.fn');
+const { REFRESH_TOKEN_NAME, ACCESS_TOKEN_NAME } = require('../constants');
 
 module.exports.signIn = async (req, res, next) => {
   try {
+    console.log(req.body);
     const { body: { email, password } } = req;
 
     const user = await User.findOne({ where: { email } });
@@ -21,15 +23,14 @@ module.exports.signIn = async (req, res, next) => {
         expiresIn: decode(refreshToken).exp,
       });
 
-      res.send({
-        data: {
-          status: 'Logged in',
-          tokens: {
-            access: accessToken,
-            refresh: refreshToken,
+      res
+        .cookie(ACCESS_TOKEN_NAME, accessToken, getTokenCookieOptions(decode(accessToken).exp))
+        .cookie(REFRESH_TOKEN_NAME, refreshToken, getTokenCookieOptions(decode(refreshToken).exp))
+        .send({
+          data: {
+            status: 'Logged in',
           }
-        }
-      });
+        });
     } else {
       next(createHttpError(401, 'Incorrect data'));
     }

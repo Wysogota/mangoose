@@ -13,3 +13,9 @@ module.exports.destroyOverLimitTokens = async (user) => {
     });
   }
 };
+
+module.exports.getTokenCookieOptions = (expiresIn) => ({
+  sameSite: 'strict',
+  expires: new Date(expiresIn * 1000),
+  httpOnly: true,
+});
