@@ -3,7 +3,9 @@ import { isEmpty } from 'lodash';
 import { Spinner } from 'react-bootstrap';
 import MinorHeader from '../components/Headers/MinorHeader';
 
-const useCheckingEmptyValues = (data, title, isFetching) => {
+const useLoading = (options) => {
+  const { data, title, isFetching } = options;
+
   if (isFetching) {
     return (
       <Spinner animation='border' role='status'></Spinner>
@@ -16,4 +18,4 @@ const useCheckingEmptyValues = (data, title, isFetching) => {
   }
 };
 
-export default useCheckingEmptyValues;
+export default useLoading;

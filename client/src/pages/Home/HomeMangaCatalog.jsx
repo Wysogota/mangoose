@@ -9,7 +9,7 @@ import CatalogButton from '../../components/Catalog/CatalogButton';
 import Genres from '../../components/Catalog/Genres';
 import MangaCatalog from '../../components/Catalog/MangaCatalog';
 import HeaderLink from '../../components/HeaderLink';
-import { useCheckingEmptyValues } from '../../hooks';
+import { useLoading } from '../../hooks';
 import CONSTANTS from '../../constants';
 const {
   PARAM_NAME: { FILTER: { TAGS, SORT, AUTHOR, ARTIST } },
@@ -36,7 +36,7 @@ const HomeMangaCatalog = ({ extendedCatalog }) => {
     ? 'col-10 col-sm-7 col-md-6 col-lg-4 col-xl-3'
     : 'col-12 col-md-4';
 
-  const emptyCatalog = useCheckingEmptyValues(mangaCatalog, 'Catalog Empty', isFetching);
+  const loading = useLoading({ data: mangaCatalog, title: 'Catalog Empty', isFetching });
 
   return (
     <Col>
@@ -45,7 +45,7 @@ const HomeMangaCatalog = ({ extendedCatalog }) => {
           <HeaderLink to={path} title='Catalog' />
           <Genres redirect />
         </ColBlock>
-        {emptyCatalog ? emptyCatalog :
+        {loading ? loading :
           <>
             <MangaCatalog catalog={mangaCatalog} className={catalogClasses} />
             <Row className='pt-5'><CatalogButton title='More' params={searchParams} /></Row>

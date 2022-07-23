@@ -9,7 +9,7 @@ import SearchInput from '../../components/Searchbar/SearchInput';
 import Genres from '../../components/Catalog/Genres';
 import MangaCatalog from '../../components/Catalog/MangaCatalog';
 import PaginationButtons from '../../components/PaginationButtons';
-import { useCheckingEmptyValues, usePagination } from '../../hooks';
+import { useLoading, usePagination } from '../../hooks';
 import { getPageTitle } from '../../common/functions';
 import CONSTANTS from '../../constants';
 const {
@@ -56,7 +56,7 @@ const Catalog = () => {
   };
   usePagination({ actionCreator: getMangaSearch, queryParams, limit });
 
-  const emptyCatalog = useCheckingEmptyValues(mangaSearch, 'Catalog Empty', isFetching);
+  const loading = useLoading({ data: mangaSearch, title: 'Catalog Empty', isFetching });
 
   return (
     <Container>
@@ -67,7 +67,7 @@ const Catalog = () => {
           <Genres />
         </ColBlock>
       </Row>
-      {emptyCatalog ? emptyCatalog :
+      {loading ? loading :
         <>
           <Row>
             <MangaCatalog

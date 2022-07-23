@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
 import { Accordion } from 'react-bootstrap';
 import Sort from '../Sort';
-import { useCheckingEmptyValues } from '../../../hooks';
+import { useLoading } from '../../../hooks';
 import { TagsItems, TagsTab } from './TagsAccordion';
 import { AuthorsItems, AuthorsTab } from './AuthorsAccordion';
 
@@ -27,8 +27,8 @@ const Genres = (props) => {
     return () => document.removeEventListener('focusin', focusHandle);
   }, []);
 
-  const fetching = useCheckingEmptyValues(tags, 'Fail to load', isFetching);
-  if (fetching) return fetching;
+  const loading = useLoading({ data: tags, title: 'Fail to load', isFetching });
+  if (loading) return loading;
 
   const tagGroupNames = [
     ...new Set(tags.map(({ group }) => group)),

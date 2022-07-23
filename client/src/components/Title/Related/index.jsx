@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
 import { capitalize, isEmpty } from 'lodash';
 import RelatedCard from '../../MangaCard';
-import { useCheckingEmptyValues } from '../../../hooks';
+import { useLoading } from '../../../hooks';
 import { selectRelationship } from '../../../common/functions';
 import CONSTANTS from '../../../constants';
 const { RELATED_FILTER, DEFAULT_LOCALE } = CONSTANTS;
@@ -37,8 +37,8 @@ const Related = (props) => {
     }
   }, [mangaCatalog]);
 
-  const emptyTab = useCheckingEmptyValues(relatedManga, 'No Related', isFetching);
-  if (emptyTab) return emptyTab;
+  const loading = useLoading({ data: relatedManga, title: 'No Related', isFetching });
+  if (loading) return loading;
 
   return (
     <div>{

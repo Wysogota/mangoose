@@ -12,7 +12,7 @@ import TitleTabs from './TitleTabs';
 import Cover from '../../components/Title/Cover';
 import TitleInfoList from './TitleInfoList';
 import ReadingButtonsBlock from '../../components/Title/ReadingButtonsBlock';
-import { useAdaptiveView, useCheckingEmptyValues } from '../../hooks';
+import { useAdaptiveView, useLoading } from '../../hooks';
 import { getPageTitle, selectRelationship } from '../../common/functions';
 import styles from './Title.module.scss';
 import CONSTANTS from '../../constants';
@@ -37,8 +37,8 @@ const Title = () => {
 
   const isAdaptiveView = useAdaptiveView(lg);
 
-  const emptyPage = useCheckingEmptyValues(manga, 'Fail to load', isFetching);
-  if (emptyPage) return emptyPage;
+  const loading = useLoading({ data: manga, title: 'Fail to load', isFetching });
+  if (loading) return loading;
 
   const {
     attributes: {

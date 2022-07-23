@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
 import PaginationButtons from '../PaginationButtons';
 import Volumes from './Volumes';
-import { usePagination, useCheckingEmptyValues } from '../../hooks';
+import { usePagination, useLoading } from '../../hooks';
 import CONSTANTS from '../../constants';
 const { DEFAULT_LOCALE } = CONSTANTS;
 
@@ -18,8 +18,8 @@ const Chapters = (props) => {
   const queryParams = { mangaId, lang: DEFAULT_LOCALE };
   usePagination({ actionCreator: getChapters, queryParams, limit });
 
-  const emptyTab = useCheckingEmptyValues(chapters.data, 'No Chapters', isFetching);
-  if (emptyTab) return emptyTab;
+  const loading = useLoading({ data: chapters.data, title: 'No Chapters', isFetching });
+  if (loading) return loading;
 
   return (
     <>
