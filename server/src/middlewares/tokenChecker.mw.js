@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
       next();
     });
   } else {
-    res.status(200).send('No token provided');
+    next(createHttpError(403, 'No token provided.'));
   }
 
 };

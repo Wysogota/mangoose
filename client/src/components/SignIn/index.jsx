@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
@@ -20,14 +20,17 @@ const initialValues = {
 const SignIn = () => {
   const { theme: { mainTheme, bgTheme, invertedColor } } = useSelector(({ themes }) => themes);
   const { isSignInShown } = useSelector(({ modalItems }) => modalItems);
-  const { hideSignIn } = bindActionCreators(actionCreators, useDispatch());
+  const { isAuthorized } = useSelector(({ auth }) => auth);
+  const { hideSignIn, signIn } = bindActionCreators(actionCreators, useDispatch());
 
   const contentClasses = cx(mainTheme, bgTheme);
 
   const onSubmit = (values, formikBag) => {
-    hideSignIn();
+    signIn(values);
     formikBag.resetForm();
   };
+
+  useEffect(() => isAuthorized && hideSignIn(), [isAuthorized]);
 
   return (
     <Modal show={isSignInShown} onHide={hideSignIn} backdrop='static' contentClassName={contentClasses}>

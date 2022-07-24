@@ -240,6 +240,9 @@ export const signInError = (data) => ({
   type: ACTION_TYPES.SIGN_IN_ERROR,
   payload: { data },
 });
+export const setAuthorized = () => ({
+  type: ACTION_TYPES.AUTHORIZED,
+});
 
 export const signOut = () => ({
   type: ACTION_TYPES.SIGN_OUT,

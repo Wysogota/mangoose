@@ -1,6 +1,11 @@
 const { RefreshToken } = require('../models');
 const { MAX_AUTH_COUNT } = require('../constants');
 
+module.exports.getResponse = (message, data) => ({
+  message,
+  data,
+});
+
 module.exports.destroyOverLimitTokens = async (user) => {
   const refreshTokensCount = await user.countRefreshTokens();
 
@@ -14,7 +19,7 @@ module.exports.destroyOverLimitTokens = async (user) => {
   }
 };
 
-module.exports.getTokenCookieOptions = (expiresIn) => ({
+module.exports.getTokenCookieOptions = (expiresIn = null) => ({
   sameSite: 'strict',
   expires: new Date(expiresIn * 1000),
   httpOnly: true,

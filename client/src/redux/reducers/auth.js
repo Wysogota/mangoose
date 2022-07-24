@@ -5,7 +5,6 @@ const initialState = {
   isAuthorized: false,
   isFetching: false,
   errors: null,
-  status: null,
 };
 
 const requestHandle = produce((draftState, action) => {
@@ -28,7 +27,6 @@ const handlers = {
   [ACTION_TYPES.SIGN_IN_SUCCESS]: produce((draftState, action) => {
     draftState.isFetching = false;
     draftState.isAuthorized = true;
-    draftState.status = action.payload.data.status;
   }),
   [ACTION_TYPES.SIGN_OUT_SUCCESS]: produce((draftState, action) => {
     draftState.isFetching = false;
@@ -38,6 +36,10 @@ const handlers = {
   [ACTION_TYPES.SIGN_UP_ERROR]: errorHandle,
   [ACTION_TYPES.SIGN_IN_ERROR]: errorHandle,
   [ACTION_TYPES.SIGN_OUT_ERROR]: errorHandle,
+
+  [ACTION_TYPES.AUTHORIZED]: produce((draftState, action) => {
+    draftState.isAuthorized = true;
+  }),
 };
 
 export default (state = initialState, action) => {

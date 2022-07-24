@@ -15,7 +15,7 @@ const handlers = {
 
   [ACTION_TYPES.GET_ME_SUCCESS]: produce((draftState, action) => {
     draftState.isFetching = false;
-    draftState.me = action.payload.data;
+    draftState.me = action.payload.data.user;
   }),
 
   [ACTION_TYPES.GET_ME_ERROR]: produce((draftState, action) => {

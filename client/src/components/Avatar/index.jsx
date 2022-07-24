@@ -15,13 +15,14 @@ const Avatar = ({ avatar = CONSTANTS.DEFAULT_AVATAR }) => {
   const classes = cx(
     styles.avatar,
     styles[invertedColor],
+    'rounded-2',
   );
 
   return (
     <Link to={isAuthorized ? '/profile' : '#'} onClick={!isAuthorized && showSignIn}>
       <Image
         src={CONSTANTS.STATIC_IMAGE_PATH + (isAuthorized ? avatar : CONSTANTS['NOT_REGISTERED_AVATAR_' + invertedColor.toUpperCase()])}
-        className={classes} fluid rounded
+        className={classes} fluid
       />
     </Link>
   );
