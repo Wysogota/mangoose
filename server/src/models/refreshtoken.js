@@ -8,10 +8,9 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static async isTokenExists(token, userId) {
+    static async isTokenExists(token) {
       return RefreshToken
         .findOne({ where: { value: token } })
-        .then((token) => token.userId === userId)
         .catch(() => false);
     }
 

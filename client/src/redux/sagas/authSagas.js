@@ -31,3 +31,13 @@ export function* signOutSaga() {
     yield put(actionCreators.signOutError(error));
   }
 }
+
+export function* refreshTokenSaga() {
+  yield put(actionCreators.refreshTokenRequest());
+  try {
+    const { data } = yield API.refreshToken();
+    yield put(actionCreators.refreshTokenSuccess(data));
+  } catch (error) {
+    yield put(actionCreators.refreshTokenError(error));
+  }
+}

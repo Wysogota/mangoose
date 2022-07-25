@@ -272,6 +272,20 @@ export const signUpError = (error) => ({
   payload: { error },
 });
 
+export const refreshToken = () => ({
+  type: ACTION_TYPES.REFRESH_TOKEN,
+});
+export const refreshTokenRequest = () => ({
+  type: ACTION_TYPES.REFRESH_TOKEN_REQUEST,
+});
+export const refreshTokenSuccess = (data) => ({
+  type: ACTION_TYPES.REFRESH_TOKEN_SUCCESS,
+  payload: { data },
+});
+export const refreshTokenError = (error) => ({
+  type: ACTION_TYPES.REFRESH_TOKEN_ERROR,
+  payload: { error },
+});
 
 export const setAuthorized = () => ({
   type: ACTION_TYPES.AUTHORIZED,

@@ -69,10 +69,11 @@ module.exports.signUp = async (req, res, next) => {
 
 module.exports.refresh = async (req, res, next) => {
   try {
-    const { body: { email, tokens: { refresh: refreshToken } } } = req;
+    const refreshToken = req.cookies[REFRESH_TOKEN_NAME];
+    const email = decode(refreshToken).email;
     const user = await User.findOne({ where: { email } });
 
-    if (await RefreshToken.isTokenExists(refreshToken, user.id)) {
+    if (await RefreshToken.isTokenExists(refreshToken)) {
       const accessToken = await getAccessToken(user);
 
       res
