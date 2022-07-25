@@ -26,9 +26,9 @@ module.exports.signIn = async (req, res, next) => {
         .cookie(ACCESS_TOKEN_NAME, accessToken, getTokenCookieOptions(decode(accessToken).exp))
         .cookie(REFRESH_TOKEN_NAME, refreshToken, getTokenCookieOptions(decode(refreshToken).exp))
         .status(200)
-        .send(getResponse(OK, 'Logged in.'));
+        .send(getResponse('Logged in.'));
     } else {
-      next(createHttpError(401, 'Incorrect data.'));
+      next(createHttpError(401, 'Incorrect provided login data.'));
     }
 
   } catch (error) {
@@ -61,7 +61,7 @@ module.exports.signUp = async (req, res, next) => {
     await User.create(body);
     res
       .status(200)
-      .send(getResponse('Signed up.'));
+      .send(getResponse('Signed up successfully!'));
   } catch (error) {
     next(error);
   }
@@ -80,7 +80,7 @@ module.exports.refresh = async (req, res, next) => {
         .status(200)
         .send(getResponse('Updated access token.'));
     } else {
-      next(createHttpError(401, 'Incorrect data.'));
+      next(createHttpError(401, 'Incorrect provided data.'));
     }
 
   } catch (error) {

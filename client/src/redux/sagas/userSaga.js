@@ -8,8 +8,7 @@ export function* getMeSaga() {
     const { data: { data } } = yield API.getMe();
     yield put(actionCreators.getMeSuccess(data));
   } catch (error) {
-    const { response: { data: { errors } } } = error;
-    yield put(actionCreators.getMeError(errors));
+    yield put(actionCreators.getMeError(error));
     return;
   }
 }
