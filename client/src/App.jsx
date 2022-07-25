@@ -15,6 +15,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import { useCheckAuth } from './hooks';
+import WithAuth from './HOCs/WithAuth';
 import CONSTANTS from './constants';
 import Notifications from './components/Notifications';
 const { PAGES: {
@@ -41,7 +42,7 @@ const App = () => {
         <Routes>
           <Route path={homePath} element={<Home />} />
           <Route path={signupPath} element={<SignUp />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile' element={WithAuth(Profile)} />
           <Route path={catalogPath} element={<Catalog />} />
           <Route path={`${titlePath}/:mangaId`} element={<Title />} />
           <Route path={`${chapterPath}/:chapterId`} element={<ChapterReader />} />
