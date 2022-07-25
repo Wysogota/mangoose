@@ -16,6 +16,7 @@ import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import { useCheckAuth } from './hooks';
 import CONSTANTS from './constants';
+import Notifications from './components/Notifications';
 const { PAGES: {
   HOME: { path: homePath },
   SIGN_UP: { path: signupPath },
@@ -28,6 +29,7 @@ const App = () => {
   const { theme: { bgAccentTheme, mainTheme } } = useSelector(({ themes }) => themes);
 
   useCheckAuth();
+
   useEffect(() => {
     document.body.className = cx(bgAccentTheme, mainTheme);
   }, [mainTheme]);
@@ -47,6 +49,7 @@ const App = () => {
       </div>
       <Footer />
 
+      <Notifications />
       <SignIn />
       <Sidebar />
       <SearchBar />
