@@ -236,12 +236,9 @@ export const signInSuccess = (data) => ({
   type: ACTION_TYPES.SIGN_IN_SUCCESS,
   payload: { data },
 });
-export const signInError = (data) => ({
+export const signInError = (error) => ({
   type: ACTION_TYPES.SIGN_IN_ERROR,
-  payload: { data },
-});
-export const setAuthorized = () => ({
-  type: ACTION_TYPES.AUTHORIZED,
+  payload: { error },
 });
 
 export const signOut = () => ({
@@ -250,13 +247,32 @@ export const signOut = () => ({
 export const signOutRequest = () => ({
   type: ACTION_TYPES.SIGN_OUT_REQUEST,
 });
-export const signOutSuccess = () => ({
+export const signOutSuccess = (data) => ({
   type: ACTION_TYPES.SIGN_OUT_SUCCESS,
-});
-export const signOutError = (data) => ({
-  type: ACTION_TYPES.SIGN_OUT_ERROR,
   payload: { data },
 });
+export const signOutError = (error) => ({
+  type: ACTION_TYPES.SIGN_OUT_ERROR,
+  payload: { error },
+});
+
+export const signUp = (options) => ({
+  type: ACTION_TYPES.SIGN_UP,
+  payload: { options },
+});
+export const signUpRequest = () => ({
+  type: ACTION_TYPES.SIGN_UP_REQUEST,
+});
+export const signUpSuccess = (data) => ({
+  type: ACTION_TYPES.SIGN_UP_SUCCESS,
+  payload: { data },
+});
+export const signUpError = (error) => ({
+  type: ACTION_TYPES.SIGN_UP_ERROR,
+  payload: { error },
+});
 
 
-
+export const setAuthorized = () => ({
+  type: ACTION_TYPES.AUTHORIZED,
+});

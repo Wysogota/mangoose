@@ -2,13 +2,22 @@ import { put } from 'redux-saga/effects';
 import * as actionCreators from '../actions/actionCreators';
 import * as API from '../../api';
 
+export function* signUpSaga(action) {
+  yield put(actionCreators.signUpRequest());
+  try {
+    const { data } = yield API.signUp(action.payload.options);
+    yield put(actionCreators.signUpSuccess(data));
+  } catch (error) {
+    yield put(actionCreators.signUpError(error));
+  }
+}
+
 export function* signInSaga(action) {
   yield put(actionCreators.signInRequest());
   try {
     const { data } = yield API.signIn(action.payload.options);
     yield put(actionCreators.signInSuccess(data));
   } catch (error) {
-    // const { response: { data: { errors } } } = error;
     yield put(actionCreators.signInError(error));
   }
 }
@@ -16,11 +25,9 @@ export function* signInSaga(action) {
 export function* signOutSaga() {
   yield put(actionCreators.signOutRequest());
   try {
-    yield API.signOut();
-
-    yield put(actionCreators.signOutSuccess());
+    const { data } = yield API.signOut();
+    yield put(actionCreators.signOutSuccess(data));
   } catch (error) {
-    const { response: { data: { errors } } } = error;
-    yield put(actionCreators.signOutError(errors));
+    yield put(actionCreators.signOutError(error));
   }
 }
