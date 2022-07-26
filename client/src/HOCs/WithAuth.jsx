@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../redux/actions/actionCreators';
 import { useNavigate } from 'react-router-dom';
 import CONSTANTS from '../constants';
+import { useLoading } from '../hooks';
 const {
   PAGES: {
     HOME: { path: homePath },
@@ -12,13 +13,15 @@ const {
 
 const WithAuth = (Component) => {
   const Hoc = () => {
-    const { isAuthorized } = useSelector(({ auth }) => auth);
-    const { showSignIn, refreshToken } = bindActionCreators(actionCreators, useDispatch());
+    const { token, isTokenUpdated } = useSelector(({ auth }) => auth);
+    const { showSignIn } = bindActionCreators(actionCreators, useDispatch());
     const navigate = useNavigate();
 
-    if (isAuthorized) {
-      return <Component />;
-    } else {
+    const loading = useLoading({ isFetching: !isTokenUpdated, spinner: false });
+    if (loading) return loading;
+
+    if (token) return <Component />;
+    else {
       useEffect(() => {
         navigate(
           window.history.state.idx > 0 ? -1 : homePath,

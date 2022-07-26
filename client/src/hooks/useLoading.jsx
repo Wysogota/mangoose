@@ -12,7 +12,7 @@ const useLoading = (options) => {
 
   if (isFetching) {
     return (
-      <Spinner animation='border' role='status'></Spinner>
+      <Spinner animation='border' role='status' />
     );
   }
 

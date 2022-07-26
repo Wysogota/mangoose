@@ -16,12 +16,9 @@ module.exports.getUser = async (req, res, next) => {
 
 module.exports.getMe = async (req, res, next) => {
   try {
-    const refreshTokenValue = req.cookies[REFRESH_TOKEN_NAME];
+    const user = await User.findOne({ where: { email: req.decodedEmail } })
 
-    if (refreshTokenValue) {
-      const refreshToken = await RefreshToken.findOne({ where: { value: refreshTokenValue } });
-      const user = await refreshToken.getUser();
-
+    if (user) {
       res
         .status(200)
         .send(getResponse('User founded.', {
@@ -33,8 +30,8 @@ module.exports.getMe = async (req, res, next) => {
         }));
     } else {
       res
-        .status(200)
-        .send(getResponse('No token provided.'));
+        .status(401)
+        .send(getResponse('User not founded.'));
     }
 
   } catch (error) {

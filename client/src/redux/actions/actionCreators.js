@@ -209,8 +209,9 @@ export const getTagListError = (data) => ({
   payload: { data },
 });
 
-export const getMe = () => ({
+export const getMe = (options) => ({
   type: ACTION_TYPES.GET_ME,
+  payload: { options },
 });
 export const getMeRequest = () => ({
   type: ACTION_TYPES.GET_ME_REQUEST,

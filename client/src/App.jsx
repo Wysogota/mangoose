@@ -29,11 +29,11 @@ const { PAGES: {
 const App = () => {
   const { theme: { bgAccentTheme, mainTheme } } = useSelector(({ themes }) => themes);
 
-  useAuthorization();
-
   useEffect(() => {
     document.body.className = cx(bgAccentTheme, mainTheme);
   }, [mainTheme]);
+
+  useAuthorization();
 
   return (
     <>
