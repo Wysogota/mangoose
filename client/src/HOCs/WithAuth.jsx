@@ -17,10 +17,6 @@ const WithAuth = (Component) => {
     const navigate = useNavigate();
 
     if (isAuthorized) {
-      useEffect(() => {
-        refreshToken();
-      }, []);
-      
       return <Component />;
     } else {
       useEffect(() => {

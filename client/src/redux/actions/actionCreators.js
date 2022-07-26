@@ -290,3 +290,7 @@ export const refreshTokenError = (error) => ({
 export const setAuthorized = () => ({
   type: ACTION_TYPES.AUTHORIZED,
 });
+
+export const setNotAuthorized = () => ({
+  type: ACTION_TYPES.NOT_AUTHORIZED,
+});

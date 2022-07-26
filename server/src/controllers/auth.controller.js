@@ -3,7 +3,7 @@ const { decode } = require('jsonwebtoken');
 const { User, RefreshToken } = require('../models');
 const { getAccessToken, getRefreshToken } = require('../jwt');
 const { destroyOverLimitTokens, getTokenCookieOptions, getResponse } = require('../functions/controllers.fn');
-const { REFRESH_TOKEN_NAME, ACCESS_TOKEN_NAME } = require('../constants');
+const { REFRESH_TOKEN_NAME } = require('../constants');
 
 module.exports.signIn = async (req, res, next) => {
   try {
@@ -23,10 +23,9 @@ module.exports.signIn = async (req, res, next) => {
       });
 
       res
-        .cookie(ACCESS_TOKEN_NAME, accessToken, getTokenCookieOptions(decode(accessToken).exp))
         .cookie(REFRESH_TOKEN_NAME, refreshToken, getTokenCookieOptions(decode(refreshToken).exp))
         .status(200)
-        .send(getResponse('Logged in.'));
+        .send(getResponse('Logged in.', { token: accessToken }));
     } else {
       next(createHttpError(401, 'Incorrect provided login data.'));
     }
@@ -43,7 +42,6 @@ module.exports.signOut = async (req, res, next) => {
     const isTokenDestroyed = await RefreshToken.destroy({ where: { value: refreshToken } });
     if (isTokenDestroyed) {
       res
-        .clearCookie(ACCESS_TOKEN_NAME, getTokenCookieOptions())
         .clearCookie(REFRESH_TOKEN_NAME, getTokenCookieOptions())
         .status(200)
         .send(getResponse('Logged out.'));
@@ -70,18 +68,21 @@ module.exports.signUp = async (req, res, next) => {
 module.exports.refresh = async (req, res, next) => {
   try {
     const refreshToken = req.cookies[REFRESH_TOKEN_NAME];
-    const email = decode(refreshToken).email;
-    const user = await User.findOne({ where: { email } });
-
-    if (await RefreshToken.isTokenExists(refreshToken)) {
+    
+    if (!refreshToken) {
+      res
+        .status(200)
+        .send(getResponse('No token provided.'));
+    } else if (await RefreshToken.isTokenExists(refreshToken)) {
+      const email = decode(refreshToken).email;
+      const user = await User.findOne({ where: { email } });
       const accessToken = await getAccessToken(user);
 
       res
-        .cookie(ACCESS_TOKEN_NAME, accessToken, getTokenCookieOptions(decode(accessToken).exp))
         .status(200)
-        .send(getResponse('Updated access token.'));
+        .send(getResponse('Updated access token.', { token: accessToken }));
     } else {
-      next(createHttpError(401, 'Incorrect provided data.'));
+      next(createHttpError(401, 'Incorrect provided token.'));
     }
 
   } catch (error) {

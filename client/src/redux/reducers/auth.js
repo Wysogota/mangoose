@@ -6,6 +6,8 @@ const initialState = {
   isTokenUpdated: false,
   isRegistered: false,
   isAuthorized: false,
+  token: null,
+
   isFetching: false,
   errors: null,
 };
@@ -34,21 +36,30 @@ const handlers = {
     draftState.message = action.payload.data.message;
   }),
   [ACTION_TYPES.SIGN_IN_SUCCESS]: produce((draftState, action) => {
+    const { message, data: { token } } = action.payload.data;
     draftState.isFetching = false;
     draftState.isAuthorized = true;
-    draftState.message = action.payload.data.message;
+    
+    draftState.message = message;
+    draftState.token = token;
+    localStorage.setItem('auth', true);
   }),
   [ACTION_TYPES.SIGN_OUT_SUCCESS]: produce((draftState, action) => {
     draftState.isFetching = false;
     draftState.isAuthorized = false;
     draftState.isRegistered = false;
     draftState.isTokenUpdated = false;
+
     draftState.message = action.payload.data.message;
+    localStorage.setItem('auth', false);
   }),
   [ACTION_TYPES.REFRESH_TOKEN_SUCCESS]: produce((draftState, action) => {
+    const { message, data } = action.payload.data;
+
     draftState.isFetching = false;
     draftState.isTokenUpdated = true;
-    draftState.message = action.payload.data.message;
+    draftState.message = message;
+    draftState.token = data?.token || null;
   }),
 
   [ACTION_TYPES.SIGN_UP_ERROR]: errorHandle,
@@ -58,6 +69,9 @@ const handlers = {
 
   [ACTION_TYPES.AUTHORIZED]: produce((draftState, action) => {
     draftState.isAuthorized = true;
+  }),
+  [ACTION_TYPES.NOT_AUTHORIZED]: produce((draftState, action) => {
+    draftState.isAuthorized = false;
   }),
 };
 
