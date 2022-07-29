@@ -122,6 +122,12 @@ $accordion-bg: transparent;
     }
 }
 
+.accordion-header {
+    &>* {
+        font-size: 1.4rem !important;
+    }
+}
+
 .accordion-item {
     border: none !important;
 }
