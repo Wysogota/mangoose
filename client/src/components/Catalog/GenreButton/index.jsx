@@ -33,14 +33,14 @@ const GenreButton = (props) => {
     styles.title,
     bgInvertedHoveredTheme,
     !clicked && linkHover && bgAccentTheme,
-    'shadow-none border-0',
+    'border-0',
   );
 
   const linkClasses = cx(
     bgInvertedHoveredTheme,
     titleHover && bgAccentTheme,
     clicked && bgAccentTheme,
-    'shadow-none border-0',
+    'border-0',
   );
 
   return (

@@ -18,7 +18,7 @@ const ToggleTab = (props, ref) => {
 
   const classes = cx(
     styles.tab,
-    'me-2 shadow-none'
+    'me-2'
   );
 
   return (

@@ -42,7 +42,7 @@ const Sort = () => {
 
   return (
     <Dropdown className='d-inline-block' autoClose='outside'>
-      <Dropdown.Toggle className='d-flex align-items-center p-1 pe-2 shadow-none' variant={outlineColor}>
+      <Dropdown.Toggle className='d-flex align-items-center p-1 pe-2' variant={outlineColor}>
         <div className='pe-4 text-start'>
           <div className={styles.header}>Sort By</div>
           <div>{capitalize(SORT_LIST[eventKey].name)}</div>
