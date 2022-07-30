@@ -42,6 +42,7 @@ export default {
     CHAPTERS: 'chapters',
     RELATED: 'related',
     COMMENTS: 'commets',
+    USER_MANGA_LISTS: 'lists',
   },
   PARAM_NAME: {
     TAB: 'tab',
@@ -92,4 +93,10 @@ export default {
     'author', 'artist',
   ],
   RELATED_FILTER: ['doujinshi', 'based_on'],
+  MANGA_LIST_NAMES: {
+    READING: 'reading',
+    PLANNING: 'planning',
+    COMPLETED: 'completed',
+    STOPPED: 'stopped',
+  }
 };
