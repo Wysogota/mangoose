@@ -5,7 +5,7 @@ import * as actionCreators from '../../../redux/actions/actionCreators';
 import { capitalize, isEmpty } from 'lodash';
 import { selectRelationship } from '../../../common/functions';
 import { useLoading } from '../../../hooks';
-import RelatedCard from '../../MangaCard';
+import MangaCard from '../../MangaCard';
 import CONSTANTS from '../../../constants';
 import CatalogButton from '../../Catalog/CatalogButton';
 const { DEFAULT_LOCALE } = CONSTANTS;
@@ -24,7 +24,7 @@ const SearchResult = () => {
         id, relationships,
         attributes: { title, description, status, tags }
       }) => (
-        <RelatedCard
+        <MangaCard
           key={id} id={id} onClick={hideSearchbar}
           image={selectRelationship(relationships, 'cover_art').attributes.url}
           title={title[DEFAULT_LOCALE]}

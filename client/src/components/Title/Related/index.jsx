@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
 import { capitalize, isEmpty } from 'lodash';
-import RelatedCard from '../../MangaCard';
+import MangaCard from '../../MangaCard';
 import { useLoading } from '../../../hooks';
 import { selectRelationship } from '../../../common/functions';
 import CONSTANTS from '../../../constants';
@@ -46,7 +46,7 @@ const Related = (props) => {
         id, related, relationships,
         attributes: { title, description, status, tags }
       }) => (
-        <RelatedCard
+        <MangaCard
           key={id} id={id}
           image={selectRelationship(relationships, 'cover_art').attributes.url}
           related={related}

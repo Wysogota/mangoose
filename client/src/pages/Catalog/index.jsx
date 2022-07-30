@@ -7,6 +7,7 @@ import { Container, Row } from 'react-bootstrap';
 import ColBlock from '../../components/Blocks/ColBlock';
 import SearchInput from '../../components/Searchbar/SearchInput';
 import Genres from '../../components/Catalog/Genres';
+import MainHeader from '../../components/Headers/MainHeader';
 import MangaCatalog from '../../components/Catalog/MangaCatalog';
 import PaginationButtons from '../../components/PaginationButtons';
 import { useLoading, usePagination } from '../../hooks';
@@ -62,7 +63,7 @@ const Catalog = () => {
     <Container>
       <Row>
         <ColBlock>
-          <h3 className='pb-3'>Catalog</h3>
+          <MainHeader>Catalog</MainHeader>
           <SearchInput limit={limit} className='mb-3' />
           <Genres />
         </ColBlock>

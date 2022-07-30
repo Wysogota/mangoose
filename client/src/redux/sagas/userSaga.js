@@ -9,6 +9,5 @@ export function* getMeSaga(action) {
     yield put(actionCreators.getMeSuccess(data));
   } catch (error) {
     yield put(actionCreators.getMeError(error));
-    return;
   }
 }
