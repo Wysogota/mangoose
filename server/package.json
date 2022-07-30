@@ -24,7 +24,7 @@
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
-    "mongoose": "^6.3.8",
+    "mongoose": "^6.5.0",
     "node-cron": "^3.0.1",
     "pg": "^8.7.3",
     "query-string": "^7.1.1",

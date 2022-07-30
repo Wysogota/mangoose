@@ -1,4 +1,5 @@
 const http = require('http');
+require('./mongoose');
 const app = require('./app');
 const server = http.createServer(app);
 require('dotenv').config();
