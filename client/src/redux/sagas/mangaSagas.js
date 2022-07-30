@@ -90,6 +90,7 @@ export function* getFirstChapterIdSaga(action) {
     yield put(actionCreators.getFirstChapterIdError({ error }));
   }
 }
+
 export function* getTagListSaga() {
   yield put(actionCreators.getTagListRequest());
   try {
@@ -97,5 +98,35 @@ export function* getTagListSaga() {
     yield put(actionCreators.getTagListSuccess(data));
   } catch (error) {
     yield put(actionCreators.getTagListError({ error }));
+  }
+}
+
+export function* getMangaListsSaga(action) {
+  yield put(actionCreators.getMangaListsRequest());
+  try {
+    const { data: { data } } = yield API.getMangaLists(action.payload.options);
+    yield put(actionCreators.getMangaListsSuccess(data));
+  } catch (error) {
+    yield put(actionCreators.getMangaListsError(error));
+  }
+}
+
+export function* saveMangaToListSaga(action) {
+  yield put(actionCreators.saveMangaToListRequest());
+  try {
+    const { data: { data } } = yield API.saveMangaToList(action.payload.options);
+    yield put(actionCreators.saveMangaToListSuccess(data));
+  } catch (error) {
+    yield put(actionCreators.saveMangaToListError(error));
+  }
+}
+
+export function* removeMangaFromListSaga(action) {
+  yield put(actionCreators.removeMangaFromListRequest());
+  try {
+    const { data: { data } } = yield API.removeMangaFromList(action.payload.options);
+    yield put(actionCreators.removeMangaFromListSuccess(data));
+  } catch (error) {
+    yield put(actionCreators.removeMangaFromListError(error));
   }
 }

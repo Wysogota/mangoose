@@ -295,3 +295,51 @@ export const setAuthorized = () => ({
 export const setNotAuthorized = () => ({
   type: ACTION_TYPES.NOT_AUTHORIZED,
 });
+
+export const getMangaLists = (options) => ({
+  type: ACTION_TYPES.GET_MANGA_LISTS,
+  payload: { options },
+});
+export const getMangaListsRequest = () => ({
+  type: ACTION_TYPES.GET_MANGA_LISTS_REQUEST,
+});
+export const getMangaListsSuccess = (data) => ({
+  type: ACTION_TYPES.GET_MANGA_LISTS_SUCCESS,
+  payload: { data },
+});
+export const getMangaListsError = (error) => ({
+  type: ACTION_TYPES.GET_MANGA_LISTS_ERROR,
+  payload: { error },
+});
+
+export const saveMangaToList = (options) => ({
+  type: ACTION_TYPES.SAVE_MANGA_TO_LIST,
+  payload: { options },
+});
+export const saveMangaToListRequest = () => ({
+  type: ACTION_TYPES.SAVE_MANGA_TO_LIST_REQUEST,
+});
+export const saveMangaToListSuccess = (data) => ({
+  type: ACTION_TYPES.SAVE_MANGA_TO_LIST_SUCCESS,
+  payload: { data },
+});
+export const saveMangaToListError = (error) => ({
+  type: ACTION_TYPES.SAVE_MANGA_TO_LIST_ERROR,
+  payload: { error },
+});
+
+export const removeMangaFromList = (options) => ({
+  type: ACTION_TYPES.REMOVE_MANGA_FROM_LIST,
+  payload: { options },
+});
+export const removeMangaFromListRequest = () => ({
+  type: ACTION_TYPES.REMOVE_MANGA_FROM_LIST_REQUEST,
+});
+export const removeMangaFromListSuccess = (data) => ({
+  type: ACTION_TYPES.REMOVE_MANGA_FROM_LIST_SUCCESS,
+  payload: { data },
+});
+export const removeMangaFromListError = (error) => ({
+  type: ACTION_TYPES.REMOVE_MANGA_FROM_LIST_ERROR,
+  payload: { error },
+});

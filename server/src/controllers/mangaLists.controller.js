@@ -6,9 +6,9 @@ module.exports.getLists = async (req, res, next) => {
     const { user } = req;
 
     const filter = { userId: user.id };
-    const projection = { _id: 0 };
+    const options = { upsert: true, new: true };
 
-    const data = await MangaLists.findOne(filter, projection);
+    const data = await MangaLists.findOneAndUpdate(filter, {}, options);
     res.status(200).send({ data });
   } catch (error) {
     next(error);

@@ -26,3 +26,7 @@ export const getNextChapterId = (options) => client.get(`/chapter/next/?${string
 export const getFirstChapterId = (options) => client.get(`/chapter/first/?${stringify(options, stringifyOptions)}`);
 
 export const getTagList = () => client.get('/manga/tag');
+
+export const getMangaLists = (options) => client.post('/mangaLists', options);
+export const saveMangaToList = (options) => client.post('/mangaLists/add', options);
+export const removeMangaFromList = (options) => client.delete('/mangaLists/remove', options);

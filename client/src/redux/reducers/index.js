@@ -15,6 +15,7 @@ import nextChapterIdReducer from './mangaApi/nextChapterId';
 import firstChapterIdReducer from './mangaApi/firstChapterId';
 import tagsReducer from './mangaApi/tags';
 import meReducer from './me';
+import mangaListsReducer from './mangaApi/mangaLists';
 
 const rootReducer = combineReducers({
   locales: localeReducer,
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   firstChapterId: firstChapterIdReducer,
   tags: tagsReducer,
   me: meReducer,
+  mangaLists: mangaListsReducer,
 });
 
 export default rootReducer;
