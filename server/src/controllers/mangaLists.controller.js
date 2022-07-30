@@ -1,11 +1,9 @@
-const { User } = require('../models');
 const MangaLists = require('../models/mongo/MangaLists');
 const { MANGA_LIST_NAMES } = require('../constants');
 
 module.exports.getLists = async (req, res, next) => {
   try {
-    const { decodedEmail } = req;
-    const user = await User.findOne({ where: { email: decodedEmail } });
+    const { user } = req;
 
     const filter = { userId: user.id };
     const projection = { _id: 0 };
@@ -19,8 +17,7 @@ module.exports.getLists = async (req, res, next) => {
 
 module.exports.addMangaToList = async (req, res, next) => {
   try {
-    const { body: { mangaId, list }, decodedEmail } = req;
-    const user = await User.findOne({ where: { email: decodedEmail } });
+    const { body: { mangaId, list }, user } = req;
 
     const filter = { userId: user.id };
     const options = { upsert: true, new: true };
@@ -42,8 +39,7 @@ module.exports.addMangaToList = async (req, res, next) => {
 
 module.exports.removeMangaFromList = async (req, res, next) => {
   try {
-    const { body: { mangaId, list }, decodedEmail } = req;
-    const user = await User.findOne({ where: { email: decodedEmail } });
+    const { body: { mangaId, list }, user } = req;
 
     const filter = { userId: user.id };
     const options = { new: true };

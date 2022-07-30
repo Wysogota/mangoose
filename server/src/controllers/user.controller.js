@@ -1,6 +1,5 @@
-const { User, RefreshToken } = require('../models');
+const { User } = require('../models');
 const { getResponse } = require('../functions/controllers.fn');
-const { REFRESH_TOKEN_NAME } = require('../constants');
 
 module.exports.getUser = async (req, res, next) => {
   try {
@@ -16,8 +15,7 @@ module.exports.getUser = async (req, res, next) => {
 
 module.exports.getMe = async (req, res, next) => {
   try {
-    const user = await User.findOne({ where: { email: req.decodedEmail } })
-
+    const { user } = req;
     if (user) {
       res
         .status(200)

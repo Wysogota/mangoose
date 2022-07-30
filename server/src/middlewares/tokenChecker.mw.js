@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const createHttpError = require('http-errors');
+const { User } = require('../models');
 
 module.exports = (req, res, next) => {
   const accessToken = req.body.token;
@@ -7,9 +8,9 @@ module.exports = (req, res, next) => {
   if (accessToken) {
     const { ACCESS_TOKEN_SECRET } = process.env;
 
-    jwt.verify(accessToken, ACCESS_TOKEN_SECRET, (err, decoded) => {
+    jwt.verify(accessToken, ACCESS_TOKEN_SECRET, async (err, decoded) => {
       if (err) next(createHttpError(401, 'Unauthorized access.'));
-      req.decodedEmail = decoded.email;
+      req.user = await User.findOne({ where: { email: decoded.email } });
       next();
     });
   } else {
