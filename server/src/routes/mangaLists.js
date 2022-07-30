@@ -4,6 +4,8 @@ const tokenChecker = require('../middlewares/tokenChecker.mw');
 
 const router = Router();
 
-router.post('/', tokenChecker, Controller.addMangaToList);
+router.get('/', tokenChecker, Controller.getLists);
+router.post('/add', tokenChecker, Controller.addMangaToList);
+router.delete('/remove', tokenChecker, Controller.removeMangaFromList);
 
 module.exports = router;
