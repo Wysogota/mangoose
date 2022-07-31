@@ -57,7 +57,7 @@ const ProfileLists = () => {
           <Accordion.Item eventKey={listName}>
             <Accordion.Header>{capitalize(listName)}</Accordion.Header>
             <Accordion.Body>
-              <ProfileCards list={filteredManga(listName)} listName={listName}/>
+              <ProfileCards list={filteredManga(listName)} listName={listName} />
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import cx from 'classnames';
 import StartReadingButton from './StartReadingButton';
 import styles from './ReadingButtonsBlock.module.scss';
+import SaveToList from './SaveToList';
 
 
 const ReadingButtonsBlock = (props) => {
@@ -18,6 +19,7 @@ const ReadingButtonsBlock = (props) => {
   return (
     <div className={containerClasses}>
       <StartReadingButton />
+      <SaveToList />
     </div>
   );
 };
