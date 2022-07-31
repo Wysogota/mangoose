@@ -343,3 +343,19 @@ export const removeMangaFromListError = (error) => ({
   type: ACTION_TYPES.REMOVE_MANGA_FROM_LIST_ERROR,
   payload: { error },
 });
+
+export const getList = (options) => ({
+  type: ACTION_TYPES.GET_LIST,
+  payload: { options },
+});
+export const getListRequest = () => ({
+  type: ACTION_TYPES.GET_LIST_REQUEST,
+});
+export const getListSuccess = (data) => ({
+  type: ACTION_TYPES.GET_LIST_SUCCESS,
+  payload: { data },
+});
+export const getListError = (error) => ({
+  type: ACTION_TYPES.GET_LIST_ERROR,
+  payload: { error },
+});

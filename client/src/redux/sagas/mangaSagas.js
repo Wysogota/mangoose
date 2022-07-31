@@ -130,3 +130,13 @@ export function* removeMangaFromListSaga(action) {
     yield put(actionCreators.removeMangaFromListError(error));
   }
 }
+
+export function* getListSaga(action) {
+  yield put(actionCreators.getListRequest());
+  try {
+    const { data: { data } } = yield API.getList(action.payload.options);
+    yield put(actionCreators.getListSuccess(data));
+  } catch (error) {
+    yield put(actionCreators.getListError(error));
+  }
+}
