@@ -9,9 +9,12 @@ module.exports = (req, res, next) => {
     const { ACCESS_TOKEN_SECRET } = process.env;
 
     jwt.verify(accessToken, ACCESS_TOKEN_SECRET, async (err, decoded) => {
-      if (err) next(createHttpError(401, 'Unauthorized access.'));
-      req.user = await User.findOne({ where: { email: decoded.email } });
-      next();
+      try {
+        req.user = await User.findOne({ where: { email: decoded.email } });
+        next();
+      } catch (error) {
+        next(createHttpError(401, 'Unauthorized access.'));
+      }
     });
   } else {
     next(createHttpError(403, 'No token provided.'));
