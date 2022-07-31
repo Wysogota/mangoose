@@ -9,13 +9,14 @@ import CONSTANTS from '../../constants';
 const { PAGES: { TITLE: { path } } } = CONSTANTS;
 
 const MangaCard = (props) => {
-  const { id, image, related, title, description, status, tags, onClick } = props;
+  const { id, image, related, title, description, status, tags, onClick, className } = props;
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
 
   const cardClasses = cx(
     styles.card,
     styles[`card-${mainColor}`],
-    'flex-row rounded mb-3'
+    className,
+    'flex-row rounded mb-3',
   );
   const imageClasses = cx(
     styles.image,
