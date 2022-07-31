@@ -1,5 +1,5 @@
 import React from 'react';
-import MangaCard from '../MangaCard';
+import CatalogCard from '../CatalogCard';
 import CONSTANTS from '../../../constants';
 
 const MangaCatalog = (props) => {
@@ -18,7 +18,7 @@ const MangaCatalog = (props) => {
         } = manga;
         const coverUrl = relationships.filter((item) => item.type === 'cover_art')[0].attributes.url;
         return (
-          <MangaCard
+          <CatalogCard
             key={id} title={title}
             desc={desc}
             image={coverUrl}

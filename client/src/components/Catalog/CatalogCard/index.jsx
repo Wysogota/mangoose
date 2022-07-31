@@ -4,9 +4,9 @@ import { Accordion, Card, Carousel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
 import ColBlock from '../../Blocks/ColBlock';
-import styles from './MangaCard.module.scss';
+import styles from './CatalogCard.module.scss';
 
-const MangaCard = (props) => {
+const CatalogCard = (props) => {
   const { title, desc, image, to, className } = props;
   const { theme: { mainColor, invertedColor, mainTheme, hoveredTheme } } = useSelector(({ themes }) => themes);
 
@@ -54,4 +54,4 @@ const MangaCard = (props) => {
   );
 };
 
-export default MangaCard;
+export default CatalogCard;
