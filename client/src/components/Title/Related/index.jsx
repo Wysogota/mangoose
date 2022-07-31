@@ -5,9 +5,8 @@ import * as actionCreators from '../../../redux/actions/actionCreators';
 import { capitalize, isEmpty } from 'lodash';
 import MangaCard from '../../MangaCard';
 import { useLoading } from '../../../hooks';
-import { selectRelationship } from '../../../common/functions';
 import CONSTANTS from '../../../constants';
-const { RELATED_FILTER, DEFAULT_LOCALE } = CONSTANTS;
+const { RELATED_FILTER } = CONSTANTS;
 
 const Related = (props) => {
   const filteredRelationshops = props.relationships.filter(
@@ -42,19 +41,8 @@ const Related = (props) => {
 
   return (
     <div>{
-      relatedManga.map(({
-        id, related, relationships,
-        attributes: { title, description, status, tags }
-      }) => (
-        <MangaCard
-          key={id} id={id}
-          image={selectRelationship(relationships, 'cover_art').attributes.url}
-          related={related}
-          title={title[DEFAULT_LOCALE]}
-          description={description[DEFAULT_LOCALE]}
-          status={capitalize(status)}
-          tags={tags}
-        />
+      relatedManga.map((manga) => (
+        <MangaCard key={manga.id} id={manga.id} manga={manga} />
       ))
     }</div>
   );

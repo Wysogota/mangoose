@@ -1,12 +1,8 @@
 import React from 'react';
-import { capitalize } from 'lodash';
+import { useSelector } from 'react-redux';
 import MangaCard from '../../components/MangaCard';
-import { selectRelationship } from '../../common/functions';
 import { useLoading } from '../../hooks';
 import styles from './Profile.module.scss';
-import CONSTANTS from '../../constants';
-import { useSelector } from 'react-redux';
-const { DEFAULT_LOCALE } = CONSTANTS;
 
 const ProfileCards = (props) => {
   const { list, listName } = props;
@@ -16,18 +12,11 @@ const ProfileCards = (props) => {
   if (emptyList) return emptyList;
 
   return (
-    list.map(({
-      id, relationships,
-      attributes: { title, description, status, tags }
-    }) => (
+    list.map((manga) => (
       <MangaCard
-        id={id} key={id}
+        id={manga.id} key={manga.id}
         className={styles[`card-${mainColor}`]}
-        image={selectRelationship(relationships, 'cover_art').attributes.url}
-        title={title[DEFAULT_LOCALE]}
-        description={description[DEFAULT_LOCALE]}
-        status={capitalize(status)}
-        tags={tags}
+        manga={manga}
       />
     ))
   );

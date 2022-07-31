@@ -6,11 +6,19 @@ import TagButtons from '../Title/TagButtons';
 import styles from './MangaCard.module.scss';
 import { Link } from 'react-router-dom';
 import CONSTANTS from '../../constants';
-const { PAGES: { TITLE: { path } } } = CONSTANTS;
+import { selectRelationship } from '../../common/functions';
+import { capitalize } from 'lodash';
+const { DEFAULT_LOCALE, PAGES: { TITLE: { path } } } = CONSTANTS;
 
 const MangaCard = (props) => {
-  const { id, image, related, title, description, status, tags, onClick, className } = props;
+  const { manga, onClick, className } = props;
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
+
+  const {
+    id, relationships, related,
+    attributes: { title, description, status, tags }
+  } = manga;
+  const image = selectRelationship(relationships, 'cover_art').attributes.url;
 
   const cardClasses = cx(
     styles.card,
@@ -39,11 +47,13 @@ const MangaCard = (props) => {
       <Col xs='8' md='9' xl='10'>
         <Card.Body>
           <div className='d-flex justify-content-between'>
-            <Card.Title className={titleClasses}><Link to={`${path}/${id}`}>{title}</Link></Card.Title>
-            <div className={statusClasses}>{status}</div>
+            <Card.Title className={titleClasses}>
+              <Link to={`${path}/${id}`}>{title[DEFAULT_LOCALE]}</Link>
+            </Card.Title>
+            <div className={statusClasses}>{capitalize(status)}</div>
           </div>
           {related && <Card.Subtitle className='pb-2'>{related}</Card.Subtitle>}
-          <Card.Text className={styles.description}>{description}</Card.Text>
+          <Card.Text className={styles.description}>{description[DEFAULT_LOCALE]}</Card.Text>
           <TagButtons tags={tags} tagClassName={styles[`tag-${mainColor}`]} shouldOverflow />
         </Card.Body>
       </Col>
