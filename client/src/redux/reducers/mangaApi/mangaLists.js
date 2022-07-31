@@ -31,7 +31,7 @@ const handlers = {
 
   [ACTION_TYPES.GET_LIST_SUCCESS]: produce((draftState, action) => {
     draftState.isFetching = false;
-    draftState.list = action.payload.data.list;
+    draftState.list = action.payload.data?.list || '';
   }),
   [ACTION_TYPES.GET_MANGA_LISTS_SUCCESS]: successHandle,
   [ACTION_TYPES.SAVE_MANGA_TO_LIST_SUCCESS]: successHandle,
