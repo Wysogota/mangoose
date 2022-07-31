@@ -19,7 +19,7 @@ const StartReadingButton = () => {
 
   const startReadingClasses = cx(
     'd-block w-100 pt-2 pb-2 text-uppercase',
-    styles.start_reading,
+    styles.font_weight,
   );
 
   return (
