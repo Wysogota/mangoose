@@ -11,6 +11,7 @@ import SignIn from './components/SignIn';
 import Profile from './pages/Profile';
 import Title from './pages/Title';
 import ChapterReader from './pages/ChapterReader';
+import PageNotFound from './pages/PageNotFound';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -46,6 +47,7 @@ const App = () => {
           <Route path={catalogPath} element={<Catalog />} />
           <Route path={`${titlePath}/:mangaId`} element={<Title />} />
           <Route path={`${chapterPath}/:chapterId`} element={<ChapterReader />} />
+          <Route path='*' element={<PageNotFound />} />
         </Routes>
       </div>
       <Footer />

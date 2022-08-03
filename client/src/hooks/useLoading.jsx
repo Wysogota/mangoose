@@ -18,7 +18,7 @@ const useLoading = (options) => {
 
   if (title && isEmpty(data)) {
     return (
-      <MinorHeader className='text-center mt-5 mb-5'>{title}</MinorHeader>
+      <MinorHeader className='text-center mt-5 mb-5 fs-3'>{title}</MinorHeader>
     );
   }
 };

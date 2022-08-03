@@ -37,7 +37,7 @@ const Title = () => {
 
   const isAdaptiveView = useAdaptiveView(lg);
 
-  const loading = useLoading({ data: manga, title: 'Fail to load', isFetching });
+  const loading = useLoading({ data: manga, title: 'Manga Not Found', isFetching });
   if (loading) return loading;
 
   const {
