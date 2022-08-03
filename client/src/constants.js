@@ -36,6 +36,10 @@ export default {
       name: 'Reader',
       path: '/chapter',
     },
+    PROFILE: {
+      name: 'Profile',
+      path: '/profile',
+    },
   },
   TITLE_TABS: {
     INFO: 'info',

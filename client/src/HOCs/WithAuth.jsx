@@ -34,7 +34,7 @@ const WithAuth = (Component) => {
     }
   };
 
-  return <Hoc />;
+  return Hoc;
 };
 
 export default WithAuth;

@@ -9,11 +9,7 @@ import InfoPanel from '../../components/ChapterReader/InfoPanel';
 import Reader from '../../components/ChapterReader/Reader';
 import { getPageTitle, selectRelationship } from '../../common/functions';
 import CONSTANTS from '../../constants';
-const {
-  PARAM_NAME: { PAGE },
-  PAGES: { CHAPTER_READER: { name } },
-  DEFAULT_LOCALE,
-} = CONSTANTS;
+const { PARAM_NAME: { PAGE }, DEFAULT_LOCALE } = CONSTANTS;
 
 const ChapterReader = () => {
   const { chapterId } = useParams();
@@ -28,9 +24,7 @@ const ChapterReader = () => {
   const [currentPage, setCurrentPage] = useState(Number.parseInt(searchParams.get(PAGE)) - 1 || 0);
 
   useEffect(() => {
-    if (isEmpty(chapter))
-      document.title = getPageTitle(name);
-    else {
+    if (!isEmpty(chapter)) {
       const mangaTitle = selectRelationship(chapter.relationships, 'manga').attributes.title[DEFAULT_LOCALE];
       const chapterTitle = chapter.attributes.title;
       document.title = getPageTitle(`${chapterTitle} - ${mangaTitle}`);

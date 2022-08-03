@@ -7,10 +7,9 @@ import cx from 'classnames';
 import { Col, Container, Row, Button } from 'react-bootstrap';
 import { Formik, Form } from 'formik';
 import Input from '../../components/Input';
-import { getPageTitle } from '../../common/functions';
 import { SIGN_UP_SCHEMA } from '../../utils/validationSchemas';
 import CONSTANTS from '../../constants';
-const { PAGES: { SIGN_UP: { name }, HOME: { path: homePath } } } = CONSTANTS;
+const { PAGES: { HOME: { path: homePath } } } = CONSTANTS;
 
 const initialValues = {
   username: '',
@@ -21,15 +20,11 @@ const initialValues = {
 
 const SignUp = () => {
   const { theme: { mainTheme, bgTheme, invertedColor } } = useSelector(({ themes }) => themes);
-  const { isRegistered, message } = useSelector(({ auth }) => auth);
+  const { isRegistered } = useSelector(({ auth }) => auth);
   const { signUp } = bindActionCreators(actionCreators, useDispatch());
   const navigate = useNavigate();
 
-  useEffect(() => { document.title = getPageTitle(name); }, []);
-
-  const onSubmit = (values, formikBag) => {
-    signUp(values);
-  };
+  const onSubmit = (values, formikBag) => signUp(values);
 
   useEffect(() => isRegistered && navigate(homePath), [isRegistered]);
 

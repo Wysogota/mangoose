@@ -19,13 +19,25 @@ import { useAuthorization } from './hooks';
 import WithAuth from './HOCs/WithAuth';
 import CONSTANTS from './constants';
 import Notifications from './components/Notifications';
+import WithRouteEnter from './HOCs/WithRouteEnter';
 const { PAGES: {
-  HOME: { path: homePath },
-  SIGN_UP: { path: signupPath },
-  CATALOG: { path: catalogPath },
-  TITLE: { path: titlePath },
-  CHAPTER_READER: { path: chapterPath },
+  HOME: { path: homePath, name: homeName },
+  SIGN_UP: { path: signupPath, name: signupName },
+  CATALOG: { path: catalogPath, name: catalogName },
+  TITLE: { path: titlePath, name: titleName },
+  CHAPTER_READER: { path: chapterPath, name: chapterName },
+  PROFILE: { path: profilePath, name: profileName },
 } } = CONSTANTS;
+
+const getOptions = (name) => ({ name });
+
+const HomeRoute = WithRouteEnter(Home, getOptions(homeName));
+const SignUpRoute = WithRouteEnter(SignUp, getOptions(signupName));
+const ProfileRoute = WithRouteEnter(WithAuth(Profile), getOptions(profileName));
+const CatalogRoute = WithRouteEnter(Catalog, getOptions(catalogName));
+const TitleRoute = WithRouteEnter(Title, getOptions(titleName));
+const ChapterReaderRoute = WithRouteEnter(ChapterReader, getOptions(chapterName));
+const PageNotFoundRoute = WithRouteEnter(PageNotFound, getOptions(profileName));
 
 const App = () => {
   const { theme: { bgAccentTheme, mainTheme } } = useSelector(({ themes }) => themes);
@@ -41,13 +53,13 @@ const App = () => {
       <Header />
       <div id='content'>
         <Routes>
-          <Route path={homePath} element={<Home />} />
-          <Route path={signupPath} element={<SignUp />} />
-          <Route path='/profile' element={WithAuth(Profile)} />
-          <Route path={catalogPath} element={<Catalog />} />
-          <Route path={`${titlePath}/:mangaId`} element={<Title />} />
-          <Route path={`${chapterPath}/:chapterId`} element={<ChapterReader />} />
-          <Route path='*' element={<PageNotFound />} />
+          <Route path={homePath} element={<HomeRoute />} />
+          <Route path={signupPath} element={<SignUpRoute />} />
+          <Route path={profilePath} element={<ProfileRoute />} />
+          <Route path={catalogPath} element={<CatalogRoute />} />
+          <Route path={`${titlePath}/:mangaId`} element={<TitleRoute />} />
+          <Route path={`${chapterPath}/:chapterId`} element={<ChapterReaderRoute />} />
+          <Route path='*' element={<PageNotFoundRoute />} />
         </Routes>
       </div>
       <Footer />

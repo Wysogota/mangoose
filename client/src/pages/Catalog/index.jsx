@@ -11,11 +11,9 @@ import MainHeader from '../../components/Headers/MainHeader';
 import MangaCatalog from '../../components/Catalog/MangaCatalog';
 import PaginationButtons from '../../components/PaginationButtons';
 import { useLoading, usePagination } from '../../hooks';
-import { getPageTitle } from '../../common/functions';
 import CONSTANTS from '../../constants';
 const {
   PARAM_NAME: { PAGE, FILTER: { TITLE, TAGS, SORT, AUTHOR, ARTIST } },
-  PAGES: { CATALOG: { name } },
 } = CONSTANTS;
 
 const limit = 32;
@@ -26,7 +24,6 @@ const Catalog = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    document.title = getPageTitle(name);
     const titleParamValue = searchParams.get(TITLE);
     if (!inputValue && titleParamValue) setSearchValue(titleParamValue);
     return () => clearMangaSearch();
