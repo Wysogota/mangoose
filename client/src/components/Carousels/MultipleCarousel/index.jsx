@@ -1,12 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
-import { Carousel as bsCarousel } from 'react-bootstrap';
+import { Accordion, Carousel as bsCarousel } from 'react-bootstrap';
 import ItemsCarousel from 'react-items-carousel';
 import cx from 'classnames';
 import HeaderLink from '../../HeaderLink';
-import MinimizeButton from '../MinimizeButton';
 import ColBlock from '../../Blocks/ColBlock';
 import CarouselHeader from '../CarouselHeader';
 import styles from './MultipleCarousel.module.scss';
@@ -55,15 +54,12 @@ const MultipleCarousel = (props) => {
 
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const [displayCount, setDisplayCount] = useState();
-  const carouselRef = useRef(null);
 
   useEffect(() => {
     const getDisplayCount = () => {
-      if (window.innerWidth >= breakpoints.md) {
-        window.innerWidth >= breakpoints.xl ? setDisplayCount(5) : setDisplayCount(4);
-      } else {
-        setDisplayCount(3);
-      }
+      (window.innerWidth >= breakpoints.md)
+        ? (window.innerWidth >= breakpoints.xl) ? setDisplayCount(5) : setDisplayCount(4)
+        : setDisplayCount(3);
     };
 
     getDisplayCount();
@@ -75,7 +71,6 @@ const MultipleCarousel = (props) => {
     styles.container,
     'carousel-' + invertedColor
   );
-  const carouselContainerClasses = cx(!isOpen && 'hide');
   const imageClasses = cx(
     styles.image,
     'rounded',
@@ -86,30 +81,33 @@ const MultipleCarousel = (props) => {
 
   return (
     <ColBlock>
-      <HeaderLink to={to} title={title} >
-        <MinimizeButton isOpen={isOpen} toggleCarousel={toggleCarousel} carouselRef={carouselRef} />
-      </HeaderLink>
-      <div data-carousel={`carousel-${stateName}`} ref={carouselRef} className={carouselContainerClasses}>
-        <ItemsCarousel
-          requestToChangeActive={setActiveItemIndex}
-          activeItemIndex={activeItemIndex}
-          numberOfCards={displayCount}
-          gutter={10}
-          leftChevron={leftChevron}
-          rightChevron={rightChevron}
-          infiniteLoop={true}
-        >
-          {items.map(({ src, alt, to, title }) =>
-            <div key={title} className={containerClasses}>
-              <img className={imageClasses} src={src} alt={alt} />
-              <bsCarousel.Caption>
-                <CarouselHeader to={to} className={styles.header}>{title}</CarouselHeader>
-              </bsCarousel.Caption>
-            </div>
-          )}
-        </ItemsCarousel>
-      </div>
-
+      <Accordion defaultActiveKey={Number(isOpen)}>
+        <Accordion.Item eventKey={1}>
+          <Accordion.Header onClick={toggleCarousel}>
+            <HeaderLink to={to} title={title} />
+          </Accordion.Header>
+          <Accordion.Body className='p-0'>
+            <ItemsCarousel
+              requestToChangeActive={setActiveItemIndex}
+              activeItemIndex={activeItemIndex}
+              numberOfCards={displayCount}
+              gutter={10}
+              leftChevron={leftChevron}
+              rightChevron={rightChevron}
+              infiniteLoop={true}
+            >
+              {items.map(({ src, alt, to, title }) =>
+                <div key={title} className={containerClasses}>
+                  <img className={imageClasses} src={src} alt={alt} />
+                  <bsCarousel.Caption>
+                    <CarouselHeader to={to} className={styles.header}>{title}</CarouselHeader>
+                  </bsCarousel.Caption>
+                </div>
+              )}
+            </ItemsCarousel>
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
     </ColBlock>
   );
 };
