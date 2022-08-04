@@ -58,7 +58,7 @@ const Home = () => {
             </ColBlock>
           </Row>
         </Col>
-        <HomeMangaCatalog extendedCatalog={extendedCatalog} />
+        <HomeMangaCatalog extendedCatalog={extendedCatalog} shrinked />
       </Row>
     </Container>
   );

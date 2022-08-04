@@ -18,7 +18,8 @@ const {
 
 const limit = 12;
 
-const HomeMangaCatalog = ({ extendedCatalog }) => {
+const HomeMangaCatalog = (props) => {
+  const { extendedCatalog, shrinked } = props;
   const { mangaCatalog, isFetching } = useSelector(({ mangaCatalog }) => mangaCatalog);
   const { getMangaCatalog } = bindActionCreators(actionCreators, useDispatch());
   const [searchParams] = useSearchParams();
@@ -32,7 +33,7 @@ const HomeMangaCatalog = ({ extendedCatalog }) => {
   };
   useEffect(() => getMangaCatalog(queryParams), [searchParams]);
 
-  const catalogClasses = extendedCatalog
+  const catalogClasses = shrinked
     ? 'col-10 col-sm-7 col-md-6 col-lg-4 col-xl-3'
     : 'col-12 col-md-4';
 
