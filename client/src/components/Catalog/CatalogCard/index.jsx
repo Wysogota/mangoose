@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import cx from 'classnames';
 import ColBlock from '../../Blocks/ColBlock';
 import styles from './CatalogCard.module.scss';
+import CONSTANTS from '../../../constants';
+const { PAGES: { TITLE: { path } } } = CONSTANTS;
 
 const CatalogCard = (props) => {
   const { title, desc, image, to, className } = props;
@@ -14,12 +16,12 @@ const CatalogCard = (props) => {
     className,
     'm-auto',
   );
-
   const cardClasses = cx(
     styles.card,
     'rounded',
   );
   const linkClasses = cx(
+    styles.header,
     mainTheme,
     hoveredTheme,
     'fs-5',
@@ -40,7 +42,7 @@ const CatalogCard = (props) => {
             <Accordion className={'accordion-' + invertedColor}>
               <Accordion.Item eventKey='1'>
                 <Accordion.Header className='fs-3 d-flex justify-content-between' >
-                  <Link to={`/title/${to}`} className={linkClasses}>{title}</Link>
+                  <Link to={`${path}/${to}`} className={linkClasses}>{title}</Link>
                 </Accordion.Header>
                 <Accordion.Body className={bodyClasses}>
                   {desc}

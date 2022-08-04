@@ -13,7 +13,7 @@ const CarouselHeader = (props) => {
     className,
   );
   return (
-    <Link to={to}><h3 className={classes}>{children}</h3></Link>
+    <h3 className={classes}><Link to={to}>{children}</Link></h3>
   );
 };
 

@@ -1,4 +1,11 @@
+@import '../../../common/styles/functions';
+
 .header {
+  $line-height: 19px;
+
   font-size: 1.25rem;
   padding-bottom: 1.25rem;
+  line-height: $line-height;
+
+  @include multiline-overflow(2, $line-height);
 }

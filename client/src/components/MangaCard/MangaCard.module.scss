@@ -51,8 +51,9 @@ $card-height: 220px;
 }
 
 .description {
-  height: 72px;
-  @include multiline-overflow(3);
+  $line-height: 24px;
+  line-height: $line-height;
+  @include multiline-overflow(3, $line-height);
 }
 
 .tag-light {
