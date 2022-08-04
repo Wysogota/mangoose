@@ -10,13 +10,15 @@ import ColBlock from '../../components/Blocks/ColBlock';
 import Advertisement from '../../components/Advertisement';
 import HomeMangaCatalog from './HomeMangaCatalog';
 
+const checkEveryCorousel = (isCarouselOpen) => Object.values(isCarouselOpen).every((carousel) => carousel);
+
 const Home = () => {
   const isCarouselOpen = useSelector(({ carousels }) => carousels);
 
-  const [extendedCatalog, setExtendedCatalog] = useState(Object.values(isCarouselOpen).every((carousel) => carousel === true));
+  const [extendedCatalog, setExtendedCatalog] = useState(checkEveryCorousel(isCarouselOpen));
 
   useEffect(() => {
-    setExtendedCatalog(Object.values(isCarouselOpen).every((carousel) => carousel === true));
+    setExtendedCatalog(checkEveryCorousel(isCarouselOpen));
   }, [isCarouselOpen]);
 
   const NewChapters = () => (
@@ -44,7 +46,7 @@ const Home = () => {
               <NewsList />
             </ColBlock>
           </Row>
-          {!extendedCatalog && <HomeMangaCatalog />}
+          <HomeMangaCatalog extendedCatalog={!extendedCatalog} />
         </Col>
         <Col lg='3' className='d-none d-lg-block'>
           <Row><SingleCarousel /></Row>
@@ -56,7 +58,7 @@ const Home = () => {
             </ColBlock>
           </Row>
         </Col>
-        {extendedCatalog && <HomeMangaCatalog extendedCatalog />}
+        <HomeMangaCatalog extendedCatalog={extendedCatalog} />
       </Row>
     </Container>
   );

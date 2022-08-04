@@ -39,7 +39,7 @@ const HomeMangaCatalog = ({ extendedCatalog }) => {
   const loading = useLoading({ data: mangaCatalog, title: 'Catalog Empty', isFetching });
 
   return (
-    <Col>
+    <Col className={extendedCatalog ? 'd-block' : 'd-none'}>
       <Row>
         <ColBlock className='col-12'>
           <HeaderLink to={path} title='Catalog' />
