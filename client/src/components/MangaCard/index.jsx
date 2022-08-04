@@ -16,7 +16,11 @@ const MangaCard = (props) => {
 
   const {
     id, relationships, related,
-    attributes: { title, description, status, tags }
+    attributes: {
+      title: { [DEFAULT_LOCALE]: title },
+      description: { [DEFAULT_LOCALE]: desc },
+      status, tags,
+    }
   } = manga;
   const image = selectRelationship(relationships, 'cover_art').attributes.url;
 
@@ -48,16 +52,15 @@ const MangaCard = (props) => {
         <Card.Body>
           <div className='d-flex justify-content-between'>
             <Card.Title className={titleClasses}>
-              <Link to={`${path}/${id}`}>{title[DEFAULT_LOCALE]}</Link>
+              <Link to={`${path}/${id}`}>{title}</Link>
             </Card.Title>
             <div className={statusClasses}>{capitalize(status)}</div>
           </div>
           {related && <Card.Subtitle className='pb-2'>{related}</Card.Subtitle>}
-          <Card.Text className={styles.description}>{description[DEFAULT_LOCALE]}</Card.Text>
+          <Card.Text className={styles.description}>{desc}</Card.Text>
           <TagButtons tags={tags} tagClassName={styles[`tag-${mainColor}`]} shouldOverflow />
         </Card.Body>
       </Col>
-
     </Card>
   );
 };

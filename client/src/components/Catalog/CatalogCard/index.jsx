@@ -4,13 +4,25 @@ import { Accordion, Card, Carousel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
 import ColBlock from '../../Blocks/ColBlock';
+import { selectRelationship } from '../../../common/functions';
 import styles from './CatalogCard.module.scss';
 import CONSTANTS from '../../../constants';
 const { PAGES: { TITLE: { path } } } = CONSTANTS;
 
 const CatalogCard = (props) => {
-  const { title, desc, image, to, className } = props;
+  const { manga, className } = props;
   const { theme: { mainColor, invertedColor, mainTheme, hoveredTheme } } = useSelector(({ themes }) => themes);
+
+  const {
+    id,
+    attributes: {
+      title: { [CONSTANTS.DEFAULT_LOCALE]: title }, //TODO если пусто тогда искать первое что не пусто
+      description: { [CONSTANTS.DEFAULT_LOCALE]: desc }
+    },
+    relationships,
+  } = manga;
+  const image = selectRelationship(relationships, 'cover_art').attributes.url;
+
 
   const colBlockClasses = cx(
     className,
@@ -42,7 +54,7 @@ const CatalogCard = (props) => {
             <Accordion className={'accordion-' + invertedColor}>
               <Accordion.Item eventKey='1'>
                 <Accordion.Header className='fs-3 d-flex justify-content-between' >
-                  <Link to={`${path}/${to}`} className={linkClasses}>{title}</Link>
+                  <Link to={`${path}/${id}`} className={linkClasses}>{title}</Link>
                 </Accordion.Header>
                 <Accordion.Body className={bodyClasses}>
                   {desc}
