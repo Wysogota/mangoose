@@ -6,6 +6,8 @@ import { isEmpty } from 'lodash';
 import { useLoading } from '../../../hooks';
 import MangaCard from '../../MangaCard';
 import CatalogButton from '../../Catalog/CatalogButton';
+import CONSTANTS from '../../../constants';
+const { MANGA_COVER_SIZES: { SMALL } } = CONSTANTS;
 
 const SearchResult = () => {
   const { theme: { bgAccentTheme } } = useSelector(({ themes }) => themes);
@@ -19,9 +21,10 @@ const SearchResult = () => {
     <div>
       {mangaSearch.map((manga) => (
         <MangaCard
-          key={manga.id} id={manga.id}
-          onClick={hideSearchbar}
+          key={manga.id}
           manga={manga}
+          imageSize={SMALL}
+          onClick={hideSearchbar}
         />
       ))}
       {!isEmpty(mangaSearch) &&

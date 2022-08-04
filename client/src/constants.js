@@ -102,5 +102,10 @@ export default {
     PLANNING: 'planning',
     COMPLETED: 'completed',
     STOPPED: 'stopped',
+  },
+  MANGA_COVER_SIZES: {
+    RAW: 'raw',
+    SMALL: '256',
+    MEDIUM: '512',
   }
 };

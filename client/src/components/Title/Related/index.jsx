@@ -6,7 +6,7 @@ import { capitalize, isEmpty } from 'lodash';
 import MangaCard from '../../MangaCard';
 import { useLoading } from '../../../hooks';
 import CONSTANTS from '../../../constants';
-const { RELATED_FILTER } = CONSTANTS;
+const { RELATED_FILTER, MANGA_COVER_SIZES: { SMALL } } = CONSTANTS;
 
 const Related = (props) => {
   const filteredRelationshops = props.relationships.filter(
@@ -42,7 +42,7 @@ const Related = (props) => {
   return (
     <div>{
       relatedManga.map((manga) => (
-        <MangaCard key={manga.id} id={manga.id} manga={manga} />
+        <MangaCard key={manga.id} manga={manga} imageSize={SMALL}/>
       ))
     }</div>
   );

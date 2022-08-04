@@ -20,6 +20,7 @@ const {
   breakpoints: { lg },
   DEFAULT_LOCALE,
   PAGES: { TITLE: { name } },
+  MANGA_COVER_SIZES: { RAW }
 } = CONSTANTS;
 
 const Title = () => {
@@ -57,7 +58,7 @@ const Title = () => {
   ];
 
   const { cover_art, author, artist } = selectRelationship(relationships, ['cover_art', 'author', 'artist']);
-  const coverUrl = get(cover_art, 'attributes.url');
+  const coverUrl = get(cover_art, 'attributes.urls')[RAW];
   const authorName = get(author, 'attributes.name');
   const atristName = get(artist, 'attributes.name');
 

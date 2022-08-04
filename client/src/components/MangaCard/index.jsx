@@ -11,7 +11,7 @@ import { capitalize } from 'lodash';
 const { DEFAULT_LOCALE, PAGES: { TITLE: { path } } } = CONSTANTS;
 
 const MangaCard = (props) => {
-  const { manga, onClick, className } = props;
+  const { manga, imageSize = 'raw', onClick, className } = props;
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
 
   const {
@@ -22,7 +22,7 @@ const MangaCard = (props) => {
       status, tags,
     }
   } = manga;
-  const image = selectRelationship(relationships, 'cover_art').attributes.url;
+  const image = selectRelationship(relationships, 'cover_art').attributes.urls[imageSize];
 
   const cardClasses = cx(
     styles.card,

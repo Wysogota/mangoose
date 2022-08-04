@@ -3,12 +3,17 @@ module.exports = class Cover {
     this.id = obj.id;
     this.mangaId = obj.relationships.filter((item) => item.type === 'manga')[0].id;
     this.volume = obj.attributes.volume;
-    this.url = this.getCoverUrl(obj);
+    this.getCoverUrl(obj);
   }
 
   getCoverUrl = (obj) => {
     const coverName = obj.attributes.fileName;
-    return `https://uploads.mangadex.org/covers/${this.mangaId}/${coverName}`;
+    const coverUrl = `https://uploads.mangadex.org/covers/${this.mangaId}/${coverName}`;
+    this.urls = {
+      raw: coverUrl,
+      '256': coverUrl + '.256.jpg',
+      '512': coverUrl + '.512.jpg',
+    };
   };
 
 };

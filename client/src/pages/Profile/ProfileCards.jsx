@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import MangaCard from '../../components/MangaCard';
 import { useLoading } from '../../hooks';
 import styles from './Profile.module.scss';
+import CONSTANTS from '../../constants';
+const { MANGA_COVER_SIZES: { MEDIUM } } = CONSTANTS;
 
 const ProfileCards = (props) => {
   const { list, listName } = props;
@@ -14,9 +16,10 @@ const ProfileCards = (props) => {
   return (
     list.map((manga) => (
       <MangaCard
-        id={manga.id} key={manga.id}
-        className={styles[`card-${mainColor}`]}
+        key={manga.id}
         manga={manga}
+        imageSize={MEDIUM}
+        className={styles[`card-${mainColor}`]}
       />
     ))
   );

@@ -9,6 +9,10 @@ module.exports = class Manga {
   getCoverUrl = () => {
     const coverName = this.selectRelationship('cover_art').attributes.fileName;
     const coverUrl = `https://uploads.mangadex.org/covers/${this.id}/${coverName}`;
-    this.selectRelationship('cover_art').attributes.url = coverUrl;
+    this.selectRelationship('cover_art').attributes.urls = {
+      raw: coverUrl,
+      '256': coverUrl + '.256.jpg',
+      '512': coverUrl + '.512.jpg',
+    };
   };
-}
+};

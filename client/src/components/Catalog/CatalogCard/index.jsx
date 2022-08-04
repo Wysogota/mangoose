@@ -10,7 +10,7 @@ import CONSTANTS from '../../../constants';
 const { PAGES: { TITLE: { path } } } = CONSTANTS;
 
 const CatalogCard = (props) => {
-  const { manga, className } = props;
+  const { manga, imageSize = 'raw', className } = props;
   const { theme: { mainColor, invertedColor, mainTheme, hoveredTheme } } = useSelector(({ themes }) => themes);
 
   const {
@@ -21,8 +21,7 @@ const CatalogCard = (props) => {
     },
     relationships,
   } = manga;
-  const image = selectRelationship(relationships, 'cover_art').attributes.url;
-
+  const image = selectRelationship(relationships, 'cover_art').attributes.urls[imageSize];
 
   const colBlockClasses = cx(
     className,
