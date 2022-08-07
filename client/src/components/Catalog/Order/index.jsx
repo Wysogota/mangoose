@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 import { BsCaretDownFill as DESCIcon, BsCaretUpFill as ASCIcon } from 'react-icons/bs';
-import { getObjectFromArray } from '../../../common/functions';
 import CONSTANTS from '../../../constants';
-const { SORT_DIRECTION: { ASC, DESC }, PARAM_NAME: { FILTER: { SORT } }, SORT_LIST } = CONSTANTS;
+const {
+  SORT_DIRECTION: { ASC, DESC },
+  PARAM_NAME: { FILTER: { SORT } },
+  SORT_LIST: { RELEVANCE: { type: RELEVANCE_TYPE } }
+} = CONSTANTS;
 
 const Order = (props) => {
   const { setOrder } = props;
@@ -19,9 +22,8 @@ const Order = (props) => {
 
     const sortParam = searchParams.get(SORT);
     if (sortParam) {
-      const [sort, order] = searchParams.get(SORT).split('.');
-      const relevance = getObjectFromArray(SORT_LIST, 'type', 'relevance');
-      if (sort !== relevance.type) {
+      const [sort] = searchParams.get(SORT).split('.');
+      if (sort !== RELEVANCE_TYPE) {
         searchParams.set(SORT, `${sort}.${newOrder}`);
         setSearchParams(searchParams, { replace: true });
       }

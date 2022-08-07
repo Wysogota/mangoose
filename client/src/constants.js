@@ -59,36 +59,36 @@ export default {
       ARTIST: 'artist',
     }
   },
-  SORT_LIST: [
-    {
+  SORT_LIST: {
+    RELEVANCE: {
       name: 'best match',
       type: 'relevance',
     },
-    {
+    LAST_UPLOAD_CHAPTER: {
       name: 'upload chapter',
       type: 'latestUploadedChapter',
     },
-    {
+    TITLE: {
       name: 'title',
       type: 'title',
     },
-    {
+    RATING: {
       name: 'rating',
       type: 'rating',
     },
-    {
+    FOLLOWED_COUNT: {
       name: 'followed count',
       type: 'followedCount',
     },
-    {
+    CREATED_AT: {
       name: 'created at',
       type: 'createdAt',
     },
-    {
+    YEAR: {
       name: 'year',
       type: 'year',
     },
-  ],
+  },
   SORT_DIRECTION: {
     ASC: 'asc',
     DESC: 'desc',
@@ -107,5 +107,5 @@ export default {
     RAW: 'raw',
     SMALL: '256',
     MEDIUM: '512',
-  }
+  },
 };

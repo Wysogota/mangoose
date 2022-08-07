@@ -11,7 +11,7 @@ import Advertisement from '../../components/Advertisement';
 import HomeMangaCatalog from './HomeMangaCatalog';
 import CONSTANTS from '../../constants';
 const {
-  SORT_LIST2: {
+  SORT_LIST: {
     FOLLOWED_COUNT: { type: FOLLOWED_COUNT },
     YEAR: { type: LAST_CREATED },
     LAST_UPLOAD_CHAPTER: { type: LASTEST_CHAPTER }
