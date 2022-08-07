@@ -9,6 +9,8 @@ import MainHeader from '../../Headers/MainHeader';
 import PaginationButtons from '../../PaginationButtons';
 import { usePagination } from '../../../hooks';
 import styles from './Arts.module.scss';
+import CONSTANTS from '../../../constants';
+const { MANGA_COVER_SIZES: { SMALL } } = CONSTANTS;
 
 const limit = 5;
 
@@ -19,7 +21,7 @@ const Arts = (props) => {
   const { getMangaCovers } = bindActionCreators(actionCreators, useDispatch());
 
   const queryParams = { mangaId };
-  usePagination({ actionCreator: getMangaCovers, queryParams, limit});
+  usePagination({ actionCreator: getMangaCovers, queryParams, limit });
 
   const containerClasses = cx(
     styles.arts_conatiner,
@@ -44,8 +46,8 @@ const Arts = (props) => {
         <div className={contentClasses}>{
           (isEmpty(covers) || isFetching)
             ? <Spinner animation='border' role='status'></Spinner>
-            : covers.covers.map(({ id, volume, url }) =>
-              <Image key={id} src={url} alt={volume} className={imageClasses} />
+            : covers.covers.map(({ id, volume, urls }) =>
+              <Image key={id} src={urls[SMALL]} alt={volume} className={imageClasses} />
             )
         }</div>
       </Col>
