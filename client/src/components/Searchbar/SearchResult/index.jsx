@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
 import { isEmpty } from 'lodash';
 import { useLoading } from '../../../hooks';
-import MangaCard from '../../MangaCard';
+import ExtendedMangaCard from '../../Cards/ExtendedMangaCard';
 import CatalogButton from '../../Catalog/CatalogButton';
 import CONSTANTS from '../../../constants';
 const { MANGA_COVER_SIZES: { SMALL } } = CONSTANTS;
@@ -20,7 +20,7 @@ const SearchResult = () => {
   return (
     <div>
       {mangaSearch.map((manga) => (
-        <MangaCard
+        <ExtendedMangaCard
           key={manga.id}
           manga={manga}
           imageSize={SMALL}

@@ -3,13 +3,12 @@ import { useSelector } from 'react-redux';
 import { Accordion, Card, Carousel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
-import ColBlock from '../../Blocks/ColBlock';
 import { selectRelationship } from '../../../common/functions';
-import styles from './CatalogCard.module.scss';
+import styles from './MangaCard.module.scss';
 import CONSTANTS from '../../../constants';
 const { PAGES: { TITLE: { path } } } = CONSTANTS;
 
-const CatalogCard = (props) => {
+const MangaCard = (props) => {
   const { manga, imageSize = 'raw', className } = props;
   const { theme: { mainColor, invertedColor, mainTheme, hoveredTheme } } = useSelector(({ themes }) => themes);
 
@@ -23,12 +22,9 @@ const CatalogCard = (props) => {
   } = manga;
   const image = selectRelationship(relationships, 'cover_art').attributes.urls[imageSize];
 
-  const colBlockClasses = cx(
-    className,
-    'm-auto',
-  );
   const cardClasses = cx(
     styles.card,
+    className,
     'rounded',
   );
   const linkClasses = cx(
@@ -43,7 +39,6 @@ const CatalogCard = (props) => {
   );
 
   return (
-    <ColBlock className={colBlockClasses}>
       <Card
         bg={mainColor} border={mainColor}
         className={cardClasses} style={{ backgroundImage: `url(${image})` }}
@@ -63,8 +58,7 @@ const CatalogCard = (props) => {
           </Carousel.Caption>
         </div>
       </Card>
-    </ColBlock>
   );
 };
 
-export default CatalogCard;
+export default MangaCard;

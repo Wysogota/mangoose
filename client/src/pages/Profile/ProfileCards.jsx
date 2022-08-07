@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import MangaCard from '../../components/MangaCard';
+import ExtendedMangaCard from '../../components/Cards/ExtendedMangaCard';
 import { useLoading } from '../../hooks';
 import styles from './Profile.module.scss';
 import CONSTANTS from '../../constants';
@@ -15,7 +15,7 @@ const ProfileCards = (props) => {
 
   return (
     list.map((manga) => (
-      <MangaCard
+      <ExtendedMangaCard
         key={manga.id}
         manga={manga}
         imageSize={MEDIUM}

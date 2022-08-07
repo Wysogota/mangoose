@@ -2,15 +2,15 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Card, Col } from 'react-bootstrap';
 import cx from 'classnames';
-import TagButtons from '../Title/TagButtons';
-import styles from './MangaCard.module.scss';
+import TagButtons from '../../Title/TagButtons';
+import styles from './ExtendedMangaCard.module.scss';
 import { Link } from 'react-router-dom';
-import CONSTANTS from '../../constants';
-import { selectRelationship } from '../../common/functions';
+import CONSTANTS from '../../../constants';
+import { selectRelationship } from '../../../common/functions';
 import { capitalize } from 'lodash';
 const { DEFAULT_LOCALE, PAGES: { TITLE: { path } } } = CONSTANTS;
 
-const MangaCard = (props) => {
+const ExtendedMangaCard = (props) => {
   const { manga, imageSize = 'raw', onClick, className } = props;
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
 
@@ -65,4 +65,4 @@ const MangaCard = (props) => {
   );
 };
 
-export default MangaCard;
+export default ExtendedMangaCard;
