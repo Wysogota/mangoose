@@ -17,3 +17,5 @@ export const selectRelationship = (relationships, type) => {
 export const getPageTitle = (title) => `${title} - ${WEBSITE_NAME}`;
 
 export const getObjectFromArray = (arr, prop, propValue) => arr.filter((item) => item[prop] === propValue)[0];
+
+export const getLocaleValue = (obj) => Object.values(obj)[0];
