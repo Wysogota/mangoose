@@ -4,7 +4,8 @@ import {
   getMangaSaga, getMangaCatalogSaga, getMangaSearchSaga,
   getMangaCoversSaga, getChapterSaga, getChaptersSaga,
   getChapterPagesSaga, getNextChapterIdSaga, getFirstChapterIdSaga,
-  getTagListSaga, getMangaListsSaga, saveMangaToListSaga, removeMangaFromListSaga, getListSaga
+  getTagListSaga, getMangaListsSaga, saveMangaToListSaga, removeMangaFromListSaga, getListSaga,
+  getCarouselCatalogSaga1, getCarouselCatalogSaga2, getCarouselCatalogSaga3,
 } from './mangaSagas';
 import { signInSaga, signOutSaga, signUpSaga, refreshTokenSaga } from './authSagas';
 import { getMeSaga } from './userSaga';
@@ -32,4 +33,8 @@ export default function* rootSaga() {
   yield takeLatest(ACTION_TYPES.GET_MANGA_LISTS, getMangaListsSaga);
   yield takeLatest(ACTION_TYPES.SAVE_MANGA_TO_LIST, saveMangaToListSaga);
   yield takeLatest(ACTION_TYPES.REMOVE_MANGA_FROM_LIST, removeMangaFromListSaga);
+
+  yield takeLatest(ACTION_TYPES.GET_CAROUSEL_CATALOG_1, getCarouselCatalogSaga1);
+  yield takeLatest(ACTION_TYPES.GET_CAROUSEL_CATALOG_2, getCarouselCatalogSaga2);
+  yield takeLatest(ACTION_TYPES.GET_CAROUSEL_CATALOG_3, getCarouselCatalogSaga3);
 }

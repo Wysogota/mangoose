@@ -140,3 +140,34 @@ export function* getListSaga(action) {
     yield put(actionCreators.getListError(error));
   }
 }
+
+
+export function* getCarouselCatalogSaga1(action) {
+  yield put(actionCreators.getCarouselCatalogRequest1());
+  try {
+    const { data: { data } } = yield API.getMangaCatalog(action.payload.options);
+    yield put(actionCreators.getCarouselCatalogSuccess1(data));
+  } catch (error) {
+    yield put(actionCreators.getCarouselCatalogError1({ error }));
+  }
+}
+
+export function* getCarouselCatalogSaga2(action) {
+  yield put(actionCreators.getCarouselCatalogRequest2());
+  try {
+    const { data: { data } } = yield API.getMangaCatalog(action.payload.options);
+    yield put(actionCreators.getCarouselCatalogSuccess2(data));
+  } catch (error) {
+    yield put(actionCreators.getCarouselCatalogError2({ error }));
+  }
+}
+
+export function* getCarouselCatalogSaga3(action) {
+  yield put(actionCreators.getCarouselCatalogRequest3());
+  try {
+    const { data: { data } } = yield API.getMangaCatalog(action.payload.options);
+    yield put(actionCreators.getCarouselCatalogSuccess3(data));
+  } catch (error) {
+    yield put(actionCreators.getCarouselCatalogError3({ error }));
+  }
+}

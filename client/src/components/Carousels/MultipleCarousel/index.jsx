@@ -2,55 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
-import { Accordion, Carousel as bsCarousel } from 'react-bootstrap';
+import { Accordion } from 'react-bootstrap';
 import ItemsCarousel from 'react-items-carousel';
 import cx from 'classnames';
 import HeaderLink from '../../HeaderLink';
 import ColBlock from '../../Blocks/ColBlock';
-import CarouselHeader from '../CarouselHeader';
 import styles from './MultipleCarousel.module.scss';
 import CONSTANTS from '../../../constants';
-const { breakpoints } = CONSTANTS;
+import { useLoading } from '../../../hooks';
+import MangaCard from '../../Cards/MangaCard';
+const {
+  breakpoints,
+  PAGES: { CATALOG: { path: CATALOG_PATH } },
+  PARAM_NAME: { FILTER: { SORT } },
+  MANGA_COVER_SIZES: { SMALL },
+} = CONSTANTS;
 
-const items = [
-  {
-    src: CONSTANTS.STATIC_IMAGE_PATH + CONSTANTS.DEFAULT_POSTER,
-    alt: CONSTANTS.DEFAULT_POSTER,
-    to: '#',
-    title: 'Attack on titan 1Attack on titan 1Attack on titan 1Attack on titan 1Attack on titan 1',
-  },
-  {
-    src: CONSTANTS.STATIC_IMAGE_PATH + CONSTANTS.DEFAULT_POSTER,
-    alt: CONSTANTS.DEFAULT_POSTER,
-    to: '#',
-    title: 'Attack on titan 2',
-  },
-  {
-    src: CONSTANTS.STATIC_IMAGE_PATH + CONSTANTS.DEFAULT_POSTER,
-    alt: CONSTANTS.DEFAULT_POSTER,
-    to: '#',
-    title: 'Attack on titan 3',
-  },
-  {
-    src: CONSTANTS.STATIC_IMAGE_PATH + CONSTANTS.DEFAULT_POSTER,
-    alt: CONSTANTS.DEFAULT_POSTER,
-    to: '#',
-    title: 'Attack on titan 4',
-  },
-  {
-    src: CONSTANTS.STATIC_IMAGE_PATH + CONSTANTS.DEFAULT_POSTER,
-    alt: CONSTANTS.DEFAULT_POSTER,
-    to: '#',
-    title: 'Attack on titan 5',
-  },
-];
+const limit = 10;
 
 const MultipleCarousel = (props) => {
-  const { stateName, title, to } = props;
-  const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
+  const { order, title, filter } = props;
 
-  const isOpen = useSelector(({ carousels }) => carousels)[`isOpen${stateName}Carousel`];
-  const toggleCarousel = bindActionCreators(actionCreators, useDispatch())[`toggle${stateName}Carousel`];
+  const { isOpen, mangaCatalog, isFetching } = useSelector(({ carousels }) => carousels)[`carousel${order}`];
+
+  const bindedActionCreators = bindActionCreators(actionCreators, useDispatch());
+  const toggleCarousel = bindedActionCreators[`toggleCarousel${order}`];
+  const getCarouselCatalog = bindedActionCreators[`getCarouselCatalog${order}`];
 
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const [displayCount, setDisplayCount] = useState();
@@ -62,19 +39,14 @@ const MultipleCarousel = (props) => {
         : setDisplayCount(3);
     };
 
+    getCarouselCatalog({ [SORT]: filter, limit });
     getDisplayCount();
     window.addEventListener('resize', getDisplayCount);
     return () => window.removeEventListener('resize', getDisplayCount);
   }, []);
 
-  const containerClasses = cx(
-    styles.container,
-    'carousel-' + invertedColor
-  );
-  const imageClasses = cx(
-    styles.image,
-    'rounded',
-  );
+
+  const loading = useLoading({ data: mangaCatalog, isFetching });
 
   const leftChevron = <span className={cx('carousel-control-prev-icon', styles.chevron)}></span>;
   const rightChevron = <span className={cx('carousel-control-next-icon', styles.chevron)}></span>;
@@ -84,7 +56,7 @@ const MultipleCarousel = (props) => {
       <Accordion defaultActiveKey={Number(isOpen)}>
         <Accordion.Item eventKey={1}>
           <Accordion.Header onClick={toggleCarousel}>
-            <HeaderLink to={to} title={title} />
+            <HeaderLink to={`${CATALOG_PATH}?${SORT}=${filter}`} title={title} />
           </Accordion.Header>
           <Accordion.Body className='p-0'>
             <ItemsCarousel
@@ -95,16 +67,17 @@ const MultipleCarousel = (props) => {
               leftChevron={leftChevron}
               rightChevron={rightChevron}
               infiniteLoop={true}
-            >
-              {items.map(({ src, alt, to, title }) =>
-                <div key={title} className={containerClasses}>
-                  <img className={imageClasses} src={src} alt={alt} />
-                  <bsCarousel.Caption>
-                    <CarouselHeader to={to} className={styles.header}>{title}</CarouselHeader>
-                  </bsCarousel.Caption>
-                </div>
-              )}
-            </ItemsCarousel>
+            >{
+                loading ? loading :
+                  mangaCatalog.map((manga) => (
+                    <MangaCard
+                      key={manga.id}
+                      manga={manga}
+                      className={styles.card}
+                      imageSize={SMALL}
+                    />
+                  ))
+              }</ItemsCarousel>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>

@@ -9,8 +9,17 @@ import HeaderLink from '../../components/HeaderLink';
 import ColBlock from '../../components/Blocks/ColBlock';
 import Advertisement from '../../components/Advertisement';
 import HomeMangaCatalog from './HomeMangaCatalog';
+import CONSTANTS from '../../constants';
+const {
+  SORT_LIST2: {
+    FOLLOWED_COUNT: { type: FOLLOWED_COUNT },
+    YEAR: { type: LAST_CREATED },
+    LAST_UPLOAD_CHAPTER: { type: LASTEST_CHAPTER }
+  },
+  SORT_DIRECTION: { DESC },
+} = CONSTANTS;
 
-const checkEveryCorousel = (isCarouselOpen) => Object.values(isCarouselOpen).every((carousel) => carousel);
+const checkEveryCorousel = (isCarouselOpen) => Object.values(isCarouselOpen).every(({ isOpen }) => isOpen);
 
 const Home = () => {
   const isCarouselOpen = useSelector(({ carousels }) => carousels);
@@ -32,9 +41,21 @@ const Home = () => {
     <Container>
       <Row>
         <Col xs='12' lg='9'>
-          <Row><MultipleCarousel stateName='Popular' title='Popular' to='#' /></Row>
-          <Row><MultipleCarousel stateName='New' title='New arrivals' to='#' /></Row>
-          <Row><MultipleCarousel stateName='HotNew' title='Hot news' to='#' /></Row>
+          <MultipleCarousel
+            filter={`${FOLLOWED_COUNT}.${DESC}`}
+            order='1'
+            title='Popular'
+          />
+          <MultipleCarousel
+            filter={`${LAST_CREATED}.${DESC}`}
+            order='2'
+            title='New arrivals'
+          />
+          <MultipleCarousel
+            filter={`${LASTEST_CHAPTER}.${DESC}`}
+            order='3'
+            title='Last updated'
+          />
           <Row className='d-flex d-lg-none'><NewChapters /></Row>
           <Row>
             <ColBlock className='col-12 col-md-6'>
