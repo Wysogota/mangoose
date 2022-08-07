@@ -41,7 +41,7 @@ const Searchbar = () => {
       dialogClassName={styles.searchbar} contentClassName={contentClasses} backdropClassName={backdropClasses}
     >
       <Modal.Header>
-        <SearchInput limit={limit} />
+        <SearchInput limit={limit} autoFocus/>
       </Modal.Header>
       <Modal.Body>
         <SearchResult />

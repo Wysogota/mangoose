@@ -5,7 +5,7 @@ import * as actionCreators from '../../../redux/actions/actionCreators';
 import SearchingInput from '../../SearchingInput';
 
 const SearchInput = (props) => {
-  const { limit, className } = props;
+  const { limit, autoFocus, className } = props;
   const { inputValue } = useSelector(({ mangaSearch }) => mangaSearch);
   const { getMangaSearch, setSearchValue } = bindActionCreators(actionCreators, useDispatch());
 
@@ -21,6 +21,7 @@ const SearchInput = (props) => {
       placeholder='Search'
       onChange={handleChange}
       value={inputValue}
+      autoFocus={autoFocus}
     />
   );
 };
