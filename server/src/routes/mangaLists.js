@@ -7,6 +7,6 @@ const router = Router();
 router.post('/', tokenChecker, Controller.getLists);
 router.post('/list', tokenChecker, Controller.getList);
 router.post('/add', tokenChecker, Controller.addMangaToList);
-router.delete('/remove', tokenChecker, Controller.removeMangaFromList);
+router.post('/remove', tokenChecker, Controller.removeMangaFromList);
 
 module.exports = router;

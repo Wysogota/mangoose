@@ -103,6 +103,7 @@ export default {
     COMPLETED: 'completed',
     STOPPED: 'stopped',
   },
+  DEFAULT_SAVE_BUTTON_VALUE: 'Save to list',
   MANGA_COVER_SIZES: {
     RAW: 'raw',
     SMALL: '256',

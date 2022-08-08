@@ -2,7 +2,7 @@ import axios from 'axios';
 import { stringify } from 'query-string';
 
 const client = axios.create({
-  baseURL: 'http://192.168.1.147:3001/api',
+  baseURL: 'http://localhost:3001/api',
 });
 
 const stringifyOptions = {
@@ -30,4 +30,4 @@ export const getTagList = () => client.get('/manga/tag');
 export const getMangaLists = (options) => client.post('/mangaLists', options);
 export const getList = (options) => client.post('/mangaLists/list', options);
 export const saveMangaToList = (options) => client.post('/mangaLists/add', options);
-export const removeMangaFromList = (options) => client.delete('/mangaLists/remove', options);
+export const removeMangaFromList = (options) => client.post('/mangaLists/remove', options);
