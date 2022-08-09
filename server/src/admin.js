@@ -1,10 +1,15 @@
 const AdminJS = require('adminjs');
 const AdminJSExpress = require('@adminjs/express');
+const AdminJSMongoose = require('@adminjs/mongoose');
+const mongoose = require('mongoose');
+require('./models/mongo/MangaLists');
+
+AdminJS.registerAdapter(AdminJSMongoose);
 
 const adminJs = new AdminJS({
-  databases: [],
+  databases: [mongoose],
   rootPath: '/admin',
 });
 
-const adminRouter = AdminJSExpress.buildRouter(adminJs);
-module.exports = adminRouter;
+module.exports = AdminJSExpress.buildRouter(adminJs);
+
