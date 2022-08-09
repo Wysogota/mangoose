@@ -367,3 +367,19 @@ export const getListError = (error) => ({
   type: ACTION_TYPES.GET_LIST_ERROR,
   payload: { error },
 });
+
+export const uploadAvatar = (options) => ({
+  type: ACTION_TYPES.UPLOAD_AVATAR,
+  payload: { options },
+});
+export const uploadAvatarRequest = () => ({
+  type: ACTION_TYPES.UPLOAD_AVATAR_REQUEST,
+});
+export const uploadAvatarSuccess = (data) => ({
+  type: ACTION_TYPES.UPLOAD_AVATAR_SUCCESS,
+  payload: { data },
+});
+export const uploadAvatarError = (error) => ({
+  type: ACTION_TYPES.UPLOAD_AVATAR_ERROR,
+  payload: { error },
+});

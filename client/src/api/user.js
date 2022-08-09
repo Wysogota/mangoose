@@ -5,3 +5,5 @@ const client = axios.create({
 });
 
 export const getMe = (options) => client.post('/user/me', options);
+
+export const uploadAvatar = (data) => client.post('/user/avatar', data);

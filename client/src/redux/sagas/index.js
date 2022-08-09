@@ -8,7 +8,7 @@ import {
   getCarouselCatalogSaga
 } from './mangaSagas';
 import { signInSaga, signOutSaga, signUpSaga, refreshTokenSaga } from './authSagas';
-import { getMeSaga } from './userSaga';
+import { getMeSaga, uploadAvatarSaga } from './userSaga';
 
 export default function* rootSaga() {
   yield takeLatest(ACTION_TYPES.GET_MANGA, getMangaSaga);
@@ -28,6 +28,7 @@ export default function* rootSaga() {
   yield takeLatest(ACTION_TYPES.REFRESH_TOKEN, refreshTokenSaga);
 
   yield takeLatest(ACTION_TYPES.GET_ME, getMeSaga);
+  yield takeLatest(ACTION_TYPES.UPLOAD_AVATAR, uploadAvatarSaga);
 
   yield takeLatest(ACTION_TYPES.GET_LIST, getListSaga);
   yield takeLatest(ACTION_TYPES.GET_MANGA_LISTS, getMangaListsSaga);

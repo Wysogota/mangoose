@@ -36,3 +36,14 @@ module.exports.getMe = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.saveAvatar = async (req, res, next) => {
+  try {
+    console.log(req.file);
+    res
+      .status(200)
+      .send(getResponse('Avatar Updated.'));
+  } catch (error) {
+    next(error);
+  }
+};

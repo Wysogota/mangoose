@@ -11,3 +11,13 @@ export function* getMeSaga(action) {
     yield put(actionCreators.getMeError(error));
   }
 }
+
+export function* uploadAvatarSaga(action) {
+  yield put(actionCreators.uploadAvatarRequest());
+  try {
+    const { data } = yield API.uploadAvatar(action.payload.options);
+    yield put(actionCreators.uploadAvatarSuccess(data));
+  } catch (error) {
+    yield put(actionCreators.uploadAvatarError(error));
+  }
+}
