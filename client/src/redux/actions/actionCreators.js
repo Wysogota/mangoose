@@ -28,67 +28,27 @@ export const hideSearchbar = () => ({
   type: ACTION_TYPES.HIDE_SEARCHBAR,
 });
 
-export const toggleCarousel1 = () => ({
-  type: ACTION_TYPES.TOGGLE_CAROUSEL_1,
-});
 
-export const toggleCarousel2 = () => ({
-  type: ACTION_TYPES.TOGGLE_CAROUSEL_2,
+export const toggleCarousel = (order) => ({
+  type: ACTION_TYPES.TOGGLE_CAROUSEL,
+  payload: { order },
 });
-
-export const toggleCarousel3 = () => ({
-  type: ACTION_TYPES.TOGGLE_CAROUSEL_3,
+export const getCarouselCatalog = (options, order) => ({
+  type: ACTION_TYPES.GET_CAROUSEL_CATALOG,
+  payload: { options, order },
 });
-
-export const getCarouselCatalog1 = (options) => ({
-  type: ACTION_TYPES.GET_CAROUSEL_CATALOG_1,
-  payload: { options }
+export const getCarouselCatalogRequest = (order) => ({
+  type: ACTION_TYPES.GET_CAROUSEL_CATALOG_REQUEST,
+  payload: { order },
 });
-export const getCarouselCatalogRequest1 = () => ({
-  type: ACTION_TYPES.GET_CAROUSEL_CATALOG_REQUEST_1,
+export const getCarouselCatalogSuccess = (data, order) => ({
+  type: ACTION_TYPES.GET_CAROUSEL_CATALOG_SUCCESS,
+  payload: { data, order },
 });
-export const getCarouselCatalogSuccess1 = (data) => ({
-  type: ACTION_TYPES.GET_CAROUSEL_CATALOG_SUCCESS_1,
-  payload: { data },
+export const getCarouselCatalogError = (error, order) => ({
+  type: ACTION_TYPES.GET_CAROUSEL_CATALOG_ERROR,
+  payload: { error, order },
 });
-export const getCarouselCatalogError1 = (data) => ({
-  type: ACTION_TYPES.GET_CAROUSEL_CATALOG_ERROR_1,
-  payload: { data },
-});
-
-export const getCarouselCatalog2 = (options) => ({
-  type: ACTION_TYPES.GET_CAROUSEL_CATALOG_2,
-  payload: { options }
-});
-export const getCarouselCatalogRequest2 = () => ({
-  type: ACTION_TYPES.GET_CAROUSEL_CATALOG_REQUEST_2,
-});
-export const getCarouselCatalogSuccess2 = (data) => ({
-  type: ACTION_TYPES.GET_CAROUSEL_CATALOG_SUCCESS_2,
-  payload: { data },
-});
-export const getCarouselCatalogError2 = (data) => ({
-  type: ACTION_TYPES.GET_CAROUSEL_CATALOG_ERROR_2,
-  payload: { data },
-});
-
-export const getCarouselCatalog3 = (options) => ({
-  type: ACTION_TYPES.GET_CAROUSEL_CATALOG_3,
-  payload: { options }
-});
-export const getCarouselCatalogRequest3 = () => ({
-  type: ACTION_TYPES.GET_CAROUSEL_CATALOG_REQUEST_3,
-});
-export const getCarouselCatalogSuccess3 = (data) => ({
-  type: ACTION_TYPES.GET_CAROUSEL_CATALOG_SUCCESS_3,
-  payload: { data },
-});
-export const getCarouselCatalogError3 = (data) => ({
-  type: ACTION_TYPES.GET_CAROUSEL_CATALOG_ERROR_3,
-  payload: { data },
-});
-
-
 
 export const getManga = (options) => ({
   type: ACTION_TYPES.GET_MANGA,

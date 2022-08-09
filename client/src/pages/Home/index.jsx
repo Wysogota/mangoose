@@ -43,17 +43,17 @@ const Home = () => {
         <Col xs='12' lg='9'>
           <MultipleCarousel
             filter={`${FOLLOWED_COUNT}.${DESC}`}
-            order='1'
+            order={0}
             title='Popular'
           />
           <MultipleCarousel
             filter={`${LAST_CREATED}.${DESC}`}
-            order='2'
+            order={1}
             title='New arrivals'
           />
           <MultipleCarousel
             filter={`${LASTEST_CHAPTER}.${DESC}`}
-            order='3'
+            order={2}
             title='Last updated'
           />
           <Row className='d-flex d-lg-none'><NewChapters /></Row>

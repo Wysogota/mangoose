@@ -141,33 +141,13 @@ export function* getListSaga(action) {
   }
 }
 
-
-export function* getCarouselCatalogSaga1(action) {
-  yield put(actionCreators.getCarouselCatalogRequest1());
+export function* getCarouselCatalogSaga(action) {
+  const { options, order } = action.payload;
+  yield put(actionCreators.getCarouselCatalogRequest(order));
   try {
-    const { data: { data } } = yield API.getMangaCatalog(action.payload.options);
-    yield put(actionCreators.getCarouselCatalogSuccess1(data));
+    const { data: { data } } = yield API.getMangaCatalog(options);
+    yield put(actionCreators.getCarouselCatalogSuccess(data, order));
   } catch (error) {
-    yield put(actionCreators.getCarouselCatalogError1({ error }));
-  }
-}
-
-export function* getCarouselCatalogSaga2(action) {
-  yield put(actionCreators.getCarouselCatalogRequest2());
-  try {
-    const { data: { data } } = yield API.getMangaCatalog(action.payload.options);
-    yield put(actionCreators.getCarouselCatalogSuccess2(data));
-  } catch (error) {
-    yield put(actionCreators.getCarouselCatalogError2({ error }));
-  }
-}
-
-export function* getCarouselCatalogSaga3(action) {
-  yield put(actionCreators.getCarouselCatalogRequest3());
-  try {
-    const { data: { data } } = yield API.getMangaCatalog(action.payload.options);
-    yield put(actionCreators.getCarouselCatalogSuccess3(data));
-  } catch (error) {
-    yield put(actionCreators.getCarouselCatalogError3({ error }));
+    yield put(actionCreators.getCarouselCatalogError({ error }, order));
   }
 }

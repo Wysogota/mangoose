@@ -22,13 +22,8 @@ const limit = 10;
 
 const MultipleCarousel = (props) => {
   const { order, title, filter } = props;
-
-  const { isOpen, mangaCatalog, isFetching } = useSelector(({ carousels }) => carousels)[`carousel${order}`];
-
-  const bindedActionCreators = bindActionCreators(actionCreators, useDispatch());
-  const toggleCarousel = bindedActionCreators[`toggleCarousel${order}`];
-  const getCarouselCatalog = bindedActionCreators[`getCarouselCatalog${order}`];
-
+  const { isOpen, mangaCatalog, isFetching } = useSelector(({ carousels }) => carousels)[order];
+  const { toggleCarousel, getCarouselCatalog } = bindActionCreators(actionCreators, useDispatch());
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const [displayCount, setDisplayCount] = useState();
 
@@ -39,7 +34,7 @@ const MultipleCarousel = (props) => {
         : setDisplayCount(3);
     };
 
-    getCarouselCatalog({ [SORT]: filter, limit });
+    getCarouselCatalog({ [SORT]: filter, limit }, order);
     getDisplayCount();
     window.addEventListener('resize', getDisplayCount);
     return () => window.removeEventListener('resize', getDisplayCount);
@@ -55,20 +50,20 @@ const MultipleCarousel = (props) => {
     <ColBlock>
       <Accordion defaultActiveKey={Number(isOpen)}>
         <Accordion.Item eventKey={1}>
-          <Accordion.Header onClick={toggleCarousel}>
+          <Accordion.Header onClick={() => toggleCarousel(order)}>
             <HeaderLink to={`${CATALOG_PATH}?${SORT}=${filter}`} title={title} />
           </Accordion.Header>
-          <Accordion.Body className='p-0'>
-            <ItemsCarousel
-              requestToChangeActive={setActiveItemIndex}
-              activeItemIndex={activeItemIndex}
-              numberOfCards={displayCount}
-              gutter={10}
-              leftChevron={leftChevron}
-              rightChevron={rightChevron}
-              infiniteLoop={true}
-            >{
-                loading ? loading :
+          {loading ? loading :
+            <Accordion.Body className='p-0'>
+              <ItemsCarousel
+                requestToChangeActive={setActiveItemIndex}
+                activeItemIndex={activeItemIndex}
+                numberOfCards={displayCount}
+                gutter={10}
+                leftChevron={leftChevron}
+                rightChevron={rightChevron}
+                infiniteLoop={true}
+              >{
                   mangaCatalog.map((manga) => (
                     <MangaCard
                       key={manga.id}
@@ -77,8 +72,8 @@ const MultipleCarousel = (props) => {
                       imageSize={SMALL}
                     />
                   ))
-              }</ItemsCarousel>
-          </Accordion.Body>
+                }</ItemsCarousel>
+            </Accordion.Body>}
         </Accordion.Item>
       </Accordion>
     </ColBlock>

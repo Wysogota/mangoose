@@ -1,60 +1,38 @@
 import produce from 'immer';
 import ACTION_TYPES from '../actions/actionTypes';
 
-const initialState = {
-  carousel1: {
-    isOpen: true,
-    mangaCatalog: [],
-    isFetching: false,
-    error: null,
-  },
-  carousel2: {
-    isOpen: true,
-    mangaCatalog: [],
-    isFetching: false,
-    error: null,
-  },
-  carousel3: {
-    isOpen: true,
-    mangaCatalog: [],
-    isFetching: false,
-    error: null,
-  },
+const carousel = {
+  isOpen: true,
+  mangaCatalog: [],
+  isFetching: false,
+  error: null,
 };
 
-const toggleCarouselHandle = (order) => produce((draftState, action) => {
-  draftState[`carousel${order}`].isOpen = !draftState[`carousel${order}`].isOpen;
-});
-const requestHandle = (order) => produce((draftState, action) => {
-  draftState[`carousel${order}`].isFetching = true;
-  draftState[`carousel${order}`].error = null;
-});
-const successHandle = (order) => produce((draftState, action) => {
-  draftState[`carousel${order}`].isFetching = false;
-  draftState[`carousel${order}`].mangaCatalog = action.payload.data.mangaList;
-});
-const errorHandle = (order) => produce((draftState, action) => {
-  draftState[`carousel${order}`].isFetching = false;
-  draftState[`carousel${order}`].error = action.payload.error;
-});
+const initialState = new Array(3).fill(carousel);
 
 const handlers = {
-  [ACTION_TYPES.TOGGLE_CAROUSEL_1]: toggleCarouselHandle(1),
-  [ACTION_TYPES.TOGGLE_CAROUSEL_2]: toggleCarouselHandle(2),
-  [ACTION_TYPES.TOGGLE_CAROUSEL_3]: toggleCarouselHandle(3),
+  [ACTION_TYPES.TOGGLE_CAROUSEL]: produce((draftState, action) => {
+    const { order } = action.payload;
+    draftState[order].isOpen = !draftState[order].isOpen;
+  }),
 
-  [ACTION_TYPES.GET_CAROUSEL_CATALOG_REQUEST_1]: requestHandle(1),
-  [ACTION_TYPES.GET_CAROUSEL_CATALOG_REQUEST_2]: requestHandle(2),
-  [ACTION_TYPES.GET_CAROUSEL_CATALOG_REQUEST_3]: requestHandle(3),
+  [ACTION_TYPES.GET_CAROUSEL_CATALOG_REQUEST]: produce((draftState, action) => {
+    const { order } = action.payload;
+    draftState[order].isFetching = true;
+    draftState[order].error = null;
+  }),
 
-  [ACTION_TYPES.GET_CAROUSEL_CATALOG_SUCCESS_1]: successHandle(1),
-  [ACTION_TYPES.GET_CAROUSEL_CATALOG_SUCCESS_2]: successHandle(2),
-  [ACTION_TYPES.GET_CAROUSEL_CATALOG_SUCCESS_3]: successHandle(3),
+  [ACTION_TYPES.GET_CAROUSEL_CATALOG_SUCCESS]: produce((draftState, action) => {
+    const { order, data: { mangaList } } = action.payload;
+    draftState[order].isFetching = false;
+    draftState[order].mangaCatalog = mangaList;
+  }),
 
-  [ACTION_TYPES.GET_CAROUSEL_CATALOG_ERROR_1]: errorHandle(1),
-  [ACTION_TYPES.GET_CAROUSEL_CATALOG_ERROR_2]: errorHandle(2),
-  [ACTION_TYPES.GET_CAROUSEL_CATALOG_ERROR_3]: errorHandle(3),
-
+  [ACTION_TYPES.GET_CAROUSEL_CATALOG_ERROR]: produce((draftState, action) => {
+    const { error, order } = action.payload;
+    draftState[order].isFetching = false;
+    draftState[order].error = error;
+  }),
 };
 
 export default (state = initialState, action) => {
