@@ -8,7 +8,11 @@ import DropdownToggle from '../DropdownToggle';
 import Avatar from '../Avatar';
 import { useLoading } from '../../hooks';
 import CONSTANTS from '../../constants';
-const { PAGES: { SIGN_UP: { path: SIGN_UP_PATH }, PROFILE: { path: PROFILE_PATH } } } = CONSTANTS;
+const { PAGES: {
+  SIGN_UP: { path: SIGN_UP_PATH },
+  PROFILE: { path: PROFILE_PATH },
+  SETTINGS: { path: SETTINGS_PATH },
+} } = CONSTANTS;
 
 const HeaderAuthButtons = () => {
   const { theme: { invertedColor, outlineColor } } = useSelector(({ themes }) => themes);
@@ -27,7 +31,7 @@ const HeaderAuthButtons = () => {
 
       <Dropdown.Menu variant={invertedColor}>
         <Dropdown.Item as={Link} to={PROFILE_PATH}>Profile</Dropdown.Item>
-        <Dropdown.Item as={Link} to='#'>Settings</Dropdown.Item>
+        <Dropdown.Item as={Link} to={SETTINGS_PATH}>Settings</Dropdown.Item>
         <Dropdown.Item onClick={signOut}>Sign Out</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>

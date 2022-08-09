@@ -20,6 +20,7 @@ import WithAuth from './HOCs/WithAuth';
 import CONSTANTS from './constants';
 import Notifications from './components/Notifications';
 import WithRouteEnter from './HOCs/WithRouteEnter';
+import Settings from './pages/Settings';
 const { PAGES: {
   HOME: { path: homePath, name: homeName },
   SIGN_UP: { path: signupPath, name: signupName },
@@ -27,6 +28,7 @@ const { PAGES: {
   TITLE: { path: titlePath, name: titleName },
   CHAPTER_READER: { path: chapterPath, name: chapterName },
   PROFILE: { path: profilePath, name: profileName },
+  SETTINGS: { path: SETTINGS_PATH, name: SETTINGS_NAME },
 } } = CONSTANTS;
 
 const getOptions = (name) => ({ name });
@@ -34,6 +36,7 @@ const getOptions = (name) => ({ name });
 const HomeRoute = WithRouteEnter(Home, getOptions(homeName));
 const SignUpRoute = WithRouteEnter(SignUp, getOptions(signupName));
 const ProfileRoute = WithRouteEnter(WithAuth(Profile), getOptions(profileName));
+const SettingsRoute = WithRouteEnter(WithAuth(Settings), getOptions(SETTINGS_NAME));
 const CatalogRoute = WithRouteEnter(Catalog, getOptions(catalogName));
 const TitleRoute = WithRouteEnter(Title, getOptions(titleName));
 const ChapterReaderRoute = WithRouteEnter(ChapterReader, getOptions(chapterName));
@@ -56,6 +59,7 @@ const App = () => {
           <Route path={homePath} element={<HomeRoute />} />
           <Route path={signupPath} element={<SignUpRoute />} />
           <Route path={profilePath} element={<ProfileRoute />} />
+          <Route path={SETTINGS_PATH} element={<SettingsRoute />} />
           <Route path={catalogPath} element={<CatalogRoute />} />
           <Route path={`${titlePath}/:mangaId`} element={<TitleRoute />} />
           <Route path={`${chapterPath}/:chapterId`} element={<ChapterReaderRoute />} />

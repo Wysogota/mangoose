@@ -40,6 +40,10 @@ export default {
       name: 'Profile',
       path: '/profile',
     },
+    SETTINGS: {
+      name: 'Settings',
+      path: '/settings',
+    },
   },
   TITLE_TABS: {
     INFO: 'info',
