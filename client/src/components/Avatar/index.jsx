@@ -9,33 +9,31 @@ import CONSTANTS from '../../constants';
 const { STATIC_IMAGE_PATH, DEFAULT_AVATAR } = CONSTANTS;
 
 const Avatar = (props) => {
-  const { avatar = DEFAULT_AVATAR } = props;
+  const { avatar = DEFAULT_AVATAR, compact, className } = props;
   const { theme: { invertedColor, } } = useSelector(({ themes }) => themes);
   const { isAuthorized } = useSelector(({ auth }) => auth);
   const { showSignIn } = bindActionCreators(actionCreators, useDispatch());
 
   const classes = cx(
-    styles.avatar,
+    compact ? styles.compact_avatar : styles.avatar,
+    compact ? 'rounded-2' : 'rounded',
     styles[invertedColor],
-    'rounded-2',
+    className,
   );
 
-  if (isAuthorized) {
-    return (
-      <Image
-        src={STATIC_IMAGE_PATH + avatar}
-        className={classes} fluid
-      />
-    );
-  } else {
-    return (
-      <Image
-        onClick={showSignIn}
-        src={STATIC_IMAGE_PATH + CONSTANTS['NOT_REGISTERED_AVATAR_' + invertedColor.toUpperCase()]}
-        className={classes} fluid
-      />
-    );
-  }
+  if (isAuthorized) return (
+    <Image
+      src={STATIC_IMAGE_PATH + avatar}
+      className={classes} fluid
+    />
+  );
+  else return (
+    <Image
+      onClick={showSignIn}
+      src={STATIC_IMAGE_PATH + CONSTANTS['NOT_REGISTERED_AVATAR_' + invertedColor.toUpperCase()]}
+      className={classes} fluid
+    />
+  );
 
 };
 

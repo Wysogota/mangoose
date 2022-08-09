@@ -1,9 +1,13 @@
 @import '../../common/styles/colors';
 
-.avatar {
+.compact_avatar {
   width: 38px;
   border: 2px solid;
   cursor: pointer;
+}
+
+.avatar {
+  width: auto;
 }
 
 .dark {

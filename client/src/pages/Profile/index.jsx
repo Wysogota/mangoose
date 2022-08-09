@@ -6,9 +6,8 @@ import { useLoading } from '../../hooks';
 import { Container, Row, Button } from 'react-bootstrap';
 import ColBlock from '../../components/Blocks/ColBlock';
 import MainHeader from '../../components/Headers/MainHeader';
-import Cover from '../../components/Title/Cover';
+import Avatar from '../../components/Avatar';
 import ProfileTabs from './ProfileTabs';
-import CONSTANTS from '../../constants';
 
 const Profile = () => {
   const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
@@ -27,17 +26,15 @@ const Profile = () => {
     <Container>
       <Row>
         <ColBlock className='col-12 col-lg-4 col-xxl-3'>
-          <Cover
-            image={me.avatar || CONSTANTS.STATIC_IMAGE_PATH + CONSTANTS.DEFAULT_AVATAR}
-            alt={me.name}
-            className={'col-8 col-sm-6 m-auto'}
-          />
-          <Button
-            variant={invertedColor}
-            className='d-block w-100 pt-2 pb-2 text-uppercase'
-          >
-            Settings
-          </Button>
+          <Avatar className='mb-3 d-block m-auto' />
+          <div className='pt-3'>
+            <Button
+              variant={invertedColor}
+              className='d-block w-100 pt-2 pb-2 text-uppercase'
+            >
+              Settings
+            </Button>
+          </div>
         </ColBlock>
         <ColBlock className='col-12 col-lg-8 col-xxl-9'>
           <MainHeader>{me.name}</MainHeader>

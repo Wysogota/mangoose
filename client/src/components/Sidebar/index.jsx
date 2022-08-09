@@ -67,7 +67,7 @@ const Sidebar = () => {
       <Modal.Footer className='justify-content-start'>
         <Navbar variant={invertedColor} onClick={hideSidebar} className='flex-grow-1'>
           <Nav className='flex-grow-1'>
-            <Avatar />
+            <Avatar compact />
             <Nav.Item onClick={showSignIn} className={signInClasses}>Sign in</Nav.Item>
           </Nav>
         </Navbar>

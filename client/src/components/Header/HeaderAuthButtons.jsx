@@ -22,7 +22,7 @@ const HeaderAuthButtons = () => {
   if (isAuthorized) return (
     <Dropdown className='d-inline'>
       <Dropdown.Toggle as={DropdownToggle}>
-        <Avatar />
+        <Avatar compact />
       </Dropdown.Toggle>
 
       <Dropdown.Menu variant={invertedColor}>
