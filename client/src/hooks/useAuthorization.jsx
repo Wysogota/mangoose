@@ -5,7 +5,7 @@ import * as actionCreators from '../redux/actions/actionCreators';
 
 const useAuthorization = () => {
   const { token } = useSelector(({ auth }) => auth);
-  const { setAuthorized, setNotAuthorized, refreshToken } = bindActionCreators(actionCreators, useDispatch());
+  const { setAuthorized, setNotAuthorized, refreshToken, getMe } = bindActionCreators(actionCreators, useDispatch());
 
   useEffect(() => {
     const authHandle = (event) => {
@@ -22,10 +22,11 @@ const useAuthorization = () => {
   useEffect(() => {
     if (token) {
       if (localStorage.getItem('auth') === 'true') setAuthorized();
+      getMe({ token });
 
-      setTimeout(() => {
-        refreshToken();
-      }, 36000);
+      // setTimeout(() => {
+      //   refreshToken();
+      // }, 36000);
     }
   }, [token]);
 

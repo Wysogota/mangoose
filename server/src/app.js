@@ -8,13 +8,14 @@ const { dailySchedule } = require('./functions/schedule.fn');
 
 const app = express();
 
+const { CLIENT_PORT, DOMAIN } = process.env;
 dailySchedule();
 
-app.use('/admin', admin)
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: `http://${DOMAIN}:${CLIENT_PORT}`, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/public', express.static('public'));
+app.use('/admin', admin);
 app.use('/api', routes);
 app.use(errorHandler);
 

@@ -9,6 +9,7 @@ const upload = multer({ storage });
 
 router.post('/me', tokenChecker, Controller.getMe);
 router.post('/avatar', upload.single('avatar'), tokenChecker, Controller.saveAvatar);
+router.get('/avatar/default', Controller.getDefaultAvatar);
 router.get('/avatar/:userId', Controller.getUserAvatar);
 router.get('/:userId', Controller.getUser);
 

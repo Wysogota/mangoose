@@ -1,8 +1,5 @@
-import React, { useEffect } from 'react';
-import { bindActionCreators } from 'redux';
-import { useDispatch, useSelector } from 'react-redux';
-import * as actionCreators from '../../redux/actions/actionCreators';
-import { useLoading } from '../../hooks';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Container, Row, Button } from 'react-bootstrap';
 import ColBlock from '../../components/Blocks/ColBlock';
 import MainHeader from '../../components/Headers/MainHeader';
@@ -15,16 +12,7 @@ const { PAGES: { SETTINGS: { path: SETTINGS_PATH } } } = CONSTANTS;
 
 const Profile = () => {
   const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
-  const { me, isFetching } = useSelector(({ me }) => me);
-  const { token } = useSelector(({ auth }) => auth);
-  const { getMe } = bindActionCreators(actionCreators, useDispatch());
-
-  useEffect(() => {
-    getMe({ token });
-  }, []);
-
-  const loading = useLoading({ data: me, isFetching });
-  if (loading) return loading;
+  const { me } = useSelector(({ me }) => me);
 
   return (
     <Container>

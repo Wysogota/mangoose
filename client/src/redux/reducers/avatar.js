@@ -3,7 +3,6 @@ import ACTION_TYPES from '../actions/actionTypes';
 
 const initialState = {
   message: null,
-  avatar: null,
   isFetching: false,
   isUploaded: false,
   errors: null,

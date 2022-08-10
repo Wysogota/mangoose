@@ -6,11 +6,12 @@ import cx from 'classnames';
 import Image from 'react-bootstrap/Image';
 import styles from './Avatar.module.scss';
 import CONSTANTS from '../../constants';
-const { STATIC_IMAGE_PATH, DEFAULT_AVATAR } = CONSTANTS;
+const { STATIC_IMAGE_PATH } = CONSTANTS;
 
 const Avatar = (props) => {
-  const { avatar = DEFAULT_AVATAR, compact, className } = props;
-  const { theme: { invertedColor, } } = useSelector(({ themes }) => themes);
+  const { compact, className } = props;
+  const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
+  const { me: { avatar } } = useSelector(({ me }) => me);
   const { isAuthorized } = useSelector(({ auth }) => auth);
   const { showSignIn } = bindActionCreators(actionCreators, useDispatch());
 
@@ -22,10 +23,7 @@ const Avatar = (props) => {
   );
 
   if (isAuthorized) return (
-    <Image
-      src={STATIC_IMAGE_PATH + avatar}
-      className={classes} fluid
-    />
+    <Image src={avatar} className={classes} fluid />
   );
   else return (
     <Image

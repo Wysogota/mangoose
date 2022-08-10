@@ -1,5 +1,7 @@
+const path = require('path');
 const { User, Avatar } = require('../models');
 const { getResponse } = require('../functions/controllers.fn');
+const { STATIC_IMAGE_PATH, DEFAULT_AVATAR } = require('../constants');
 
 module.exports.getUser = async (req, res, next) => {
   try {
@@ -17,6 +19,9 @@ module.exports.getMe = async (req, res, next) => {
   try {
     const { user } = req;
     if (user) {
+      const { PORT, DOMAIN } = process.env;
+      const hasAvatar = Boolean(await user.countAvatars());
+
       res
         .status(200)
         .send(getResponse('User founded.', {
@@ -24,6 +29,7 @@ module.exports.getMe = async (req, res, next) => {
             id: user.id,
             name: user.username,
             email: user.email,
+            avatar: `http://${DOMAIN}:${PORT}/api/user/avatar/${hasAvatar ? user.id : 'default'}`,
           }
         }));
     } else {
@@ -56,6 +62,16 @@ module.exports.getUserAvatar = async (req, res, next) => {
         .status(401)
         .send(getResponse('User not founded.'));
     }
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.getDefaultAvatar = async (req, res, next) => {
+  try {
+    res
+      .status(200)
+      .sendFile(path.join(__dirname, '../..', STATIC_IMAGE_PATH, DEFAULT_AVATAR));
   } catch (error) {
     next(error);
   }
