@@ -39,7 +39,11 @@ module.exports.getMe = async (req, res, next) => {
 
 module.exports.saveAvatar = async (req, res, next) => {
   try {
-    console.log(req.file);
+    const { file, user } = req;
+
+    const { originalname: name, encoding, mimetype, buffer, size } = file;
+    await user.createAvatar({ name, encoding, mimetype, buffer, size });
+
     res
       .status(200)
       .send(getResponse('Avatar Updated.'));

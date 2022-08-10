@@ -12,8 +12,11 @@ const hashPassword = async (user, options) => {
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    static associate({ RefreshToken }) {
+    static associate({ RefreshToken, Avatar }) {
       User.hasMany(RefreshToken, {
+        foreignKey: 'userId',
+      });
+      User.hasMany(Avatar, {
         foreignKey: 'userId',
       });
     }

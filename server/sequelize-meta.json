@@ -1,4 +1,5 @@
 [
   "20220720155044-create-user.js",
-  "20220721104933-create-refresh-token.js"
+  "20220721104933-create-refresh-token.js",
+  "20220810075836-create-avatar.js"
 ]
