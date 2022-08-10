@@ -368,9 +368,9 @@ export const getListError = (error) => ({
   payload: { error },
 });
 
-export const uploadAvatar = (options) => ({
+export const uploadAvatar = (options, token) => ({
   type: ACTION_TYPES.UPLOAD_AVATAR,
-  payload: { options },
+  payload: { options, token },
 });
 export const uploadAvatarRequest = () => ({
   type: ACTION_TYPES.UPLOAD_AVATAR_REQUEST,

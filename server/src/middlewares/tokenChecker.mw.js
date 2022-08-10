@@ -3,7 +3,7 @@ const createHttpError = require('http-errors');
 const { User } = require('../models');
 
 module.exports = (req, res, next) => {
-  const accessToken = req.body.token;
+  const accessToken = req.body.token || req.headers.authorization.split(' ')[1];
 
   if (accessToken) {
     const { ACCESS_TOKEN_SECRET } = process.env;

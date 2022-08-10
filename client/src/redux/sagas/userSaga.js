@@ -15,7 +15,8 @@ export function* getMeSaga(action) {
 export function* uploadAvatarSaga(action) {
   yield put(actionCreators.uploadAvatarRequest());
   try {
-    const { data } = yield API.uploadAvatar(action.payload.options);
+    const { options, token } = action.payload;
+    const { data } = yield API.uploadAvatar(options, token);
     yield put(actionCreators.uploadAvatarSuccess(data));
   } catch (error) {
     yield put(actionCreators.uploadAvatarError(error));

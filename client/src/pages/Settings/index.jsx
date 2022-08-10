@@ -13,8 +13,9 @@ const initialValues = {
 
 const Settings = () => {
   const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
+  const { token } = useSelector(({ auth }) => auth);
   const { uploadAvatar } = bindActionCreators(actionCreators, useDispatch());
-  const onSubmit = (values, formikBag) => uploadAvatar(values.avatar);
+  const onSubmit = ({ avatar }, formikBag) => uploadAvatar(avatar, token);
   const onChange = (event, formik) => {
     const file = event.target.files[0];
     const formData = new FormData();
