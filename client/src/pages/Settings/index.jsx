@@ -1,11 +1,10 @@
 import { ErrorMessage, Form, Formik } from 'formik';
-import React from 'react';
-import { bindActionCreators } from 'redux';
-import { useSelector, useDispatch } from 'react-redux';
-import * as actionCreators from '../../redux/actions/actionCreators';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import { Form as BsForm } from 'react-bootstrap';
 import { UPLOAD_AVATAR_SCHEMA } from '../../utils/validationSchemas';
+import ModalAvatarEditor from '../../components/Avatar/ModalAvatarEditor';
 
 const initialValues = {
   avatar: null,
@@ -13,14 +12,16 @@ const initialValues = {
 
 const Settings = () => {
   const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
-  const { token } = useSelector(({ auth }) => auth);
-  const { uploadAvatar } = bindActionCreators(actionCreators, useDispatch());
-  const onSubmit = ({ avatar }, formikBag) => uploadAvatar(avatar, token);
+  const [avatar, setAvatar] = useState();
+  const [showAvatarEditor, setShowAvatarEditor] = useState(false);
+
+  const onSubmit = ({ avatar }, formikBag) => {
+    setAvatar(avatar);
+    setShowAvatarEditor(true);
+  };
   const onChange = (event, formik) => {
     const file = event.target.files[0];
-    const formData = new FormData();
-    formData.append('avatar', file);
-    formik.setFieldValue('avatar', formData);
+    formik.setFieldValue('avatar', file);
   };
 
   return (
@@ -43,12 +44,13 @@ const Settings = () => {
                   className='w-auto d-inline-block rounded-0'
                 />
                 <ErrorMessage name='avatar' />
-                <Button type='submit' variant={invertedColor}>Update avatar</Button>
+                <Button type='submit' variant={invertedColor}>Edit avatar</Button>
               </ButtonGroup>
             </Form>
           );
         }}
       </Formik>
+      <ModalAvatarEditor show={showAvatarEditor} setShow={setShowAvatarEditor} avatar={avatar} />
     </div>
   );
 };
