@@ -16,7 +16,7 @@ const { PAGES: {
 
 const HeaderAuthButtons = () => {
   const { theme: { invertedColor, outlineColor } } = useSelector(({ themes }) => themes);
-  const { isFetching } = useSelector(({ me }) => me);
+  const { me: { name }, isFetching } = useSelector(({ me }) => me);
   const { isAuthorized } = useSelector(({ auth }) => auth);
   const { showSignIn, signOut } = bindActionCreators(actionCreators, useDispatch());
 
@@ -30,6 +30,8 @@ const HeaderAuthButtons = () => {
       </Dropdown.Toggle>
 
       <Dropdown.Menu variant={invertedColor}>
+        <Dropdown.ItemText>{name}</Dropdown.ItemText>
+        <Dropdown.Divider />
         <Dropdown.Item as={Link} to={PROFILE_PATH}>Profile</Dropdown.Item>
         <Dropdown.Item as={Link} to={SETTINGS_PATH}>Settings</Dropdown.Item>
         <Dropdown.Item onClick={signOut}>Sign Out</Dropdown.Item>
