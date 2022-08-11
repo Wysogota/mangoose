@@ -18,21 +18,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING,
     },
-    name: {
-      allowNull: false,
-      type: DataTypes.STRING,
-    },
-    encoding: {
-      allowNull: false,
-      type: DataTypes.STRING,
-    },
     buffer: {
       allowNull: false,
-      type: DataTypes.BLOB('long'),
-    },
-    size: {
-      allowNull: false,
-      type: DataTypes.NUMBER,
+      type: DataTypes.BLOB,
     },
   }, {
     sequelize,

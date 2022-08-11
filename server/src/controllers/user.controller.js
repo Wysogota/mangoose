@@ -1,6 +1,6 @@
 const path = require('path');
 const { User, Avatar } = require('../models');
-const { getResponse } = require('../functions/controllers.fn');
+const { getResponse, getAvatarUrl } = require('../functions/controllers.fn');
 const { STATIC_IMAGE_PATH, DEFAULT_AVATAR } = require('../constants');
 
 module.exports.getUser = async (req, res, next) => {
@@ -19,8 +19,7 @@ module.exports.getMe = async (req, res, next) => {
   try {
     const { user } = req;
     if (user) {
-      const { PORT, DOMAIN } = process.env;
-      const hasAvatar = Boolean(await user.countAvatars());
+      const avatar = await getAvatarUrl(user);
 
       res
         .status(200)
@@ -29,7 +28,7 @@ module.exports.getMe = async (req, res, next) => {
             id: user.id,
             name: user.username,
             email: user.email,
-            avatar: `http://${DOMAIN}:${PORT}/api/user/avatar/${hasAvatar ? user.id : 'default'}`,
+            avatar,
           }
         }));
     } else {
@@ -54,13 +53,13 @@ module.exports.getUserAvatar = async (req, res, next) => {
         .status(200)
         .set({
           'Content-Type': avatar.mimetype,
-          'Content-Length': avatar.size
+          'Content-Length': image.length
         })
         .send(image);
     } else {
       res
         .status(401)
-        .send(getResponse('User not founded.'));
+        .send(getResponse('Avatar not founded.'));
     }
   } catch (error) {
     next(error);
@@ -77,12 +76,17 @@ module.exports.getDefaultAvatar = async (req, res, next) => {
   }
 };
 
-module.exports.saveAvatar = async (req, res, next) => {
+module.exports.setAvatar = async (req, res, next) => {
   try {
     const { file, user } = req;
 
-    const { originalname: name, encoding, mimetype, buffer, size } = file;
-    await user.createAvatar({ name, encoding, mimetype, buffer, size });
+    const { mimetype, buffer } = file;
+    const avatarData = { mimetype, buffer };
+
+    const avatar = await user.getAvatar();
+    avatar
+      ? await avatar.update(avatarData)
+      : await user.createAvatar(avatarData);
 
     res
       .status(200)

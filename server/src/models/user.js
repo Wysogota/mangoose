@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(RefreshToken, {
         foreignKey: 'userId',
       });
-      User.hasMany(Avatar, {
+      User.hasOne(Avatar, {
         foreignKey: 'userId',
       });
     }

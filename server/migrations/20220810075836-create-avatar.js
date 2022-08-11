@@ -17,25 +17,13 @@ module.exports = {
           key: 'id',
         }
       },
-      name: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
       mimetype: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      encoding: {
         allowNull: false,
         type: Sequelize.STRING
       },
       buffer: {
         allowNull: false,
         type: Sequelize.BLOB
-      },
-      size: {
-        allowNull: false,
-        type: Sequelize.INTEGER
       },
       createdAt: {
         field: 'created_at',

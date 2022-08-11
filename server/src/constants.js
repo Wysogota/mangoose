@@ -22,4 +22,5 @@ module.exports = {
   AUTHORS: [
     'author', 'artist'
   ],
+  DEFAULT_AVATAR_PATH: 'default',
 };

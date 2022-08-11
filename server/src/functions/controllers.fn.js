@@ -1,5 +1,5 @@
 const { RefreshToken } = require('../models');
-const { MAX_AUTH_COUNT } = require('../constants');
+const { MAX_AUTH_COUNT, DEFAULT_AVATAR_PATH } = require('../constants');
 
 module.exports.getResponse = (message, data) => ({
   message,
@@ -24,3 +24,10 @@ module.exports.getTokenCookieOptions = (expiresIn = null) => ({
   expires: new Date(expiresIn * 1000),
   httpOnly: true,
 });
+
+module.exports.getAvatarUrl = async (user) => {
+  const { PORT, DOMAIN } = process.env;
+  const hasAvatar = Boolean(await user.getAvatar());
+  const avatarPath = hasAvatar ? user.id : DEFAULT_AVATAR_PATH;
+  return `http://${DOMAIN}:${PORT}/api/user/avatar/${avatarPath}`;
+};
