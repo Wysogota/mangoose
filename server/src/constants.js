@@ -9,4 +9,17 @@ module.exports = {
     COMPLETED: 'completed',
     STOPPED: 'stopped',
   },
+  SORT_LIST: {
+    RELEVANCE: {
+      name: 'best match',
+      type: 'relevance',
+    },
+  },
+  SORT_DIRECTION: {
+    ASC: 'asc',
+    DESC: 'desc',
+  },
+  AUTHORS: [
+    'author', 'artist'
+  ],
 };

@@ -1,12 +1,17 @@
-const authorPropNames = [
-  'author', 'artist'
-];
+const {
+  AUTHORS,
+  SORT_LIST: { RELEVANCE: { type: RELEVANCE_TYPE } },
+  SORT_DIRECTION: { DESC }
+} = require("../../constants");
 
 module.exports.configureOrder = (options) => {
-  if (!options.order) return options;
+  if (!options.order) {
+    options[`order[${RELEVANCE_TYPE}]`] = DESC;
+    return options;
+  }
 
   const [orderType, orderDirection] = options.order.split('.');
-  options[`order[${orderType}]`] = orderDirection;
+  options[`order[${orderType}]`] = orderDirection || DESC;
   delete options.order;
   return options;
 };
@@ -16,5 +21,5 @@ module.exports.deleteBlankParams = (options) => Object.fromEntries(
 );
 
 module.exports.getAuthorProps = (options) => Object.keys(options).filter(
-  (key) => authorPropNames.includes(key)
+  (key) => AUTHORS.includes(key)
 );
