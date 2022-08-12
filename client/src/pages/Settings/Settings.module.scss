@@ -1,0 +1,45 @@
+@import '../../common/styles/colors';
+@import '../../common/styles/elements.module.scss';
+
+.submit {
+  width: 10rem;
+  flex: 0 0 auto !important;
+  border: none !important;
+}
+
+.input {
+  border-bottom-right-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+
+  box-shadow: none !important;
+  border: none !important;
+
+  &::file-selector-button {
+    min-width: 10rem;
+    border: none !important;
+  }
+}
+
+.input_avatar_dark {
+  background-color: $dark_accent_color  !important;
+  color: $light_main_color  !important;
+
+  &::file-selector-button {
+    background-color: $light_main_color  !important;
+    color: $dark_main_color !important;
+  }
+}
+
+.input_avatar_light {
+  background-color: $light_accent_color  !important;
+  color: $dark_main_color  !important;
+
+  &::file-selector-button {
+    background-color: $dark_main_color  !important;
+    color: $light_main_color !important;
+  }
+}
+
+.error {
+  @include error_message(0 0.75rem 0 0);
+}

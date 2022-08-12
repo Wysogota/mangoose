@@ -47,11 +47,12 @@ const ModalAvatarEditor = (props) => {
           ref={editor}
           image={avatar}
           width={512} height={512}
-          border={32} scale={zoom}
+          border={32} borderRadius={16}
+          scale={zoom}
           className='rounded w-100 h-100'
         />
       </Modal.Body>
-      <Modal.Footer className='justify-content-center flex-column'>
+      <Modal.Footer className='flex-column'>
         <Form.Range
           value={zoom}
           min={1} max={3} step={0.1}
