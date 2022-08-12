@@ -1,9 +1,5 @@
-@import '../../common/styles/colors';
+@import '../../common/styles/elements.module.scss';
 
 .error {
-  color: $error_color;
-  position: absolute;
-  top: 50%;
-  right: 5%;
-  transform: translateY(-50%);
+  @include error_message(0 0.75rem 0 0);
 }

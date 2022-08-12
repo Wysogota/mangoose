@@ -33,9 +33,9 @@ const SignIn = () => {
   useEffect(() => isAuthorized && hideSignIn(), [isAuthorized]);
 
   return (
-    <Modal show={isSignInShown} onHide={hideSignIn} backdrop='static' contentClassName={contentClasses}>
+    <Modal show={isSignInShown} backdrop='static' contentClassName={contentClasses}>
       <Modal.Header className='text-uppercase'>
-        <Modal.Title >sign in</Modal.Title>
+        <Modal.Title>sign in</Modal.Title>
         <CloseButton onClick={hideSignIn} />
       </Modal.Header>
       <Formik

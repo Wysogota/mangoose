@@ -33,7 +33,7 @@ const MangaCard = (props) => {
     mainTheme,
     'text-left',
   );
-  console.log(manga);
+
   return (
     <Card
       bg={mainColor} border={mainColor}
