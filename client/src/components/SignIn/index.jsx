@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
@@ -8,7 +8,7 @@ import { Button, Modal } from 'react-bootstrap';
 import { Formik, Form } from 'formik';
 import Input from '../../components/Input';
 import CloseButton from '../CloseButton';
-import { useAuthRedirect } from '../../hooks';
+import { useAfterAuthAction } from '../../hooks';
 import { SIGN_IN_SCHEMA } from '../../utils/validationSchemas';
 import CONSTANTS from '../../constants';
 const { PAGES: {
@@ -16,7 +16,7 @@ const { PAGES: {
 } } = CONSTANTS;
 
 const redirectPaths = [
-  SIGN_UP_PATH, 
+  SIGN_UP_PATH,
 ];
 
 const initialValues = {
@@ -27,18 +27,8 @@ const initialValues = {
 const SignIn = () => {
   const { theme: { mainTheme, bgTheme, invertedColor } } = useSelector(({ themes }) => themes);
   const { isSignInShown } = useSelector(({ modalItems }) => modalItems);
-  const { isFetching, errors } = useSelector(({ auth }) => auth);
   const { hideSignIn, signIn } = bindActionCreators(actionCreators, useDispatch());
-  const [isRequested, setIsRequested] = useState(false);
-  const authRedirect = useAuthRedirect();
-
-  useEffect(() => {
-    if (isRequested && !errors) {
-      setIsRequested(false);
-      hideSignIn();
-      authRedirect(redirectPaths);
-    }
-  }, [isFetching]);
+  const { setIsRequested } = useAfterAuthAction(redirectPaths, hideSignIn);
 
   const onSubmit = (values, formikBag) => {
     signIn(values);

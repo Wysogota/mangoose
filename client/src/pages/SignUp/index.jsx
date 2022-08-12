@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
@@ -7,7 +7,7 @@ import { Col, Container, Row, Button } from 'react-bootstrap';
 import { Formik, Form } from 'formik';
 import Input from '../../components/Input';
 import { SIGN_UP_SCHEMA } from '../../utils/validationSchemas';
-import { useAuthRedirect } from '../../hooks';
+import { useAfterAuthAction } from '../../hooks';
 
 const initialValues = {
   username: '',
@@ -18,21 +18,13 @@ const initialValues = {
 
 const SignUp = () => {
   const { theme: { mainTheme, bgTheme, invertedColor } } = useSelector(({ themes }) => themes);
-  const { isFetching, errors } = useSelector(({ auth }) => auth);
   const { signUp } = bindActionCreators(actionCreators, useDispatch());
-  const [isRequested, setIsRequested] = useState(false);
-  const authRedirect = useAuthRedirect();
+  const { setIsRequested } = useAfterAuthAction();
+
   const onSubmit = (values, formikBag) => {
     signUp(values);
     setIsRequested(true);
   };
-
-  useEffect(() => {
-    if (isRequested && !errors) {
-      setIsRequested(false);
-      authRedirect();
-    }
-  }, [isFetching]);
 
   const blockClasses = cx(
     bgTheme,
