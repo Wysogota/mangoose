@@ -13,12 +13,10 @@ import { SIGN_IN_SCHEMA } from '../../utils/validationSchemas';
 import CONSTANTS from '../../constants';
 const { PAGES: {
   SIGN_UP: { path: SIGN_UP_PATH },
-  PROFILE: { path: PROFILE_PATH },
-  SETTINGS: { path: SETTINGS_PATH },
 } } = CONSTANTS;
 
 const redirectPaths = [
-  SIGN_UP_PATH, PROFILE_PATH, SETTINGS_PATH,
+  SIGN_UP_PATH, 
 ];
 
 const initialValues = {
@@ -35,7 +33,7 @@ const SignIn = () => {
   const authRedirect = useAuthRedirect();
 
   useEffect(() => {
-    if (isRequested && !isFetching && !errors) {
+    if (isRequested && !errors) {
       setIsRequested(false);
       hideSignIn();
       authRedirect(redirectPaths);

@@ -296,8 +296,11 @@ export const refreshTokenError = (error) => ({
   payload: { error },
 });
 
-export const clearToken = () => ({
-  type: ACTION_TYPES.CLEAR_TOKEN,
+export const resetAuth = () => ({
+  type: ACTION_TYPES.RESET_AUTH,
+});
+export const checkAuth = () => ({
+  type: ACTION_TYPES.CHECK_AUTH,
 });
 
 export const getMangaLists = (options) => ({

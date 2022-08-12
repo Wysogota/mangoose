@@ -8,12 +8,12 @@ const { PAGES: { HOME: { path: HOME_PATH } } } = CONSTANTS;
 
 const WithAuth = (Component) => {
   const Hoc = () => {
-    const { token } = useSelector(({ auth }) => auth);
+    const { token, isAuthorized } = useSelector(({ auth }) => auth);
     const { showSignIn } = bindActionCreators(actionCreators, useDispatch());
     const navigate = useNavigate();
 
     useEffect(() => {
-      if (localStorage.getItem('auth') !== 'true') {
+      if (!isAuthorized) {
         navigate(
           window.history.state.idx > 0 ? -1 : HOME_PATH,
           { replace: true }

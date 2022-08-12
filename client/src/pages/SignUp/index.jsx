@@ -28,7 +28,7 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    if (isRequested && !isFetching && !errors) {
+    if (isRequested && !errors) {
       setIsRequested(false);
       authRedirect();
     }

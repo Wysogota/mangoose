@@ -15,8 +15,8 @@ const redirectPaths = [
 ];
 
 const useAuthorization = () => {
-  const { token } = useSelector(({ auth }) => auth);
-  const { clearToken, refreshToken, getMe } = bindActionCreators(actionCreators, useDispatch());
+  const { token, isAuthorized } = useSelector(({ auth }) => auth);
+  const { resetAuth, refreshToken, getMe } = bindActionCreators(actionCreators, useDispatch());
   const authRedirect = useAuthRedirect();
 
   useEffect(() => {
@@ -24,13 +24,13 @@ const useAuthorization = () => {
       if (event.key === 'auth') {
         if (event.newValue === 'true') refreshToken();
         else if (event.newValue === 'false') {
-          clearToken();
+          resetAuth();
           authRedirect(redirectPaths);
         }
       }
     };
 
-    if (localStorage.getItem('auth') === 'true') refreshToken();
+    if (isAuthorized) refreshToken();
     window.addEventListener('storage', authHandle);
   }, []);
 
