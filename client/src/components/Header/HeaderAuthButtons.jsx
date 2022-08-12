@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
@@ -6,7 +6,7 @@ import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import DropdownToggle from '../DropdownToggle';
 import Avatar from '../Avatar';
-import { useLoading } from '../../hooks';
+import { useAuthRedirect, useLoading } from '../../hooks';
 import CONSTANTS from '../../constants';
 const { PAGES: {
   SIGN_UP: { path: SIGN_UP_PATH },
@@ -14,16 +14,34 @@ const { PAGES: {
   SETTINGS: { path: SETTINGS_PATH },
 } } = CONSTANTS;
 
+const redirectPaths = [
+  PROFILE_PATH, SETTINGS_PATH,
+];
+
 const HeaderAuthButtons = () => {
   const { theme: { invertedColor, outlineColor } } = useSelector(({ themes }) => themes);
-  const { me: { name }, isFetching } = useSelector(({ me }) => me);
-  const { isAuthorized } = useSelector(({ auth }) => auth);
+  const { me: { name }, isFetching: meIsFetching } = useSelector(({ me }) => me);
+  const { token, isFetching: authIsFetching, errors } = useSelector(({ auth }) => auth);
   const { showSignIn, signOut } = bindActionCreators(actionCreators, useDispatch());
+  const [isRequested, setIsRequested] = useState(false);
+  const authRedirect = useAuthRedirect();
 
-  const loading = useLoading({ isFetching, spinner: false });
+  const signOutHandle = () => {
+    signOut();
+    setIsRequested(true);
+  };
+
+  useEffect(() => {
+    if (isRequested && !authIsFetching && !errors) {
+      setIsRequested(false);
+      authRedirect(redirectPaths);
+    }
+  }, [authIsFetching]);
+
+  const loading = useLoading({ meIsFetching, spinner: false });
   if (loading) return loading;
 
-  if (isAuthorized) return (
+  if (token) return (
     <Dropdown className='d-inline'>
       <Dropdown.Toggle as={DropdownToggle}>
         <Avatar compact />
@@ -34,7 +52,7 @@ const HeaderAuthButtons = () => {
         <Dropdown.Divider />
         <Dropdown.Item as={Link} to={PROFILE_PATH}>Profile</Dropdown.Item>
         <Dropdown.Item as={Link} to={SETTINGS_PATH}>Settings</Dropdown.Item>
-        <Dropdown.Item onClick={signOut}>Sign Out</Dropdown.Item>
+        <Dropdown.Item onClick={signOutHandle}>Sign Out</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );

@@ -12,7 +12,7 @@ const Avatar = (props) => {
   const { compact, className } = props;
   const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
   const { me: { avatar } } = useSelector(({ me }) => me);
-  const { isAuthorized } = useSelector(({ auth }) => auth);
+  const { token } = useSelector(({ auth }) => auth);
   const { showSignIn } = bindActionCreators(actionCreators, useDispatch());
 
   const classes = cx(
@@ -22,7 +22,7 @@ const Avatar = (props) => {
     className,
   );
 
-  if (isAuthorized) return (
+  if (token) return (
     <Image src={avatar} className={classes} fluid />
   );
   else return (

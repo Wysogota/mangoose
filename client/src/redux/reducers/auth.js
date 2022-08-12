@@ -2,12 +2,8 @@ import produce from 'immer';
 import ACTION_TYPES from '../actions/actionTypes';
 
 const initialState = {
-  message: null,
-  isTokenUpdated: false,
-  isRegistered: false,
-  isAuthorized: false,
   token: null,
-
+  message: null,
   isFetching: false,
   errors: null,
 };
@@ -31,35 +27,33 @@ const handlers = {
   [ACTION_TYPES.REFRESH_TOKEN_REQUEST]: requestHandle,
 
   [ACTION_TYPES.SIGN_UP_SUCCESS]: produce((draftState, action) => {
+    const { message } = action.payload.data;
+
     draftState.isFetching = false;
-    draftState.isRegistered = true;
-    draftState.message = action.payload.data.message;
+    draftState.message = message;
   }),
   [ACTION_TYPES.SIGN_IN_SUCCESS]: produce((draftState, action) => {
     const { message, data: { token } } = action.payload.data;
     draftState.isFetching = false;
-    draftState.isAuthorized = true;
-    
+
     draftState.message = message;
     draftState.token = token;
     localStorage.setItem('auth', true);
   }),
   [ACTION_TYPES.SIGN_OUT_SUCCESS]: produce((draftState, action) => {
-    draftState.isFetching = false;
-    draftState.isAuthorized = false;
-    draftState.isRegistered = false;
-    draftState.isTokenUpdated = false;
+    const { message } = action.payload.data;
 
-    draftState.message = action.payload.data.message;
+    draftState.isFetching = false;
+    draftState.token = null;
+    draftState.message = message;
     localStorage.setItem('auth', false);
   }),
   [ACTION_TYPES.REFRESH_TOKEN_SUCCESS]: produce((draftState, action) => {
-    const { message, data } = action.payload.data;
+    const { message, data: { token } } = action.payload.data;
 
     draftState.isFetching = false;
-    draftState.isTokenUpdated = true;
     draftState.message = message;
-    draftState.token = data?.token || null;
+    draftState.token = token;
   }),
 
   [ACTION_TYPES.SIGN_UP_ERROR]: errorHandle,
@@ -67,11 +61,8 @@ const handlers = {
   [ACTION_TYPES.SIGN_OUT_ERROR]: errorHandle,
   [ACTION_TYPES.REFRESH_TOKEN_ERROR]: errorHandle,
 
-  [ACTION_TYPES.AUTHORIZED]: produce((draftState, action) => {
-    draftState.isAuthorized = true;
-  }),
-  [ACTION_TYPES.NOT_AUTHORIZED]: produce((draftState, action) => {
-    draftState.isAuthorized = false;
+  [ACTION_TYPES.CLEAR_TOKEN]: produce((draftState, action) => {
+    draftState.token = null;
   }),
 };
 

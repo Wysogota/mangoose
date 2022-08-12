@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
@@ -8,9 +8,18 @@ import { Button, Modal } from 'react-bootstrap';
 import { Formik, Form } from 'formik';
 import Input from '../../components/Input';
 import CloseButton from '../CloseButton';
+import { useAuthRedirect } from '../../hooks';
 import { SIGN_IN_SCHEMA } from '../../utils/validationSchemas';
 import CONSTANTS from '../../constants';
-const { PAGES: { SIGN_UP: { path: signupPath } } } = CONSTANTS;
+const { PAGES: {
+  SIGN_UP: { path: SIGN_UP_PATH },
+  PROFILE: { path: PROFILE_PATH },
+  SETTINGS: { path: SETTINGS_PATH },
+} } = CONSTANTS;
+
+const redirectPaths = [
+  SIGN_UP_PATH, PROFILE_PATH, SETTINGS_PATH,
+];
 
 const initialValues = {
   email: '',
@@ -20,17 +29,26 @@ const initialValues = {
 const SignIn = () => {
   const { theme: { mainTheme, bgTheme, invertedColor } } = useSelector(({ themes }) => themes);
   const { isSignInShown } = useSelector(({ modalItems }) => modalItems);
-  const { isAuthorized } = useSelector(({ auth }) => auth);
+  const { isFetching, errors } = useSelector(({ auth }) => auth);
   const { hideSignIn, signIn } = bindActionCreators(actionCreators, useDispatch());
+  const [isRequested, setIsRequested] = useState(false);
+  const authRedirect = useAuthRedirect();
 
-  const contentClasses = cx(mainTheme, bgTheme);
+  useEffect(() => {
+    if (isRequested && !isFetching && !errors) {
+      setIsRequested(false);
+      hideSignIn();
+      authRedirect(redirectPaths);
+    }
+  }, [isFetching]);
 
   const onSubmit = (values, formikBag) => {
     signIn(values);
+    setIsRequested(true);
     formikBag.resetForm();
   };
 
-  useEffect(() => isAuthorized && hideSignIn(), [isAuthorized]);
+  const contentClasses = cx(mainTheme, bgTheme);
 
   return (
     <Modal show={isSignInShown} backdrop='static' contentClassName={contentClasses}>
@@ -45,14 +63,24 @@ const SignIn = () => {
       >
         <Form>
           <Modal.Body className='p-4'>
-            <Input name='email' label='Email address' placeholder='Enter email' type='email' />
-            <Input name='password' label='Password' placeholder='Enter password' type='password' />
+            <Input
+              name='email'
+              label='Email address'
+              placeholder='Enter email'
+              type='email'
+            />
+            <Input
+              name='password'
+              label='Password'
+              placeholder='Enter password'
+              type='password'
+            />
           </Modal.Body>
           <Modal.Footer className='justify-content-center flex-column'>
             <Button className='text-capitalize' variant={invertedColor} type='submit'>sign in</Button>
             <div>
               <span>Dont have account? </span>
-              <Link to={signupPath} onClick={hideSignIn} className={mainTheme}>Sign Up</Link>
+              <Link to={SIGN_UP_PATH} onClick={hideSignIn} className={mainTheme}>Sign Up</Link>
             </div>
           </Modal.Footer>
         </Form>

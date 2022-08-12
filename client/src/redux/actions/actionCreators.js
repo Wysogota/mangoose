@@ -296,12 +296,8 @@ export const refreshTokenError = (error) => ({
   payload: { error },
 });
 
-export const setAuthorized = () => ({
-  type: ACTION_TYPES.AUTHORIZED,
-});
-
-export const setNotAuthorized = () => ({
-  type: ACTION_TYPES.NOT_AUTHORIZED,
+export const clearToken = () => ({
+  type: ACTION_TYPES.CLEAR_TOKEN,
 });
 
 export const getMangaLists = (options) => ({

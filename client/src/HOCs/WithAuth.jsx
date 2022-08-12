@@ -4,34 +4,25 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../redux/actions/actionCreators';
 import { useNavigate } from 'react-router-dom';
 import CONSTANTS from '../constants';
-import { useLoading } from '../hooks';
-const {
-  PAGES: {
-    HOME: { path: homePath },
-  },
-} = CONSTANTS;
+const { PAGES: { HOME: { path: HOME_PATH } } } = CONSTANTS;
 
 const WithAuth = (Component) => {
   const Hoc = () => {
-    const { token, isTokenUpdated } = useSelector(({ auth }) => auth);
+    const { token } = useSelector(({ auth }) => auth);
     const { showSignIn } = bindActionCreators(actionCreators, useDispatch());
     const navigate = useNavigate();
 
-    const loading = useLoading({ isFetching: !isTokenUpdated, spinner: false });
-    if (loading) return loading;
-
-    if (token) return <Component />;
-    else {
-      useEffect(() => {
+    useEffect(() => {
+      if (localStorage.getItem('auth') !== 'true') {
         navigate(
-          window.history.state.idx > 0 ? -1 : homePath,
+          window.history.state.idx > 0 ? -1 : HOME_PATH,
           { replace: true }
         );
         showSignIn();
-      }, []);
+      }
+    }, []);
 
-      return null;
-    }
+    return token ? <Component /> : null;
   };
 
   return Hoc;
