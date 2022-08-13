@@ -82,6 +82,9 @@ export const getMangaCatalogError = (data) => ({
   type: ACTION_TYPES.GET_MANGA_CATALOG_ERROR,
   payload: { data },
 });
+export const clearMangaCatalog = () => ({
+  type: ACTION_TYPES.CLEAR_MANGA_CATALOG,
+});
 
 export const getMangaSearch = (options) => ({
   type: ACTION_TYPES.GET_MANGA_SEARCH,

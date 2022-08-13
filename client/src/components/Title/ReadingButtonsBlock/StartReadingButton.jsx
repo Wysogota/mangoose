@@ -7,7 +7,7 @@ import cx from 'classnames';
 import { Button } from 'react-bootstrap';
 import styles from './ReadingButtonsBlock.module.scss';
 import CONSTANTS from '../../../constants';
-const { DEFAULT_LOCALE } = CONSTANTS;
+const { DEFAULT_LOCALE, PAGES: { CHAPTER_READER: { path: CHAPTER_PATH } } } = CONSTANTS;
 
 const StartReadingButton = () => {
   const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
@@ -15,7 +15,9 @@ const StartReadingButton = () => {
   const { getFirstChapterId } = bindActionCreators(actionCreators, useDispatch());
   const { mangaId } = useParams();
 
-  useEffect(() => getFirstChapterId({ mangaId, lang: DEFAULT_LOCALE }), [mangaId]);
+  useEffect(() => {
+    getFirstChapterId({ mangaId, lang: DEFAULT_LOCALE });
+  }, [mangaId]);
 
   const startReadingClasses = cx(
     'd-block w-100 pt-2 pb-2 text-uppercase',
@@ -26,7 +28,11 @@ const StartReadingButton = () => {
     <Button variant={invertedColor} className='w-100 mb-3 p-0'>
       {isFetching
         ? <div className={startReadingClasses}>Loading...</div>
-        : <Link to={`/chapter/${firstChapterId}`} className={startReadingClasses}>Start reading</Link>}
+        : (firstChapterId
+          ? <Link to={`${CHAPTER_PATH}/${firstChapterId}`} className={startReadingClasses}>Start reading</Link>
+          : <div className={startReadingClasses}>No chapters</div>
+        )
+      }
     </Button>
   );
 };

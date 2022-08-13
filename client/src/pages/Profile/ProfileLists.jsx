@@ -6,19 +6,21 @@ import cx from 'classnames';
 import { capitalize, isEmpty } from 'lodash';
 import { Accordion } from 'react-bootstrap';
 import ProfileCards from './ProfileCards';
-import { useLoading } from '../../hooks';
 import CONSTANTS from '../../constants';
 const { MANGA_LIST_NAMES } = CONSTANTS;
 
 const ProfileLists = () => {
   const { theme: { invertedColor, bgAccentTheme } } = useSelector(({ themes }) => themes);
-  const { lists, isFetching } = useSelector(({ mangaLists }) => mangaLists);
+  const { lists } = useSelector(({ mangaLists }) => mangaLists);
   const { token } = useSelector(({ auth }) => auth);
   const { mangaCatalog } = useSelector(({ mangaCatalog }) => mangaCatalog);
-  const { getMangaLists, getMangaCatalog } = bindActionCreators(actionCreators, useDispatch());
+  const { getMangaLists, getMangaCatalog, clearMangaCatalog } = bindActionCreators(actionCreators, useDispatch());
   const [listedManga, setListedManga] = useState([]);
 
-  useEffect(() => getMangaLists({ token }), []);
+  useEffect(() => {
+    getMangaLists({ token });
+    return clearMangaCatalog;
+  }, []);
 
   useEffect(() => {
     const ids = Object.values(lists).flat();
@@ -46,9 +48,6 @@ const ProfileLists = () => {
     bgAccentTheme,
     'rounded mb-3',
   );
-
-  const loading = useLoading({ data: listedManga, isFetching });
-  if (loading) return loading;
 
   return (
     <section>{

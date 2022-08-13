@@ -13,12 +13,13 @@ const Related = (props) => {
     (item) => item.related && !RELATED_FILTER.includes(item.related)
   );
   const { mangaCatalog, isFetching } = useSelector(({ mangaCatalog }) => mangaCatalog);
-  const { getMangaCatalog } = bindActionCreators(actionCreators, useDispatch());
+  const { getMangaCatalog, clearMangaCatalog } = bindActionCreators(actionCreators, useDispatch());
   const [relatedManga, setRelatedManga] = useState([]);
 
   useEffect(() => {
     const mangaIds = filteredRelationshops.map(({ id }) => id);
     if (mangaIds.length) getMangaCatalog({ ids: mangaIds, limit: 100 });
+    return clearMangaCatalog;
   }, []);
 
   useEffect(() => {

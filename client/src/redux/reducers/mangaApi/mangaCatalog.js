@@ -29,6 +29,10 @@ const handlers = {
     draftState.isFetching = false;
     draftState.error = action.payload.error;
   }),
+
+  [ACTION_TYPES.CLEAR_MANGA_CATALOG]: (() => {
+    return initialState;
+  }),
 };
 
 export default (state = initialState, action) => {

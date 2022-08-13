@@ -98,7 +98,7 @@ module.exports.getFirstChapterId = async (options) => {
     .map((item) => queryString.stringify(item, stringifyOptions))
     .join('&');
   const { data: { data } } = await client.get(`/chapter?${query}`);
-  return data[0].id;
+  return data[0]?.id;
 };
 
 module.exports.getAuthorId = async (options) => {

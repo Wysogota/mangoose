@@ -14,7 +14,7 @@ const ToggleTab = (props, ref) => {
     decoratedOnClick();
     setClicked(current => !current);
   };
-  useEffect(() => focused && setClicked(false), [focused]);
+  useEffect(() => { focused && setClicked(false); }, [focused]);
 
   const classes = cx(
     styles.tab,

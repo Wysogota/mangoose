@@ -21,7 +21,7 @@ const limit = 12;
 const HomeMangaCatalog = (props) => {
   const { extendedCatalog, shrinked } = props;
   const { mangaCatalog, isFetching } = useSelector(({ mangaCatalog }) => mangaCatalog);
-  const { getMangaCatalog } = bindActionCreators(actionCreators, useDispatch());
+  const { getMangaCatalog, clearMangaCatalog } = bindActionCreators(actionCreators, useDispatch());
   const [searchParams] = useSearchParams();
 
   const queryParams = {
@@ -31,7 +31,9 @@ const HomeMangaCatalog = (props) => {
     [ARTIST]: searchParams.get(ARTIST),
     limit
   };
-  useEffect(() => getMangaCatalog(queryParams), [searchParams]);
+
+  useEffect(() => clearMangaCatalog, []);
+  useEffect(() => { getMangaCatalog(queryParams); }, [searchParams]);
 
   const catalogClasses = shrinked
     ? 'col-10 col-sm-7 col-md-6 col-lg-4 col-xl-3'

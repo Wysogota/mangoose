@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Tabs as BsTabs } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
@@ -12,7 +12,6 @@ const Tabs = (props) => {
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
   const [searchParams] = useSearchParams();
   const [paramValue, setParamValue] = useState(searchParams.get(TAB));
-  useEffect(() => setParamValue(searchParams.get(TAB)), [searchParams]);
 
   return (
     <BsTabs

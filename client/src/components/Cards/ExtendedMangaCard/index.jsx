@@ -9,7 +9,7 @@ import CONSTANTS from '../../../constants';
 import { getLocaleValue, selectRelationship } from '../../../common/functions';
 import { capitalize } from 'lodash';
 const {
-  PAGES: { TITLE: { path } },
+  PAGES: { TITLE: { path: TITLE_PATH } },
   MANGA_COVER_SIZES: { RAW },
 } = CONSTANTS;
 
@@ -43,7 +43,7 @@ const ExtendedMangaCard = (props) => {
   );
 
   return (
-    <Card className={cardClasses} onClick={onClick}>
+    <Card className={cardClasses}>
       <Col xs='4' md='3' xl='2'>
         <Card.Img src={image} className={imageClasses} />
       </Col>
@@ -51,7 +51,7 @@ const ExtendedMangaCard = (props) => {
         <Card.Body>
           <div className='d-flex justify-content-between'>
             <Card.Title className={titleClasses}>
-              <Link to={`${path}/${id}`}>{getLocaleValue(title)}</Link>
+              <Link to={`${TITLE_PATH}/${id}`} onClick={onClick}>{getLocaleValue(title)}</Link>
             </Card.Title>
             <div className={statusClasses}>{capitalize(status)}</div>
           </div>

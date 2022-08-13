@@ -20,12 +20,15 @@ const limit = 32;
 
 const Catalog = () => {
   const { inputValue, mangaSearch, total, isFetching } = useSelector(({ mangaSearch }) => mangaSearch);
-  const { getMangaSearch, clearMangaSearch, setSearchValue } = bindActionCreators(actionCreators, useDispatch());
+  const { getMangaSearch, clearMangaSearch } = bindActionCreators(actionCreators, useDispatch());
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    const titleParamValue = searchParams.get(TITLE);
-    if (!inputValue && titleParamValue) setSearchValue(titleParamValue);
+    if (inputValue) {
+      searchParams.set(PAGE, 1);
+      searchParams.set(TITLE, inputValue);
+      setSearchParams(searchParams, { replace: true });
+    }
     return () => clearMangaSearch();
   }, []);
 

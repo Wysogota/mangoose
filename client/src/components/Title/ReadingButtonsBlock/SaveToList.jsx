@@ -19,8 +19,8 @@ const SaveToList = () => {
   const [listName, setListName] = useState(DEFAULT_SAVE_BUTTON_VALUE);
   const { mangaId } = useParams();
 
-  useEffect(() => getList({ token, mangaId }), [lists]);
-  useEffect(() => list && setListName(list), [list]);
+  useEffect(() => { getList({ token, mangaId }); }, [lists]);
+  useEffect(() => { list && setListName(list); }, [list]);
 
   const classes = cx(
     styles.font_weight,
