@@ -1,36 +1,19 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('users', {
+    await queryInterface.createTable('permissions', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      roleId: {
-        field: 'role_id',
+      name: {
         allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'roles',
-          key: 'id',
-        }
-      },
-      username: {
-        allowNull: false,
-        unique: true,
-        type: Sequelize.STRING(128),
-      },
-      email: {
-        allowNull: false,
-        unique: true,
         type: Sequelize.STRING
       },
-      password: {
-        field: 'password_hash',
-        allowNull: false,
-        type: Sequelize.TEXT,
+      description: {
+        type: Sequelize.STRING
       },
       createdAt: {
         field: 'created_at',
@@ -45,6 +28,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('users');
+    await queryInterface.dropTable('permissions');
   }
 };

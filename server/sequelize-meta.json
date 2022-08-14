@@ -1,4 +1,7 @@
 [
+  "120220813174628-create-role.js",
+  "120220813174719-create-permission.js",
+  "120220813174903-create-role-to-permission.js",
   "20220720155044-create-user.js",
   "20220721104933-create-refresh-token.js",
   "20220810075836-create-avatar.js"

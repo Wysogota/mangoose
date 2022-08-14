@@ -12,12 +12,15 @@ const hashPassword = async (user, options) => {
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    static associate({ RefreshToken, Avatar }) {
+    static associate({ RefreshToken, Avatar, Role }) {
       User.hasMany(RefreshToken, {
         foreignKey: 'userId',
       });
       User.hasOne(Avatar, {
         foreignKey: 'userId',
+      });
+      User.belongsTo(Role, {
+        foreignKey: 'roleId',
       });
     }
 
@@ -27,6 +30,12 @@ module.exports = (sequelize, DataTypes) => {
 
   }
   User.init({
+    roleId: {
+      field: 'role_id',
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      defaultValue: 3,
+    },
     username: {
       allowNull: false,
       unique: true,
