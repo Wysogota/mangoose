@@ -6,25 +6,29 @@ const sequelize = require('./models');
 const mongoose = require('mongoose');
 require('./models/mongo/MangaLists');
 const { checkAccess } = require('./functions/adminPanel.fn');
-const { PERMISSION: { ADMIN_PANEL } } = require('./constants');
-
+const { PERMISSION: { ADMIN_PANEL, EDIT, DELETE, CREATE, SHOW } } = require('./constants');
 const { User, Role } = sequelize;
+
+const resourcesConfig = (Model) => ({
+  resource: Model,
+  options: {
+    actions: {
+      edit: { isAccessible: ({ currentAdmin }) => checkAccess(currentAdmin, EDIT) },
+      delete: { isAccessible: ({ currentAdmin }) => checkAccess(currentAdmin, DELETE) },
+      new: { isAccessible: ({ currentAdmin }) => checkAccess(currentAdmin, CREATE) },
+      show: { isAccessible: ({ currentAdmin }) => checkAccess(currentAdmin, SHOW) }
+    }
+  },
+});
 
 AdminJS.registerAdapter(AdminJSSequelize);
 AdminJS.registerAdapter(AdminJSMongoose);
 
 const adminJs = new AdminJS({
-  databases: [mongoose, sequelize],
-  resources: [{
-    resource: User,
-    options: {
-      actions: {
-        edit: {
-          isAccessible: ({ currentAdmin }) => checkAccess(currentAdmin, ADMIN_PANEL)
-        },
-      }
-    },
-  }],
+  resources: [
+    ...Object.values(mongoose.models).map((Model) => resourcesConfig(Model)),
+    ...Object.values(sequelize.sequelize.models).map((Model) => resourcesConfig(Model)),
+  ],
   rootPath: '/admin',
 });
 

@@ -30,5 +30,9 @@ module.exports = {
   },
   PERMISSION: {
     ADMIN_PANEL: 'Admin Panel',
+    EDIT: 'Edit',
+    DELETE: 'Delete',
+    CREATE: 'Create',
+    SHOW: 'Show',
   }
 };
