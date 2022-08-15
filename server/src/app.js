@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const admin = require('./admin');
+const adminPanel = require('./adminPanel');
 const routes = require('./routes');
 const errorHandler = require('./middlewares/error.handler.mw');
 const { dailySchedule } = require('./functions/schedule.fn');
@@ -15,7 +15,7 @@ app.use(cors({ origin: `http://${DOMAIN}:${CLIENT_PORT}`, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/public', express.static('public'));
-app.use('/admin', admin);
+app.use('/admin', adminPanel);
 app.use('/api', routes);
 app.use(errorHandler);
 
