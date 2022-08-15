@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     static async isTokenExists(token) {
       return RefreshToken
         .findOne({ where: { value: token } })
+        .then(() => true)
         .catch(() => false);
     }
 

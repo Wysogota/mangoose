@@ -1,7 +1,7 @@
 const createHttpError = require('http-errors');
 const { decode } = require('jsonwebtoken');
 const { User, RefreshToken } = require('../models');
-const { getAccessToken, getRefreshToken } = require('../jwt');
+const { getAccessToken, getRefreshToken } = require('../functions/jwt.fn');
 const { destroyOverLimitTokens, getTokenCookieOptions, getResponse } = require('../functions/controllers.fn');
 const { REFRESH_TOKEN_NAME } = require('../constants');
 
