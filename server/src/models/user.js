@@ -1,14 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
 const bcrypt = require('bcrypt');
-
-const hashPassword = async (user, options) => {
-  if (user.changed('password')) {
-    const saltRounds = parseInt(process.env.SALT_ROUNDS);
-    const hashedPassword = await bcrypt.hash(user.password, saltRounds);
-    user.password = hashedPassword;
-  }
-};
+const { ROLES: { USER } } = require('../constants');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -28,13 +21,24 @@ module.exports = (sequelize, DataTypes) => {
       return await bcrypt.compare(password, this.getDataValue('password'));
     }
 
+    async hashPassword(user) {
+      if (user.changed('password')) {
+        const saltRounds = parseInt(process.env.SALT_ROUNDS);
+        return await bcrypt.hash(user.password, saltRounds);
+      }
+      return user.password;
+    };
+
+    async getDefaultRole() {
+      const role = await sequelize.models.Role.findOne({ where: { name: USER } });
+      return role.id;
+    };
+
   }
   User.init({
     roleId: {
       field: 'role_id',
-      allowNull: false,
       type: DataTypes.INTEGER,
-      defaultValue: 3,
     },
     username: {
       allowNull: false,
@@ -68,8 +72,14 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
   });
 
-  User.beforeCreate(hashPassword);
-  User.beforeUpdate(hashPassword);
+  User.beforeCreate(async (user, options) => {
+    user.password = await user.hashPassword(user);
+    user.roleId = await user.getDefaultRole();
+
+  });
+  User.beforeUpdate(async (user, options) => {
+    user.password = await user.hashPassword(user);
+  });
 
   return User;
 };
