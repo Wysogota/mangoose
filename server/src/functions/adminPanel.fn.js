@@ -1,0 +1,1 @@
+module.exports.checkAccess = (user, permissionName) => user.permissions.includes(permissionName);

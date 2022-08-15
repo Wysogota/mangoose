@@ -23,4 +23,12 @@ module.exports = {
     'author', 'artist'
   ],
   DEFAULT_AVATAR_PATH: 'default',
+  ROLES: {
+    ADMIN: 'Admin',
+    MODERATOR: 'Moderator',
+    USER: 'User',
+  },
+  PERMISSION: {
+    ADMIN_PANEL: 'Admin Panel',
+  }
 };
