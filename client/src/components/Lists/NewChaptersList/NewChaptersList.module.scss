@@ -1,8 +1,11 @@
 .group {
-  max-height: 250px;
   overflow-y: scroll;
 }
 
-.date{
+.date {
   font-size: 0.7rem;
+}
+
+.adaptive {
+  height: 300px;
 }

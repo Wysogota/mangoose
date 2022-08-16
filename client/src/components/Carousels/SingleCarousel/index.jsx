@@ -17,7 +17,7 @@ const SingleCarousel = () => {
 
   return (
     <ColBlock>
-      <h3 className={headerClasses}>Manga of the day</h3>
+      <h3 className={headerClasses}>Recommendation</h3>
       <Carousel interval='10000' variant={mainColor} >
         <Carousel.Item>
           <img

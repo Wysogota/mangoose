@@ -38,7 +38,7 @@ const NewsList = () => {
 
   const groupClasses = cx(
     styles.group,
-    'rounded',
+    'rounded-2',
   );
 
   const itemClasses = cx(

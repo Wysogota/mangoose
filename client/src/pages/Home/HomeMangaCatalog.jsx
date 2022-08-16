@@ -36,7 +36,7 @@ const HomeMangaCatalog = (props) => {
   useEffect(() => { getMangaCatalog(queryParams); }, [searchParams]);
 
   const catalogClasses = shrinked
-    ? 'col-10 col-sm-7 col-md-6 col-lg-4 col-xl-3'
+    ? 'm-auto col-10 col-sm-7 col-md-6 col-lg-4 col-xl-3'
     : 'col-12 col-md-4';
 
   const loading = useLoading({ data: mangaCatalog, title: 'Catalog Empty', isFetching });

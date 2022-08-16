@@ -38,31 +38,40 @@ const data = [
   },
 ];
 
-const NewChaptersList = () => {
-  const { theme: { mainColor, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
+const NewChaptersList = (props) => {
+  const { isAdaptiveView } = props;
+  const { theme: { mainColor, bgAccentTheme, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
+
+  const containerClasses = cx(
+    bgAccentTheme,
+    'flex-grow-1 rounded-2',
+  );
 
   const groupClasses = cx(
     styles.group,
-    'rounded',
+    isAdaptiveView && styles.adaptive,
   );
 
   const itemClasses = cx(
     bgInvertedHoveredTheme,
-    'p-0',
+    'p-0 h-100 border-0',
   );
 
   return (
-    <ListGroup className={groupClasses}>
-      {data.map(({ chapter, manga, href, date }) =>
-        <ListGroup.Item key={chapter + date} variant={mainColor} className={itemClasses}>
-          <Link to={href} target='_blank' className='d-block p-2'>
-            <div className='fs-5'>{chapter}</div>
-            <div>{manga}</div>
-            <div className={styles.date}>{date}</div>
-          </Link>
-        </ListGroup.Item>
-      )}
-    </ListGroup>
+    <div className={containerClasses}>
+      <ListGroup className={groupClasses}>
+        {data.map(({ chapter, manga, href, date }) =>
+          <ListGroup.Item key={chapter + date} variant={mainColor} className={itemClasses}>
+            <Link to={href} target='_blank' className='d-block p-2'>
+              <div className='fs-5'>{chapter}</div>
+              <div>{manga}</div>
+              <div className={styles.date}>{date}</div>
+              <hr className='mb-0 mt-3' />
+            </Link>
+          </ListGroup.Item>
+        )}
+      </ListGroup>
+    </div>
   );
 };
 

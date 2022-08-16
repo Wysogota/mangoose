@@ -4,12 +4,11 @@ import { Container, Row, Col } from 'react-bootstrap';
 import SingleCarousel from '../../components/Carousels/SingleCarousel';
 import MultipleCarousel from '../../components/Carousels/MultipleCarousel';
 import NewsList from '../../components/Lists/NewsList';
-import NewChaptersList from '../../components/Lists/NewChaptersList';
 import HeaderLink from '../../components/HeaderLink';
 import ColBlock from '../../components/Blocks/ColBlock';
-import Advertisement from '../../components/Advertisement';
 import HomeMangaCatalog from './HomeMangaCatalog';
 import CONSTANTS from '../../constants';
+import HomeNewChapters from './HomeNewChapters';
 const {
   SORT_LIST: {
     FOLLOWED_COUNT: { type: FOLLOWED_COUNT },
@@ -19,63 +18,65 @@ const {
   SORT_DIRECTION: { DESC },
 } = CONSTANTS;
 
+const MILTIPLE_CAROUSELS = [
+  {
+    filter: `${FOLLOWED_COUNT}.${DESC}`,
+    order: 0,
+    title: 'Popular',
+  },
+  {
+    filter: `${LAST_CREATED}.${DESC}`,
+    order: 1,
+    title: 'New arrivals',
+  },
+  {
+    filter: `${LASTEST_CHAPTER}.${DESC}`,
+    order: 2,
+    title: 'Last updated',
+  },
+];
+
 const checkEveryCorousel = (isCarouselOpen) => Object.values(isCarouselOpen).every(({ isOpen }) => isOpen);
 
 const Home = () => {
   const isCarouselOpen = useSelector(({ carousels }) => carousels);
-
   const [extendedCatalog, setExtendedCatalog] = useState(checkEveryCorousel(isCarouselOpen));
 
   useEffect(() => {
     setExtendedCatalog(checkEveryCorousel(isCarouselOpen));
   }, [isCarouselOpen]);
 
-  const NewChapters = () => (
-    <ColBlock title='New chapters'>
-      <HeaderLink to='#' title='New chapters' />
-      <NewChaptersList />
-    </ColBlock>
-  );
-
   return (
     <Container>
       <Row>
-        <Col xs='12' lg='9'>
-          <MultipleCarousel
-            filter={`${FOLLOWED_COUNT}.${DESC}`}
-            order={0}
-            title='Popular'
-          />
-          <MultipleCarousel
-            filter={`${LAST_CREATED}.${DESC}`}
-            order={1}
-            title='New arrivals'
-          />
-          <MultipleCarousel
-            filter={`${LASTEST_CHAPTER}.${DESC}`}
-            order={2}
-            title='Last updated'
-          />
-          <Row className='d-flex d-lg-none'><NewChapters /></Row>
-          <Row>
-            <ColBlock className='col-12 col-md-6'>
-              <HeaderLink to='/news' title='Last news' />
+        <Col xs='12' lg='8'>
+          {MILTIPLE_CAROUSELS.map(({ filter, order, title }) => (
+            <MultipleCarousel key={order} filter={filter} order={order} title={title} />
+          ))}
+          <Row className='d-flex d-lg-none'>
+            <HomeNewChapters extendedCatalog={extendedCatalog} />
+          </Row>
+          <Row className='flex-column flex-lg-row'>
+            <ColBlock>
+              <HeaderLink to='#' title='Recently read' />
               <NewsList />
             </ColBlock>
-            <ColBlock className='col-12 col-md-6' >
-              <HeaderLink to='#' title='Recently read' />
+            <ColBlock className='d-lg-none d-xl-block'>
+              <HeaderLink to='/news' title='Last news' />
               <NewsList />
             </ColBlock>
           </Row>
           <HomeMangaCatalog extendedCatalog={!extendedCatalog} />
         </Col>
-        <Col lg='3' className='d-none d-lg-block'>
+        <Col lg='4' className='d-none d-lg-flex flex-column'>
           <Row><SingleCarousel /></Row>
-          <Row><NewChapters /></Row>
+          <Row className='flex-grow-1'>
+            <HomeNewChapters extendedCatalog={extendedCatalog} />
+          </Row>
           <Row>
-            <ColBlock >
-              <HeaderLink to='#' title='advertisement' />
-              <Advertisement />
+            <ColBlock className='d-xl-none'>
+              <HeaderLink to='/news' title='Last news' />
+              <NewsList />
             </ColBlock>
           </Row>
         </Col>
