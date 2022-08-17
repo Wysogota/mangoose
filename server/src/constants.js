@@ -34,5 +34,6 @@ module.exports = {
     DELETE: 'Delete',
     CREATE: 'Create',
     SHOW: 'Show',
+    RECOMMENDATION: 'Recommendation',
   }
 };

@@ -1,6 +1,6 @@
-const MangaLists = require('../models/mongo/MangaLists');
-const { MANGA_LIST_NAMES } = require('../constants');
+const { MangaLists, RecommendationList } = require('../models/mongo');
 const { getResponse } = require('../functions/controllers.fn');
+const { MANGA_LIST_NAMES } = require('../constants');
 
 module.exports.getLists = async (req, res, next) => {
   try {
@@ -70,6 +70,46 @@ module.exports.getList = async (req, res, next) => {
       ? getResponse('List founded.', { list })
       : getResponse('List not founded.')
     );
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.getRecommendationList = async (req, res, next) => {
+  try {
+    const data = await RecommendationList.find();
+    res.status(200).send({ data });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.addMangaToRecommendation = async (req, res, next) => {
+  try {
+    const { body: { mangaId, display }, user } = req;
+
+    const filter = { id: mangaId };
+    const options = { upsert: true, new: true };
+
+    const data = await RecommendationList.findOneAndUpdate(filter, {
+      userId: user.id,
+      display,
+    }, options);
+
+    res.status(200).send({ data });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.removeMangaFromRecommendation = async (req, res, next) => {
+  try {
+    const { body: { mangaId } } = req;
+
+    const filter = { id: mangaId };
+    const data = await RecommendationList.findOneAndDelete(filter);
+
+    res.status(200).send({ data });
   } catch (error) {
     next(error);
   }
