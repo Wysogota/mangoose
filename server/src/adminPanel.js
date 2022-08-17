@@ -3,30 +3,39 @@ const AdminJSExpress = require('@adminjs/express');
 const AdminJSSequelize = require('@adminjs/sequelize');
 const AdminJSMongoose = require('@adminjs/mongoose');
 const sequelize = require('./models');
-const mongoose = require('mongoose');
-require('./models/mongo/MangaLists');
+const { MangaLists, RecommendationList } = require('./models/mongo');
 const { checkAccess } = require('./functions/adminPanel.fn');
-const { PERMISSION: { ADMIN_PANEL, EDIT, DELETE, CREATE, SHOW } } = require('./constants');
+const { PERMISSION: { ADMIN_PANEL, EDIT, DELETE, CREATE, SHOW, RECOMMENDATION } } = require('./constants');
 const { User, Role } = sequelize;
 
-const resourcesConfig = (Model) => ({
-  resource: Model,
-  options: {
-    actions: {
-      edit: { isAccessible: ({ currentAdmin }) => checkAccess(currentAdmin, EDIT) },
-      delete: { isAccessible: ({ currentAdmin }) => checkAccess(currentAdmin, DELETE) },
-      new: { isAccessible: ({ currentAdmin }) => checkAccess(currentAdmin, CREATE) },
-      show: { isAccessible: ({ currentAdmin }) => checkAccess(currentAdmin, SHOW) }
-    }
-  },
-});
+const resourcesConfig = (Model, permissions = {
+  edit: [EDIT], del: [DELETE], create: [CREATE], show: [SHOW]
+}) => {
+  const { edit, del, create, show } = permissions;
+
+  return {
+    resource: Model,
+    options: {
+      actions: {
+        edit: { isAccessible: ({ currentAdmin }) => checkAccess(currentAdmin, edit) },
+        delete: { isAccessible: ({ currentAdmin }) => checkAccess(currentAdmin, del) },
+        new: { isAccessible: ({ currentAdmin }) => checkAccess(currentAdmin, create) },
+        show: { isAccessible: ({ currentAdmin }) => checkAccess(currentAdmin, show) }
+      }
+    },
+  };
+};
 
 AdminJS.registerAdapter(AdminJSSequelize);
 AdminJS.registerAdapter(AdminJSMongoose);
 
 const adminJs = new AdminJS({
   resources: [
-    ...Object.values(mongoose.models).map((Model) => resourcesConfig(Model)),
+    resourcesConfig(MangaLists),
+    resourcesConfig(RecommendationList, {
+      edit: [RECOMMENDATION], del: [RECOMMENDATION],
+      create: [RECOMMENDATION], show: [RECOMMENDATION]
+    }),
     ...Object.values(sequelize.sequelize.models).map((Model) => resourcesConfig(Model)),
   ],
   rootPath: '/admin',

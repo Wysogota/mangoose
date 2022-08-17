@@ -1,1 +1,2 @@
-module.exports.checkAccess = (user, permissionName) => user.permissions.includes(permissionName);
+module.exports.checkAccess = (user, permissionNames) =>
+  user.permissions.some((permission) => permissionNames.includes(permission));
