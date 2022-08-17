@@ -3,7 +3,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const adminPanel = require('./adminPanel');
 const routes = require('./routes');
-const errorHandler = require('./middlewares/error.handler.mw');
+const { error } = require('./middlewares');
 const { dailySchedule } = require('./functions/schedule.fn');
 
 const app = express();
@@ -17,6 +17,6 @@ app.use(cookieParser());
 app.use('/public', express.static('public'));
 app.use('/admin', adminPanel);
 app.use('/api', routes);
-app.use(errorHandler);
+app.use(error);
 
 module.exports = app;

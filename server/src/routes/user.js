@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const multer = require('multer');
 const Controller = require('../controllers/user.controller');
-const tokenChecker = require('../middlewares/tokenChecker.mw');
+const { tokenChecker } = require('../middlewares');
 
 const router = Router();
 const storage = multer.memoryStorage();
