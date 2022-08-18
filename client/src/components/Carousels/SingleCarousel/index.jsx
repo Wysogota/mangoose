@@ -1,44 +1,41 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import cx from 'classnames';
+import React, { useEffect } from 'react';
+import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
+import * as actionCreators from '../../../redux/actions/actionCreators';
 import { Carousel } from 'react-bootstrap';
 import ColBlock from '../../Blocks/ColBlock';
-import CarouselHeader from '../CarouselHeader';
-import elements from '../../../common/styles/elements.module.scss';
+import MainHeader from '../../Headers/MainHeader';
+import CarouselCard from '../../Cards/CarouselCard';
+import { useLoading } from '../../../hooks';
+import styles from './SingleCarousel.module.scss';
 import CONSTANTS from '../../../constants';
+const { MANGA_COVER_SIZES: { SMALL } } = CONSTANTS;
 
 const SingleCarousel = () => {
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
+  const { recommendationCatalog, isFetching } = useSelector(({ recommendationList }) => recommendationList);
+  const { getRecommendationList } = bindActionCreators(actionCreators, useDispatch());
 
-  const headerClasses = cx(
-    elements.header,
-    'pb-3 text-nowrap',
+  useEffect(() => { getRecommendationList(); }, []);
+
+  const loading = useLoading({ data: recommendationCatalog, isFetching });
+
+  const LoadingItem = () => (
+    <Carousel.Item className={styles.loading}>
+      {loading}
+    </Carousel.Item>
   );
+  const MangaItems = () => recommendationCatalog.map((manga) => (
+    <Carousel.Item key={manga.id} className={styles.item}>
+      <CarouselCard manga={manga} imageSize={SMALL} />
+    </Carousel.Item>
+  ));
 
   return (
     <ColBlock>
-      <h3 className={headerClasses}>Recommendation</h3>
+      <MainHeader>Recommendation</MainHeader>
       <Carousel interval='10000' variant={mainColor} >
-        <Carousel.Item>
-          <img
-            className='d-block w-100'
-            src={CONSTANTS.STATIC_IMAGE_PATH + CONSTANTS.DEFAULT_POSTER}
-            alt={CONSTANTS.DEFAULT_POSTER}
-          />
-          <Carousel.Caption>
-            <CarouselHeader to='/attack-on-titan' shouldInvertedHovered>Attack on titan</CarouselHeader>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className='d-block w-100'
-            src={CONSTANTS.STATIC_IMAGE_PATH + CONSTANTS.DEFAULT_POSTER}
-            alt={CONSTANTS.DEFAULT_POSTER}
-          />
-          <Carousel.Caption>
-            <CarouselHeader to='#' shouldInvertedHovered>Attack on titan 2</CarouselHeader>
-          </Carousel.Caption>
-        </Carousel.Item>
+        {loading ? LoadingItem() : MangaItems()}
       </Carousel>
     </ColBlock>
   );
