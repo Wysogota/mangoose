@@ -19,3 +19,7 @@ export const getPageTitle = (title) => `${title} - ${WEBSITE_NAME}`;
 export const getObjectFromArray = (arr, prop, propValue) => arr.filter((item) => item[prop] === propValue)[0];
 
 export const getLocaleValue = (obj) => Object.values(obj)[0];
+
+export const mergeArrObjectsById = (arr1, arr2) => arr1.map(t1 => ({
+  ...t1, ...arr2.find(t2 => t2.id === t1.id)
+}));

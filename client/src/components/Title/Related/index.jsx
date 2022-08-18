@@ -5,6 +5,7 @@ import * as actionCreators from '../../../redux/actions/actionCreators';
 import { capitalize, isEmpty } from 'lodash';
 import ExtendedMangaCard from '../../Cards/ExtendedMangaCard';
 import { useLoading } from '../../../hooks';
+import { mergeArrObjectsById } from '../../../common/functions';
 import CONSTANTS from '../../../constants';
 const { RELATED_FILTER, MANGA_COVER_SIZES: { SMALL } } = CONSTANTS;
 
@@ -29,11 +30,7 @@ const Related = (props) => {
         related: capitalize(related.replaceAll('_', ' ')),
       }));
 
-      setRelatedManga(
-        mangaCatalog.map(t1 => ({
-          ...t1, ...relatedList.find(t2 => t2.id === t1.id)
-        }))
-      );
+      setRelatedManga(mergeArrObjectsById(mangaCatalog, relatedList));
     }
   }, [mangaCatalog]);
 
@@ -43,7 +40,7 @@ const Related = (props) => {
   return (
     <div>{
       relatedManga.map((manga) => (
-        <ExtendedMangaCard key={manga.id} manga={manga} imageSize={SMALL}/>
+        <ExtendedMangaCard key={manga.id} manga={manga} imageSize={SMALL} />
       ))
     }</div>
   );

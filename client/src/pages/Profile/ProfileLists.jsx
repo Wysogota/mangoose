@@ -6,6 +6,7 @@ import cx from 'classnames';
 import { capitalize, isEmpty } from 'lodash';
 import { Accordion } from 'react-bootstrap';
 import ProfileCards from './ProfileCards';
+import { mergeArrObjectsById } from '../../common/functions';
 import CONSTANTS from '../../constants';
 const { MANGA_LIST_NAMES } = CONSTANTS;
 
@@ -29,15 +30,11 @@ const ProfileLists = () => {
 
   useEffect(() => {
     if (!isEmpty(mangaCatalog)) {
-      const IdsWithList = Object.entries(lists)
+      const idsWithList = Object.entries(lists)
         .map(([list, array]) => array.map((id) => ({ id, list })))
         .flat();
 
-      setListedManga(
-        mangaCatalog.map(t1 => ({
-          ...t1, ...IdsWithList.find(t2 => t2.id === t1.id)
-        }))
-      );
+      setListedManga(mergeArrObjectsById(mangaCatalog, idsWithList));
     }
   }, [mangaCatalog]);
 
