@@ -77,8 +77,20 @@ module.exports.getList = async (req, res, next) => {
 
 module.exports.getRecommendationList = async (req, res, next) => {
   try {
+    const data = await RecommendationList.find({ display: true });
+    const ids = data.map(({ id }) => id);
+
+    res.status(200).send(getResponse('Recommendation list got.', { list: ids }));
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.getFullRecommendationList = async (req, res, next) => {
+  try {
     const data = await RecommendationList.find();
-    res.status(200).send({ data });
+    const result = data.map(({ id, userId, display }) => ({ id, userId, display }));
+    res.status(200).send(getResponse('Recommendation list got.', { list: result }));
   } catch (error) {
     next(error);
   }

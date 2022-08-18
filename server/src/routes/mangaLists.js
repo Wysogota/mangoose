@@ -10,9 +10,10 @@ router.post('/list', tokenChecker, Controller.getList);
 router.post('/add', tokenChecker, Controller.addMangaToList);
 router.post('/remove', tokenChecker, Controller.removeMangaFromList);
 
-router.post('/recommendation/',
+router.get('/recommendation/', Controller.getRecommendationList);
+router.post('/recommendation/full',
   tokenChecker, permissionChecker(RECOMMENDATION),
-  Controller.getRecommendationList
+  Controller.getFullRecommendationList
 );
 router.post('/recommendation/add',
   tokenChecker, permissionChecker(RECOMMENDATION),

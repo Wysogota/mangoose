@@ -370,6 +370,70 @@ export const getListError = (error) => ({
   payload: { error },
 });
 
+export const getFullRecommendationList = (options) => ({
+  type: ACTION_TYPES.GET_FULL_RECOMMENDATION_LIST,
+  payload: { options },
+});
+export const getFullRecommendationListRequest = () => ({
+  type: ACTION_TYPES.GET_FULL_RECOMMENDATION_LIST_REQUEST,
+});
+export const getFullRecommendationListSuccess = (data) => ({
+  type: ACTION_TYPES.GET_FULL_RECOMMENDATION_LIST_SUCCESS,
+  payload: { data },
+});
+export const getFullRecommendationListError = (error) => ({
+  type: ACTION_TYPES.GET_FULL_RECOMMENDATION_LIST_ERROR,
+  payload: { error },
+});
+
+export const getRecommendationList = (options) => ({
+  type: ACTION_TYPES.GET_RECOMMENDATION_LIST,
+  payload: { options },
+});
+export const getRecommendationListRequest = () => ({
+  type: ACTION_TYPES.GET_RECOMMENDATION_LIST_REQUEST,
+});
+export const getRecommendationListSuccess = (data) => ({
+  type: ACTION_TYPES.GET_RECOMMENDATION_LIST_SUCCESS,
+  payload: { data },
+});
+export const getRecommendationListError = (error) => ({
+  type: ACTION_TYPES.GET_RECOMMENDATION_LIST_ERROR,
+  payload: { error },
+});
+
+export const saveMangaToRecommendationList = (options) => ({
+  type: ACTION_TYPES.SAVE_MANGA_TO_RECOMMENDATION_LIST,
+  payload: { options },
+});
+export const saveMangaToRecommendationListRequest = () => ({
+  type: ACTION_TYPES.SAVE_MANGA_TO_RECOMMENDATION_LIST_REQUEST,
+});
+export const saveMangaToRecommendationListSuccess = (data) => ({
+  type: ACTION_TYPES.SAVE_MANGA_TO_RECOMMENDATION_LIST_SUCCESS,
+  payload: { data },
+});
+export const saveMangaToRecommendationListError = (error) => ({
+  type: ACTION_TYPES.SAVE_MANGA_TO_RECOMMENDATION_LIST_ERROR,
+  payload: { error },
+});
+
+export const removeMangaFromRecommendationList = (options) => ({
+  type: ACTION_TYPES.REMOVE_MANGA_FROM_RECOMMENDATION_LIST,
+  payload: { options },
+});
+export const removeMangaFromRecommendationListRequest = () => ({
+  type: ACTION_TYPES.REMOVE_MANGA_FROM_RECOMMENDATION_LIST_REQUEST,
+});
+export const removeMangaFromRecommendationListSuccess = (data) => ({
+  type: ACTION_TYPES.REMOVE_MANGA_FROM_RECOMMENDATION_LIST_SUCCESS,
+  payload: { data },
+});
+export const removeMangaFromRecommendationListError = (error) => ({
+  type: ACTION_TYPES.REMOVE_MANGA_FROM_RECOMMENDATION_LIST_ERROR,
+  payload: { error },
+});
+
 export const uploadAvatar = (options, token) => ({
   type: ACTION_TYPES.UPLOAD_AVATAR,
   payload: { options, token },

@@ -1,6 +1,7 @@
 import { put } from 'redux-saga/effects';
 import * as actionCreators from '../actions/actionCreators';
 import * as API from '../../api';
+import { mergeArrObjectsById } from '../../common/functions';
 
 export function* getMangaSaga(action) {
   yield put(actionCreators.getMangaRequest());
@@ -138,6 +139,56 @@ export function* getListSaga(action) {
     yield put(actionCreators.getListSuccess(data));
   } catch (error) {
     yield put(actionCreators.getListError(error));
+  }
+}
+
+export function* getRecommendationListSaga(action) {
+  yield put(actionCreators.getRecommendationListRequest());
+  try {
+    const { data: { data: { list } } } = yield API.getRecommendationList(action.payload.options);
+    const { data: { data } } = yield API.getMangaCatalog({
+      ids: list,
+      limit: list.length,
+    });
+    yield put(actionCreators.getRecommendationListSuccess(data));
+  } catch (error) {
+    yield put(actionCreators.getRecommendationListError(error));
+  }
+}
+
+export function* getFullRecommendationListSaga(action) {
+  yield put(actionCreators.getFullRecommendationListRequest());
+  try {
+    const { data: { data: { list } } } = yield API.getFullRecommendationList(action.payload.options);
+    const ids = list.map(({ id }) => id);
+    const { data: { data } } = yield API.getMangaCatalog({
+      ids: ids,
+      limit: ids.length,
+    });
+    data.mangaList = mergeArrObjectsById(data.mangaList, list);
+    yield put(actionCreators.getFullRecommendationListSuccess(data));
+  } catch (error) {
+    yield put(actionCreators.getFullRecommendationListError(error));
+  }
+}
+
+export function* saveMangaToRecommendationListSaga(action) {
+  yield put(actionCreators.saveMangaToRecommendationListRequest());
+  try {
+    const { data: { data } } = yield API.saveMangaToRecommendationList(action.payload.options);
+    yield put(actionCreators.saveMangaToRecommendationListSuccess(data));
+  } catch (error) {
+    yield put(actionCreators.saveMangaToRecommendationListError(error));
+  }
+}
+
+export function* removeMangaFromRecommendationListSaga(action) {
+  yield put(actionCreators.removeMangaFromRecommendationListRequest());
+  try {
+    const { data: { data } } = yield API.removeMangaFromRecommendationList(action.payload.options);
+    yield put(actionCreators.removeMangaFromRecommendationListSuccess(data));
+  } catch (error) {
+    yield put(actionCreators.removeMangaFromRecommendationListError(error));
   }
 }
 

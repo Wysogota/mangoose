@@ -16,6 +16,7 @@ import firstChapterIdReducer from './mangaApi/firstChapterId';
 import tagsReducer from './mangaApi/tags';
 import meReducer from './me';
 import mangaListsReducer from './mangaApi/mangaLists';
+import recommendationListReducer from './mangaApi/recommendationList';
 import avatarReducer from './avatar';
 
 const rootReducer = combineReducers({
@@ -36,6 +37,7 @@ const rootReducer = combineReducers({
   tags: tagsReducer,
   me: meReducer,
   mangaLists: mangaListsReducer,
+  recommendationList: recommendationListReducer,
   avatar: avatarReducer,
 });
 

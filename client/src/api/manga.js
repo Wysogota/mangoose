@@ -34,3 +34,11 @@ export const getList = (options) => client.post('/mangaLists/list', options);
 export const saveMangaToList = (options) => client.post('/mangaLists/add', options);
 
 export const removeMangaFromList = (options) => client.post('/mangaLists/remove', options);
+
+export const getRecommendationList = () => client.get('/mangaLists/recommendation');
+
+export const getFullRecommendationList = (options) => client.post('/mangaLists/recommendation/full', options);
+
+export const saveMangaToRecommendationList = (options) => client.post('/mangaLists/recommendation/add', options);
+
+export const removeMangaFromRecommendationList = (options) => client.post('/mangaLists/recommendation/remove', options);
