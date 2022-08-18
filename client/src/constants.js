@@ -50,6 +50,7 @@ export default {
     RELATED: 'related',
     COMMENTS: 'commets',
     USER_MANGA_LISTS: 'lists',
+    MANAGE: 'manage',
   },
   PARAM_NAME: {
     TAB: 'tab',
@@ -106,6 +107,7 @@ export default {
     COMPLETED: 'completed',
     STOPPED: 'stopped',
   },
+  RECOMMENDATION_LIST: 'recommendation',
   DEFAULT_SAVE_BUTTON_VALUE: 'Save to list',
   MANGA_COVER_SIZES: {
     RAW: 'raw',

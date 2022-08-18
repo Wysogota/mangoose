@@ -12,6 +12,8 @@ $card-height: 220px;
 .card {
   height: $card-height;
   border: none !important;
+
+  position: relative;
 }
 
 .card.card-light {
@@ -62,4 +64,12 @@ $card-height: 220px;
 
 .tag-dark {
   background-color: $light_active_color  !important;
+}
+
+.remove_button {
+  font-size: 2rem;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 5%;
 }

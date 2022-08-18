@@ -3,8 +3,9 @@ import { Tab } from 'react-bootstrap';
 import Tabs from '../../components/Tabs';
 import TabLink from '../../components/Tabs/TabLink';
 import CONSTANTS from '../../constants';
-const { TITLE_TABS: { USER_MANGA_LISTS, COMMENTS } } = CONSTANTS;
+const { TITLE_TABS: { USER_MANGA_LISTS, COMMENTS, MANAGE } } = CONSTANTS;
 import ProfileLists from './ProfileLists';
+import ProfileManage from './ProfileManage';
 
 const ProfileTabs = () => {
   return (
@@ -13,6 +14,9 @@ const ProfileTabs = () => {
         <ProfileLists />
       </Tab>
       <Tab eventKey={COMMENTS} title={<TabLink to={COMMENTS}>Commets</TabLink>}>
+      </Tab>
+      <Tab eventKey={MANAGE} title={<TabLink to={MANAGE}>Manage</TabLink>}>
+        <ProfileManage />
       </Tab>
     </Tabs>
   );
