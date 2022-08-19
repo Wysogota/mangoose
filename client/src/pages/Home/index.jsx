@@ -49,7 +49,7 @@ const Home = () => {
   return (
     <Container>
       <Row>
-        <Col xs='12' lg='8'>
+        <Col xs='12' lg='8' xl='9'>
           {MILTIPLE_CAROUSELS.map(({ filter, order, title }) => (
             <MultipleCarousel key={order} filter={filter} order={order} title={title} />
           ))}
@@ -68,7 +68,7 @@ const Home = () => {
           </Row>
           <HomeMangaCatalog extendedCatalog={!extendedCatalog} />
         </Col>
-        <Col lg='4' className='d-none d-lg-flex flex-column'>
+        <Col lg='4' xl='3' className='d-none d-lg-flex flex-column'>
           <Row><SingleCarousel /></Row>
           <Row className='flex-grow-1'>
             <HomeNewChapters extendedCatalog={extendedCatalog} />

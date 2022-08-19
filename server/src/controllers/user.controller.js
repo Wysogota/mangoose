@@ -18,25 +18,18 @@ module.exports.getUser = async (req, res, next) => {
 module.exports.getMe = async (req, res, next) => {
   try {
     const { user } = req;
-    if (user) {
-      const avatar = await getAvatarUrl(user);
+    const avatar = await getAvatarUrl(user);
 
-      res
-        .status(200)
-        .send(getResponse('User founded.', {
-          user: {
-            id: user.id,
-            name: user.username,
-            email: user.email,
-            avatar,
-          }
-        }));
-    } else {
-      res
-        .status(401)
-        .send(getResponse('User not founded.'));
-    }
-
+    res
+      .status(200)
+      .send(getResponse('User founded.', {
+        user: {
+          id: user.id,
+          name: user.username,
+          email: user.email,
+          avatar,
+        }
+      }));
   } catch (error) {
     next(error);
   }

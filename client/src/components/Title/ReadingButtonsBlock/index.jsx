@@ -5,7 +5,6 @@ import StartReadingButton from './StartReadingButton';
 import styles from './ReadingButtonsBlock.module.scss';
 import SaveToList from './SaveToList';
 
-
 const ReadingButtonsBlock = (props) => {
   const { isAdaptiveView } = props;
   const { theme: { bgTheme } } = useSelector(({ themes }) => themes);

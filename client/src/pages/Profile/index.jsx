@@ -30,7 +30,6 @@ const Profile = () => {
           <ProfileTabs />
         </ColBlock>
       </Row>
-
     </Container>
   );
 };

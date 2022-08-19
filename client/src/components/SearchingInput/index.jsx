@@ -22,7 +22,6 @@ const SearchingInput = (props) => {
     'flex-grow-1 me-2',
   );
 
-
   return (
     <div className={containerClasses}>
       <SearchIcon className='ms-2 me-2' />
