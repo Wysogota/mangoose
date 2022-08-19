@@ -75,6 +75,25 @@ module.exports.getList = async (req, res, next) => {
   }
 };
 
+module.exports.getMangaFromRecommendationList = async (req, res, next) => {
+  try {
+    const { params: { mangaId } } = req;
+    const data = await RecommendationList.findOne({ id: mangaId });
+    if (data) {
+      const { id, userId, display } = data;
+      res.status(200).send(getResponse('Manga founded.', {
+        manga: { id, userId, display }
+      }));
+    } else {
+      res.status(200).send(getResponse('Manga not founded.', {
+        manga: { display: false }
+      }));
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports.getRecommendationList = async (req, res, next) => {
   try {
     const data = await RecommendationList.find({ display: true });
@@ -98,17 +117,20 @@ module.exports.getFullRecommendationList = async (req, res, next) => {
 
 module.exports.addMangaToRecommendation = async (req, res, next) => {
   try {
-    const { body: { mangaId, display }, user } = req;
+    const { body: { mangaId, display: reqDisplay }, user } = req;
 
     const filter = { id: mangaId };
     const options = { upsert: true, new: true };
 
     const data = await RecommendationList.findOneAndUpdate(filter, {
       userId: user.id,
-      display,
+      display: reqDisplay,
     }, options);
 
-    res.status(200).send({ data });
+    const { id, userId, display } = data;
+    res.status(200).send(getResponse('Manga Saved.', {
+      manga: { id, userId, display }
+    }));
   } catch (error) {
     next(error);
   }
@@ -119,9 +141,11 @@ module.exports.removeMangaFromRecommendation = async (req, res, next) => {
     const { body: { mangaId } } = req;
 
     const filter = { id: mangaId };
-    const data = await RecommendationList.findOneAndDelete(filter);
+    await RecommendationList.findOneAndDelete(filter);
+    const data = await RecommendationList.find();
 
-    res.status(200).send({ data });
+    const result = data.map(({ id, userId, display }) => ({ id, userId, display }));
+    res.status(200).send(getResponse('Manga removed.', { list: result }));
   } catch (error) {
     next(error);
   }

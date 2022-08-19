@@ -35,6 +35,8 @@ export const saveMangaToList = (options) => client.post('/mangaLists/add', optio
 
 export const removeMangaFromList = (options) => client.post('/mangaLists/remove', options);
 
+export const getMangaFromRecommendationList = ({ mangaId, token }) => client.post(`/mangaLists/recommendation/${mangaId}`, { token });
+
 export const getRecommendationList = () => client.get('/mangaLists/recommendation');
 
 export const getFullRecommendationList = (options) => client.post('/mangaLists/recommendation/full', options);

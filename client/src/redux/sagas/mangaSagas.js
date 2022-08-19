@@ -156,6 +156,16 @@ export function* getRecommendationListSaga(action) {
   }
 }
 
+export function* getMangaFromRecommendationListSaga(action) {
+  yield put(actionCreators.getMangaFromRecommendationListRequest());
+  try {
+    const { data: { data } } = yield API.getMangaFromRecommendationList(action.payload.options);
+    yield put(actionCreators.getMangaFromRecommendationListSuccess(data));
+  } catch (error) {
+    yield put(actionCreators.getMangaFromRecommendationListError(error));
+  }
+}
+
 export function* getFullRecommendationListSaga(action) {
   yield put(actionCreators.getFullRecommendationListRequest());
   try {
@@ -185,7 +195,13 @@ export function* saveMangaToRecommendationListSaga(action) {
 export function* removeMangaFromRecommendationListSaga(action) {
   yield put(actionCreators.removeMangaFromRecommendationListRequest());
   try {
-    const { data: { data } } = yield API.removeMangaFromRecommendationList(action.payload.options);
+    const { data: { data: { list } } } = yield API.removeMangaFromRecommendationList(action.payload.options);
+    const ids = list.map(({ id }) => id);
+    const { data: { data } } = yield API.getMangaCatalog({
+      ids: ids,
+      limit: ids.length,
+    });
+    data.mangaList = mergeArrObjectsById(data.mangaList, list);
     yield put(actionCreators.removeMangaFromRecommendationListSuccess(data));
   } catch (error) {
     yield put(actionCreators.removeMangaFromRecommendationListError(error));

@@ -23,5 +23,9 @@ router.post('/recommendation/remove',
   tokenChecker, permissionChecker(RECOMMENDATION),
   Controller.removeMangaFromRecommendation
 );
+router.post('/recommendation/:mangaId',
+  tokenChecker, permissionChecker(RECOMMENDATION),
+  Controller.getMangaFromRecommendationList
+);
 
 module.exports = router;

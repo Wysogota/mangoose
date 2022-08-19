@@ -402,6 +402,22 @@ export const getRecommendationListError = (error) => ({
   payload: { error },
 });
 
+export const getMangaFromRecommendationList = (options) => ({
+  type: ACTION_TYPES.GET_MANGA_FROM_RECOMMENDATION_LIST,
+  payload: { options },
+});
+export const getMangaFromRecommendationListRequest = () => ({
+  type: ACTION_TYPES.GET_MANGA_FROM_RECOMMENDATION_LIST_REQUEST,
+});
+export const getMangaFromRecommendationListSuccess = (data) => ({
+  type: ACTION_TYPES.GET_MANGA_FROM_RECOMMENDATION_LIST_SUCCESS,
+  payload: { data },
+});
+export const getMangaFromRecommendationListError = (error) => ({
+  type: ACTION_TYPES.GET_MANGA_FROM_RECOMMENDATION_LIST_ERROR,
+  payload: { error },
+});
+
 export const saveMangaToRecommendationList = (options) => ({
   type: ACTION_TYPES.SAVE_MANGA_TO_RECOMMENDATION_LIST,
   payload: { options },
