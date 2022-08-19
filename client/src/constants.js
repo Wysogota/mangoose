@@ -114,4 +114,7 @@ export default {
     SMALL: '256',
     MEDIUM: '512',
   },
+  PERMISSION: {
+    RECOMMENDATION: 'Recommendation',
+  }
 };

@@ -1,7 +1,13 @@
 const path = require('path');
-const { User, Avatar } = require('../models');
+const { User, Avatar, Role } = require('../models');
 const { getResponse, getAvatarUrl } = require('../functions/controllers.fn');
-const { STATIC_IMAGE_PATH, DEFAULT_AVATAR } = require('../constants');
+const {
+  STATIC_IMAGE_PATH,
+  DEFAULT_AVATAR,
+  PERMISSION: { RECOMMENDATION },
+} = require('../constants');
+
+const permissionsList = [RECOMMENDATION];
 
 module.exports.getUser = async (req, res, next) => {
   try {
@@ -20,6 +26,9 @@ module.exports.getMe = async (req, res, next) => {
     const { user } = req;
     const avatar = await getAvatarUrl(user);
 
+    const role = await Role.findOne({ where: { id: user.roleId } });
+    const permissions = await role.getPermissions({ attributes: ['name'] });
+
     res
       .status(200)
       .send(getResponse('User founded.', {
@@ -28,6 +37,9 @@ module.exports.getMe = async (req, res, next) => {
           name: user.username,
           email: user.email,
           avatar,
+          permissions: permissions
+            .filter(({ name }) => permissionsList.some((perm) => perm === name))
+            .map(({ name }) => name),
         }
       }));
   } catch (error) {

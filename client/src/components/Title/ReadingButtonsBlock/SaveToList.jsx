@@ -10,11 +10,16 @@ import SaveToRecommendation from './SaveToRecommendation';
 import { useLoading } from '../../../hooks';
 import styles from './ReadingButtonsBlock.module.scss';
 import CONSTANTS from '../../../constants';
-const { MANGA_LIST_NAMES, DEFAULT_SAVE_BUTTON_VALUE } = CONSTANTS;
+const {
+  MANGA_LIST_NAMES,
+  DEFAULT_SAVE_BUTTON_VALUE,
+  PERMISSION: { RECOMMENDATION },
+} = CONSTANTS;
 
 const SaveToList = () => {
   const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
   const { token } = useSelector(({ auth }) => auth);
+  const { me } = useSelector(({ me }) => me);
   const { list, lists, isFetching } = useSelector(({ mangaLists }) => mangaLists);
   const { saveMangaToList, removeMangaFromList, getList } = bindActionCreators(actionCreators, useDispatch());
   const [listName, setListName] = useState(DEFAULT_SAVE_BUTTON_VALUE);
@@ -56,8 +61,10 @@ const SaveToList = () => {
             {capitalize(listName)}
           </Dropdown.Item>
         )}
-        <Dropdown.Divider />
-        <SaveToRecommendation />
+        {me.permissions.includes(RECOMMENDATION) && <>
+          <Dropdown.Divider />
+          <SaveToRecommendation />
+        </>}
       </Dropdown.Menu>
     </Dropdown>
   );
