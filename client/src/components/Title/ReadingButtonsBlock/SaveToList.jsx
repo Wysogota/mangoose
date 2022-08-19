@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
+import { useParams } from 'react-router-dom';
 import { capitalize } from 'lodash';
 import { Dropdown } from 'react-bootstrap';
 import cx from 'classnames';
+import SaveToRecommendation from './SaveToRecommendation';
+import { useLoading } from '../../../hooks';
+import styles from './ReadingButtonsBlock.module.scss';
 import CONSTANTS from '../../../constants';
 const { MANGA_LIST_NAMES, DEFAULT_SAVE_BUTTON_VALUE } = CONSTANTS;
-import styles from './ReadingButtonsBlock.module.scss';
-import { useParams } from 'react-router-dom';
-import { useLoading } from '../../../hooks';
 
 const SaveToList = () => {
   const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
@@ -55,6 +56,8 @@ const SaveToList = () => {
             {capitalize(listName)}
           </Dropdown.Item>
         )}
+        <Dropdown.Divider />
+        <SaveToRecommendation />
       </Dropdown.Menu>
     </Dropdown>
   );
