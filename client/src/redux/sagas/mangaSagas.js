@@ -112,6 +112,17 @@ export function* getMangaListsSaga(action) {
   }
 }
 
+export function* getMangaCatalogFromListSaga(action) {
+  const { options, listName } = action.payload;
+  yield put(actionCreators.getMangaCatalogFromListRequest(listName));
+  try {
+    const { data: { data } } = yield API.getMangaCatalog(options);
+    yield put(actionCreators.getMangaCatalogFromListSuccess(data, listName));
+  } catch (error) {
+    yield put(actionCreators.getMangaCatalogFromListError({ error }, listName));
+  }
+}
+
 export function* saveMangaToListSaga(action) {
   yield put(actionCreators.saveMangaToListRequest());
   try {

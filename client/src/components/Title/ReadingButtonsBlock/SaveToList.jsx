@@ -20,12 +20,12 @@ const SaveToList = () => {
   const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
   const { token } = useSelector(({ auth }) => auth);
   const { me } = useSelector(({ me }) => me);
-  const { list, lists, isFetching } = useSelector(({ mangaLists }) => mangaLists);
+  const { list, listIds, isFetching } = useSelector(({ mangaLists }) => mangaLists);
   const { saveMangaToList, removeMangaFromList, getList } = bindActionCreators(actionCreators, useDispatch());
   const [listName, setListName] = useState(DEFAULT_SAVE_BUTTON_VALUE);
   const { mangaId } = useParams();
 
-  useEffect(() => { getList({ token, mangaId }); }, [lists]);
+  useEffect(() => { getList({ token, mangaId }); }, [listIds]);
   useEffect(() => { list && setListName(list); }, [list]);
 
   const classes = cx(

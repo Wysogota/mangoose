@@ -370,6 +370,23 @@ export const getListError = (error) => ({
   payload: { error },
 });
 
+export const getMangaCatalogFromList = (options, listName) => ({
+  type: ACTION_TYPES.GET_MANGA_CATALOG_FROM_LIST,
+  payload: { options, listName },
+});
+export const getMangaCatalogFromListRequest = (listName) => ({
+  type: ACTION_TYPES.GET_MANGA_CATALOG_FROM_LIST_REQUEST,
+  payload: { listName },
+});
+export const getMangaCatalogFromListSuccess = (data, listName) => ({
+  type: ACTION_TYPES.GET_MANGA_CATALOG_FROM_LIST_SUCCESS,
+  payload: { data, listName },
+});
+export const getMangaCatalogFromListError = (error, listName) => ({
+  type: ACTION_TYPES.GET_MANGA_CATALOG_FROM_LIST_ERROR,
+  payload: { error, listName },
+});
+
 export const getFullRecommendationList = (options) => ({
   type: ACTION_TYPES.GET_FULL_RECOMMENDATION_LIST,
   payload: { options },

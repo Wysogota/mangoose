@@ -32,7 +32,7 @@ module.exports.addMangaToList = async (req, res, next) => {
     await MangaLists.findOneAndUpdate(filter, { $pull: pullLists }, options);
     const data = await MangaLists.findOneAndUpdate(filter, { $push: pushList }, options);
 
-    res.status(200).send({ data });
+    res.status(200).send(getResponse('Lists founded.', { data }));
   } catch (error) {
     next(error);
   }

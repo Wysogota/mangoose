@@ -5,7 +5,7 @@ import {
   getMangaCoversSaga, getChapterSaga, getChaptersSaga,
   getChapterPagesSaga, getNextChapterIdSaga, getFirstChapterIdSaga,
   getTagListSaga, getMangaListsSaga, saveMangaToListSaga, removeMangaFromListSaga, getListSaga, getRecommendationListSaga, saveMangaToRecommendationListSaga,
-  removeMangaFromRecommendationListSaga, getCarouselCatalogSaga, getFullRecommendationListSaga, getMangaFromRecommendationListSaga,
+  removeMangaFromRecommendationListSaga, getCarouselCatalogSaga, getFullRecommendationListSaga, getMangaFromRecommendationListSaga, getMangaCatalogFromListSaga,
 } from './mangaSagas';
 import { signInSaga, signOutSaga, signUpSaga, refreshTokenSaga } from './authSagas';
 import { getMeSaga, uploadAvatarSaga } from './userSaga';
@@ -35,9 +35,10 @@ export default function* rootSaga() {
   yield takeLatest(ACTION_TYPES.SAVE_MANGA_TO_LIST, saveMangaToListSaga);
   yield takeLatest(ACTION_TYPES.REMOVE_MANGA_FROM_LIST, removeMangaFromListSaga);
 
-  yield takeLatest(ACTION_TYPES.GET_MANGA_FROM_RECOMMENDATION_LIST, getMangaFromRecommendationListSaga);
   yield takeLatest(ACTION_TYPES.GET_RECOMMENDATION_LIST, getRecommendationListSaga);
+  yield takeEvery(ACTION_TYPES.GET_MANGA_CATALOG_FROM_LIST, getMangaCatalogFromListSaga);
   yield takeLatest(ACTION_TYPES.GET_FULL_RECOMMENDATION_LIST, getFullRecommendationListSaga);
+  yield takeLatest(ACTION_TYPES.GET_MANGA_FROM_RECOMMENDATION_LIST, getMangaFromRecommendationListSaga);
   yield takeLatest(ACTION_TYPES.SAVE_MANGA_TO_RECOMMENDATION_LIST, saveMangaToRecommendationListSaga);
   yield takeLatest(ACTION_TYPES.REMOVE_MANGA_FROM_RECOMMENDATION_LIST, removeMangaFromRecommendationListSaga);
 
