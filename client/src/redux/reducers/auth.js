@@ -1,12 +1,14 @@
 import produce from 'immer';
 import ACTION_TYPES from '../actions/actionTypes';
+import CONSTANTS from '../../constants';
+const { STORAGE: { AUTH } } = CONSTANTS;
 
 const initialState = {
   token: null,
   message: null,
   isFetching: false,
   errors: null,
-  isAuthorized: localStorage.getItem('auth') === 'true',
+  isAuthorized: localStorage.getItem(AUTH) === 'true',
 };
 
 const requestHandle = produce((draftState, action) => {
@@ -41,7 +43,7 @@ const handlers = {
     draftState.token = token;
 
     draftState.isAuthorized = true;
-    localStorage.setItem('auth', true);
+    localStorage.setItem(AUTH, true);
   }),
   [ACTION_TYPES.SIGN_OUT_SUCCESS]: produce((draftState, action) => {
     const { message } = action.payload.data;
@@ -51,14 +53,13 @@ const handlers = {
     draftState.message = message;
 
     draftState.isAuthorized = false;
-    localStorage.setItem('auth', false);
+    localStorage.setItem(AUTH, false);
   }),
   [ACTION_TYPES.REFRESH_TOKEN_SUCCESS]: produce((draftState, action) => {
-    const { message, data: { token } } = action.payload.data;
+    const { data: { token } } = action.payload.data;
 
     draftState.isFetching = false;
     draftState.isAuthorized = true;
-    draftState.message = message;
     draftState.token = token;
   }),
 

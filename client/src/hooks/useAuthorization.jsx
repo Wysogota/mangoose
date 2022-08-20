@@ -4,11 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as actionCreators from '../redux/actions/actionCreators';
 import useAuthRedirect from './useAuthRedirect';
 import CONSTANTS from '../constants';
-const { PAGES: {
-  SIGN_UP: { path: SIGN_UP_PATH },
-  PROFILE: { path: PROFILE_PATH },
-  SETTINGS: { path: SETTINGS_PATH },
-} } = CONSTANTS;
+const {
+  STORAGE: { AUTH },
+  PAGES: {
+    SIGN_UP: { path: SIGN_UP_PATH },
+    PROFILE: { path: PROFILE_PATH },
+    SETTINGS: { path: SETTINGS_PATH },
+  }
+} = CONSTANTS;
 
 const redirectPaths = [
   SIGN_UP_PATH, PROFILE_PATH, SETTINGS_PATH,
@@ -21,7 +24,7 @@ const useAuthorization = () => {
 
   useEffect(() => {
     const authHandle = (event) => {
-      if (event.key === 'auth') {
+      if (event.key === AUTH) {
         if (event.newValue === 'true') refreshToken();
         else if (event.newValue === 'false') {
           resetAuth();

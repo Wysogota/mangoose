@@ -122,6 +122,10 @@ export default {
   PERMISSION: {
     RECOMMENDATION: 'Recommendation',
   },
+  STORAGE: {
+    AUTH: 'auth',
+    THEME: 'theme',
+  },
 
   DEFAULT_NEW_CHAPTERS: (count) => new Array(count).fill(null).map((_, i) => ({
     id: i,
