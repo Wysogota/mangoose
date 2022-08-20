@@ -12,8 +12,7 @@ const {
   DEFAULT_NEW_CHAPTERS,
 } = CONSTANTS;
 
-const NewChaptersList = (props) => {
-  const { extendedCatalog } = props;
+const NewChaptersList = () => {
   const { theme: { mainColor, bgAccentTheme, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
   const isAdaptiveView = useAdaptiveView(lg);
 
@@ -23,11 +22,6 @@ const NewChaptersList = (props) => {
     'flex-grow-1 rounded-2',
   );
 
-  const groupClasses = cx(
-    styles.group,
-    !extendedCatalog || isAdaptiveView && 'h-100',
-  );
-
   const itemClasses = cx(
     bgInvertedHoveredTheme,
     'p-0 h-100 border-0',
@@ -35,7 +29,7 @@ const NewChaptersList = (props) => {
 
   return (
     <div className={containerClasses}>
-      <ListGroup className={groupClasses}>
+      <ListGroup className={styles.group}>
         {DEFAULT_NEW_CHAPTERS(7).map(({ id, chapter, manga, date }) =>
           <ListGroup.Item key={id} variant={mainColor} className={itemClasses}>
             <Link to={`${CHAPTER_PATH}/${id}`} className='d-block p-2'>

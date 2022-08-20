@@ -15,7 +15,7 @@ const HomeNewChapters = (props) => {
   return (
     <ColBlock title='New chapters' innerClassName={classes}>
       <HeaderLink to='#' title='New chapters' />
-      <NewChaptersList extendedCatalog={extendedCatalog} />
+      <NewChaptersList />
     </ColBlock>
   );
 };
