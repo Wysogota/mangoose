@@ -7,12 +7,13 @@ import CONSTANTS from '../../constants';
 const { PARAM_NAME: { PAGE } } = CONSTANTS;
 
 const PaginationButtons = (props) => {
-  const { itemCount, limit } = props;
+  const { itemCount, paginationName, limit } = props;
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
   const [searchParams, setSearchParams] = useSearchParams();
+  const paramName = paginationName ? `${paginationName}-${PAGE}` : PAGE;
 
   const pageCount = Math.ceil(itemCount / limit);
-  const currentPage = (Number.parseInt(searchParams.get(PAGE)) - 1) || 0;
+  const currentPage = (Number.parseInt(searchParams.get(paramName)) - 1) || 0;
 
   const pageItemClasses = (i) => cx((currentPage === i) && 'active');
   const startItemClasses = cx((currentPage === 0) && 'disabled');
@@ -23,7 +24,7 @@ const PaginationButtons = (props) => {
   );
 
   const onClickHandle = (searchParam) => {
-    searchParams.set(PAGE, searchParam);
+    searchParams.set(paramName, searchParam);
     setSearchParams(searchParams, { replace: true });
   };
 
