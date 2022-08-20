@@ -43,6 +43,10 @@ export default {
       name: 'Settings',
       path: '/settings',
     },
+    NEWS: {
+      name: 'News',
+      path: '/news',
+    }
   },
   TITLE_TABS: {
     INFO: 'info',
@@ -116,5 +120,17 @@ export default {
   },
   PERMISSION: {
     RECOMMENDATION: 'Recommendation',
-  }
+  },
+
+  DEFAULT_NEW_CHAPTERS: (count) => new Array(count).fill(null).map((_, i) => ({
+    id: i,
+    chapter: 'Cras justo odio',
+    manga: 'Attack on titan',
+    date: '23 june 2022',
+  })),
+  DEFAULT_NEWS: (count) => new Array(count).fill(null).map((_, i) => ({
+    id: i,
+    title: 'Dapibus ac facilisis in',
+    date: '23 june 2022',
+  })),
 };

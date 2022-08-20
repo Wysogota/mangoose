@@ -4,34 +4,11 @@ import { Link } from 'react-router-dom';
 import { ListGroup } from 'react-bootstrap';
 import cx from 'classnames';
 import styles from './NewsList.module.scss';
-
-const data = [
-  {
-    title: 'Cras justo odio',
-    href: '#',
-    date: '23 june 2022',
-  },
-  {
-    title: 'Dapibus ac facilisis in',
-    href: '#',
-    date: '23 june 2022',
-  },
-  {
-    title: 'Morbi leo risus',
-    href: '#',
-    date: '23 june 2022',
-  },
-  {
-    title: 'Porta ac consectetur ac',
-    href: '#',
-    date: '23 june 2022',
-  },
-  {
-    title: 'Cras justo odio',
-    href: '#',
-    date: '21 june 2022',
-  },
-];
+import CONSTANTS from '../../../constants';
+const {
+  PAGES: { NEWS: { path: NEWS_PATH } },
+  DEFAULT_NEWS,
+} = CONSTANTS;
 
 const NewsList = () => {
   const { theme: { mainColor, bgAccentTheme, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
@@ -55,11 +32,11 @@ const NewsList = () => {
   return (
     <div className={containerClasses}>
       <ListGroup className={groupClasses}>
-        {data.map(({ title, href, date }) =>
-          <ListGroup.Item key={title + date} variant={mainColor} className={itemClasses}>
-            <Link to={href} target='_blank' className='d-flex justify-content-between p-2'>
-              <div>{title}</div>
-              <div className={styles.date}>{date}</div>
+        {DEFAULT_NEWS(8).map(({ id, title, date }) =>
+          <ListGroup.Item key={id} variant={mainColor} className={itemClasses}>
+            <Link to={`${NEWS_PATH}/${id}`} className='d-flex justify-content-between p-2'>
+              <h6>{title}</h6>
+              <time className={styles.date}>{date}</time>
             </Link>
           </ListGroup.Item>
         )}

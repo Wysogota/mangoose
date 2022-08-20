@@ -6,40 +6,11 @@ import cx from 'classnames';
 import { useAdaptiveView } from '../../../hooks';
 import styles from './NewChaptersList.module.scss';
 import CONSTANTS from '../../../constants';
-const { breakpoints: { lg } } = CONSTANTS;
-
-const data = [
-  {
-    chapter: 'Cras justo odio',
-    manga: 'Attack on titan',
-    href: '#',
-    date: '23 june 2022',
-  },
-  {
-    chapter: 'Dapibus ac facilisis in',
-    manga: 'Attack on titan',
-    href: '#',
-    date: '23 june 2022',
-  },
-  {
-    chapter: 'Morbi leo risus',
-    manga: 'Attack on titan',
-    href: '#',
-    date: '23 june 2022',
-  },
-  {
-    chapter: 'Porta ac consectetur ac',
-    manga: 'Attack on titan',
-    href: '#',
-    date: '23 june 2022',
-  },
-  {
-    chapter: 'Cras justo odio',
-    manga: 'Attack on titan',
-    href: '#',
-    date: '21 june 2022',
-  },
-];
+const {
+  breakpoints: { lg },
+  PAGES: { CHAPTER_READER: { path: CHAPTER_PATH } },
+  DEFAULT_NEW_CHAPTERS,
+} = CONSTANTS;
 
 const NewChaptersList = (props) => {
   const { extendedCatalog } = props;
@@ -65,12 +36,12 @@ const NewChaptersList = (props) => {
   return (
     <div className={containerClasses}>
       <ListGroup className={groupClasses}>
-        {data.map(({ chapter, manga, href, date }) =>
-          <ListGroup.Item key={chapter + date} variant={mainColor} className={itemClasses}>
-            <Link to={href} target='_blank' className='d-block p-2'>
-              <div className='fs-5'>{chapter}</div>
-              <div>{manga}</div>
-              <div className={styles.date}>{date}</div>
+        {DEFAULT_NEW_CHAPTERS(7).map(({ id, chapter, manga, date }) =>
+          <ListGroup.Item key={id} variant={mainColor} className={itemClasses}>
+            <Link to={`${CHAPTER_PATH}/${id}`} className='d-block p-2'>
+              <h5>{chapter}</h5>
+              <h6 className='m-0'>{manga}</h6>
+              <time className={styles.date}>{date}</time>
               <hr className='mb-0 mt-3' />
             </Link>
           </ListGroup.Item>
