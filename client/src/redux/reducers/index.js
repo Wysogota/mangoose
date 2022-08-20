@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import localeReducer from './locale';
 import themeReducer from './theme';
 import modalItemsReducer from './modalItems';
 import authReducer from './auth';
@@ -20,7 +19,6 @@ import recommendationListReducer from './mangaApi/recommendationList';
 import avatarReducer from './avatar';
 
 const rootReducer = combineReducers({
-  locales: localeReducer,
   themes: themeReducer,
   modalItems: modalItemsReducer,
   auth: authReducer,
