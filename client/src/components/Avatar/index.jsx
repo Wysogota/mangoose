@@ -23,13 +23,13 @@ const Avatar = (props) => {
   );
 
   if (isAuthorized) return (
-    <Image src={avatar} className={classes} fluid />
+    <Image src={avatar} className={classes} />
   );
   else return (
     <Image
       onClick={showSignIn}
       src={STATIC_IMAGE_PATH + CONSTANTS['NOT_REGISTERED_AVATAR_' + invertedColor.toUpperCase()]}
-      className={classes} fluid
+      className={classes}
     />
   );
 
