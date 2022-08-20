@@ -70,7 +70,7 @@ const Home = () => {
         </Col>
         <Col lg='4' xl='3' className='d-none d-lg-flex flex-column'>
           <Row><SingleCarousel /></Row>
-          <Row className='flex-grow-1'>
+          <Row className={extendedCatalog && 'flex-grow-1'}>
             <HomeNewChapters extendedCatalog={extendedCatalog} />
           </Row>
           <Row>

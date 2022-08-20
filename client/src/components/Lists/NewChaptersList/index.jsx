@@ -3,7 +3,10 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ListGroup } from 'react-bootstrap';
 import cx from 'classnames';
+import { useAdaptiveView } from '../../../hooks';
 import styles from './NewChaptersList.module.scss';
+import CONSTANTS from '../../../constants';
+const { breakpoints: { lg } } = CONSTANTS;
 
 const data = [
   {
@@ -39,17 +42,19 @@ const data = [
 ];
 
 const NewChaptersList = (props) => {
-  const { isAdaptiveView } = props;
+  const { extendedCatalog } = props;
   const { theme: { mainColor, bgAccentTheme, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
+  const isAdaptiveView = useAdaptiveView(lg);
 
   const containerClasses = cx(
+    isAdaptiveView ? styles.adaptive : styles.normal,
     bgAccentTheme,
     'flex-grow-1 rounded-2',
   );
 
   const groupClasses = cx(
     styles.group,
-    isAdaptiveView && styles.adaptive,
+    !extendedCatalog || isAdaptiveView && 'h-100',
   );
 
   const itemClasses = cx(

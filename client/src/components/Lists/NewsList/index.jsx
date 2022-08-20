@@ -34,11 +34,17 @@ const data = [
 ];
 
 const NewsList = () => {
-  const { theme: { mainColor, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
+  const { theme: { mainColor, bgAccentTheme, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
+
+  const containerClasses = cx(
+    styles.container,
+    bgAccentTheme,
+    'flex-grow-1 rounded-2',
+  );
 
   const groupClasses = cx(
     styles.group,
-    'rounded-2',
+    'h-100',
   );
 
   const itemClasses = cx(
@@ -47,16 +53,18 @@ const NewsList = () => {
   );
 
   return (
-    <ListGroup className={groupClasses}>
-      {data.map(({ title, href, date }) =>
-        <ListGroup.Item key={title + date} variant={mainColor} className={itemClasses}>
-          <Link to={href} target='_blank' className='d-flex justify-content-between p-2'>
-            <div>{title}</div>
-            <div className={styles.date}>{date}</div>
-          </Link>
-        </ListGroup.Item>
-      )}
-    </ListGroup>
+    <div className={containerClasses}>
+      <ListGroup className={groupClasses}>
+        {data.map(({ title, href, date }) =>
+          <ListGroup.Item key={title + date} variant={mainColor} className={itemClasses}>
+            <Link to={href} target='_blank' className='d-flex justify-content-between p-2'>
+              <div>{title}</div>
+              <div className={styles.date}>{date}</div>
+            </Link>
+          </ListGroup.Item>
+        )}
+      </ListGroup>
+    </div>
   );
 };
 
