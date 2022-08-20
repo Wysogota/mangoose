@@ -8,7 +8,7 @@ import rootSaga from '../sagas';
 const persistConfig = {
   key: 'store',
   storage,
-  whitelist: ['themes', 'carousels']
+  whitelist: ['carousels'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

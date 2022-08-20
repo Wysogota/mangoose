@@ -15,7 +15,7 @@ import PageNotFound from './pages/PageNotFound';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import { useAuthorization } from './hooks';
+import { useAuthorization, useSyncTheme } from './hooks';
 import WithAuth from './HOCs/WithAuth';
 import CONSTANTS from './constants';
 import Notifications from './components/Notifications';
@@ -49,6 +49,7 @@ const App = () => {
     document.body.className = cx(bgAccentTheme, mainTheme);
   }, [mainTheme]);
 
+  useSyncTheme();
   useAuthorization();
 
   return (

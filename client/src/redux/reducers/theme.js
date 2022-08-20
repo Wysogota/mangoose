@@ -2,6 +2,7 @@ import produce from 'immer';
 import ACTION_TYPES from '../actions/actionTypes';
 import themeStyles from '../../common/styles/theme.module.scss';
 import CONSTANTS from '../../constants';
+const { LIGHT_COLOR, DARK_COLOR, STORAGE: { THEME } } = CONSTANTS;
 
 const createTheme = (main, inverted) => ({
   mainColor: main,
@@ -19,18 +20,26 @@ const createTheme = (main, inverted) => ({
 });
 
 const themes = [
-  createTheme(CONSTANTS.LIGHT_COLOR, CONSTANTS.DARK_COLOR),
-  createTheme(CONSTANTS.DARK_COLOR, CONSTANTS.LIGHT_COLOR),
+  createTheme(LIGHT_COLOR, DARK_COLOR),
+  createTheme(DARK_COLOR, LIGHT_COLOR),
 ];
 
 const initialState = {
-  theme: themes[0],
+  theme: themes[localStorage.getItem(THEME)],
 };
 
 const handlers = {
   [ACTION_TYPES.TOGGLE_THEME]: produce((draftState, action) => {
     let index = themes.findIndex(theme => theme.mainColor === draftState.theme.mainColor);
-    draftState.theme = themes[++index % 2];
+    const currentTheme = ++index % 2;
+
+    draftState.theme = themes[currentTheme];
+    localStorage.setItem(THEME, currentTheme);
+  }),
+
+  [ACTION_TYPES.SET_THEME]: produce((draftState, action) => {
+    const { index } = action.payload;
+    draftState.theme = themes[index];
   }),
 };
 

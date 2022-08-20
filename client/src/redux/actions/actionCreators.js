@@ -3,6 +3,10 @@ import ACTION_TYPES from './actionTypes';
 export const toggleTheme = () => ({
   type: ACTION_TYPES.TOGGLE_THEME,
 });
+export const setTheme = (index) => ({
+  type: ACTION_TYPES.SET_THEME,
+  payload: { index },
+});
 
 export const showSignIn = () => ({
   type: ACTION_TYPES.SHOW_SIGN_IN,
