@@ -46,7 +46,11 @@ const TagButtons = (props) => {
             ? tag.classList.add(hideClassName)
             : tag.classList.remove(hideClassName);
         });
-        setShouldDisplayDropdown(!tagsRef.current.every((tag) => !tag.classList.contains('invisible')));
+        setShouldDisplayDropdown(
+          !tagsRef.current.every((tag) => !tag.classList.contains('invisible'))
+        );
+      } else {
+        setShouldDisplayDropdown(false);
       }
 
       if (!isEmpty(overflowedTagsRef.current)) {
