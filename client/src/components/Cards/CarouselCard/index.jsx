@@ -10,7 +10,7 @@ const {
 
 
 const CarouselCard = (props) => {
-  const { manga = {}, imageSize = RAW } = props;
+  const { manga, imageSize = RAW } = props;
 
   const { id, attributes: { title }, relationships } = manga;
   const image = selectRelationship(relationships, 'cover_art').attributes.urls[imageSize];
@@ -19,7 +19,7 @@ const CarouselCard = (props) => {
   return (
     <>
       <img
-        className='d-block w-100'
+        className='w-100 h-100 object-fit-cover'
         src={image}
         alt={localedValue}
       />
