@@ -8,6 +8,7 @@ import {
   BsGithub as GithubIcon, BsGridFill as CatalogIcon, BsFillQuestionCircleFill as FAQIcon,
   BsNewspaper as NewsIcon, BsFillEnvelopeFill as ContactsIcon, BsShuffle as RandomIcon
 } from 'react-icons/bs';
+import styles from './NavItems.module.scss';
 import CONSTANTS from '../../constants';
 const { PAGES: { CATALOG: { name: catalogName, path: catalogPath } } } = CONSTANTS;
 
@@ -33,7 +34,15 @@ const createComponent = (Component, Icon, options) => {
     'h-100 w-100 d-flex align-items-center'
   );
 
-  const Child = () => (<><Icon /><span className='ms-2'>{title}</span></>);
+  const Child = () => {
+    const classes = cx(
+      styles.text_overflow,
+      'ms-2',
+    );
+    
+    return (<><Icon /><span className={classes}>{title}</span></>);
+  };
+
   return external ?
     (<a
       href={to} target='_blank' rel='noreferrer'

@@ -19,7 +19,9 @@ const CatalogButton = (props) => {
       whileInView={{ y: 0, opacity: 1, transition: { duration: 0.7 } }}
     >
       <ColBlock className={classes} innerClassName={bgTheme} >
-        <Catalog Component={Link} options={{ className: 'justify-content-center fs-5', onClick, title, params }} />
+        <Catalog
+          Component={Link}
+          options={{ className: 'justify-content-center fs-5', onClick, title, params }} />
       </ColBlock>
     </motion.div>
 

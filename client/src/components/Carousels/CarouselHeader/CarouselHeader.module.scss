@@ -7,5 +7,5 @@
   padding-bottom: 1.25rem;
   line-height: $line-height;
 
-  @include multiline-overflow(2, $line-height);
+  @include multiline-overflow(1, $line-height);
 }

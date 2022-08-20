@@ -24,7 +24,7 @@ const CarouselCard = (props) => {
         alt={localedValue}
       />
       <Carousel.Caption>
-        <CarouselHeader to={`${path}/${id}`} shouldInvertedHovered>
+        <CarouselHeader to={`${path}/${id}`} className='mb-4 ps-2 pe-2' shouldInvertedHovered>
           {localedValue}
         </CarouselHeader>
       </Carousel.Caption>

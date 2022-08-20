@@ -10,6 +10,7 @@ import HomeMangaCatalog from './HomeMangaCatalog';
 import CONSTANTS from '../../constants';
 import HomeNewChapters from './HomeNewChapters';
 const {
+  PAGES: { NEWS: { path: NEWS_PATH } },
   SORT_LIST: {
     FOLLOWED_COUNT: { type: FOLLOWED_COUNT },
     YEAR: { type: LAST_CREATED },
@@ -62,7 +63,7 @@ const Home = () => {
               <NewsList />
             </ColBlock>
             <ColBlock className='d-lg-none d-xl-block'>
-              <HeaderLink to='/news' title='Last news' />
+              <HeaderLink to={NEWS_PATH} title='Last news' />
               <NewsList />
             </ColBlock>
           </Row>
@@ -75,7 +76,7 @@ const Home = () => {
           </Row>
           <Row>
             <ColBlock className='d-xl-none'>
-              <HeaderLink to='/news' title='Last news' />
+              <HeaderLink to={NEWS_PATH} title='Last news' />
               <NewsList />
             </ColBlock>
           </Row>

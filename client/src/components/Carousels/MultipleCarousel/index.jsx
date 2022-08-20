@@ -22,6 +22,7 @@ const limit = 10;
 
 const MultipleCarousel = (props) => {
   const { order, title, filter } = props;
+  const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
   const { isOpen, mangaCatalog, isFetching } = useSelector(({ carousels }) => carousels)[order];
   const { toggleCarousel, getCarouselCatalog } = bindActionCreators(actionCreators, useDispatch());
   const [activeItemIndex, setActiveItemIndex] = useState(0);
@@ -48,7 +49,7 @@ const MultipleCarousel = (props) => {
 
   return (
     <ColBlock>
-      <Accordion defaultActiveKey={Number(isOpen)}>
+      <Accordion className={`accordion-${invertedColor}`} defaultActiveKey={Number(isOpen)}>
         <Accordion.Item eventKey={1}>
           <Accordion.Header onClick={() => toggleCarousel(order)}>
             <HeaderLink to={`${CATALOG_PATH}?${SORT}=${filter}`} title={title} />

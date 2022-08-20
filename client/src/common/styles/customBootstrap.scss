@@ -58,7 +58,7 @@ $carousel-dark-indicator-active-bg: $dark_main_color;
 
 .carousel-caption {
     max-height: 100%;
-    overflow: hidden;
+    overflow-y: scroll;
 
     border-bottom-left-radius: .5em;
     border-bottom-right-radius: .5em;
@@ -67,6 +67,13 @@ $carousel-dark-indicator-active-bg: $dark_main_color;
     right: 0 !important;
     left: 0 !important;
     bottom: 0 !important;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 .carousel-control-prev,

@@ -17,7 +17,7 @@ const {
 
 const ExtendedMangaCard = (props) => {
   const { manga, imageSize = RAW, onClick, className } = props;
-  const { theme: { mainColor, bgInvertedTheme } } = useSelector(({ themes }) => themes);
+  const { theme: { mainColor } } = useSelector(({ themes }) => themes);
   const [hovered, setHovered] = useState(false);
 
   const {
@@ -63,15 +63,12 @@ const ExtendedMangaCard = (props) => {
             <div className={statusClasses}>{capitalize(status)}</div>
           </div>
           {related && <Card.Subtitle className='pb-2'>{related}</Card.Subtitle>}
-          {display !== undefined &&
-            <>
-              <DisplayCheckbox id={id} display={display} />
-              <RemoveFromRec id={id} hovered={hovered} />
-            </>
-          }
+          {display !== undefined && <>
+            <DisplayCheckbox id={id} display={display} />
+            <RemoveFromRec id={id} hovered={hovered} />
+          </>}
           <Card.Text className={styles.description}>{getLocaleValue(description)}</Card.Text>
           <TagButtons tags={tags} tagClassName={styles[`tag-${mainColor}`]} shouldOverflow />
-          {/* <TagButtons tags={tags} tagClassName={bgInvertedTheme} shouldOverflow /> */}
         </Card.Body>
       </Col>
     </Card>
