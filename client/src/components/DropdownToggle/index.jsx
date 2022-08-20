@@ -1,4 +1,7 @@
 import React, { forwardRef } from 'react';
+import { Link } from 'react-router-dom';
+import CONSTANTS from '../../constants';
+const { PAGES: { PROFILE: { path: PROFILE_PATH } } } = CONSTANTS;
 
 const DropdownToggle = (props, ref) => {
   const { children, onClick } = props;
@@ -9,9 +12,9 @@ const DropdownToggle = (props, ref) => {
   };
 
   return (
-    <a href="" ref={ref} onClick={onClickHandle}>
+    <Link to={PROFILE_PATH} ref={ref} onClick={onClickHandle}>
       {children}
-    </a>
+    </Link>
   );
 };
 
