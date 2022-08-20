@@ -71,7 +71,7 @@ const ChaptersList = (props) => {
             <ChapterLink
               className={chapterLinkClasses}
               chapterId={id}
-              title={title || `Chapter ${chapter}`}
+              title={title || `Chapter ${chapter || ''}`}
               pages={pages}
             />}
 

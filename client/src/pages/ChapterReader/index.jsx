@@ -27,7 +27,9 @@ const ChapterReader = () => {
     if (!isEmpty(chapter)) {
       const mangaTitle = selectRelationship(chapter.relationships, 'manga').attributes.title[DEFAULT_LOCALE];
       const chapterTitle = chapter.attributes.title;
-      document.title = getPageTitle(`${chapterTitle} - ${mangaTitle}`);
+      document.title = chapterTitle
+        ? getPageTitle(`${chapterTitle} - ${mangaTitle}`)
+        : getPageTitle(mangaTitle);
     }
   }, [chapter]);
 

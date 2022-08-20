@@ -31,14 +31,14 @@ const Reader = (props) => {
 
   useEffect(() => {
     if (!isEmpty(chapter)) {
-      const {
-        manga: { id: mangaId },
-        scanlation_group: { id: groupId }
-      } = selectRelationship(chapter.relationships, ['manga', 'scanlation_group']);
+      const { manga, scanlation_group } = selectRelationship(
+        chapter.relationships,
+        ['manga', 'scanlation_group']
+      );
 
       getNextChapterId({
-        mangaId,
-        groupId,
+        mangaId: manga.id,
+        groupId: scanlation_group?.id,
         chapter: chapter.attributes.chapter,
       });
     }
