@@ -1,6 +1,7 @@
 export default {
   WEBSITE_NAME: 'Mangoose',
   DEFAULT_LOCALE: 'en',
+  ALT_LOCALE: 'ja',
   STATIC_IMAGE_PATH: '/static/images/',
   LOGO_DARK: 'logo-dark.png',
   LOGO_LIGHT: 'logo.png',
