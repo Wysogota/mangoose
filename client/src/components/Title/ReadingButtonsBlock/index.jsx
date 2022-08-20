@@ -8,6 +8,7 @@ import SaveToList from './SaveToList';
 const ReadingButtonsBlock = (props) => {
   const { isAdaptiveView } = props;
   const { theme: { bgTheme } } = useSelector(({ themes }) => themes);
+  const { isAuthorized } = useSelector(({ auth }) => auth);
 
   const containerClasses = cx(
     bgTheme,
@@ -18,7 +19,7 @@ const ReadingButtonsBlock = (props) => {
   return (
     <div className={containerClasses}>
       <StartReadingButton />
-      <SaveToList />
+      {isAuthorized && <SaveToList />}
     </div>
   );
 };

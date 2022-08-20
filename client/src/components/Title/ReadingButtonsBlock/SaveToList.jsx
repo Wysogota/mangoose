@@ -19,8 +19,8 @@ const {
 const SaveToList = () => {
   const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
   const { token } = useSelector(({ auth }) => auth);
-  const { me } = useSelector(({ me }) => me);
-  const { list, listIds, isFetching } = useSelector(({ mangaLists }) => mangaLists);
+  const { me, isFetching } = useSelector(({ me }) => me);
+  const { list, listIds } = useSelector(({ mangaLists }) => mangaLists);
   const { saveMangaToList, removeMangaFromList, getList } = bindActionCreators(actionCreators, useDispatch());
   const [listName, setListName] = useState(DEFAULT_SAVE_BUTTON_VALUE);
   const { mangaId } = useParams();
@@ -43,7 +43,7 @@ const SaveToList = () => {
     }
   };
 
-  const loading = useLoading({ data: list, isFetching, spinner: false });
+  const loading = useLoading({ data: me, isFetching, spinner: false });
   if (loading) return loading;
 
   return (
