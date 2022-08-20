@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
-import { useLoading } from '../../hooks';
 import ExtendedMangaCard from '../../components/Cards/ExtendedMangaCard';
 
 const ProfileManage = () => {
@@ -11,9 +10,6 @@ const ProfileManage = () => {
   const { getFullRecommendationList } = bindActionCreators(actionCreators, useDispatch());
 
   useEffect(() => { getFullRecommendationList({ token }); }, []);
-
-  const loading = useLoading({ data: recommendationCatalog, isFetching });
-  if (loading) return loading;
 
   return (
     <section>
