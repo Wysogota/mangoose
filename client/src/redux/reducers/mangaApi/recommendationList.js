@@ -45,6 +45,10 @@ const handlers = {
   [ACTION_TYPES.REMOVE_MANGA_FROM_RECOMMENDATION_LIST_ERROR]: errorHandle,
   [ACTION_TYPES.GET_RECOMMENDATION_LIST_ERROR]: errorHandle,
   [ACTION_TYPES.GET_FULL_RECOMMENDATION_LIST_ERROR]: errorHandle,
+
+  [ACTION_TYPES.CLEAR_RECOMMENDATION_LIST]: () => {
+    return initialState;
+  },
 };
 
 export default (state = initialState, action) => {

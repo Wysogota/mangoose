@@ -73,6 +73,10 @@ const handlers = {
     draftState.listCatalogs[listName].isFetching = false;
     draftState.listCatalogs[listName].error = error;
   }),
+
+  [ACTION_TYPES.CLEAR_MANGA_LISTS]: () => {
+    return initialState;
+  },
 };
 
 export default (state = initialState, action) => {

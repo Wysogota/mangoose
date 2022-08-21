@@ -239,7 +239,9 @@ export const getMeError = (data) => ({
   type: ACTION_TYPES.GET_ME_ERROR,
   payload: { data },
 });
-
+export const clearMe = () => ({
+  type: ACTION_TYPES.CLEAR_ME,
+});
 
 export const signIn = (options) => ({
   type: ACTION_TYPES.SIGN_IN,
@@ -391,6 +393,10 @@ export const getMangaCatalogFromListError = (error, listName) => ({
   payload: { error, listName },
 });
 
+export const clearMangaLists = () => ({
+  type: ACTION_TYPES.CLEAR_MANGA_LISTS,
+});
+
 export const getFullRecommendationList = (options) => ({
   type: ACTION_TYPES.GET_FULL_RECOMMENDATION_LIST,
   payload: { options },
@@ -469,6 +475,10 @@ export const removeMangaFromRecommendationListSuccess = (data) => ({
 export const removeMangaFromRecommendationListError = (error) => ({
   type: ACTION_TYPES.REMOVE_MANGA_FROM_RECOMMENDATION_LIST_ERROR,
   payload: { error },
+});
+
+export const clearRecommendationList = () => ({
+  type: ACTION_TYPES.CLEAR_RECOMMENDATION_LIST,
 });
 
 export const uploadAvatar = (options, token) => ({

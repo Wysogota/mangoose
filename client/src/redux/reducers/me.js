@@ -22,6 +22,10 @@ const handlers = {
     draftState.isFetching = false;
     draftState.errors = action.payload.data;
   }),
+
+  [ACTION_TYPES.CLEAR_ME]: () => {
+    return initialState;
+  },
 };
 
 export default (state = initialState, action) => {
