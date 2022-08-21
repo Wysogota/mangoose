@@ -31,7 +31,10 @@ const SignIn = () => {
   const { setIsRequested } = useAfterAuthAction(redirectPaths, hideSignIn);
 
   const onSubmit = (values, formikBag) => {
-    signIn(values);
+    signIn(Object.assign(
+      values,
+      { ua: window.navigator.userAgent },
+    ));
     setIsRequested(true);
     formikBag.resetForm();
   };

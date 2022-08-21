@@ -2,14 +2,11 @@ const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const jwtSign = promisify(jwt.sign);
 
-module.exports.getAccessToken = async (user) => {
+module.exports.getAccessToken = async (options) => {
   const { ACCESS_TOKEN_SECRET, ACCESS_TOKEN_TIME } = process.env;
 
   return await jwtSign(
-    {
-      username: user.username,
-      email: user.email,
-    },
+    options,
     ACCESS_TOKEN_SECRET,
     {
       expiresIn: ACCESS_TOKEN_TIME,
@@ -17,14 +14,11 @@ module.exports.getAccessToken = async (user) => {
   );
 };
 
-module.exports.getRefreshToken = async (user) => {
+module.exports.getRefreshToken = async (options) => {
   const { REFRESH_TOKEN_SECRET, REFRESH_TOKEN_TIME } = process.env;
 
   return await jwtSign(
-    {
-      username: user.username,
-      email: user.email,
-    },
+    options,
     REFRESH_TOKEN_SECRET,
     {
       expiresIn: REFRESH_TOKEN_TIME

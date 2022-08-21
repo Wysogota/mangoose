@@ -7,19 +7,20 @@ const { REFRESH_TOKEN_NAME } = require('../constants');
 
 module.exports.signIn = async (req, res, next) => {
   try {
-    const { body: { email, password } } = req;
+    const { body: { email, password, ua } } = req;
 
     const user = await User.findOne({ where: { email } });
 
     if (user && await user.comparePassword(password)) {
       await destroyOverLimitTokens(user);
 
-      const accessToken = await getAccessToken(user);
-      const refreshToken = await getRefreshToken(user);
+      const accessToken = await getAccessToken({ email, username: user.username });
+      const refreshToken = await getRefreshToken({ email, ua, username: user.username });
 
       await user.createRefreshToken({
         value: refreshToken,
         expiresIn: decode(refreshToken).exp,
+        ua,
       });
 
       res
@@ -73,7 +74,7 @@ module.exports.refresh = async (req, res, next) => {
     if (isTokenExists) {
       const email = decode(refreshToken).email;
       const user = await User.findOne({ where: { email } });
-      const accessToken = await getAccessToken(user);
+      const accessToken = await getAccessToken({ email, username: user.username });
 
       res
         .status(200)
