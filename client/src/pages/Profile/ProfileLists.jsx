@@ -22,7 +22,7 @@ const ProfileLists = () => {
   }, []);
 
   const classes = cx(
-    `accordion-${invertedColor}`,
+    `accordion-${invertedColor} inverted`,
     bgAccentTheme,
     'rounded mb-3',
   );

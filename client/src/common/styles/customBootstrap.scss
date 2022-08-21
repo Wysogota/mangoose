@@ -116,9 +116,33 @@ $accordion-bg: transparent;
     }
 }
 
+.accordion-light.inverted .accordion-button {
+    &::after {
+        @include setIcon('chevron-open-inverted.svg', $light_main_color);
+    }
+
+    &:not(.collapsed) {
+        &::after {
+            @include setIcon('chevron-close.svg', $light_main_color);
+        }
+    }
+}
+
 .accordion-dark .accordion-button {
     &::after {
         @include setIcon('chevron-open.svg', $dark_main_color);
+    }
+
+    &:not(.collapsed) {
+        &::after {
+            @include setIcon('chevron-close.svg', $dark_main_color);
+        }
+    }
+}
+
+.accordion-dark.inverted .accordion-button {
+    &::after {
+        @include setIcon('chevron-open-inverted.svg', $dark_main_color);
     }
 
     &:not(.collapsed) {
