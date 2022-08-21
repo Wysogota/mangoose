@@ -22,25 +22,26 @@ import Notifications from './components/Notifications';
 import WithRouteEnter from './HOCs/WithRouteEnter';
 import Settings from './pages/Settings';
 const { PAGES: {
-  HOME: { path: homePath, name: homeName },
-  SIGN_UP: { path: signupPath, name: signupName },
-  CATALOG: { path: catalogPath, name: catalogName },
-  TITLE: { path: titlePath, name: titleName },
-  CHAPTER_READER: { path: chapterPath, name: chapterName },
-  PROFILE: { path: profilePath, name: profileName },
+  HOME: { path: HOME_PATH, name: HOME_NAME },
+  SIGN_UP: { path: SIGN_UP_PATH, name: SIGN_UP_NAME },
+  CATALOG: { path: CARALOG_PATH, name: CARALOG_NAME },
+  TITLE: { path: TITLE_PATH, name: TITLE_NAME },
+  CHAPTER_READER: { path: CHAPTER_PATH, name: CHAPTER_NAME },
+  PROFILE: { path: PROFILE_PATH, name: PROFILE_NAME },
   SETTINGS: { path: SETTINGS_PATH, name: SETTINGS_NAME },
+  PAGE_NOT_FOUNDED: { name: PAGE_NOT_FOUNDED_NAME },
 } } = CONSTANTS;
 
 const getOptions = (name) => ({ name });
 
-const HomeRoute = WithRouteEnter(Home, getOptions(homeName));
-const SignUpRoute = WithRouteEnter(SignUp, getOptions(signupName));
-const ProfileRoute = WithRouteEnter(WithAuth(Profile), getOptions(profileName));
+const HomeRoute = WithRouteEnter(Home, getOptions(HOME_NAME));
+const SignUpRoute = WithRouteEnter(SignUp, getOptions(SIGN_UP_NAME));
+const ProfileRoute = WithRouteEnter(WithAuth(Profile), getOptions(PROFILE_NAME));
 const SettingsRoute = WithRouteEnter(WithAuth(Settings), getOptions(SETTINGS_NAME));
-const CatalogRoute = WithRouteEnter(Catalog, getOptions(catalogName));
-const TitleRoute = WithRouteEnter(Title, getOptions(titleName));
-const ChapterReaderRoute = WithRouteEnter(ChapterReader, getOptions(chapterName));
-const PageNotFoundRoute = WithRouteEnter(PageNotFound, getOptions(profileName));
+const CatalogRoute = WithRouteEnter(Catalog, getOptions(CARALOG_NAME));
+const TitleRoute = WithRouteEnter(Title, getOptions(TITLE_NAME));
+const ChapterReaderRoute = WithRouteEnter(ChapterReader, getOptions(CHAPTER_NAME));
+const PageNotFoundRoute = WithRouteEnter(PageNotFound, getOptions(PAGE_NOT_FOUNDED_NAME));
 
 const App = () => {
   const { theme: { bgAccentTheme, mainTheme } } = useSelector(({ themes }) => themes);
@@ -57,13 +58,13 @@ const App = () => {
       <Header />
       <div id='content'>
         <Routes>
-          <Route path={homePath} element={<HomeRoute />} />
-          <Route path={signupPath} element={<SignUpRoute />} />
-          <Route path={profilePath} element={<ProfileRoute />} />
+          <Route path={HOME_PATH} element={<HomeRoute />} />
+          <Route path={SIGN_UP_PATH} element={<SignUpRoute />} />
+          <Route path={PROFILE_PATH} element={<ProfileRoute />} />
           <Route path={SETTINGS_PATH} element={<SettingsRoute />} />
-          <Route path={catalogPath} element={<CatalogRoute />} />
-          <Route path={`${titlePath}/:mangaId`} element={<TitleRoute />} />
-          <Route path={`${chapterPath}/:chapterId`} element={<ChapterReaderRoute />} />
+          <Route path={CARALOG_PATH} element={<CatalogRoute />} />
+          <Route path={`${TITLE_PATH}/:mangaId`} element={<TitleRoute />} />
+          <Route path={`${CHAPTER_PATH}/:chapterId`} element={<ChapterReaderRoute />} />
           <Route path='*' element={<PageNotFoundRoute />} />
         </Routes>
       </div>

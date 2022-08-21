@@ -4,7 +4,7 @@ export default {
   ALT_LOCALE: 'ja',
   STATIC_IMAGE_PATH: '/static/images/',
   STATIC_ICON_PATH: '/static/icons/',
-  MANGADEX_ICON:'mangadex.svg',
+  MANGADEX_ICON: 'mangadex.svg',
   LOGO_DARK: 'logo-dark.png',
   LOGO_LIGHT: 'logo.png',
   NOT_REGISTERED_AVATAR_LIGHT: 'not-registered-avatar-light.png',
@@ -49,6 +49,9 @@ export default {
     NEWS: {
       name: 'News',
       path: '/news',
+    },
+    PAGE_NOT_FOUNDED: {
+      name: 'Page Not Found'
     }
   },
   TITLE_TABS: {
