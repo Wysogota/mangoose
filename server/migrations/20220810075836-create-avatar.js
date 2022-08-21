@@ -17,6 +17,10 @@ module.exports = {
           key: 'id',
         }
       },
+      name: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       mimetype: {
         allowNull: false,
         type: Sequelize.STRING

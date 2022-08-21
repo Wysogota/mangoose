@@ -1,5 +1,7 @@
 'use strict';
+const crypto = require('crypto');
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Avatar extends Model {
     static associate({ User }) {
@@ -13,6 +15,14 @@ module.exports = (sequelize, DataTypes) => {
       field: 'user_id',
       allowNull: false,
       type: DataTypes.INTEGER,
+    },
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      set(value) {
+        const hashedName = crypto.createHash('md5').update(value).digest('hex').substring(0, 16);
+        this.setDataValue('name', hashedName);
+      },
     },
     mimetype: {
       allowNull: false,

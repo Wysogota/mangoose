@@ -49,8 +49,8 @@ module.exports.getMe = async (req, res, next) => {
 
 module.exports.getUserAvatar = async (req, res, next) => {
   try {
-    const { params: { userId } } = req;
-    const avatar = await Avatar.findOne({ where: { userId } });
+    const { params: { avatarName } } = req;
+    const avatar = await Avatar.findOne({ where: { name: avatarName } });
 
     if (avatar) {
       const image = Buffer.from(avatar.buffer, 'base64');
@@ -85,8 +85,8 @@ module.exports.setAvatar = async (req, res, next) => {
   try {
     const { file, user } = req;
 
-    const { mimetype, buffer } = file;
-    const avatarData = { mimetype, buffer };
+    const { originalname, mimetype, buffer } = file;
+    const avatarData = { name: originalname, mimetype, buffer };
 
     const avatar = await user.getAvatar();
     avatar

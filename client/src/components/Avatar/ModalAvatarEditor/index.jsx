@@ -29,7 +29,7 @@ const ModalAvatarEditor = (props) => {
     const canvas = editor.current.getImageScaledToCanvas();
     canvas.toBlob((blob) => {
       const formData = new FormData();
-      formData.append('avatar', blob);
+      formData.append('avatar', blob, avatar.name);
       uploadAvatar(formData, token);
     });
   };
