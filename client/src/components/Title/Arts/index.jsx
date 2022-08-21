@@ -2,8 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
-import { Col, Image, Spinner } from 'react-bootstrap';
-import { isEmpty } from 'lodash';
+import { Col, Image } from 'react-bootstrap';
 import cx from 'classnames';
 import MainHeader from '../../Headers/MainHeader';
 import PaginationButtons from '../../PaginationButtons';
@@ -14,9 +13,14 @@ const { MANGA_COVER_SIZES: { SMALL } } = CONSTANTS;
 
 const limit = 5;
 
+const getImageWidth = (length) => {
+  const divisor = length < limit ? 3 : limit;
+  return `${100 / divisor}%`;
+};
+
 const Arts = (props) => {
   const { mangaId } = props;
-  const { covers, isFetching } = useSelector(({ cover }) => cover);
+  const { covers, total, isFetching } = useSelector(({ cover }) => cover);
   const { theme: { bgAccentTheme } } = useSelector(({ themes }) => themes);
   const { getMangaCovers } = bindActionCreators(actionCreators, useDispatch());
 
@@ -29,11 +33,6 @@ const Arts = (props) => {
     'rounded p-3',
   );
 
-  const imageClasses = cx(
-    styles.image,
-    'pe-2 rounded',
-  );
-
   const contentClasses = cx(
     styles.image_container,
     'd-flex justify-content-center align-items-center',
@@ -43,16 +42,19 @@ const Arts = (props) => {
     <Col className={containerClasses}>
       <Col>
         <MainHeader>Arts</MainHeader>
-        <div className={contentClasses}>{
-          (isEmpty(covers) || isFetching)
-            ? <Spinner animation='border' role='status'></Spinner>
-            : covers.covers.map(({ id, volume, urls }) =>
-              <Image key={id} src={urls[SMALL]} alt={volume} className={imageClasses} />
-            )
-        }</div>
+        <div className={contentClasses}>
+          {covers.map(({ id, volume, urls }) =>
+            <Image key={id}
+              src={urls[SMALL]}
+              alt={volume}
+              className='pe-2 rounded'
+              style={{ width: getImageWidth(covers.length) }}
+            />
+          )}
+        </div>
       </Col>
       <Col>
-        <PaginationButtons itemCount={covers.total} limit={limit} />
+        <PaginationButtons itemCount={total} limit={limit} />
       </Col>
     </Col>
   );

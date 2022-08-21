@@ -3,6 +3,7 @@ import ACTION_TYPES from '../../actions/actionTypes';
 
 const initialState = {
   covers: [],
+  total: null,
   isFetching: false,
   error: null,
 };
@@ -14,8 +15,11 @@ const handlers = {
   }),
 
   [ACTION_TYPES.GET_MANGA_COVERS_SUCCESS]: produce((draftState, action) => {
+    const { covers, total } = action.payload.data;
+
     draftState.isFetching = false;
-    draftState.covers = action.payload.data;
+    draftState.covers = covers;
+    draftState.total = total;
   }),
 
   [ACTION_TYPES.GET_MANGA_COVERS_ERROR]: produce((draftState, action) => {
