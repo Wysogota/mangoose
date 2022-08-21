@@ -16,6 +16,11 @@ module.exports.coversOptions = (options) => ({
   offset: options.offset,
 });
 
+/**
+ * Returns object with configured request params 
+ * @param {{mangaId:int, lang:string, limit:int, offset:int}} options 
+ * @returns {Object} options
+ */
 module.exports.chaptersOptions = (options) => ([
   { 'manga': options.mangaId },
   { 'translatedLanguage': [options.lang] },
@@ -30,6 +35,13 @@ module.exports.relationshipsChapterOptions = {
   includes: ['manga', 'scanlation_group']
 };
 
+
+/**
+ * Returns object with configured request params 
+ * @param {{mangaId:int, groupId:int}} options 
+ * @param {boolean} isNext
+ * @returns {Object} options
+ */
 module.exports.nextChapterIdOptions = (options, isNext) => {
   const parsedChapter = Number.parseInt(options.chapter);
   const chapter = isNext ? parsedChapter + 1 : parsedChapter - 1;
@@ -42,6 +54,11 @@ module.exports.nextChapterIdOptions = (options, isNext) => {
   };
 };
 
+/**
+ * Returns object with configured request params 
+ * @param {{mangaId:int, lang:string}} options 
+ * @returns {Object} options
+ */
 module.exports.firstChapterIdOptions = (options) => ([
   { 'manga': options.mangaId },
   { 'translatedLanguage': [options.lang] },
@@ -50,6 +67,11 @@ module.exports.firstChapterIdOptions = (options) => ([
   { 'limit': 1 },
 ]);
 
+/**
+ * Returns object with configured request params
+ * @param {string} name 
+ * @returns {Object} options
+ */
 module.exports.authorOptions = (name) => ({
   name,
   limit: 1,

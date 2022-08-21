@@ -3,6 +3,11 @@ import { isEmpty } from 'lodash';
 import { Spinner } from 'react-bootstrap';
 import MinorHeader from '../components/Headers/MinorHeader';
 
+/**
+ * Waits while data will be loaded
+ * @param {{data:any, title:string, isFetching:boolean, spinner:boolean}} options 
+ * @returns 
+ */
 const useLoading = (options) => {
   const { data, title, isFetching, spinner = true } = options;
 

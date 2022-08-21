@@ -5,6 +5,9 @@ import * as actionCreators from '../redux/actions/actionCreators';
 import CONSTANTS from '../constants';
 const { STORAGE: { THEME } } = CONSTANTS;
 
+/**
+ * Synchronizes current theme between pages through local storage
+ */
 const useSyncTheme = () => {
   const { setTheme } = bindActionCreators(actionCreators, useDispatch());
 

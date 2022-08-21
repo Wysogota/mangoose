@@ -6,6 +6,10 @@ module.exports.getResponse = (message, data) => ({
   data,
 });
 
+/**
+ * Destroys old refresh tokens which going over the max auth count
+ * @param {User} user 
+ */
 module.exports.destroyOverLimitTokens = async (user) => {
   const refreshTokensCount = await user.countRefreshTokens();
 
@@ -25,6 +29,11 @@ module.exports.getTokenCookieOptions = (expiresIn = null) => ({
   httpOnly: true,
 });
 
+/**
+ * Returns avatar url
+ * @param {User} user 
+ * @returns {Promise<string>} url
+ */
 module.exports.getAvatarUrl = async (user) => {
   const { PORT, DOMAIN } = process.env;
   const avatar = await user.getAvatar();

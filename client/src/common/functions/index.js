@@ -2,6 +2,12 @@ import { isArray } from 'lodash';
 import CONSTANTS from '../../constants';
 const { WEBSITE_NAME, DEFAULT_LOCALE, ALT_LOCALE } = CONSTANTS;
 
+/**
+ * Returns [type] relationship of manga
+ * @param {Array} relationships 
+ * @param {string|Array<string>} type 
+ * @returns {Object}
+ */
 export const selectRelationship = (relationships, type) => {
   if (isArray(type)) {
     const result = {};
@@ -16,6 +22,13 @@ export const selectRelationship = (relationships, type) => {
 
 export const getPageTitle = (title) => `${title} - ${WEBSITE_NAME}`;
 
+/**
+ * Returns object from array of objects
+ * @param {Array<Object>} arr 
+ * @param {string} prop -- name of property
+ * @param {string} propValue -- value of property
+ * @returns {Object} object
+ */
 export const getObjectFromArray = (arr, prop, propValue) => arr.filter((item) => item[prop] === propValue)[0];
 
 export const getLocaleValue = (obj) => obj[DEFAULT_LOCALE] || obj[ALT_LOCALE] || Object.values(obj)[0];

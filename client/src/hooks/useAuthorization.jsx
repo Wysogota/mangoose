@@ -18,6 +18,10 @@ const redirectPaths = [
   SIGN_UP_PATH, PROFILE_PATH, SETTINGS_PATH,
 ];
 
+/**
+ * Performs authorization actions
+ * Synchronizes pages through local storage and refreshs access token
+ */
 const useAuthorization = () => {
   const { token, expiresIn, isAuthorized } = useSelector(({ auth }) => auth);
   const { resetAuth, refreshToken, getMe } = bindActionCreators(actionCreators, useDispatch());
