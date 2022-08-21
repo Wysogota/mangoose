@@ -25,7 +25,7 @@ const themes = [
 ];
 
 const initialState = {
-  theme: themes[localStorage.getItem(THEME)],
+  theme: themes[localStorage.getItem(THEME) || 0],
 };
 
 const handlers = {
