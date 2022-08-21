@@ -17,16 +17,19 @@ module.exports.signIn = async (req, res, next) => {
       const accessToken = await getAccessToken({ email, username: user.username });
       const refreshToken = await getRefreshToken({ email, ua, username: user.username });
 
+      const accessExp = decode(accessToken).exp;
+      const refreshExp = decode(refreshToken).exp;
+
       await user.createRefreshToken({
         value: refreshToken,
-        expiresIn: decode(refreshToken).exp,
+        expiresIn: refreshExp,
         ua,
       });
 
       res
-        .cookie(REFRESH_TOKEN_NAME, refreshToken, getTokenCookieOptions(decode(refreshToken).exp))
+        .cookie(REFRESH_TOKEN_NAME, refreshToken, getTokenCookieOptions(refreshExp))
         .status(200)
-        .send(getResponse('Logged in.', { token: accessToken }));
+        .send(getResponse('Logged in.', { token: accessToken, expiresIn: accessExp }));
     } else {
       next(createHttpError(401, 'Incorrect provided login data.'));
     }
@@ -75,10 +78,11 @@ module.exports.refresh = async (req, res, next) => {
       const email = decode(refreshToken).email;
       const user = await User.findOne({ where: { email } });
       const accessToken = await getAccessToken({ email, username: user.username });
+      const accessExp = decode(accessToken).exp;
 
       res
         .status(200)
-        .send(getResponse('Updated access token.', { token: accessToken }));
+        .send(getResponse('Updated access token.', { token: accessToken, expiresIn: accessExp }));
     } else {
       next(createHttpError(401, 'Incorrect provided token.'));
     }

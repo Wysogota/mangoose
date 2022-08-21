@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as actionCreators from '../redux/actions/actionCreators';
 import useAuthRedirect from './useAuthRedirect';
 import CONSTANTS from '../constants';
+import { useState } from 'react';
 const {
   STORAGE: { AUTH },
   PAGES: {
@@ -18,9 +19,11 @@ const redirectPaths = [
 ];
 
 const useAuthorization = () => {
-  const { token, isAuthorized } = useSelector(({ auth }) => auth);
+  const { token, expiresIn, isAuthorized } = useSelector(({ auth }) => auth);
   const { resetAuth, refreshToken, getMe } = bindActionCreators(actionCreators, useDispatch());
   const authRedirect = useAuthRedirect();
+
+  const [refreshTokenTimer, setRefreshTokenTimer] = useState();
 
   useEffect(() => {
     const authHandle = (event) => {
@@ -38,12 +41,15 @@ const useAuthorization = () => {
   }, []);
 
   useEffect(() => {
+    clearTimeout(refreshTokenTimer);
+
     if (token) {
       getMe({ token });
 
-      // setTimeout(() => {
-      //   refreshToken();
-      // }, 36000);
+      setRefreshTokenTimer(setTimeout(() => {
+        refreshToken();
+      }, expiresIn));
+
     }
   }, [token]);
 

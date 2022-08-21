@@ -5,6 +5,7 @@ const { STORAGE: { AUTH } } = CONSTANTS;
 
 const initialState = {
   token: null,
+  expiresIn: null,
   message: null,
   isFetching: false,
   errors: null,
@@ -36,11 +37,12 @@ const handlers = {
     draftState.message = message;
   }),
   [ACTION_TYPES.SIGN_IN_SUCCESS]: produce((draftState, action) => {
-    const { message, data: { token } } = action.payload.data;
+    const { message, data: { token, expiresIn } } = action.payload.data;
 
     draftState.isFetching = false;
     draftState.message = message;
     draftState.token = token;
+    draftState.expiresIn = expiresIn;
 
     draftState.isAuthorized = true;
     localStorage.setItem(AUTH, true);
@@ -50,17 +52,19 @@ const handlers = {
 
     draftState.isFetching = false;
     draftState.token = null;
+    draftState.expiresIn = null;
     draftState.message = message;
 
     draftState.isAuthorized = false;
     localStorage.setItem(AUTH, false);
   }),
   [ACTION_TYPES.REFRESH_TOKEN_SUCCESS]: produce((draftState, action) => {
-    const { data: { token } } = action.payload.data;
+    const { data: { token, expiresIn } } = action.payload.data;
 
     draftState.isFetching = false;
     draftState.isAuthorized = true;
     draftState.token = token;
+    draftState.expiresIn = expiresIn;
   }),
 
   [ACTION_TYPES.SIGN_UP_ERROR]: errorHandle,
