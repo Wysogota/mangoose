@@ -10,7 +10,13 @@ import {
 } from 'react-icons/bs';
 import styles from './NavItems.module.scss';
 import CONSTANTS from '../../constants';
-const { PAGES: { CATALOG: { name: catalogName, path: catalogPath } } } = CONSTANTS;
+const {
+  STATIC_ICON_PATH, MANGADEX_ICON,
+  PAGES: {
+    CATALOG: { name: CATALOG_NAME, path: CATALOG_PATH },
+    NEWS: { name: NEWS_NAME, path: NEWS_PATH },
+  }
+} = CONSTANTS;
 
 const getComponentOptions = (title, to, options) => ({
   ...options,
@@ -39,7 +45,7 @@ const createComponent = (Component, Icon, options) => {
       styles.text_overflow,
       'ms-2',
     );
-    
+
     return (<><Icon /><span className={classes}>{title}</span></>);
   };
 
@@ -63,7 +69,7 @@ const createComponent = (Component, Icon, options) => {
 
 
 const Catalog = ({ Component, options = {} }) => {
-  const assignedOptions = getComponentOptions(catalogName, catalogPath, options);
+  const assignedOptions = getComponentOptions(CATALOG_NAME, CATALOG_PATH, options);
   return createComponent(Component, CatalogIcon, assignedOptions);
 };
 
@@ -73,7 +79,7 @@ const FAQ = ({ Component, options = {} }) => {
 };
 
 const News = ({ Component, options = {} }) => {
-  const assignedOptions = getComponentOptions('News', '#', options);
+  const assignedOptions = getComponentOptions(NEWS_NAME, NEWS_PATH, options);
   return createComponent(Component, NewsIcon, assignedOptions);
 };
 
@@ -92,11 +98,23 @@ const Github = ({ Component, options = {} }) => {
     external: true,
     invertedHovered: false,
   };
-  const assignedOptions = getComponentOptions('Github', 'https://github.com/Wysogota/mangoose', defaultOptions);
+  const assignedOptions = getComponentOptions('Designed by Wysogota', 'https://github.com/Wysogota/mangoose', defaultOptions);
   return createComponent(Component, GithubIcon, assignedOptions);
+};
+
+const MangaDex = ({ Component, options = {} }) => {
+  const defaultOptions = {
+    external: true,
+    invertedHovered: false,
+  };
+
+  const Icon = () => <img src={STATIC_ICON_PATH + MANGADEX_ICON} alt='mangadex' />;
+
+  const assignedOptions = getComponentOptions('MangaDex API used', 'https://api.mangadex.org', defaultOptions);
+  return createComponent(Component, Icon, assignedOptions);
 };
 
 
 export { default as Search } from './Search';
 export { default as Theme } from './Theme';
-export { Catalog, FAQ, News, Contacts, Random, Github };
+export { Catalog, FAQ, News, Contacts, Random, Github, MangaDex };

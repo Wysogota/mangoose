@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Container, Col, Row, Navbar, Nav } from 'react-bootstrap';
 import cx from 'classnames';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo';
-import { FAQ, News, Contacts, Github } from '../NavItems';
+import { FAQ, News, Contacts, Github, MangaDex } from '../NavItems';
 import styles from './Footer.module.scss';
 import CONSTANTS from '../../constants';
+const { WEBSITE_NAME, PAGES: { HOME: { path: HOME_PATH } } } = CONSTANTS;
 
 const Footer = () => {
   const { theme: { mainTheme, bgTheme, hoveredTheme, mainColor, invertedColor } } = useSelector(({ themes }) => themes);
-  const [year, setYear] = useState(new Date().getFullYear());
-  useEffect(() => {
-    const currentYear = new Date().getFullYear();
-    if (year !== currentYear) setYear(currentYear);
-  }, []);
+  const year = new Date().getFullYear();
 
   const footerClasses = cx(
     styles.footer,
@@ -48,8 +45,10 @@ const Footer = () => {
         <Col xs='6' sm='6' md='3' lg='4'>
           <Navbar className='h-100 justify-content-md-center justify-content-end'>
             <div className='d-flex flex-column align-items-end'>
-              <Nav className='p-2 pb-0 text-nowrap'><Nav.Item>Designed by Wysogota</Nav.Item></Nav>
-              <Nav className='p-2 pb-0 pt-0'><Github Component={Nav.Link} /></Nav>
+              <Nav className='p-2 pb-0 text-nowrap flex-column' >
+                <Nav.Item><Github Component={Nav.Link} /></Nav.Item>
+                <Nav.Item><MangaDex Component={Nav.Link} /></Nav.Item>
+              </Nav>
             </div>
           </Navbar>
         </Col>
@@ -57,7 +56,7 @@ const Footer = () => {
       <Row className={styles[mainColor + '_down_footer']}>
         <Col className='d-flex justify-content-center'>
           <span className={yearClasses}>© {year} ✿</span>
-          <Link to='/' className={hoveredTheme}>{CONSTANTS.WEBSITE_NAME}</Link>
+          <Link to={HOME_PATH} className={hoveredTheme}>{WEBSITE_NAME}</Link>
         </Col>
       </Row>
     </Container>
