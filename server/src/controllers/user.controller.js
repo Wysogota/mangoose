@@ -25,9 +25,7 @@ module.exports.getMe = async (req, res, next) => {
   try {
     const { user } = req;
     const avatar = await getAvatarUrl(user);
-
-    const role = await Role.findOne({ where: { id: user.roleId } });
-    const permissions = await role.getPermissions({ attributes: ['name'] });
+    const permissions = await Role.getUserPermissions(user.roleId);
 
     res
       .status(200)
@@ -37,9 +35,9 @@ module.exports.getMe = async (req, res, next) => {
           name: user.username,
           email: user.email,
           avatar,
-          permissions: permissions
-            .filter(({ name }) => permissionsList.some((perm) => perm === name))
-            .map(({ name }) => name),
+          permissions: permissions.filter(
+            (name) => permissionsList.some((perm) => perm === name)
+          )
         }
       }));
   } catch (error) {

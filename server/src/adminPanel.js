@@ -45,14 +45,13 @@ module.exports = AdminJSExpress.buildAuthenticatedRouter(adminJs, {
   authenticate: async (email, password) => {
     const user = await User.findOne({ where: { email } });
     if (user && await user.comparePassword(password)) {
-      const role = await Role.findOne({ where: { id: user.roleId } });
-      const permissions = await role.getPermissions({ attributes: ['name'] });
+      const permissions = await Role.getUserPermissions(user.roleId);
 
       const currentUser = {
         id: user.id,
         username: user.username,
         email: user.email,
-        permissions: permissions.map((perm) => perm.name),
+        permissions,
       };
 
       const hasAccess = checkAccess(currentUser, ADMIN_PANEL);

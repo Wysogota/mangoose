@@ -11,6 +11,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'roleId',
       });
     }
+
+    static async getUserPermissions(roleId) {
+      const role = await Role.findOne({ where: { id: roleId } });
+      const permissions = await role.getPermissions({ attributes: ['name'] });
+      return permissions.map(({ name }) => name);
+    }
   }
   Role.init({
     name: {
