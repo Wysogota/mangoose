@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
@@ -33,6 +34,11 @@ const Avatar = (props) => {
     />
   );
 
+};
+
+Avatar.propTypes = {
+  compact: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 export default Avatar;

@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux';
 import cx from 'classnames';
 import VolumeChapters from './VolumeChapters';
 
-const Volumes = (props) => {
-  const { chapters } = props;
+const Volumes = () => {
   const { theme: { invertedColor, bgAccentTheme } } = useSelector(({ themes }) => themes);
+  const { chapters } = useSelector(({ chapters }) => chapters);
 
   const getVolumesList = () => [...new Set(
     chapters.map(({ attributes: { volume } }) => volume)
@@ -20,12 +20,12 @@ const Volumes = (props) => {
 
   return (
     <section>{
-      getVolumesList().map((volume) =>
-        <Accordion key={volume} className={classes} defaultActiveKey={volume}>
-          <Accordion.Item eventKey={volume} >
+      getVolumesList().map((volume, i) =>
+        <Accordion key={volume} className={classes} defaultActiveKey={i}>
+          <Accordion.Item eventKey={i}>
             <Accordion.Header>Volume {volume}</Accordion.Header>
             <Accordion.Body>
-              <VolumeChapters chapters={chapters} volumeName={volume} />
+              <VolumeChapters volumeName={volume} />
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>

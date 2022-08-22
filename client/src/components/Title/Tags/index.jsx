@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Col } from 'react-bootstrap';
 import MainHeader from '../../Headers/MainHeader';
@@ -15,14 +16,15 @@ const Tags = (props) => {
   );
 
   return (
-    <Col>
-      <Col className={containerClasses}>
-        <MainHeader>Tags</MainHeader>
-        <TagButtons tags={data} />
-      </Col>
-      <Col></Col>
+    <Col className={containerClasses}>
+      <MainHeader>Tags</MainHeader>
+      <TagButtons tags={data} />
     </Col>
   );
+};
+
+Tags.propsTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Tags;

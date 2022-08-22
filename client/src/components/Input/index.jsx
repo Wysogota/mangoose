@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ErrorMessage, Field } from 'formik';
 import { Form } from 'react-bootstrap';
 import styles from './Input.module.scss';
@@ -14,6 +15,11 @@ const Input = (props) => {
       </div>
     </Form.Group>
   );
+};
+
+Input.propTypes = {
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default Input;

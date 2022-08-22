@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Card, Col } from 'react-bootstrap';
 import cx from 'classnames';
@@ -16,7 +17,7 @@ const {
 } = CONSTANTS;
 
 const ExtendedMangaCard = (props) => {
-  const { manga, imageSize = RAW, onClick, className } = props;
+  const { manga, imageSize, onClick, className } = props;
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
   const [hovered, setHovered] = useState(false);
 
@@ -73,6 +74,17 @@ const ExtendedMangaCard = (props) => {
       </Col>
     </Card>
   );
+};
+
+ExtendedMangaCard.defaultProps = {
+  imageSize: RAW,
+};
+
+ExtendedMangaCard.propTypes = {
+  manga: PropTypes.object.isRequired,
+  imageSize: PropTypes.string,
+  onClick: PropTypes.func,
+  className: PropTypes.string,
 };
 
 export default ExtendedMangaCard;

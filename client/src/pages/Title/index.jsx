@@ -43,7 +43,7 @@ const Title = () => {
 
   const {
     attributes: {
-      title: { [DEFAULT_LOCALE]: title }, //TODO если пусто тогда искать первое что не пусто
+      title: { [DEFAULT_LOCALE]: title },
       description: { [DEFAULT_LOCALE]: desc },
       tags,
     },
@@ -100,7 +100,7 @@ const Title = () => {
           </Col>
           <Col>
             <TitleTabs
-              mangaId={mangaId} desc={desc} tags={tags}
+              desc={desc} tags={tags}
               relationships={relationships} titleInfoAttr={titleInfoAttr}
             />
           </Col>

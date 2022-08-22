@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 const MinorHeader = (props) => {
@@ -12,6 +13,11 @@ const MinorHeader = (props) => {
   return (
     <h3 className={classes}>{children}</h3>
   );
+};
+
+MinorHeader.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.any.isRequired,
 };
 
 export default MinorHeader;

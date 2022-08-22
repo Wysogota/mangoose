@@ -1,4 +1,5 @@
 import React, { forwardRef, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import cx from 'classnames';
 import { Button, useAccordionButton } from 'react-bootstrap';
@@ -33,4 +34,16 @@ const ToggleTab = (props, ref) => {
   );
 };
 
-export default forwardRef(ToggleTab);
+const refToggleTab = forwardRef(ToggleTab);
+
+refToggleTab.propTypes = {
+  eventKey: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  selected: PropTypes.bool.isRequired,
+  focused: PropTypes.bool.isRequired,
+  children: PropTypes.any,
+};
+
+export default refToggleTab;

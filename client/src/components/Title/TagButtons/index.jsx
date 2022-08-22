@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button, Dropdown } from 'react-bootstrap';
@@ -120,6 +121,12 @@ const TagButtons = (props) => {
       </Dropdown>}
     </div>
   );
+};
+
+TagButtons.propTypes = {
+  tags: PropTypes.arrayOf(PropTypes.object).isRequired,
+  tagClassName: PropTypes.string,
+  shouldOverflow: PropTypes.bool,
 };
 
 export default TagButtons;

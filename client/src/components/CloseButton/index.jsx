@@ -4,7 +4,7 @@ import { BsChevronDoubleUp as CloseIcon } from 'react-icons/bs';
 import cx from 'classnames';
 import elements from '../../common/styles/elements.module.scss';
 
-const CloseButton = ({ onClick }) => {
+const CloseButton = (props) => {
   const { theme: { mainTheme } } = useSelector(({ themes }) => themes);
 
   const classes = cx(
@@ -13,7 +13,7 @@ const CloseButton = ({ onClick }) => {
   );
 
   return (
-    <button className={classes} onClick={onClick}>
+    <button className={classes} {...props}>
       <CloseIcon className={mainTheme} />
     </button>
   );

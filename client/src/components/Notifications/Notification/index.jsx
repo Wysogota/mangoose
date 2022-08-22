@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Toast } from 'react-bootstrap';
 
@@ -19,6 +20,11 @@ const Notification = (props) => {
       <Toast.Body>{body}</Toast.Body>
     </Toast>
   );
+};
+
+Notification.propTypes = {
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
 };
 
 export default Notification;

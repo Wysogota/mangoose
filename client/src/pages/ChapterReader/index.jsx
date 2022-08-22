@@ -62,11 +62,11 @@ const ChapterReader = () => {
   return (
     <Container fluid>
       <Row className='pb-5 pt-5'>
-        <InfoPanel currentPage={currentPage} pageCount={chapterPages.data.length} />
+        <InfoPanel currentPage={currentPage} />
       </Row>
       <Row>
         <Col>
-          <Reader chapterPages={chapterPages} currentPage={currentPage} />
+          <Reader currentPage={currentPage} />
         </Col>
       </Row>
     </Container>

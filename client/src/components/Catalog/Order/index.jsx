@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useSearchParams } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 import { BsCaretDownFill as DESCIcon, BsCaretUpFill as ASCIcon } from 'react-icons/bs';
@@ -38,6 +39,10 @@ const Order = (props) => {
       }
     </Dropdown.Item>
   );
+};
+
+Order.propTypes = {
+  setOrder: PropTypes.func.isRequired,
 };
 
 export default Order;

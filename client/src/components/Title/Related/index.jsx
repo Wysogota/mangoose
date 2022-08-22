@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
@@ -10,12 +11,14 @@ import CONSTANTS from '../../../constants';
 const { RELATED_FILTER, MANGA_COVER_SIZES: { SMALL } } = CONSTANTS;
 
 const Related = (props) => {
-  const filteredRelationshops = props.relationships.filter(
-    (item) => item.related && !RELATED_FILTER.includes(item.related)
-  );
+  const { relationships } = props;
   const { mangaCatalog, isFetching } = useSelector(({ mangaCatalog }) => mangaCatalog);
   const { getMangaCatalog, clearMangaCatalog } = bindActionCreators(actionCreators, useDispatch());
   const [relatedManga, setRelatedManga] = useState([]);
+
+  const filteredRelationshops = relationships.filter(
+    (item) => item.related && !RELATED_FILTER.includes(item.related)
+  );
 
   useEffect(() => {
     const mangaIds = filteredRelationshops.map(({ id }) => id);
@@ -37,13 +40,13 @@ const Related = (props) => {
   const loading = useLoading({ data: relatedManga, title: 'No Related', isFetching });
   if (loading) return loading;
 
-  return (
-    <div>{
-      relatedManga.map((manga) => (
-        <ExtendedMangaCard key={manga.id} manga={manga} imageSize={SMALL} />
-      ))
-    }</div>
-  );
+  return (relatedManga.map((manga) => (
+    <ExtendedMangaCard key={manga.id} manga={manga} imageSize={SMALL} />
+  )));
+};
+
+Related.propTypes = {
+  relationships: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Related;

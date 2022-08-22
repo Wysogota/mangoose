@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
@@ -7,7 +8,7 @@ import { Catalog } from '../../NavItems';
 import styles from './CatalogButton.module.scss';
 
 const CatalogButton = (props) => {
-  const { onClick, title, params, bgTheme, stopAnimation } = props;
+  const { title, params, onClick, bgTheme, stopAnimation } = props;
   const classes = cx(
     styles.button,
     'm-auto',
@@ -26,6 +27,19 @@ const CatalogButton = (props) => {
     </motion.div>
 
   );
+};
+
+CatalogButton.propTypes = {
+  title: PropTypes.string,
+  params: (props, propName) => {
+    const currentProp = props[propName];
+    if (currentProp !== undefined && currentProp.constructor.name !== 'URLSearchParams') {
+      return new Error(`${propName} prop should be type of URLSearchParams`);
+    }
+  },
+  onClick: PropTypes.func,
+  bgTheme: PropTypes.string,
+  stopAnimation: PropTypes.bool,
 };
 
 export default CatalogButton;

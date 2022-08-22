@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Accordion, Card, Carousel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -12,7 +13,7 @@ const {
 } = CONSTANTS;
 
 const MangaCard = (props) => {
-  const { manga = {}, imageSize = RAW, className } = props;
+  const { manga, imageSize, className } = props;
   const { theme: { mainColor, invertedColor, mainTheme, hoveredTheme } } = useSelector(({ themes }) => themes);
 
   const { id, attributes: { title, description }, relationships } = manga;
@@ -55,6 +56,16 @@ const MangaCard = (props) => {
       </div>
     </Card>
   );
+};
+
+MangaCard.defaultProps = {
+  imageSize: RAW,
+};
+
+MangaCard.propTypes = {
+  manga: PropTypes.object.isRequired,
+  imageSize: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default MangaCard;

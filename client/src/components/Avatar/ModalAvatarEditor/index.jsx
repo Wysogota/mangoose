@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
@@ -62,6 +63,12 @@ const ModalAvatarEditor = (props) => {
       </Modal.Footer>
     </Modal>
   );
+};
+
+ModalAvatarEditor.propTypes = {
+  show: PropTypes.bool.isRequired,
+  setShow: PropTypes.func.isRequired,
+  avatar: PropTypes.object.isRequired,
 };
 
 export default ModalAvatarEditor;

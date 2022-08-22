@@ -2,7 +2,10 @@ import produce from 'immer';
 import ACTION_TYPES from '../../actions/actionTypes';
 
 const initialState = {
-  chapterPages: {},
+  chapterPages: [],
+  chapterPagesSaver: [],
+  hash: null,
+  total: null,
   isFetching: false,
   error: null,
 };
@@ -14,8 +17,12 @@ const handlers = {
   }),
 
   [ACTION_TYPES.GET_CHAPTER_PAGES_SUCCESS]: produce((draftState, action) => {
+    const { data, dataSaver, hash } = action.payload.data;
     draftState.isFetching = false;
-    draftState.chapterPages = action.payload.data;
+    draftState.chapterPages = data;
+    draftState.chapterPagesSaver = dataSaver;
+    draftState.hash = hash;
+    draftState.total = data.length;
   }),
 
   [ACTION_TYPES.GET_CHAPTER_PAGES_ERROR]: produce((draftState, action) => {

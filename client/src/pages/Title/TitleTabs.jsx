@@ -11,7 +11,7 @@ import CONSTANTS from '../../constants';
 const { TITLE_TABS: { INFO, CHAPTERS, RELATED, COMMENTS } } = CONSTANTS;
 
 const TitleTabs = (props) => {
-  const { mangaId, desc, tags, relationships, titleInfoAttr } = props;
+  const { desc, tags, relationships, titleInfoAttr } = props;
 
   return (
     <Tabs defaultTab={INFO}>
@@ -22,10 +22,10 @@ const TitleTabs = (props) => {
         <br />
         <Tags data={tags} />
         <br />
-        <Arts mangaId={mangaId} />
+        <Arts />
       </Tab>
       <Tab eventKey={CHAPTERS} title={<TabLink to={CHAPTERS}>Chapters</TabLink>}>
-        <Chapters mangaId={mangaId} />
+        <Chapters />
       </Tab>
       <Tab eventKey={RELATED} title={<TabLink to={RELATED}>Related</TabLink>}>
         <Related relationships={relationships} />

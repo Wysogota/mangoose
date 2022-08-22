@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Carousel } from 'react-bootstrap';
 import CarouselHeader from '../../Carousels/CarouselHeader';
 import { getLocaleValue, selectRelationship } from '../../../common/functions';
@@ -8,9 +9,8 @@ const {
   MANGA_COVER_SIZES: { RAW },
 } = CONSTANTS;
 
-
 const CarouselCard = (props) => {
-  const { manga, imageSize = RAW } = props;
+  const { manga, imageSize } = props;
 
   const { id, attributes: { title }, relationships } = manga;
   const image = selectRelationship(relationships, 'cover_art').attributes.urls[imageSize];
@@ -30,6 +30,15 @@ const CarouselCard = (props) => {
       </Carousel.Caption>
     </>
   );
+};
+
+CarouselCard.defaultProps = {
+  imageSize: RAW,
+};
+
+CarouselCard.propTypes = {
+  manga: PropTypes.object.isRequired,
+  imageSize: PropTypes.string,
 };
 
 export default CarouselCard;

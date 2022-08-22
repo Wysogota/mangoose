@@ -1,13 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { Pagination } from 'react-bootstrap';
 import cx from 'classnames';
+import PageItems from './PageItems';
 import CONSTANTS from '../../constants';
 const { PARAM_NAME: { PAGE } } = CONSTANTS;
 
 const PaginationButtons = (props) => {
-  const { itemCount, paginationName, limit } = props;
+  const { paginationName, itemCount, limit } = props;
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
   const [searchParams, setSearchParams] = useSearchParams();
   const paramName = paginationName ? `${paginationName}-${PAGE}` : PAGE;
@@ -15,7 +17,6 @@ const PaginationButtons = (props) => {
   const pageCount = Math.ceil(itemCount / limit);
   const currentPage = (Number.parseInt(searchParams.get(paramName)) - 1) || 0;
 
-  const pageItemClasses = (i) => cx((currentPage === i) && 'active');
   const startItemClasses = cx((currentPage === 0) && 'disabled');
   const endItemClasses = cx((currentPage === pageCount - 1) && 'disabled');
   const paginationClasses = cx(
@@ -28,27 +29,6 @@ const PaginationButtons = (props) => {
     setSearchParams(searchParams, { replace: true });
   };
 
-  const PageItems = () => {
-    const displayCount = pageCount < 5 ? pageCount : 5;
-    const leftShift = Math.floor(displayCount / 2);
-
-    const shift = (currentPage + leftShift >= pageCount)
-      ? ((displayCount) - (pageCount - currentPage))
-      : (currentPage < leftShift) ? currentPage : leftShift;
-
-    return new Array(displayCount).fill(null).map((_, i) => {
-      const page = (currentPage + i) - shift;
-      return (
-        <Pagination.Item key={page}
-          className={pageItemClasses(page)}
-          onClick={() => onClickHandle(page + 1)}
-        >
-          {page + 1}
-        </Pagination.Item>
-      );
-    });
-  };
-
   return (
     <Pagination className={paginationClasses}>
       <Pagination.First
@@ -59,7 +39,11 @@ const PaginationButtons = (props) => {
         onClick={() => onClickHandle(currentPage)}
         className={startItemClasses}
       />
-      <PageItems />
+      <PageItems
+        pageCount={pageCount}
+        currentPage={currentPage}
+        onClickHandle={onClickHandle}
+      />
       <Pagination.Next
         onClick={() => onClickHandle(currentPage + 2)}
         className={endItemClasses}
@@ -70,6 +54,12 @@ const PaginationButtons = (props) => {
       />
     </Pagination>
   );
+};
+
+PaginationButtons.propTypes = {
+  paginationName: PropTypes.string,
+  itemCount: PropTypes.number.isRequired,
+  limit: PropTypes.number.isRequired,
 };
 
 export default PaginationButtons;

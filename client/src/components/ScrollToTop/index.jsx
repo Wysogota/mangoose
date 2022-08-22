@@ -1,18 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import cx from 'classnames';
 import { motion } from 'framer-motion';
 import { BsChevronDoubleUp as UpIcon } from 'react-icons/bs';
 import styles from './ScrollToTop.module.scss';
 
-const ScrollToTop = ({ showHeight }) => {
+const ScrollToTop = (props) => {
+  const { showHeight } = props;
   const { theme: { mainColor, mainTheme, bgTheme, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
   const [visible, setVisible] = useState(false);
-
-  const toggleVisible = () => {
-    const scrolled = document.documentElement.scrollTop;
-    setVisible(scrolled > showHeight);
-  };
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -21,7 +18,16 @@ const ScrollToTop = ({ showHeight }) => {
     });
   };
 
-  window.addEventListener('scroll', toggleVisible);
+  useEffect(() => {
+    const toggleVisible = () => {
+      const scrolled = document.documentElement.scrollTop;
+      setVisible(scrolled > showHeight);
+    };
+
+    window.addEventListener('scroll', toggleVisible);
+    return () => window.removeEventListener('scroll', toggleVisible);
+  }, []);
+
 
   const classes = cx(
     styles.button,
@@ -45,6 +51,14 @@ const ScrollToTop = ({ showHeight }) => {
       </button>
     </motion.div>
   );
+};
+
+ScrollToTop.defaultProps = {
+  showHeight: 200,
+};
+
+ScrollToTop.propsTypes = {
+  showHeight: PropTypes.number,
 };
 
 export default ScrollToTop;

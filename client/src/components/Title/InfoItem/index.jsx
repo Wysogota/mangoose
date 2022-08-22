@@ -1,11 +1,12 @@
-import { capitalize, startCase } from 'lodash';
 import React from 'react';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { capitalize, startCase } from 'lodash';
 import cx from 'classnames';
 import styles from './InfoItem.module.scss';
-import { useSelector } from 'react-redux';
-
-const defaultValue = '¯\\_(ツ)_/¯';
+import CONSTANTS from '../../../constants';
+const { DEFAULT_INFO_ITEM } = CONSTANTS;
 
 const InfoItem = (props) => {
   const { to, title, value, inline } = props;
@@ -24,9 +25,23 @@ const InfoItem = (props) => {
   return (
     <Link to={to} className={containerClasses}>
       <div className={titleClasses}>{capitalize(title) + ':'}</div>
-      <div>{startCase(value) || defaultValue}</div>
+      <div>{startCase(value)}</div>
     </Link>
   );
+};
+
+InfoItem.defaultProps = {
+  value: DEFAULT_INFO_ITEM,
+};
+
+InfoItem.propTypes = {
+  to: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  inline: PropTypes.bool,
 };
 
 export default InfoItem;

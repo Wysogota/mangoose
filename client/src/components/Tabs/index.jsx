@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Tabs as BsTabs } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import CONSTANTS from '../../constants';
-const {
-  PARAM_NAME: { TAB }
-} = CONSTANTS;
+const { PARAM_NAME: { TAB } } = CONSTANTS;
 
 const Tabs = (props) => {
   const { defaultTab, children } = props;
@@ -26,6 +24,11 @@ const Tabs = (props) => {
       {children}
     </BsTabs>
   );
+};
+
+Tabs.propTypes = {
+  defaultTab: PropTypes.string.isRequired,
+  children: PropTypes.any,
 };
 
 export default Tabs;

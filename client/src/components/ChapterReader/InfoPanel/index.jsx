@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Row, Col, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -22,8 +23,9 @@ const {
 } = CONSTANTS;
 
 const InfoPanel = (props) => {
-  const { currentPage, pageCount } = props;
+  const { currentPage } = props;
   const { theme: { bgTheme, hoveredTheme } } = useSelector(({ themes }) => themes);
+  const { total } = useSelector(({ chapterPages }) => chapterPages);
   const { chapter, chapterIsFetching } = useSelector(({ chapter }) => chapter);
   const { nextChapterId, nextChapterIdIsFetching } = useSelector(({ nextChapterId }) => nextChapterId);
 
@@ -94,9 +96,9 @@ const InfoPanel = (props) => {
           <Link to={`${chapterPath}/${prev}`} className={prevControlClasses(prev)}><PrevIcon /></Link>
           <div>
             Page:
-            <InputPage page={currentPage + 1} pageCount={pageCount} className='pe-1' />
+            <InputPage page={currentPage + 1} className='pe-1' />
             /
-            <span className='ps-1'>{pageCount}</span>
+            <span className='ps-1'>{total}</span>
           </div>
           <Link to={`${chapterPath}/${next}`} className={nextControlClasses(next)}><NextIcon /></Link>
         </Col>
@@ -104,6 +106,10 @@ const InfoPanel = (props) => {
       </Row>
     </>
   );
+};
+
+InfoPanel.propTypes = {
+  currentPage: PropTypes.number.isRequired,
 };
 
 export default InfoPanel;

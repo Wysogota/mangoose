@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ColBlock from '../../Blocks/ColBlock';
 import MangaCard from '../../Cards/MangaCard';
 import CONSTANTS from '../../../constants';
@@ -14,6 +15,11 @@ const MangaCatalog = (props) => {
       </ColBlock>
     )
   );
+};
+
+MangaCatalog.propTypes = {
+  catalog: PropTypes.array.isRequired,
+  className: PropTypes.string,
 };
 
 export default MangaCatalog;

@@ -1,4 +1,5 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Col } from 'react-bootstrap';
 import cx from 'classnames';
@@ -25,6 +26,16 @@ const ColBlock = (props) => {
       </div>
     </Col>
   );
+};
+
+ColBlock.propTypes = {
+  className: PropTypes.string,
+  innerClassName: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element)
+  ]).isRequired,
+  onClick: PropTypes.func,
 };
 
 export default ColBlock;

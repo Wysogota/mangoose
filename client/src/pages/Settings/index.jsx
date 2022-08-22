@@ -23,7 +23,9 @@ const Settings = () => {
           </ColBlock>
         </Row>
       </Container>
-      <ModalAvatarEditor show={showAvatarEditor} setShow={setShowAvatarEditor} avatar={avatar} />
+      {avatar &&
+        <ModalAvatarEditor show={showAvatarEditor} setShow={setShowAvatarEditor} avatar={avatar} />
+      }
     </>
   );
 };

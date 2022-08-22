@@ -8,7 +8,7 @@ import ColBlock from '../../components/Blocks/ColBlock';
 import CatalogButton from '../../components/Catalog/CatalogButton';
 import Genres from '../../components/Catalog/Genres';
 import MangaCatalog from '../../components/Catalog/MangaCatalog';
-import HeaderLink from '../../components/HeaderLink';
+import HeaderLink from '../../components/Headers/HeaderLink';
 import { useLoading } from '../../hooks';
 import CONSTANTS from '../../constants';
 const {
@@ -35,9 +35,7 @@ const HomeMangaCatalog = (props) => {
   useEffect(() => clearMangaCatalog, []);
   useEffect(() => { getMangaCatalog(queryParams); }, [searchParams]);
 
-  const catalogClasses = shrinked
-    ? 'm-auto col-10 col-sm-7 col-md-6 col-lg-4 col-xl-3'
-    : 'col-12 col-md-4';
+  const catalogClasses = 'col-12 col-sm-6 ' + (shrinked ? 'col-lg-4 col-xl-3' : 'col-xl-4');
 
   const loading = useLoading({ data: mangaCatalog, title: 'Catalog Empty', isFetching });
 
@@ -45,7 +43,7 @@ const HomeMangaCatalog = (props) => {
     <Col className={extendedCatalog ? 'd-block' : 'd-none'}>
       <Row>
         <ColBlock className='col-12'>
-          <HeaderLink to={path} title='Catalog' />
+          <HeaderLink to={path}>Catalog</HeaderLink>
           <Genres redirect />
         </ColBlock>
         {loading ? loading :

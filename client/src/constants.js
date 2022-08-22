@@ -131,6 +131,8 @@ export default {
     AUTH: 'auth',
     THEME: 'theme',
   },
+  PAGINATION_PAGES_COUNT: 5,
+  DEFAULT_INFO_ITEM: '¯\\_(ツ)_/¯',
 
   DEFAULT_NEW_CHAPTERS: (count) => new Array(count).fill(null).map((_, i) => ({
     id: i,

@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import ColBlock from '../../components/Blocks/ColBlock';
-import HeaderLink from '../../components/HeaderLink';
+import HeaderLink from '../../components/Headers/HeaderLink';
 import NewChaptersList from '../../components/Lists/NewChaptersList';
 
 const HomeNewChapters = (props) => {
@@ -14,7 +14,7 @@ const HomeNewChapters = (props) => {
 
   return (
     <ColBlock title='New chapters' innerClassName={classes}>
-      <HeaderLink to='#' title='New chapters' />
+      <HeaderLink to='#'>New chapters</HeaderLink>
       <NewChaptersList />
     </ColBlock>
   );

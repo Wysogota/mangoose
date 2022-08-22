@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
@@ -15,6 +16,13 @@ const CarouselHeader = (props) => {
   return (
     <h3 className={classes}><Link to={to}>{children}</Link></h3>
   );
+};
+
+CarouselHeader.propTypes = {
+  to: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  shouldInvertedHovered: PropTypes.bool,
+  children: PropTypes.string.isRequired,
 };
 
 export default CarouselHeader;

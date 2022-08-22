@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -64,6 +65,13 @@ const GenreButton = (props) => {
       </Button>}
     </ButtonGroup>
   );
+};
+
+GenreButton.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  to: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default GenreButton;

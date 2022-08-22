@@ -19,13 +19,12 @@ const {
 } = CONSTANTS;
 
 const Reader = (props) => {
-  const [, setSearchParams] = useSearchParams();
-  const { chapterPages, currentPage } = props;
-
+  const { currentPage } = props;
   const { chapter } = useSelector(({ chapter }) => chapter);
-  const { nextChapterId, isFetching } = useSelector(({ nextChapterId }) => nextChapterId);
+  const { nextChapterId } = useSelector(({ nextChapterId }) => nextChapterId);
+  const { chapterPages, hash } = useSelector(({ chapterPages }) => chapterPages);
   const { getNextChapterId } = bindActionCreators(actionCreators, useDispatch());
-
+  const [, setSearchParams] = useSearchParams();
   const [prevPage, setPrevPage] = useState(currentPage);
   const navigate = useNavigate();
 
@@ -45,7 +44,7 @@ const Reader = (props) => {
   }, [chapter]);
 
   const handleSelect = (selectedPage, e) => {
-    const pagesCount = chapterPages.data.length - 1;
+    const pagesCount = chapterPages.length - 1;
     const { prev, next } = nextChapterId;
     const mangaId = selectRelationship(chapter.relationships, 'manga').id;
 
@@ -65,20 +64,16 @@ const Reader = (props) => {
     e.target.scrollIntoView({ behavior: 'smooth' });
   };
 
-  if (isFetching) {
-    return <Spinner animation='border' role='status'></Spinner>;
-  }
-
   return (
     <Carousel id='reader'
       interval={null} indicators={false} nextIcon={null} prevIcon={null} slide={false}
       activeIndex={currentPage} onSelect={handleSelect}
     >
-      {chapterPages.data.map(((image, i) =>
+      {chapterPages.map(((image, i) =>
         <Carousel.Item key={i}>
           <img
             className={styles.image}
-            src={`https://uploads.mangadex.org/data/${chapterPages.hash}/${image}`}
+            src={`https://uploads.mangadex.org/data/${hash}/${image}`}
             alt={image}
           />
         </Carousel.Item>

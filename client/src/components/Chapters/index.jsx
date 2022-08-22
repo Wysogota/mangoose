@@ -2,6 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
+import { useParams } from 'react-router-dom';
 import PaginationButtons from '../PaginationButtons';
 import Volumes from './Volumes';
 import { usePagination, useLoading } from '../../hooks';
@@ -10,10 +11,10 @@ const { DEFAULT_LOCALE } = CONSTANTS;
 
 const limit = 20;
 
-const Chapters = (props) => {
-  const { mangaId } = props;
+const Chapters = () => {
   const { chapters, total, isFetching } = useSelector(({ chapters }) => chapters);
   const { getChapters } = bindActionCreators(actionCreators, useDispatch());
+  const { mangaId } = useParams();
 
   const queryParams = { mangaId, lang: DEFAULT_LOCALE };
   usePagination({ actionCreator: getChapters, queryParams, limit });
@@ -23,7 +24,7 @@ const Chapters = (props) => {
 
   return (
     <>
-      <Volumes chapters={chapters} />
+      <Volumes />
       <PaginationButtons itemCount={total} limit={limit} />
     </>
   );

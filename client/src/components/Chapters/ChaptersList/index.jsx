@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { formatDistanceToNow } from 'date-fns';
 import cx from 'classnames';
@@ -10,12 +11,13 @@ import styles from './ChaptersList.module.scss';
 import CONSTANTS from '../../../constants';
 const { breakpoints: { md } } = CONSTANTS;
 
-const ChaptersList = (props) => {
-  const { chapters, volumeChapter } = props;
-  const { theme: { bgHoveredTheme, hoveredTheme } } = useSelector(({ themes }) => themes);
+const getDateValue = (publishAt) => formatDistanceToNow(new Date(publishAt));
 
+const ChaptersList = (props) => {
+  const { volumeChapter } = props;
+  const { theme: { bgHoveredTheme, hoveredTheme } } = useSelector(({ themes }) => themes);
+  const { chapters } = useSelector(({ chapters }) => chapters);
   const isAdaptiveView = useAdaptiveView(md);
-  const getDateValue = (publishAt) => formatDistanceToNow(new Date(publishAt));
 
   const chapterLinkClasses = cx(
     hoveredTheme,
@@ -59,7 +61,11 @@ const ChaptersList = (props) => {
 
   return (chapters
     .filter(({ attributes: { chapter } }) => chapter === volumeChapter)
-    .map(({ id, attributes: { title, chapter, externalUrl, pages, publishAt }, relationships }) => {
+    .map(({
+      id,
+      attributes: { title, chapter, externalUrl, pages, publishAt },
+      relationships
+    }) => {
       return (
         <div key={id} className={constainerClasses}>
           {externalUrl ?
@@ -71,26 +77,26 @@ const ChaptersList = (props) => {
             <ChapterLink
               className={chapterLinkClasses}
               chapterId={id}
-              title={title || `Chapter ${chapter || ''}`}
+              title={title || `Chapter ${chapter}`}
               pages={pages}
             />}
 
-          {isAdaptiveView
-            ? (<div className='col-6 d-flex justify-content-end flex-column text-end'>
+          {isAdaptiveView ? (
+            <div className='col-6 d-flex justify-content-end flex-column text-end'>
               <PublishDate publishAt={publishAt} />
               <CreatorAnchors relationships={relationships} />
-            </div>)
-            : (<>
-              <CreatorAnchors relationships={relationships} />
-              <PublishDate
-                publishAt={publishAt}
-                className='col-3 align-middle text-end'
-              />
-            </>)}
-
+            </div>
+          ) : (<>
+            <CreatorAnchors relationships={relationships} />
+            <PublishDate publishAt={publishAt} className='col-3 align-middle text-end' />
+          </>)}
         </div>
       );
     }));
+};
+
+ChaptersList.propTypes = {
+  volumeChapter: PropTypes.string,
 };
 
 export default ChaptersList;

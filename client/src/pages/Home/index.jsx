@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import SingleCarousel from '../../components/Carousels/SingleCarousel';
 import MultipleCarousel from '../../components/Carousels/MultipleCarousel';
 import NewsList from '../../components/Lists/NewsList';
-import HeaderLink from '../../components/HeaderLink';
+import HeaderLink from '../../components/Headers/HeaderLink';
 import ColBlock from '../../components/Blocks/ColBlock';
 import HomeMangaCatalog from './HomeMangaCatalog';
 import CONSTANTS from '../../constants';
@@ -59,11 +59,11 @@ const Home = () => {
           </Row>
           <Row className='flex-column flex-lg-row'>
             <ColBlock>
-              <HeaderLink to='#' title='Recently read' />
+              <HeaderLink to='#'>Recently read</HeaderLink>
               <NewsList />
             </ColBlock>
             <ColBlock className='d-lg-none d-xl-block'>
-              <HeaderLink to={NEWS_PATH} title='Last news' />
+              <HeaderLink to={NEWS_PATH}>Last news</HeaderLink>
               <NewsList />
             </ColBlock>
           </Row>
@@ -76,7 +76,7 @@ const Home = () => {
           </Row>
           <Row>
             <ColBlock className='d-xl-none'>
-              <HeaderLink to={NEWS_PATH} title='Last news' />
+              <HeaderLink to={NEWS_PATH}>Last news</HeaderLink>
               <NewsList />
             </ColBlock>
           </Row>

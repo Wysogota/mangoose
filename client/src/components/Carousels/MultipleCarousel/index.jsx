@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
 import { Accordion } from 'react-bootstrap';
 import ItemsCarousel from 'react-items-carousel';
 import cx from 'classnames';
-import HeaderLink from '../../HeaderLink';
+import HeaderLink from '../../Headers/HeaderLink';
 import ColBlock from '../../Blocks/ColBlock';
 import styles from './MultipleCarousel.module.scss';
 import CONSTANTS from '../../../constants';
@@ -49,10 +50,10 @@ const MultipleCarousel = (props) => {
 
   return (
     <ColBlock>
-      <Accordion className={`accordion-${invertedColor}`} defaultActiveKey={Number(isOpen)}>
+      <Accordion className={`accordion-${invertedColor} inverted`} defaultActiveKey={Number(isOpen)}>
         <Accordion.Item eventKey={1}>
           <Accordion.Header onClick={() => toggleCarousel(order)}>
-            <HeaderLink to={`${CATALOG_PATH}?${SORT}=${filter}`} title={title} />
+            <HeaderLink to={`${CATALOG_PATH}?${SORT}=${filter}`}>{title}</HeaderLink>
           </Accordion.Header>
           {loading ? loading :
             <Accordion.Body className='p-0'>
@@ -79,6 +80,12 @@ const MultipleCarousel = (props) => {
       </Accordion>
     </ColBlock>
   );
+};
+
+MultipleCarousel.propTypes = {
+  order: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  filter: PropTypes.string.isRequired,
 };
 
 export default MultipleCarousel;
