@@ -12,11 +12,11 @@ import styles from './Arts.module.scss';
 import CONSTANTS from '../../../constants';
 const { MANGA_COVER_SIZES: { SMALL } } = CONSTANTS;
 
-const limit = 5;
+const limit = 5; // should be more than 5
 
-const getImageWidth = (length) => {
-  const divisor = length < limit ? 3 : limit;
-  return `${100 / divisor}%`;
+const getStyles = (length) => {
+  if (length >= limit) return { width: `${100 / limit}%` };
+  else return { height: `100%` };
 };
 
 const Arts = () => {
@@ -52,7 +52,7 @@ const Arts = () => {
               src={urls[SMALL]}
               alt={volume}
               className='pe-2 rounded'
-              style={{ width: getImageWidth(covers.length) }}
+              style={getStyles(covers.length)}
             />
           ))}
         </div>
