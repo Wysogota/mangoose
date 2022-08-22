@@ -1,0 +1,5 @@
+@import '../../common/styles/functions';
+
+.header {
+  @extend %text-overflow;
+}

@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import styles from './Header.module.scss';
 
-const MinorHeader = (props) => {
+const MainHeader = (props) => {
   const { className, children } = props;
 
   const classes = cx(
+    styles.header,
     className,
-    'pb-2 m-0 fs-5',
+    'pb-3 m-0',
   );
 
   return (
@@ -15,9 +17,9 @@ const MinorHeader = (props) => {
   );
 };
 
-MinorHeader.propTypes = {
+MainHeader.propTypes = {
   className: PropTypes.string,
   children: PropTypes.any.isRequired,
 };
 
-export default MinorHeader;
+export default MainHeader;
