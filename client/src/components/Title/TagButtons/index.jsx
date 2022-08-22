@@ -1,15 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Button, Dropdown } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 import cx from 'classnames';
+import { getLocaleValue } from '../../../common/functions';
 import styles from './TagButtons.module.scss';
-import { Link } from 'react-router-dom';
 import CONSTANTS from '../../../constants';
 const {
   PARAM_NAME: { FILTER: { TAGS } },
   PAGES: { CATALOG: { path } }
 } = CONSTANTS;
+
+const getPath = (id) => `${path}?${TAGS}=${id}`;
 
 const TagButtons = (props) => {
   const { tags, tagClassName, shouldOverflow } = props;
@@ -35,7 +38,7 @@ const TagButtons = (props) => {
   }, []);
 
   useEffect(() => {
-    if (shouldOverflow) {
+    if (shouldOverflow && containerPosition) {
 
       if (!isEmpty(tagsRef.current)) {
         tagsRef.current.forEach((tag) => {
@@ -67,8 +70,6 @@ const TagButtons = (props) => {
     }
   }, [tagsRef, theme, overflowedTagsRef, containerPosition]);
 
-  const getPath = (id) => `${path}?${TAGS}=${id}`;
-
   const containerClasses = cx(
     shouldOverflow ? styles.visible_container : styles.conatiner
   );
@@ -93,36 +94,28 @@ const TagButtons = (props) => {
   return (
     <div className={styles.tags_container}>
       <div ref={containerRef} className={containerClasses}>{
-        tags.map(({ id, attributes: { name } }, i) => {
-          const localeName = name[CONSTANTS.DEFAULT_LOCALE];
-          return (
-            <Button
-              key={localeName}
-              ref={(tag) => tagsRef.current[i] = tag}
-              variant={invertedColor}
-              className={tagsClasses}
-            >
-              <Link to={getPath(id)} >{localeName}</Link>
-            </Button>
-          );
-        })
+        tags.map(({ id, attributes: { name } }, i) => (
+          <Button key={id}
+            ref={(tag) => tagsRef.current[i] = tag}
+            variant={invertedColor}
+            className={tagsClasses}
+          >
+            <Link to={getPath(id)} >{getLocaleValue(name)}</Link>
+          </Button>
+        ))
       }</div>
       {shouldOverflow && shouldDisplayDropdown && <Dropdown>
         <Dropdown.Toggle className={toggleClasses} variant={mainColor}></Dropdown.Toggle>
         <Dropdown.Menu variant={invertedColor} align='end' renderOnMount>{
-          tags.map(({ id, attributes: { name } }, i) => {
-            const localeName = name[CONSTANTS.DEFAULT_LOCALE];
-            return (
-              <Dropdown.Item as={Link}
-                key={localeName}
-                to={getPath(id)}
-                ref={(tag) => overflowedTagsRef.current[i] = tag}
-                className={overflowedTagsClasses}
-              >
-                {localeName}
-              </Dropdown.Item>
-            );
-          })
+          tags.map(({ id, attributes: { name } }, i) => (
+            <Dropdown.Item as={Link} key={id}
+              to={getPath(id)}
+              ref={(tag) => overflowedTagsRef.current[i] = tag}
+              className={overflowedTagsClasses}
+            >
+              {getLocaleValue(name)}
+            </Dropdown.Item>
+          ))
         }</Dropdown.Menu>
       </Dropdown>}
     </div>
