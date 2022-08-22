@@ -10,7 +10,7 @@ import styles from './Reader.module.scss';
 import './reader.scss';
 import CONSTANTS from '../../../constants';
 const {
-  TITLE_TABS: { CHAPTERS },
+  TITLE_TABS: { CHAPTERS: { type: CHAPTERS_TYPE } },
   PARAM_NAME: { TAB, PAGE },
   PAGES: {
     TITLE: { path: titlePath },
@@ -50,7 +50,7 @@ const Reader = (props) => {
 
     const chooseNavigate = (navigeChapter) => navigeChapter
       ? navigate(`${chapterPath}/${navigeChapter}`)
-      : navigate(`${titlePath}/${mangaId}?${TAB}=${CHAPTERS}`);
+      : navigate(`${titlePath}/${mangaId}?${TAB}=${CHAPTERS_TYPE}`);
 
     if (selectedPage === 0 && prevPage === pagesCount) {
       chooseNavigate(next);

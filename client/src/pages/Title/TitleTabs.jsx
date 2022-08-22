@@ -14,8 +14,8 @@ const TitleTabs = (props) => {
   const { desc, tags, relationships, titleInfoAttr } = props;
 
   return (
-    <Tabs defaultTab={INFO}>
-      <Tab eventKey={INFO} title={<TabLink to={INFO}>Information</TabLink>}>
+    <Tabs defaultTab={INFO.type}>
+      <Tab eventKey={INFO.type} title={<TabLink to={INFO.type}>{INFO.title}</TabLink>}>
         <Col>{desc}</Col>
         <br />
         <TitleInfoList attributes={titleInfoAttr} className='d-block d-lg-none' inline />
@@ -24,13 +24,13 @@ const TitleTabs = (props) => {
         <br />
         <Arts />
       </Tab>
-      <Tab eventKey={CHAPTERS} title={<TabLink to={CHAPTERS}>Chapters</TabLink>}>
+      <Tab eventKey={CHAPTERS.type} title={<TabLink to={CHAPTERS.type}>{CHAPTERS.title}</TabLink>}>
         <Chapters />
       </Tab>
-      <Tab eventKey={RELATED} title={<TabLink to={RELATED}>Related</TabLink>}>
+      <Tab eventKey={RELATED.type} title={<TabLink to={RELATED.type}>{RELATED.title}</TabLink>}>
         <Related relationships={relationships} />
       </Tab>
-      <Tab eventKey={COMMENTS} title={<TabLink to={COMMENTS}>Commets</TabLink>} disabled>
+      <Tab eventKey={COMMENTS.type} title={<TabLink to={COMMENTS.type}>{COMMENTS.title}</TabLink>} disabled>
       </Tab>
     </Tabs>
   );

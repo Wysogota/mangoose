@@ -5,7 +5,10 @@ import { Row, Col, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
 import { isEmpty } from 'lodash';
-import { BsPeopleFill as GroupIcon, BsCaretLeftFill as PrevIcon, BsCaretRightFill as NextIcon } from 'react-icons/bs';
+import {
+  BsPeopleFill as GroupIcon, BsCaretLeftFill as PrevIcon,
+  BsCaretRightFill as NextIcon
+} from 'react-icons/bs';
 import { selectRelationship } from '../../../common/functions';
 import CreatorAnchor from '../../Chapters/CreatorAnchor';
 import InputPage from '../InputPage';
@@ -14,7 +17,7 @@ import styles from './InfoPanel.module.scss';
 import CONSTANTS from '../../../constants.js';
 const {
   DEFAULT_LOCALE,
-  TITLE_TABS: { CHAPTERS },
+  TITLE_TABS: { CHAPTERS: { type: CHAPTERS_TYPE } },
   PARAM_NAME: { TAB },
   PAGES: {
     TITLE: { path: titlePath },
@@ -74,7 +77,7 @@ const InfoPanel = (props) => {
       </Row>
       <Row className='mb-3 m-auto'>
         <Col>
-          <Link to={`${titlePath}/${id}?${TAB}=${CHAPTERS}`} className={subHeaderClasses}>
+          <Link to={`${titlePath}/${id}?${TAB}=${CHAPTERS_TYPE}`} className={subHeaderClasses}>
             {mangaTitle[DEFAULT_LOCALE]}
           </Link>
         </Col>

@@ -55,12 +55,34 @@ export default {
     }
   },
   TITLE_TABS: {
-    INFO: 'info',
-    CHAPTERS: 'chapters',
-    RELATED: 'related',
-    COMMENTS: 'commets',
-    USER_MANGA_LISTS: 'lists',
-    MANAGE: 'manage',
+    INFO: {
+      title: 'Information',
+      type: 'info',
+    },
+    CHAPTERS: {
+      title: 'Chapters',
+      type: 'chapters',
+    },
+    RELATED: {
+      title: 'Related',
+      type: 'related',
+    },
+    COMMENTS: {
+      title: 'Commets',
+      type: 'commets',
+    },
+    RECENTLY_READ: {
+      title: 'Recently Read',
+      type: 'recently',
+    },
+    MANGA_LISTS: {
+      title: 'Manga Lists',
+      type: 'lists',
+    },
+    MANAGE: {
+      title: 'Manage',
+      type: 'manage',
+    },
   },
   PARAM_NAME: {
     TAB: 'tab',

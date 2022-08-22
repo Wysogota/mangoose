@@ -5,10 +5,10 @@ import Tabs from '../../components/Tabs';
 import TabLink from '../../components/Tabs/TabLink';
 import ProfileLists from './ProfileLists';
 import ProfileManage from './ProfileManage';
-import CONSTANTS from '../../constants';
 import { useLoading } from '../../hooks';
+import CONSTANTS from '../../constants';
 const {
-  TITLE_TABS: { USER_MANGA_LISTS, COMMENTS, MANAGE },
+  TITLE_TABS: { RECENTLY_READ, MANGA_LISTS, COMMENTS, MANAGE },
   PERMISSION: { RECOMMENDATION },
 } = CONSTANTS;
 
@@ -19,14 +19,16 @@ const ProfileTabs = () => {
   if (loading) return loading;
 
   return (
-    <Tabs defaultTab={USER_MANGA_LISTS}>
-      <Tab eventKey={USER_MANGA_LISTS} title={<TabLink to={USER_MANGA_LISTS}>Manga Lists</TabLink>}>
+    <Tabs defaultTab={MANGA_LISTS.type}>
+      <Tab eventKey={RECENTLY_READ.type} title={<TabLink to={RECENTLY_READ.type}>{RECENTLY_READ.title}</TabLink>} disabled>
+      </Tab>
+      <Tab eventKey={MANGA_LISTS.type} title={<TabLink to={MANGA_LISTS.type}>{MANGA_LISTS.title}</TabLink>}>
         <ProfileLists />
       </Tab>
-      <Tab eventKey={COMMENTS} title={<TabLink to={COMMENTS}>Commets</TabLink>}>
+      <Tab eventKey={COMMENTS.type} title={<TabLink to={COMMENTS.type}>{COMMENTS.title}</TabLink>} disabled>
       </Tab>
       {me.permissions.includes(RECOMMENDATION) &&
-        <Tab eventKey={MANAGE} title={<TabLink to={MANAGE}>Manage</TabLink>}>
+        <Tab eventKey={MANAGE.type} title={<TabLink to={MANAGE.type}>{MANAGE.title}</TabLink>}>
           <ProfileManage />
         </Tab>
       }
