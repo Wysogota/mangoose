@@ -28,7 +28,7 @@ const SearchResult = () => {
         />
       ))}
       {!isEmpty(mangaSearch) &&
-        <CatalogButton title='Load More' onClick={hideSearchbar} bgTheme={bgAccentTheme} stopAnimation />
+        <CatalogButton title='More' onClick={hideSearchbar} bgTheme={bgAccentTheme} stopAnimation />
       }
     </div>
   );

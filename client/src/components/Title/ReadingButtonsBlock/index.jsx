@@ -13,7 +13,7 @@ const ReadingButtonsBlock = (props) => {
   const containerClasses = cx(
     bgTheme,
     isAdaptiveView && styles.fixed_position,
-    'pt-3'
+    'pt-3 ps-4 pe-4'
   );
 
   return (

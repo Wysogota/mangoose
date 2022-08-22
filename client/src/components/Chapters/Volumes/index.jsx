@@ -5,7 +5,7 @@ import cx from 'classnames';
 import VolumeChapters from './VolumeChapters';
 
 const Volumes = () => {
-  const { theme: { invertedColor, bgAccentTheme } } = useSelector(({ themes }) => themes);
+  const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
   const { chapters } = useSelector(({ chapters }) => chapters);
 
   const getVolumesList = () => [...new Set(
@@ -14,12 +14,11 @@ const Volumes = () => {
 
   const classes = cx(
     `accordion-${invertedColor} inverted`,
-    bgAccentTheme,
-    'rounded mb-3',
+    'mb-3',
   );
 
   return (
-    <section>{
+    <article>{
       getVolumesList().map((volume, i) =>
         <Accordion key={volume} className={classes} defaultActiveKey={i}>
           <Accordion.Item eventKey={i}>
@@ -30,7 +29,7 @@ const Volumes = () => {
           </Accordion.Item>
         </Accordion>
       )
-    }</section>
+    }</article>
   );
 };
 

@@ -31,10 +31,7 @@ const ColBlock = (props) => {
 ColBlock.propTypes = {
   className: PropTypes.string,
   innerClassName: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.arrayOf(PropTypes.element)
-  ]).isRequired,
+  children: PropTypes.any.isRequired,
   onClick: PropTypes.func,
 };
 

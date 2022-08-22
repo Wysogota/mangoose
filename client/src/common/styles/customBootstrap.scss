@@ -1,4 +1,5 @@
 @import './colors';
+@import './functions';
 
 $theme-colors: (
     "dark": $dark_main_color,
@@ -68,12 +69,7 @@ $carousel-dark-indicator-active-bg: $dark_main_color;
     left: 0 !important;
     bottom: 0 !important;
 
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
+    @extend %remove-scrollbar;
 }
 
 .carousel-control-prev,
@@ -92,8 +88,6 @@ $carousel-dark-indicator-active-bg: $dark_main_color;
 }
 
 
-$accordion-button-color: inherit;
-$accordion-button-active-color: inherit;
 $accordion-button-active-bg: transparent;
 $accordion-bg: transparent;
 
@@ -104,19 +98,29 @@ $accordion-bg: transparent;
     background-color: $color;
 }
 
-.accordion-light .accordion-button {
-    &::after {
-        @include setIcon('chevron-open.svg', $light_main_color);
+.accordion-light {
+    .accordion-item {
+        color: $light-main-color;
     }
 
-    &:not(.collapsed) {
+    .accordion-button {
+        color: $light-main-color;
+
         &::after {
-            @include setIcon('chevron-close.svg', $light_main_color);
+            @include setIcon('chevron-open.svg', $light_main_color);
+        }
+
+        &:not(.collapsed) {
+            color: $light-main-color;
+
+            &::after {
+                @include setIcon('chevron-close.svg', $light_main_color);
+            }
         }
     }
 }
 
-.accordion-light.inverted .accordion-button {
+.accordion-light.inverted.accordion>.accordion-item>.accordion-header>.accordion-button {
     &::after {
         @include setIcon('chevron-open-inverted.svg', $light_main_color);
     }
@@ -128,19 +132,29 @@ $accordion-bg: transparent;
     }
 }
 
-.accordion-dark .accordion-button {
-    &::after {
-        @include setIcon('chevron-open.svg', $dark_main_color);
+.accordion-dark {
+    .accordion-item {
+        color: $dark-main-color;
     }
 
-    &:not(.collapsed) {
+    .accordion-button {
+        color: $dark-main-color;
+
         &::after {
-            @include setIcon('chevron-close.svg', $dark_main_color);
+            @include setIcon('chevron-open.svg', $dark_main_color);
+        }
+
+        &:not(.collapsed) {
+            color: $dark-main-color;
+
+            &::after {
+                @include setIcon('chevron-close.svg', $dark_main_color);
+            }
         }
     }
 }
 
-.accordion-dark.inverted .accordion-button {
+.accordion-dark.inverted.accordion>.accordion-item>.accordion-header>.accordion-button {
     &::after {
         @include setIcon('chevron-open-inverted.svg', $dark_main_color);
     }
@@ -241,7 +255,7 @@ $accordion-bg: transparent;
         }
 
         &.disabled .page-link {
-            background-color: $light_main_color;
+            color: $light_active_color;
         }
     }
 }
@@ -271,7 +285,7 @@ $accordion-bg: transparent;
         }
 
         &.disabled .page-link {
-            background-color: $dark_main_color;
+            color: $dark_active_color;
         }
     }
 }
@@ -279,17 +293,13 @@ $accordion-bg: transparent;
 .pagination {
     $item-size: 40px;
 
-    .page-item {
+    .page-item .page-link {
         width: $item-size;
         height: $item-size;
-    }
-
-    .page-link {
-        width: inherit;
-        height: inherit;
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 0;
     }
 }
 
