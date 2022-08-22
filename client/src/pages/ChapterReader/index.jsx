@@ -7,9 +7,9 @@ import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 import InfoPanel from '../../components/ChapterReader/InfoPanel';
 import Reader from '../../components/ChapterReader/Reader';
-import { getPageTitle, selectRelationship } from '../../common/functions';
+import { getPageTitle, selectRelationship, getLocaleValue } from '../../common/functions';
 import CONSTANTS from '../../constants';
-const { PARAM_NAME: { PAGE }, DEFAULT_LOCALE } = CONSTANTS;
+const { PARAM_NAME: { PAGE } } = CONSTANTS;
 
 const ChapterReader = () => {
   const { chapterId } = useParams();
@@ -25,7 +25,8 @@ const ChapterReader = () => {
 
   useEffect(() => {
     if (!isEmpty(chapter)) {
-      const mangaTitle = selectRelationship(chapter.relationships, 'manga').attributes.title[DEFAULT_LOCALE];
+      const mangaTitleList = selectRelationship(chapter.relationships, 'manga').attributes.title;
+      const mangaTitle = getLocaleValue(mangaTitleList);
       const chapterTitle = chapter.attributes.title;
       document.title = chapterTitle
         ? getPageTitle(`${chapterTitle} - ${mangaTitle}`)

@@ -13,7 +13,7 @@ import Cover from '../../components/Title/Cover';
 import TitleInfoList from './TitleInfoList';
 import ReadingButtonsBlock from '../../components/Title/ReadingButtonsBlock';
 import { useAdaptiveView, useLoading } from '../../hooks';
-import { getPageTitle, selectRelationship } from '../../common/functions';
+import { getLocaleValue, getPageTitle, selectRelationship } from '../../common/functions';
 import styles from './Title.module.scss';
 import CONSTANTS from '../../constants';
 const {
@@ -33,7 +33,7 @@ const Title = () => {
   useEffect(() => {
     document.title = isEmpty(manga)
       ? getPageTitle(name)
-      : getPageTitle(manga.attributes.title[DEFAULT_LOCALE]);
+      : getPageTitle(getLocaleValue(manga.attributes.title));
   }, [manga]);
 
   const isAdaptiveView = useAdaptiveView(lg);
@@ -42,17 +42,15 @@ const Title = () => {
   if (loading) return loading;
 
   const {
-    attributes: {
-      title: { [DEFAULT_LOCALE]: title },
-      description: { [DEFAULT_LOCALE]: desc },
-      tags,
-    },
-    attributes,
     relationships,
+    attributes: {
+      title, description, tags, altTitles, status,
+      lastChapter, publicationDemographic, year,
+    },
   } = manga;
 
-  const altTitles = [
-    ...attributes.altTitles
+  const filteredAltTitles = [
+    ...altTitles
       .filter((item) => item[DEFAULT_LOCALE])
       .map((item) => item[DEFAULT_LOCALE])
   ];
@@ -62,7 +60,6 @@ const Title = () => {
   const authorName = get(author, 'attributes.name');
   const atristName = get(artist, 'attributes.name');
 
-  const { status, lastChapter, publicationDemographic, year } = attributes;
   const titleInfoAttr = {
     status, lastChapter, publicationDemographic, year, authorName, atristName
   };
@@ -85,7 +82,7 @@ const Title = () => {
     <Container>
       <Row className='justify-content-between'>
         <ColBlock className={coverBlockClasses}>
-          <Cover image={coverUrl} alt={title} className={coverClasses} />
+          <Cover image={coverUrl} alt={getLocaleValue(title)} className={coverClasses} />
           {!isAdaptiveView &&
             <>
               <ReadingButtonsBlock />
@@ -95,12 +92,12 @@ const Title = () => {
         </ColBlock>
         <ColBlock className={tabBlockClasses}>
           <Col>
-            <MainHeader className='fs-1'>{title}</MainHeader>
-            <MainHeader className='fs-6'>{altTitles.join(' | ')}</MainHeader>
+            <MainHeader className='fs-1'>{getLocaleValue(title)}</MainHeader>
+            <MainHeader className='fs-6'>{filteredAltTitles.join(' | ')}</MainHeader>
           </Col>
           <Col>
             <TitleTabs
-              desc={desc} tags={tags}
+              desc={getLocaleValue(description)} tags={tags}
               relationships={relationships} titleInfoAttr={titleInfoAttr}
             />
           </Col>

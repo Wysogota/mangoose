@@ -9,7 +9,7 @@ import {
   BsPeopleFill as GroupIcon, BsCaretLeftFill as PrevIcon,
   BsCaretRightFill as NextIcon
 } from 'react-icons/bs';
-import { selectRelationship } from '../../../common/functions';
+import { getLocaleValue, selectRelationship } from '../../../common/functions';
 import CreatorAnchor from '../../Chapters/CreatorAnchor';
 import InputPage from '../InputPage';
 import MenuButton from '../MenuButton';
@@ -78,7 +78,7 @@ const InfoPanel = (props) => {
       <Row className='mb-3 m-auto'>
         <Col>
           <Link to={`${titlePath}/${id}?${TAB}=${CHAPTERS_TYPE}`} className={subHeaderClasses}>
-            {mangaTitle[DEFAULT_LOCALE]}
+            {getLocaleValue(mangaTitle)}
           </Link>
         </Col>
         <Col className='text-end align-self-end'>

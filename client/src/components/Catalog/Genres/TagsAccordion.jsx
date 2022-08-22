@@ -5,9 +5,9 @@ import { capitalize } from 'lodash';
 import { Accordion } from 'react-bootstrap';
 import GenreButton from '../GenreButton';
 import ToggleTab from '../../ToggleTab';
+import { getLocaleValue } from '../../../common/functions';
 import CONSTANTS from '../../../constants';
 const {
-  DEFAULT_LOCALE,
   PARAM_NAME: { FILTER: { TAGS } },
   PAGES: { CATALOG: { path } },
 } = CONSTANTS;
@@ -15,7 +15,7 @@ const {
 const getTagsByGroup = (tags, groupName) => [
   ...new Set(tags
     .filter(({ group }) => group === groupName)
-    .map(({ id, name }) => ({ id, name: name[DEFAULT_LOCALE], type: TAGS }))
+    .map(({ id, name }) => ({ id, name: getLocaleValue(name), type: TAGS }))
   )
 ];
 
