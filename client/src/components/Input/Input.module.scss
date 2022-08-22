@@ -1,4 +1,4 @@
-@import '../../common/styles/elements.module.scss';
+@import '../../common/styles/functions';
 
 .error {
   @include error_message(0 0.75rem 0 0);

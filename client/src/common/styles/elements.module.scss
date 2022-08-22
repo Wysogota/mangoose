@@ -10,18 +10,3 @@
     text-align: center;
   }
 }
-
-.header {
-  @media screen and (max-width: 1200px) {
-    font-size: 1.5rem;
-  }
-}
-
-@mixin error_message($padding) {
-  padding: $padding;
-  color: $error_color;
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-}
