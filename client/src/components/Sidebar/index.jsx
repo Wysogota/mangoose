@@ -7,18 +7,35 @@ import { Modal, Nav, Navbar } from 'react-bootstrap';
 import Logo from '../Logo';
 import * as NavItems from '../NavItems';
 import Avatar from '../Avatar';
+import UserMenu from '../UserMenu';
+import SignOut from '../UserMenu/SignOut';
 import styles from './Sidebar.module.scss';
 import CONSTANTS from '../../constants';
 const { breakpoints } = CONSTANTS;
 
 const filterList = [
-  'Github',
+  'Github', 'MangaDex', 'IconDesigner'
 ];
 
 const Sidebar = () => {
   const { theme: { mainTheme, bgTheme, hoveredTheme, bgInvertedHoveredTheme, invertedColor } } = useSelector(({ themes }) => themes);
   const { isSidebarOpen } = useSelector(({ modalItems }) => modalItems);
+  const { isAuthorized } = useSelector(({ auth }) => auth);
   const { hideSidebar, showSignIn } = bindActionCreators(actionCreators, useDispatch());
+
+  useEffect(() => {
+    const hideSidebarHandle = () => {
+      if (window.innerWidth >= breakpoints.md) hideSidebar();
+    };
+
+    window.addEventListener('resize', hideSidebarHandle);
+    return () => window.removeEventListener('resize', hideSidebarHandle);
+  }, []);
+
+  const signInOnClick = () => {
+    showSignIn();
+    hideSidebar();
+  };
 
   const contentClasses = cx(
     mainTheme,
@@ -39,15 +56,6 @@ const Sidebar = () => {
     'flex-grow-1'
   );
 
-  useEffect(() => {
-    const hideSidebarHandle = () => {
-      if (window.innerWidth >= breakpoints.md) hideSidebar();
-    };
-
-    window.addEventListener('resize', hideSidebarHandle);
-    return () => window.removeEventListener('resize', hideSidebarHandle);
-  }, []);
-
   return (
     <Modal show={isSidebarOpen} onHide={hideSidebar} dialogClassName={styles.sidebar} contentClassName={contentClasses}>
       <Modal.Header>
@@ -65,10 +73,16 @@ const Sidebar = () => {
         </Navbar>
       </Modal.Body>
       <Modal.Footer className='justify-content-start'>
-        <Navbar variant={invertedColor} onClick={hideSidebar} className='flex-grow-1'>
+        <Navbar variant={invertedColor} className='flex-grow-1'>
           <Nav className='flex-grow-1'>
-            <Avatar compact />
-            <Nav.Item onClick={showSignIn} className={signInClasses}>Sign in</Nav.Item>
+            {isAuthorized ? (<>
+              <Nav.Item><UserMenu itemOnClick={hideSidebar} direction='up' sidebar /></Nav.Item>
+              <SignOut Component={Nav.Item} className={signInClasses} onClick={hideSidebar} />
+            </>) : (<>
+              <Nav.Item><Avatar compact /></Nav.Item>
+              <Nav.Item onClick={signInOnClick} className={signInClasses}>Sign in</Nav.Item>
+            </>)
+            }
           </Nav>
         </Navbar>
       </Modal.Footer>

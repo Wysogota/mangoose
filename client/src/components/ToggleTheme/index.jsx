@@ -44,6 +44,7 @@ ToggleTheme.propTypes = {
   Component: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.string,
+    PropTypes.object,
   ]).isRequired,
   btnClasses: PropTypes.string,
   imageClasses: PropTypes.string,
