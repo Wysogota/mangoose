@@ -71,9 +71,7 @@ const Catalog = () => {
       {loading ? loading :
         <>
           <Row>
-            <MangaCatalog
-              catalog={mangaSearch}
-              className='col-10 col-sm-7 col-md-6 col-lg-4 col-xl-3'
+            <MangaCatalog catalog={mangaSearch}className='col-12 col-sm-6 col-lg-4 col-xl-3'
             />
           </Row>
           <Row>
