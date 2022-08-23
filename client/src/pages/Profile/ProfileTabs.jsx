@@ -15,7 +15,7 @@ const {
 const ProfileTabs = () => {
   const { me, isFetching } = useSelector(({ me }) => me);
 
-  const loading = useLoading({ data: me, isFetching, title: 'wait', spinner: false });
+  const loading = useLoading({ data: me, isFetching, spinner: false });
   if (loading) return loading;
 
   return (

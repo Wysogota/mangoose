@@ -28,7 +28,7 @@ const SaveToRecommendation = () => {
     formikBag.resetForm();
   };
 
-  const loading = useLoading({ data: manga, isFetching, title: 'waiting...' });
+  const loading = useLoading({ data: manga, isFetching });
   if (loading) return loading;
 
   return (

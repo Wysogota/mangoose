@@ -1,18 +1,21 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Container, Row, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import ColBlock from '../../components/Blocks/ColBlock';
 import MainHeader from '../../components/Headers/MainHeader';
 import Avatar from '../../components/Avatar';
 import ProfileTabs from './ProfileTabs';
-import { Link } from 'react-router-dom';
+import { useLoading } from '../../hooks';
 import CONSTANTS from '../../constants';
 const { PAGES: { SETTINGS: { path: SETTINGS_PATH } } } = CONSTANTS;
 
-
 const Profile = () => {
   const { theme: { invertedColor } } = useSelector(({ themes }) => themes);
-  const { me } = useSelector(({ me }) => me);
+  const { me, isFetching } = useSelector(({ me }) => me);
+
+  const loading = useLoading({ data: me, isFetching });
+  if (loading) return loading;
 
   return (
     <Container>

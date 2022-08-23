@@ -27,7 +27,7 @@ const ProfileLists = () => {
     'rounded mb-3',
   );
 
-  const loading = useLoading({ data: listIds, isFethcing, title: 'waiting' });
+  const loading = useLoading({ data: listIds, isFethcing });
   if (loading) return loading;
 
   return (
