@@ -21,8 +21,12 @@ SignOut.defaultProps = {
 };
 
 SignOut.propTypes = {
-  Component: PropTypes.element,
-  onClick: PropTypes.string,
+  Component: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.string,
+    PropTypes.object,
+  ]),
+  onClick: PropTypes.func,
   className: PropTypes.string,
 };
 
