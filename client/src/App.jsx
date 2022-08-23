@@ -1,26 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import cx from 'classnames';
-import Sidebar from './components/Sidebar';
-import SearchBar from './components/Searchbar';
-import Home from './pages/Home';
-import Catalog from './pages/Catalog';
-import SignUp from './pages/SignUp';
-import SignIn from './components/SignIn';
-import Profile from './pages/Profile';
-import Title from './pages/Title';
-import ChapterReader from './pages/ChapterReader';
-import PageNotFound from './pages/PageNotFound';
+import { Spinner } from 'react-bootstrap';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import SignIn from './components/SignIn';
 import ScrollToTop from './components/ScrollToTop';
+import Notifications from './components/Notifications';
+import Sidebar from './components/Sidebar';
+import SearchBar from './components/Searchbar';
 import { useAuthorization, useSyncTheme } from './hooks';
 import WithAuth from './HOCs/WithAuth';
-import CONSTANTS from './constants';
-import Notifications from './components/Notifications';
 import WithRouteEnter from './HOCs/WithRouteEnter';
-import Settings from './pages/Settings';
+import CONSTANTS from './constants';
 const { PAGES: {
   HOME: { path: HOME_PATH, name: HOME_NAME },
   SIGN_UP: { path: SIGN_UP_PATH, name: SIGN_UP_NAME },
@@ -31,6 +24,15 @@ const { PAGES: {
   SETTINGS: { path: SETTINGS_PATH, name: SETTINGS_NAME },
   PAGE_NOT_FOUNDED: { name: PAGE_NOT_FOUNDED_NAME },
 } } = CONSTANTS;
+
+const Home = lazy(() => import('./pages/Home'));
+const Catalog = lazy(() => import('./pages/Catalog'));
+const SignUp = lazy(() => import('./pages/SignUp'));
+const Profile = lazy(() => import('./pages/Profile'));
+const Settings = lazy(() => import('./pages/Settings'));
+const Title = lazy(() => import('./pages/Title'));
+const ChapterReader = lazy(() => import('./pages/ChapterReader'));
+const PageNotFound = lazy(() => import('./pages/PageNotFound'));
 
 const getOptions = (name) => ({ name });
 
@@ -57,16 +59,18 @@ const App = () => {
     <>
       <Header />
       <div id='content'>
-        <Routes>
-          <Route path={HOME_PATH} element={<HomeRoute />} />
-          <Route path={SIGN_UP_PATH} element={<SignUpRoute />} />
-          <Route path={PROFILE_PATH} element={<ProfileRoute />} />
-          <Route path={SETTINGS_PATH} element={<SettingsRoute />} />
-          <Route path={CARALOG_PATH} element={<CatalogRoute />} />
-          <Route path={`${TITLE_PATH}/:mangaId`} element={<TitleRoute />} />
-          <Route path={`${CHAPTER_PATH}/:chapterId`} element={<ChapterReaderRoute />} />
-          <Route path='*' element={<PageNotFoundRoute />} />
-        </Routes>
+        <Suspense fallback={<Spinner animation='border' role='status' />}>
+          <Routes>
+            <Route path={HOME_PATH} element={<HomeRoute />} />
+            <Route path={SIGN_UP_PATH} element={<SignUpRoute />} />
+            <Route path={PROFILE_PATH} element={<ProfileRoute />} />
+            <Route path={SETTINGS_PATH} element={<SettingsRoute />} />
+            <Route path={CARALOG_PATH} element={<CatalogRoute />} />
+            <Route path={`${TITLE_PATH}/:mangaId`} element={<TitleRoute />} />
+            <Route path={`${CHAPTER_PATH}/:chapterId`} element={<ChapterReaderRoute />} />
+            <Route path='*' element={<PageNotFoundRoute />} />
+          </Routes>
+        </Suspense>
       </div>
       <Footer />
 
