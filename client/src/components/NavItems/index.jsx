@@ -114,7 +114,23 @@ const MangaDex = ({ Component, options = {} }) => {
   return createComponent(Component, Icon, assignedOptions);
 };
 
+const IconDesigner = () => {
+  const { theme: { hoveredTheme, bgInvertedHoveredTheme } } = useSelector(({ themes }) => themes);
+
+  return (
+    <div style={{ fontSize: '0.7rem' }}>
+    Icon Designed By
+    <a
+      href='https://lovepik.com/photographer/605498908/'
+      target='_blank' rel='noreferrer'
+      className={hoveredTheme}>
+      一东一西两厅
+    </a>
+  </div>
+  )
+}
+
 
 export { default as Search } from './Search';
 export { default as Theme } from './Theme';
-export { Catalog, FAQ, News, Contacts, Random, Github, MangaDex };
+export { Catalog, FAQ, News, Contacts, Random, Github, MangaDex, IconDesigner };

@@ -4,7 +4,7 @@ import { Container, Col, Row, Navbar, Nav } from 'react-bootstrap';
 import cx from 'classnames';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo';
-import { FAQ, News, Contacts, Github, MangaDex } from '../NavItems';
+import { FAQ, News, Contacts, Github, MangaDex, IconDesigner } from '../NavItems';
 import styles from './Footer.module.scss';
 import CONSTANTS from '../../constants';
 const { WEBSITE_NAME, PAGES: { HOME: { path: HOME_PATH } } } = CONSTANTS;
@@ -32,8 +32,12 @@ const Footer = () => {
   return (
     <Container fluid id='footer' className={footerClasses}>
       <Row>
-        <Col xs='6' sm='6' md='3' lg='4'>
-          <Logo className='d-flex align-items-center justify-content-md-center h-100' />
+        <Col
+          xs='6' sm='6' md='3' lg='4'
+          className='d-flex flex-column align-items-center justify-content-md-center'
+        >
+          <Logo />
+          <IconDesigner />
         </Col>
         <Col md='6' lg='4' className='d-none d-md-flex justify-content-center'>
           <Navbar className={infoPagesClasses} variant={invertedColor}>
@@ -44,7 +48,7 @@ const Footer = () => {
         </Col>
         <Col xs='6' sm='6' md='3' lg='4'>
           <Navbar className='h-100 justify-content-md-center justify-content-end'>
-            <div className='d-flex flex-column align-items-end'>
+            <div className='d-flex' >
               <Nav className='p-2 pb-0 text-nowrap flex-column' >
                 <Nav.Item><Github Component={Nav.Link} /></Nav.Item>
                 <Nav.Item><MangaDex Component={Nav.Link} /></Nav.Item>
