@@ -37,8 +37,6 @@ $modal-footer-border-color: rgba(0, 0, 0, 0.1);
 
 $carousel-control-color: $light_main_color;
 $carousel-dark-control-icon-filter: none;
-$carousel-indicator-active-bg: $light_main_color;
-$carousel-dark-indicator-active-bg: $dark_main_color;
 
 .carousel {
     background-color: $light_main_color;
@@ -75,6 +73,20 @@ $carousel-dark-indicator-active-bg: $dark_main_color;
 .carousel-control-prev,
 .carousel-control-next {
     width: 2rem !important;
+    background-color: rgba($dark_main_color, 0.7) !important;
+    top: 25% !important;
+    bottom: 25% !important;
+
+}
+
+.carousel-control-prev {
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+
+.carousel-control-next {
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
 }
 
 .list-group-item-dark {
