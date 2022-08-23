@@ -9,7 +9,7 @@ import MinorHeader from '../components/Headers/MinorHeader';
  * @returns 
  */
 const useLoading = (options) => {
-  const { data, title = '', isFetching, spinner = true } = options;
+  const { data, title = ' ', isFetching, spinner = true } = options;
 
   if (!spinner && isFetching) {
     return <></>;

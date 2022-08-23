@@ -3,11 +3,12 @@ import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../redux/actions/actionCreators';
 import cx from 'classnames';
-import { capitalize } from 'lodash';
+import { capitalize, isEmpty } from 'lodash';
 import { Accordion } from 'react-bootstrap';
 import ProfileCards from './ProfileCards';
-import CONSTANTS from '../../constants';
+import MinorHeader from '../../components/Headers/MinorHeader';
 import { useLoading } from '../../hooks';
+import CONSTANTS from '../../constants';
 const { MANGA_LIST_NAMES } = CONSTANTS;
 
 const ProfileLists = () => {
@@ -36,7 +37,10 @@ const ProfileLists = () => {
         <Accordion.Item eventKey={listName}>
           <Accordion.Header>{capitalize(listName)}</Accordion.Header>
           <Accordion.Body>
-            <ProfileCards ids={listIds[listName]} listName={listName} />
+            {!isEmpty(listIds[listName])
+              ? <ProfileCards ids={listIds[listName]} listName={listName} />
+              : <MinorHeader className='text-center mt-5 mb-5 fs-3'>{`No ${listName} manga`}</MinorHeader>
+            }
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
