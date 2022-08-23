@@ -1,9 +1,11 @@
 import axios from 'axios';
 
 axios.defaults.withCredentials = true;
+// eslint-disable-next-line no-undef
+const { REACT_APP_DOMAIN: DOMAIN, REACT_APP_SERVER_PORT: SERVER_PORT } = process.env;
 
 const client = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: `http://${DOMAIN}:${SERVER_PORT}/api`,
 });
 
 export const signUp = (options) => client.post('/auth/signup', options);
