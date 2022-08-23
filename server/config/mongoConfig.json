@@ -1,12 +1,12 @@
 {
   "development": {
     "database": "mangoose-dev",
-    "host": "localhost",
+    "host": "mongo-dev",
     "port": 27017
   },
   "production": {
     "database": "mangoose-prod",
-    "host": "localhost",
+    "host": "mongo-dev",
     "port": 27017
   }
 }

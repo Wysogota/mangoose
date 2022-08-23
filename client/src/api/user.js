@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const client = axios.create({
-  baseURL: 'http://localhost:3001/api',
+  baseURL: 'http://localhost:3000/api',
 });
 
 const config = (token) => ({

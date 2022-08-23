@@ -32,10 +32,8 @@ services:
       - frontend
       - backend
     volumes:
-      - ./var/www/html/images:/var/www/html/images
       - ./server:/server
       - /server/node_modules
-
 
   mongo-dev:
     image: mongo:latest
@@ -43,8 +41,6 @@ services:
       - backend
     ports:
       - "27017:27017"
-
-
 
   db-dev:
     image: postgres:14.3-alpine
@@ -59,6 +55,7 @@ services:
 
 volumes:
   server-dev:
+
 
 networks:
   frontend:

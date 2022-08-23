@@ -11,5 +11,5 @@ npx sequelize db:seed:all
 echo "<----- Seeds created"
 
 echo "-----> Starting server"
-npm start
+yarn start
 echo ""

@@ -8,12 +8,15 @@ RUN mkdir -p /var/www/html/images
 
 WORKDIR /server
 
-COPY package*.json ./
+COPY package.json ./
 
-RUN npm install --location=global nodemon
-RUN npm install --location=global sequelize-cli
+COPY yarn.lock ./
 
-RUN npm install
+RUN yarn global add nodemon
+
+RUN yarn global add sequelize-cli
+
+RUN yarn install
 
 RUN mkdir -p node_modules/.cache && chmod -R 777 node_modules/.cache
 

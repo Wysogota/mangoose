@@ -6,13 +6,15 @@ RUN mkdir -p ./client
 
 WORKDIR /client
 
-COPY package*.json ./
+COPY package.json ./
+
+COPY yarn.lock ./
 
 COPY . .
 
 EXPOSE 5000
 
-RUN npm install
+RUN yarn install
 
 RUN mkdir -p node_modules/.cache && chmod -R 777 node_modules/.cache
 
