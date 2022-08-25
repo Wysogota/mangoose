@@ -6,7 +6,7 @@
   },
   "production": {
     "database": "mangoose-prod",
-    "host": "mongo-dev",
+    "host": "mongo-prod",
     "port": 27017
   }
 }

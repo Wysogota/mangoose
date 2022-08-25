@@ -11,17 +11,17 @@
   },
   "test": {
     "username": "postgres",
-    "password": "admin",
+    "password": "password",
     "database": "mangoose-test",
-    "host": "db-dev",
+    "host": "db-test",
     "dialect": "postgres",
     "operatorsAliases": "Op"
   },
   "production": {
     "username": "postgres",
-    "password": "admin",
+    "password": "password",
     "database": "mangoose-prod",
-    "host": "db-dev",
+    "host": "db-prod",
     "dialect": "postgres",
     "operatorsAliases": "Op"
   }

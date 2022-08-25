@@ -1,0 +1,64 @@
+version: '3'
+services:
+
+  front-prod:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+    depends_on:
+      - server-prod
+    volumes:
+      - ./client:/client
+      - /client/node_modules
+    networks:
+      - frontend
+    ports:
+      - "3000:80"
+
+  server-prod:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - "80:80"
+    depends_on:
+      - db-prod
+      - mongo-prod
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - ./server:/server
+      - /server/node_modules
+
+  mongo-prod:
+    image: mongo:latest
+    networks:
+      - backend
+    ports:
+      - "27017:27017"
+
+  db-prod:
+    image: postgres:14.3-alpine
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=mangoose-prod
+    networks:
+      - backend
+    ports:
+      - "5432:5432"
+
+volumes:
+  server-prod:
+
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge

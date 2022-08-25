@@ -5,13 +5,15 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "build": "babel src -d build"
   },
   "keywords": [],
   "author": "Wysogota",
   "license": "ISC",
   "devDependencies": {
-    "cors": "^2.8.5",
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.18.13",
     "nodemon": "^2.0.16",
     "sequelize-cli": "^6.4.1"
   },
@@ -23,6 +25,7 @@
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-formidable": "^1.2.0",
