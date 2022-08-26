@@ -12,10 +12,6 @@ COPY yarn.lock ./
 
 COPY . .
 
-EXPOSE 5000
-
 RUN yarn install
-
-RUN mkdir -p node_modules/.cache && chmod -R 777 node_modules/.cache
 
 CMD yarn start

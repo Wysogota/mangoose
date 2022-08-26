@@ -4,8 +4,6 @@ ARG NODE_ENV="development"
 
 RUN mkdir /server
 
-RUN mkdir -p /var/www/html/images
-
 WORKDIR /server
 
 COPY package.json ./
@@ -19,7 +17,5 @@ RUN yarn global add sequelize-cli
 RUN yarn install
 
 COPY . .
-
-EXPOSE 3000
 
 CMD ./start-dev.sh

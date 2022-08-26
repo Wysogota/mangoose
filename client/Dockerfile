@@ -8,13 +8,13 @@ WORKDIR /client
 
 COPY package.json ./
 
-# COPY yarn.lock ./
+COPY yarn.lock ./
 
 RUN yarn install
 
 COPY . .
 
-RUN npm rebuild node-sass
+RUN node node_modules/node-sass/scripts/install.js
 
 RUN yarn run build
 

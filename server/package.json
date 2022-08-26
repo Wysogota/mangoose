@@ -12,8 +12,6 @@
   "author": "Wysogota",
   "license": "ISC",
   "devDependencies": {
-    "@babel/cli": "^7.18.10",
-    "@babel/core": "^7.18.13",
     "nodemon": "^2.0.16",
     "sequelize-cli": "^6.4.1"
   },

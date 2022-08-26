@@ -15,7 +15,7 @@ services:
     networks:
       - frontend
     ports:
-      - "5000:3000"
+      - "3000:3000"
 
   server-dev:
     build:
@@ -24,7 +24,7 @@ services:
     environment:
       NODE_ENV: development
     ports:
-      - "3000:3000"
+      - "80:80"
     depends_on:
       - db-dev
       - mongo-dev
