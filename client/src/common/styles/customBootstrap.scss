@@ -70,13 +70,12 @@ $carousel-dark-control-icon-filter: none;
     @extend %remove-scrollbar;
 }
 
-.carousel-control-prev,
-.carousel-control-next {
+.carousel-control-prev.dark-control,
+.carousel-control-next.dark-control {
     width: 2rem !important;
     background-color: rgba($dark_main_color, 0.7) !important;
     top: 40% !important;
     bottom: 40% !important;
-
 }
 
 .carousel-control-prev {

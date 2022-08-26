@@ -46,12 +46,12 @@ const MultipleCarousel = (props) => {
   const loading = useLoading({ data: mangaCatalog, isFetching });
 
   const leftChevron = (
-    <a className='carousel-control-prev'>
+    <a className='carousel-control-prev dark-control'>
       <span className={cx('carousel-control-prev-icon', styles.chevron)} />
     </a>
   );
   const rightChevron = (
-    <a className='carousel-control-next'>
+    <a className='carousel-control-next dark-control'>
       <span className={cx('carousel-control-next-icon', styles.chevron)} />
     </a>
   );

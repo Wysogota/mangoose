@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../../../redux/actions/actionCreators';
@@ -15,8 +15,14 @@ const SingleCarousel = () => {
   const { theme: { mainColor } } = useSelector(({ themes }) => themes);
   const { recommendationCatalog, isFetching } = useSelector(({ recommendationList }) => recommendationList);
   const { getRecommendationList } = bindActionCreators(actionCreators, useDispatch());
+  const ref = useRef(null);
 
   useEffect(() => { getRecommendationList(); }, []);
+
+  useEffect(() => {
+    ref.current.element.childNodes[2].classList.add('dark-control');
+    ref.current.element.childNodes[3].classList.add('dark-control');
+  }, [ref]);
 
   const loading = useLoading({ data: recommendationCatalog, isFetching });
 
@@ -34,7 +40,7 @@ const SingleCarousel = () => {
   return (
     <ColBlock>
       <MainHeader>Recommendation</MainHeader>
-      <Carousel interval='10000' variant={mainColor} >
+      <Carousel ref={ref} interval='10000' variant={mainColor}>
         {loading ? LoadingItem() : MangaItems()}
       </Carousel>
     </ColBlock>
