@@ -18,11 +18,13 @@
     "operatorsAliases": "Op"
   },
   "production": {
-    "username": "postgres",
-    "password": "password",
-    "database": "mangoose-prod",
-    "host": "db-prod",
+    "use_env_variable": "DATABASE_URL",
     "dialect": "postgres",
-    "operatorsAliases": "Op"
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }

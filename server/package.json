@@ -3,20 +3,28 @@
   "version": "1.0.0",
   "private": "true",
   "description": "",
-  "main": "src/server.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "build": "babel src -d build"
+    "start": "nodemon ./src/server.js",
+    "build": "./build.sh",
+    "build-firebase": "./build-firebase.sh",
+    "prod": "NODE_ENV=production node ./build/server.js",
+    "bundle": "NODE_ENV=production node ./bin/bundleAdmin.js",
+    "emu": "firebase emulators:start",
+    "deploy": "yarn bundle && firebase deploy --only functions"
   },
   "keywords": [],
   "author": "Wysogota",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.18.13",
+    "@babel/preset-env": "^7.18.10",
     "nodemon": "^2.0.16",
     "sequelize-cli": "^6.4.1"
   },
   "dependencies": {
     "@adminjs/express": "^5.0.0",
+    "@adminjs/firebase-functions": "^5.0.0",
     "@adminjs/mongoose": "^3.0.0",
     "@adminjs/sequelize": "^3.0.0",
     "adminjs": "^6.0.6",
@@ -28,6 +36,8 @@
     "express": "^4.18.1",
     "express-formidable": "^1.2.0",
     "express-session": "^1.17.3",
+    "firebase-admin": "^11.0.1",
+    "firebase-functions": "^3.22.0",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",

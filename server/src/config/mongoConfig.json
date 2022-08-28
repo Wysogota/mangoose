@@ -5,8 +5,6 @@
     "port": 27017
   },
   "production": {
-    "database": "mangoose-prod",
-    "host": "mongo-prod",
-    "port": 27017
+    "use_env_variable": "MONGO_URL"
   }
 }
