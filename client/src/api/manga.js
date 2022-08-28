@@ -2,10 +2,10 @@ import axios from 'axios';
 import { stringify } from 'query-string';
 
 // eslint-disable-next-line no-undef
-const { REACT_APP_DOMAIN: DOMAIN, REACT_APP_SERVER_PORT: SERVER_PORT } = process.env;
+const { REACT_APP_DOMAIN: DOMAIN } = process.env;
 
 const client = axios.create({
-  baseURL: `http://${DOMAIN}:${SERVER_PORT}/api`,
+  baseURL: `https://${DOMAIN}/api`,
 });
 
 const stringifyOptions = {

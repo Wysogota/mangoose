@@ -4,11 +4,22 @@ import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import { store, persistor } from './redux/store';
+import { initializeApp } from 'firebase/app';
 import App from './App';
 import ScrollToTopOnRouteChange from './utils/ScrollToTopOnRouteChange';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './common/styles/customBootstrap.scss';
 import './index.scss';
+
+initializeApp({
+  apiKey: 'AIzaSyAa7iZjtHL9zG4gsdX9H-2AODJ1c3bxFTM',
+  authDomain: 'mangoose-96781.firebaseapp.com',
+  projectId: 'mangoose-96781',
+  storageBucket: 'mangoose-96781.appspot.com',
+  messagingSenderId: '146052025979',
+  appId: '1:146052025979:web:44ca05e624ba83b1861cde',
+  measurementId: 'G-X6ECZX69HL',
+});
 
 ReactDOM.render(
   <React.StrictMode>
