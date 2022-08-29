@@ -7,8 +7,9 @@ module.exports = class Manga {
   selectRelationship = (type) => this.relationships.filter((item) => item.type === type)[0];
 
   getCoverUrl = () => {
+    const { PORT, DOMAIN } = process.env;
     const coverName = this.selectRelationship('cover_art').attributes.fileName;
-    const coverUrl = `https://uploads.mangadex.org/covers/${this.id}/${coverName}`;
+    const coverUrl = `http://${DOMAIN}:${PORT}/api/cover/${this.id}/${coverName}`;
     this.selectRelationship('cover_art').attributes.urls = {
       raw: coverUrl,
       '256': coverUrl + '.256.jpg',
