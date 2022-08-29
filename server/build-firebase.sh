@@ -6,7 +6,7 @@ babel ./src --out-dir functions --copy-files
 
 cp package.json yarn.lock .gitignore .env ./functions
 
-echo '\nDOMAIN=mangoose-9999.web.app\nINVEROMENT=firebase\nNODE_ENV=production' >> ./functions/.env
+echo '\nDOMAIN=https://us-central1-mangoose-9999.cloudfunctions.net/app\nCLIENT_DOMAIN=https://mangoose-9999.web.app\nINVEROMENT=firebase\nNODE_ENV=production' >> ./functions/.env
 
 yarn install --cwd ./functions
 

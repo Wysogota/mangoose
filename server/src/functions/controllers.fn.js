@@ -35,8 +35,8 @@ module.exports.getTokenCookieOptions = (expiresIn = null) => ({
  * @returns {Promise<string>} url
  */
 module.exports.getAvatarUrl = async (user) => {
-  const { PORT, DOMAIN } = process.env;
+  const { DOMAIN } = process.env;
   const avatar = await user.getAvatar();
   const avatarPath = avatar ? avatar.name : DEFAULT_AVATAR_PATH;
-  return `http://${DOMAIN}:${PORT}/api/user/avatar/${avatarPath}`;
+  return `${DOMAIN}/api/user/avatar/${avatarPath}`;
 };

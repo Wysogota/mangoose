@@ -9,10 +9,10 @@ const { inveromentAction } = require('./functions/deployment.fn');
 
 const app = express();
 
-const { DOMAIN } = process.env;
+const { CLIENT_DOMAIN } = process.env;
 dailySchedule();
 
-app.use(cors({ origin: `https://${DOMAIN}`, credentials: true }));
+app.use(cors({ origin: CLIENT_DOMAIN, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/public', express.static('public'));
