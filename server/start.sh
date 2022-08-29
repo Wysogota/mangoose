@@ -1,5 +1,7 @@
 #!/bin/sh
 
+yarn build
+
 # Run Sequalize's migrations.
 echo "-----> Running application migrations"
 npx sequelize db:migrate

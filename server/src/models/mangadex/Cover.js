@@ -7,8 +7,9 @@ module.exports = class Cover {
   }
 
   getCoverUrl = (obj) => {
+    const { PORT, DOMAIN } = process.env;
     const coverName = obj.attributes.fileName;
-    const coverUrl = `https://uploads.mangadex.org/covers/${this.mangaId}/${coverName}`;
+    const coverUrl = `http://${DOMAIN}:${PORT}/api/cover/${this.mangaId}/${coverName}`;
     this.urls = {
       raw: coverUrl,
       '256': coverUrl + '.256.jpg',
