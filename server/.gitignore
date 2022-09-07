@@ -11,6 +11,7 @@
 
 # production
 /build
+/functions
 
 # misc
 .DS_Store
@@ -24,3 +25,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # .env
+
+sequelize-data.json
+sequelize-meta.json

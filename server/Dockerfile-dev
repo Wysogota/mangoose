@@ -16,6 +16,8 @@ RUN yarn global add sequelize-cli
 
 RUN yarn install
 
+RUN rm -f sequelize-data.json sequelize-meta.json
+
 COPY . .
 
 CMD ./start-dev.sh

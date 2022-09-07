@@ -16,6 +16,8 @@ RUN yarn global add @babel/core @babel/cli
 
 RUN yarn install
 
+RUN rm -f sequelize-data.json sequelize-meta.json
+
 COPY . .
 
 RUN yarn run build
